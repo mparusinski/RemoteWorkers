@@ -1,3 +1,9 @@
+==== PREREQUESITES ====
+
+1-) Eclipse CDT
+2-) QT SDK
+3-) CMAKE
+
 ==== SOURCE CODE RULES ====
 
 1-) All source code is to be written in British English (UK)
