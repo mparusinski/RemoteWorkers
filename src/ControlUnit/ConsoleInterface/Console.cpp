@@ -1,6 +1,6 @@
 /* 
 
-main.cpp: Entry point for the server side
+Console.cpp: Entry point for the server side
 
 As part of the RemoteWorkers program which creates a framework for remote
 management of laptops, desktop and servers. 
@@ -24,6 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 // NO FUNCTIONS TO BE ADDED TO THIS FILE
+
+#include "networkSocketBase.hpp"
 
 int main(int argc, char *argv[])
 {
