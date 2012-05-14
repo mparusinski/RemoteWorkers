@@ -1,0 +1,7 @@
+==== SOURCE CODE RULES ====
+
+1-) All source code is to be written in British English (UK)
+2-) All source code is to be written in the object-oriented paradigm
+
+
+
