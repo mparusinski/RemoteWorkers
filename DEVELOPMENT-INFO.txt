@@ -1,13 +1,14 @@
 ==== PREREQUESITES ====
 
-1-) Eclipse CDT
-2-) QT SDK
-3-) CMAKE
+1-) Eclipse CDT INDIGO
+2-) QT SDK 4.8
+3-) CMAKE 2.8-8
 
 ==== SOURCE CODE RULES ====
 
 1-) All source code is to be written in British English (UK)
 2-) All source code is to be written in the object-oriented paradigm
+3-) All C or C++ source code is to be written in K&R style only
 
 
 

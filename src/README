@@ -1,0 +1,26 @@
+==== DESCRIPTION ====
+
+ControlUnit refers to the part of the program that handles the workers
+i.e the laptop/dekstop/server end of the software.
+
+Commander refers to the part of the program that handles generating
+requests to the laptop/desktop/server.
+
+Templates are simple files to speed-up the development.
+
+Workers are a set of default workers and they are built here.
+
+Each subsystem contains a test framework.
+
+==== CMAKE CONFIGURATION GUIDE ====
+
+Use the CMakeLists.txt in each subdirectory to create either component
+of the software.
+
+In other words choose in the CMake GUI the right subdirectory as the
+source directory.
+
+To use the test framework go to the "Tests" subdirectory of the
+subsystem subdirectory. For instance to build the Tests for the
+ControlUnit choose as source directory the directory
+ControlUnit/Tests.
