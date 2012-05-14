@@ -2,7 +2,7 @@
 
 main.cpp: Entry point for the server side
 
-As part of the RemoteWorkers program which creates a ramework for remote
+As part of the RemoteWorkers program which creates a framework for remote
 management of laptops, desktop and servers. 
 
 Copyright (C) 14/05/2012 Michal Parusinski <mparusinski@googlemail.com>
@@ -27,6 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 int main(int argc, char *argv[])
 {
-  // CODE TO BE INSERTED
-  return 1;
+	// CODE TO BE INSERTED
+	return 1;
 }

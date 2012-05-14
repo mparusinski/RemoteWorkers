@@ -1,13 +1,37 @@
 ==== PREREQUESITES ====
 
 1-) Eclipse CDT INDIGO
-2-) QT SDK 4.8
+
+2-) QT SDK 4.8.1
+
 3-) CMAKE 2.8-8
+
+4-) Git
+
+==== CMAKE SETUP ==== 
+
+1-) Run CMake with Eclipse option
+
+2-) Run CMake with the source directory corresponding to the part of
+the project your wish to build 
+
+3-) Choose bin to the build directory (gitignore makes sure no files
+can be added from the build directory)
+
+4-) Choose Eclipse Indigo as the version for eclipse
+
+5-) Choose build Debug or Release
+
+6-) Configure and Generator
+
+7-) Import the project into eclipse without copying the files
 
 ==== SOURCE CODE RULES ====
 
 1-) All source code is to be written in British English (UK)
+
 2-) All source code is to be written in the object-oriented paradigm
+
 3-) All C or C++ source code is to be written in K&R style only
 
 
