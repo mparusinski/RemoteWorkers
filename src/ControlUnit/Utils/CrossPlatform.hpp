@@ -1,11 +1,11 @@
 /* 
 
-Console.cpp: Entry point for the server side
+CrossPlatform.hpp: Handle cross platform stuff
 
 As part of the RemoteWorkers program which creates a framework for remote
 management of laptops, desktop and servers. 
 
-Copyright (C) 14/05/2012 Michal Parusinski <mparusinski@googlemail.com>
+Copyright (C) 15/04/2012 Michal Parusinski <mparusinski@googlemail.com>
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -23,23 +23,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 */
 
-// NO FUNCTIONS TO BE ADDED TO THIS FILE
+#ifndef _CROSSPLATFORM_HPP_
+#define _CROSSPLATFORM_HPP_
 
 #include <string>
 #include <vector>
-
-#include "Command.hpp"
-#include "Worker.hpp"
+#include <iostream>
 
 using namespace std;
 
-int main(int argc, char *argv[])
+namespace Utils
 {
-	vector<string> elements;
-	elements.push_back(string("/Users/mparusinski"));
-	WorkerInterface::Command comm(WorkerInterface::Worker(string("/bin")), string("ls"), elements);
 
-	comm.execute();
+class CrossPlatform
+{
+public:
+	static string getPathSeparator();
 
-	return 1;
+	static int executeCommand(
+				const string& directory,
+				const string& command,
+				const vector<string>& arguments);
+};
+
 }
+
+#endif //_CROSSPLATFORM_HPP_

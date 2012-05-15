@@ -2,8 +2,8 @@
 
 <file name>: <purpose>
 
-As part of the RemoteWorkers program which creates a ramework for remote
-management of laptops,desktop and servers. 
+As part of the RemoteWorkers program which creates a framework for remote
+management of laptops, desktop and servers. 
 
 Copyright (C) <date> <author name>
 
@@ -22,3 +22,8 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA. 
 
 */
+
+#ifndef _FILE_
+#define _FILE_
+
+#endif // _FILE_

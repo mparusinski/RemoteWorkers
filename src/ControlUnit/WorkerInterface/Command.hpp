@@ -1,11 +1,11 @@
 /* 
 
-Console.cpp: Entry point for the server side
+Command.hpp: Encapsulate a command
 
 As part of the RemoteWorkers program which creates a framework for remote
 management of laptops, desktop and servers. 
 
-Copyright (C) 14/05/2012 Michal Parusinski <mparusinski@googlemail.com>
+Copyright (C) 15/04/2012 Michal Parusinski <mparusinski@googlemail.com>
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -23,23 +23,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 */
 
-// NO FUNCTIONS TO BE ADDED TO THIS FILE
+#ifndef _COMMAND_HPP_
+#define _COMMAND_HPP_
 
 #include <string>
 #include <vector>
 
-#include "Command.hpp"
 #include "Worker.hpp"
 
 using namespace std;
 
-int main(int argc, char *argv[])
+namespace WorkerInterface
 {
-	vector<string> elements;
-	elements.push_back(string("/Users/mparusinski"));
-	WorkerInterface::Command comm(WorkerInterface::Worker(string("/bin")), string("ls"), elements);
 
-	comm.execute();
+class Command
+{
 
-	return 1;
+public:
+	Command(const Worker& worker, const string& commandName, const vector<string>& arguments);
+	virtual ~Command() { }
+
+	void execute();
+
+private:
+	Command();
+
+	Worker m_worker;
+	string m_commandName;
+	vector<string> m_arguments;
+};
+
 }
+
+#endif // _COMMAND_HPP_

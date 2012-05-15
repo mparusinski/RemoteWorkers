@@ -2,8 +2,8 @@
 
 <file name>: <purpose>
 
-As part of the RemoteWorkers program which creates a ramework for remote
-management of laptops,desktop and servers. 
+As part of the RemoteWorkers program which creates a framework for remote
+management of laptops, desktop and servers. 
 
 Copyright (C) <date> <author name>
 

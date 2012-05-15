@@ -1,11 +1,11 @@
 /* 
 
-Console.cpp: Entry point for the server side
+Reply.hpp: Captures the response of a worker
 
 As part of the RemoteWorkers program which creates a framework for remote
 management of laptops, desktop and servers. 
 
-Copyright (C) 14/05/2012 Michal Parusinski <mparusinski@googlemail.com>
+Copyright (C) 15/05/2012 Michal Parusinski <mparusinski@googlemail.com>
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -23,23 +23,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 */
 
-// NO FUNCTIONS TO BE ADDED TO THIS FILE
+#ifndef _REPLY_HPP_
+#define _REPLY_HPP_
 
-#include <string>
-#include <vector>
+#include <iostream>
+#include <fstream>
 
-#include "Command.hpp"
 #include "Worker.hpp"
 
 using namespace std;
 
-int main(int argc, char *argv[])
+namespace WorkerInterface
 {
-	vector<string> elements;
-	elements.push_back(string("/Users/mparusinski"));
-	WorkerInterface::Command comm(WorkerInterface::Worker(string("/bin")), string("ls"), elements);
 
-	comm.execute();
+class Reply
+{
+public:
+	typedef vector< pair<string, ifstream> > IFileStreams;
+	typedef vector<char> ByteStream;
+	typedef vector< pair<string, ByteStream> > ByteStreams;
 
-	return 1;
+	Reply();
+	virtual ~Reply();
+
+	bool isReplyBuilt();
+	void createReply(const Worker& worker);
+
+private:
+	bool m_replyBuilt;
+	ByteStreams m_compressedData;
+	Worker m_worker;
+
+};
+
 }
+
+#endif // _REPLY_HPP_

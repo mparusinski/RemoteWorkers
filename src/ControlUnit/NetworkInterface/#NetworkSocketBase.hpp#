@@ -1,9 +1,9 @@
 /* 
 
-Console.cpp: Entry point for the server side
+NetworkSocketBase.hpp: Interface to the network socket
 
-As part of the RemoteWorkers program which creates a framework for remote
-management of laptops, desktop and servers. 
+As part of the RemoteWorkers program which creates a ramework for remote
+management of laptops,desktop and servers. 
 
 Copyright (C) 14/05/2012 Michal Parusinski <mparusinski@googlemail.com>
 
@@ -23,23 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 */
 
-// NO FUNCTIONS TO BE ADDED TO THIS FILE
-
-#include <string>
-#include <vector>
-
-#include "Command.hpp"
-#include "Worker.hpp"
-
-using namespace std;
-
-int main(int argc, char *argv[])
+namespace NetworkInterface
 {
-	vector<string> elements;
-	elements.push_back(string("/Users/mparusinski"));
-	WorkerInterface::Command comm(WorkerInterface::Worker(string("/bin")), string("ls"), elements);
 
-	comm.execute();
+class NetworkSocketBase {
 
-	return 1;
+};
+
 }

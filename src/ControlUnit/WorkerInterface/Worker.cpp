@@ -1,11 +1,11 @@
 /* 
 
-Console.cpp: Entry point for the server side
+Worker.cpp: Interface to a worker
 
 As part of the RemoteWorkers program which creates a framework for remote
-management of laptops, desktop and servers. 
+management of laptops, desktop and servers.
 
-Copyright (C) 14/05/2012 Michal Parusinski <mparusinski@googlemail.com>
+Copyright (C) 15/05/2012 Michal Parusinski <mparusinski@googlemail.com>
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -23,23 +23,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 */
 
-// NO FUNCTIONS TO BE ADDED TO THIS FILE
-
 #include <string>
-#include <vector>
+#include <iostream>
 
-#include "Command.hpp"
 #include "Worker.hpp"
 
 using namespace std;
 
-int main(int argc, char *argv[])
+namespace WorkerInterface
 {
-	vector<string> elements;
-	elements.push_back(string("/Users/mparusinski"));
-	WorkerInterface::Command comm(WorkerInterface::Worker(string("/bin")), string("ls"), elements);
 
-	comm.execute();
+Worker::Worker()
+{
+}
 
-	return 1;
+Worker::Worker(string name)
+{
+	m_name = name;
+}
+
+string Worker::getName()
+{
+	return m_name;
+}
+
 }

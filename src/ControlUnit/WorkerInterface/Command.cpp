@@ -1,11 +1,11 @@
 /* 
 
-Console.cpp: Entry point for the server side
+Command.cpp: Encapsulate a command
 
 As part of the RemoteWorkers program which creates a framework for remote
 management of laptops, desktop and servers. 
 
-Copyright (C) 14/05/2012 Michal Parusinski <mparusinski@googlemail.com>
+Copyright (C) 15/04/2012 Michal Parusinski <mparusinski@googlemail.com>
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -23,23 +23,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 */
 
-// NO FUNCTIONS TO BE ADDED TO THIS FILE
-
-#include <string>
-#include <vector>
+#include <iostream>
 
 #include "Command.hpp"
-#include "Worker.hpp"
+#include "CrossPlatform.hpp"
 
 using namespace std;
 
-int main(int argc, char *argv[])
+namespace WorkerInterface
 {
-	vector<string> elements;
-	elements.push_back(string("/Users/mparusinski"));
-	WorkerInterface::Command comm(WorkerInterface::Worker(string("/bin")), string("ls"), elements);
 
-	comm.execute();
+Command::Command(const Worker& worker, const string& commandName, const vector<string>& arguments)
+{
+	m_worker = worker;
+	m_commandName = commandName;
+	m_arguments = arguments;
+}
 
-	return 1;
+void Command::execute()
+{
+	if ( Utils::CrossPlatform::executeCommand(m_worker.getName(), m_commandName, m_arguments) == 0 )
+	{
+		cerr << "Command failed to execute" << endl;
+	}
+	else
+	{
+		cout << "Command successfully executed" << endl;
+	}
+}
+
 }
