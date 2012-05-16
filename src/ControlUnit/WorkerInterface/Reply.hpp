@@ -39,7 +39,6 @@ namespace WorkerInterface
 class Reply
 {
 public:
-	typedef vector< pair<string, ifstream> > IFileStreams;
 	typedef vector<char> ByteStream;
 	typedef vector< pair<string, ByteStream> > ByteStreams;
 

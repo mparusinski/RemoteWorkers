@@ -59,7 +59,7 @@ void Reply::createReply(const Worker& worker)
 
 	const path outputPath_boost = outputPath;
 
-	IFileStreams files;
+	vector< string > files;
 
 	try
 	{
@@ -67,13 +67,10 @@ void Reply::createReply(const Worker& worker)
 		{
 			for (directory_iterator iter(outputPath_boost); iter != directory_iterator(); ++iter)
 			{
-				if ( !is_directory(iter->status()) )
+				if ( !is_directory((*iter).status()) )
 				{
-					const path& dirElem = iter->path();
-					pair< string, ifstream > fileStream;
-					fileStream.first  = dirElem.filename().string();
-					fileStream.second.open(dirElem.string().c_str(), ifstream::binary);
-					files.push_back(fileStream);
+					const path& elemInDirectory = (*iter).path();
+					files.push_back(elemInDirectory.filename().string());
 				}
 			}
 		}
@@ -96,8 +93,8 @@ void Reply::createReply(const Worker& worker)
 
 	for (size_t i = 0; i < numberOfFiles; ++i)
 	{
-		const string& fileName = files[i].first;
-		ifstream& fileData = files[i].second;
+		const string& fileName = files[i];
+		ifstream fileData(fileName.c_str(), ifstream::binary);
 
 		fileData.seekg(0, ios::end);
 		const size_t length = fileData.tellg();
