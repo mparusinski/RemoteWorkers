@@ -1,11 +1,11 @@
 /* 
 
-CrossPlatform.hpp: Handle cross platform stuff
+ByteStream.hpp: Captures a stream of bytes in an efficient way
 
 As part of the RemoteWorkers program which creates a framework for remote
 management of laptops, desktop and servers. 
 
-Copyright (C) 15/04/2012 Michal Parusinski <mparusinski@googlemail.com>
+Copyright (C) 16/05/2012 Michal Parusinski <mparusinski@googlemail.com>
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -23,31 +23,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 */
 
-#ifndef _CROSSPLATFORM_HPP_
-#define _CROSSPLATFORM_HPP_
+#ifndef _BYTESTREAM_HPP_
+#define _BYTESTREAM_HPP_
 
-#include <string>
-#include <vector>
-#include <iostream>
-
-using namespace std;
-
-namespace Utils
+namespace DataStructures
 {
 
-class CrossPlatform
+class ByteStream
 {
 public:
-	static string getPathSeparator();
+	typedef char ByteType;
 
-	static int executeCommand(
-				const string& directory,
-				const string& command,
-				const vector<string>& arguments);
+	ByteStream();
+	ByteStream(const int dataSize);
+	ByteStream(const ByteStream& other);
+	virtual ~ByteStream();
 
-	static void getListOfFilesInDir(const string& directory, vector<string>& files);
+	ByteStream & operator=(const ByteStream & other);
+
+	void reallocate(const int dataSize);
+	void free();
+	ByteType* getRawData();
+	int size() const;
+
+private:
+	bool m_allocated;
+	int m_sizeOfData;
+	ByteType* m_rawData;
+
 };
 
 }
 
-#endif //_CROSSPLATFORM_HPP_
+#endif // _BYTESTREAM_HPP_

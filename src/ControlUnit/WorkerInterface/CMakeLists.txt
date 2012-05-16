@@ -1,5 +1,10 @@
-INCLUDE_DIRECTORIES(${RemoteWorkers_ControlUnit_SOURCE_DIR}/Utils)
-LINK_DIRECTORIES(${RemoteWorkers_ControlUnit_BINARY_DIR}/Utils)
+INCLUDE_DIRECTORIES(
+    ${RemoteWorkers_ControlUnit_SOURCE_DIR}
+)
+
+LINK_DIRECTORIES(
+    ${RemoteWorkers_ControlUnit_BINARY_DIR}
+)
 
 SET(WorkerInterfaceSRC STATIC
   Worker.hpp
@@ -13,3 +18,5 @@ SET(WorkerInterfaceSRC STATIC
 ADD_LIBRARY(WorkerInterface ${WorkerInterfaceSRC})
 
 TARGET_LINK_LIBRARIES(WorkerInterface Utils)
+TARGET_LINK_LIBRARIES(WorkerInterface DataStructures)
+

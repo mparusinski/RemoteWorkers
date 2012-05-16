@@ -27,12 +27,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <string>
 #include <LzmaLib.h>
-#include <boost/filesystem.hpp>
 
-#include "CrossPlatform.hpp"
+#include "Utils/CrossPlatform.hpp"
 
 using namespace std;
-using namespace boost::filesystem;
 
 namespace WorkerInterface
 {
@@ -40,6 +38,11 @@ namespace WorkerInterface
 Reply::Reply()
 {
 	m_replyBuilt = false;
+}
+
+Reply::~Reply()
+{
+
 }
 
 bool Reply::isReplyBuilt()
@@ -57,61 +60,44 @@ void Reply::createReply(const Worker& worker)
 	outputPath += "output";
 	outputPath += Utils::CrossPlatform::getPathSeparator();
 
-	const path outputPath_boost = outputPath;
-
 	vector< string > files;
 
-	try
-	{
-		if (exists(outputPath_boost) && is_directory(outputPath_boost))
-		{
-			for (directory_iterator iter(outputPath_boost); iter != directory_iterator(); ++iter)
-			{
-				if ( !is_directory((*iter).status()) )
-				{
-					const path& elemInDirectory = (*iter).path();
-					files.push_back(elemInDirectory.filename().string());
-				}
-			}
-		}
-		else
-		{
-			cerr << "ERROR: Output directory for worker not found!" << endl;
-			return;
-		}
-	}
-
-	catch (const filesystem_error& ex)
-	{
-		cerr << "ERROR: Error caught when reading reply from worker";
-		return;
-	}
+	Utils::CrossPlatform::getListOfFilesInDir(outputPath, files);
 
 	const size_t numberOfFiles = files.size();
 
-	ByteStreams allTheData;
-
+	m_rawData.clear();
+	ifstream file;
 	for (size_t i = 0; i < numberOfFiles; ++i)
 	{
 		const string& fileName = files[i];
-		ifstream fileData(fileName.c_str(), ifstream::binary);
-
-		fileData.seekg(0, ios::end);
-		const size_t length = fileData.tellg();
-		fileData.seekg(0, ios::beg);
-
-		ByteStream bytes;
-		for (size_t i = 0; i < length; ++i)
+		cout << fileName.c_str() << endl;
+		file.open(fileName.c_str(), ifstream::binary);
+		if ( !file.is_open() )
 		{
-			char character;
-			fileData.get(character);
-			bytes.push_back(character);
+			cerr << "Failed to open file" << endl;
+			return;
 		}
 
-		allTheData.push_back(pair<string, ByteStream>(fileName,bytes));
+		file.seekg(0, ios::end);
+		const int length = file.tellg();
+		if (length < 0)
+			continue;
+		file.seekg(0, ios::beg);
+
+		ByteStream bytes(length);
+		file.read(bytes.getRawData(), length);
+		file.close();
+
+		m_rawData.push_back(pair<string, ByteStream>(fileName, bytes));
 	}
 
 	m_replyBuilt = true;
+}
+
+const Reply::ByteStreams& Reply::getRawData()
+{
+	return m_rawData;
 }
 
 }

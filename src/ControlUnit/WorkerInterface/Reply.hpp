@@ -30,8 +30,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fstream>
 
 #include "Worker.hpp"
+#include "DataStructures/ByteStream.hpp"
 
 using namespace std;
+using namespace DataStructures;
 
 namespace WorkerInterface
 {
@@ -39,7 +41,6 @@ namespace WorkerInterface
 class Reply
 {
 public:
-	typedef vector<char> ByteStream;
 	typedef vector< pair<string, ByteStream> > ByteStreams;
 
 	Reply();
@@ -47,10 +48,11 @@ public:
 
 	bool isReplyBuilt();
 	void createReply(const Worker& worker);
+	const ByteStreams& getRawData();
 
 private:
 	bool m_replyBuilt;
-	ByteStreams m_compressedData;
+	ByteStreams m_rawData;
 	Worker m_worker;
 
 };

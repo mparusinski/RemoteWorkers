@@ -1,7 +1,9 @@
 INCLUDE_DIRECTORIES(
-  ${RemoteWorkers_ControlUnit_SOURCE_DIR}/WorkerInterface
+  ${RemoteWorkers_ControlUnit_SOURCE_DIR}
 )
-LINK_DIRECTORIES(${RemoteWorkers_ControlUnit_BINARY_DIR}/WorkerInterface)
+LINK_DIRECTORIES(
+  ${RemoteWorkers_ControlUnit_BINARY_DIR}
+)
 
 SET(ControlUnitConsoleSRC
     Console.cpp

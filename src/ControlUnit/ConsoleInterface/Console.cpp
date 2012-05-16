@@ -27,19 +27,45 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <string>
 #include <vector>
+#include <iostream>
 
-#include "Command.hpp"
-#include "Worker.hpp"
+#include "WorkerInterface/Reply.hpp"
+#include "WorkerInterface/Worker.hpp"
 
 using namespace std;
 
 int main(int argc, char *argv[])
 {
-	vector<string> elements;
-	elements.push_back(string("/Users/mparusinski"));
-	WorkerInterface::Command comm(WorkerInterface::Worker(string("/bin")), string("ls"), elements);
+	WorkerInterface::Worker worker("/Users/mparusinski/Desktop/");
+	WorkerInterface::Reply reply;
+	reply.createReply(worker);
 
-	comm.execute();
+	if ( !reply.isReplyBuilt() )
+	{
+		cerr << "Reply is not being built" << endl;
+		return -1;
+	}
+	else
+	{
+		cout << "Reply is successfully built" << endl;
+	}
+
+	vector< pair< string, ByteStream > > rawData = reply.getRawData();
+	const size_t numberOfByteStreams = rawData.size();
+	for (size_t i = 0; i < numberOfByteStreams; ++i)
+	{
+		const string& fileName = rawData[i].first;
+		ByteStream& byteStream = rawData[i].second;
+		cout << "File: " << fileName << endl;
+
+		const size_t lengthOfStream = byteStream.size();
+		const char * rawData = byteStream.getRawData();
+		for (size_t j = 0; j < lengthOfStream; ++j)
+		{
+			cout << rawData[j];
+		}
+		cout << endl << endl;
+	}
 
 	return 1;
 }

@@ -23,12 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 */
 
-#ifdef __APPLE__
-#include <unistd.h>
-#include <cstring>
-#endif
+#include <boost/filesystem.hpp>
 
 #include "CrossPlatform.hpp"
+
+using namespace boost::filesystem;
 
 namespace Utils
 {
@@ -63,6 +62,37 @@ int CrossPlatform::executeCommand(
 
 	system(fullCommand.c_str());
 	return 1;
+}
+
+void CrossPlatform::getListOfFilesInDir(const string& directory, vector<string>& files)
+{
+	const path directoryPath = directory;
+
+	try
+	{
+		if (exists(directoryPath) && is_directory(directoryPath))
+		{
+			for (directory_iterator iter(directoryPath); iter != directory_iterator(); ++iter)
+			{
+				if ( !is_directory((*iter).status()) )
+				{
+					const path& elemInDirectory = (*iter).path();
+					files.push_back(elemInDirectory.string());
+				}
+			}
+		}
+		else
+		{
+			cerr << "ERROR: Directory not found" << endl;
+			return;
+		}
+	}
+
+	catch (const filesystem_error& ex)
+	{
+		cerr << "ERROR: Unable to get list of files in directory";
+		return;
+	}
 }
 
 }
