@@ -41,7 +41,7 @@ public:
 	Worker(string name);
 	virtual ~Worker() { }
 
-	string getName();
+	string getName() const;
 
 private:
 	string m_name;

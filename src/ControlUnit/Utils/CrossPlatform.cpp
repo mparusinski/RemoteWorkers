@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/filesystem.hpp>
 
 #include "CrossPlatform.hpp"
+#include "Utils/Logger.hpp"
 
 using namespace boost::filesystem;
 
@@ -38,8 +39,7 @@ string CrossPlatform::getPathSeparator()
 		return string("/");
 #else
 #warning "Unknown operating system: getPathSeparator() might behave in the wrong way!"
-		cerr << "Operating system was not detected at compilation: getPathSeparator() might be broken"
-				<< endl << "Please recompile with correct settings" << endl;
+		Utils::Logger::getInstance()->error("Operating system was not detected at compilation: getPathSeparator() might be broken");
 		return string("/");
 #endif _APPLE_
 }
@@ -83,14 +83,16 @@ void CrossPlatform::getListOfFilesInDir(const string& directory, vector<string>&
 		}
 		else
 		{
-			cerr << "ERROR: Directory not found" << endl;
+			Utils::Logger::getInstance()->error("Directory not found");
 			return;
 		}
 	}
 
 	catch (const filesystem_error& ex)
 	{
-		cerr << "ERROR: Unable to get list of files in directory";
+		string errorMessage = "Unable to get list of files in directory in";
+		errorMessage += directory;
+		Utils::Logger::getInstance()->error(errorMessage);
 		return;
 	}
 }

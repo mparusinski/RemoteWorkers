@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "Command.hpp"
 #include "Utils/CrossPlatform.hpp"
+#include "Utils/Logger.hpp"
 
 using namespace std;
 
@@ -40,16 +41,31 @@ Command::Command(const Worker& worker, const string& commandName, const vector<s
 	m_arguments = arguments;
 }
 
-void Command::execute()
+void Command::execute() const
 {
 	if ( Utils::CrossPlatform::executeCommand(m_worker.getName(), m_commandName, m_arguments) == 0 )
 	{
-		cerr << "Command failed to execute" << endl;
+		string errorMessage = toString();
+		errorMessage += " did not execute properly";
+		Utils::Logger::getInstance()->error(errorMessage);
 	}
 	else
 	{
-		cout << "Command successfully executed" << endl;
+		string successMessage = toString();
+		successMessage += " did execute properly";
+		Utils::Logger::getInstance()->log(successMessage);
 	}
+}
+
+string Command::toString() const
+{
+	string commandName;
+	commandName += "Command ";
+	commandName += m_worker.getName();
+	commandName += " ";
+	commandName += m_commandName;
+
+	return commandName;
 }
 
 }

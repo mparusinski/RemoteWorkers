@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <LzmaLib.h>
 
 #include "Utils/CrossPlatform.hpp"
+#include "Utils/Logger.hpp"
 
 using namespace std;
 
@@ -75,7 +76,9 @@ void Reply::createReply(const Worker& worker)
 		file.open(fileName.c_str(), ifstream::binary);
 		if ( !file.is_open() )
 		{
-			cerr << "Failed to open file" << endl;
+			string errorMessage = "Failed to open file ";
+			errorMessage += fileName;
+			Utils::Logger::getInstance()->error(errorMessage);
 			return;
 		}
 

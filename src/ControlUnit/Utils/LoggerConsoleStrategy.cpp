@@ -1,11 +1,11 @@
 /* 
 
-Command.hpp: Encapsulate a command
+LoggerConsoleStrategy.hpp: Console approach to logging
 
 As part of the RemoteWorkers program which creates a framework for remote
 management of laptops, desktop and servers. 
 
-Copyright (C) 15/04/2012 Michal Parusinski <mparusinski@googlemail.com>
+Copyright (C) 16/05/2012 Michal Parusinski <mparusinski@googlemail.com>
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -23,37 +23,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 */
 
-#ifndef _COMMAND_HPP_
-#define _COMMAND_HPP_
+#include "LoggerConsoleStrategy.hpp"
 
-#include <string>
-#include <vector>
-
-#include "Worker.hpp"
+#include <iostream>
 
 using namespace std;
 
-namespace WorkerInterface
+namespace Utils
 {
 
-class Command
+LoggerConsoleStrategy::LoggerConsoleStrategy()
 {
-
-public:
-	Command(const Worker& worker, const string& commandName, const vector<string>& arguments);
-	virtual ~Command() { }
-
-	void execute() const;
-	string toString() const;
-
-private:
-	Command();
-
-	Worker m_worker;
-	string m_commandName;
-	vector<string> m_arguments;
-};
 
 }
 
-#endif // _COMMAND_HPP_
+LoggerConsoleStrategy::~LoggerConsoleStrategy()
+{
+
+}
+
+void LoggerConsoleStrategy::WriteToLog(const string& message) const
+{
+	cout << message << endl;
+}
+
+void LoggerConsoleStrategy::WriteToError(const string& message) const
+{
+	cerr << message << endl;
+}
+
+}

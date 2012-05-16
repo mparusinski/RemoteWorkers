@@ -42,7 +42,7 @@ Worker::Worker(string name)
 	m_name = name;
 }
 
-string Worker::getName()
+string Worker::getName() const
 {
 	return m_name;
 }

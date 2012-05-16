@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "WorkerInterface/Reply.hpp"
 #include "WorkerInterface/Worker.hpp"
+#include "Utils/Logger.hpp"
 
 using namespace std;
 
@@ -40,14 +41,16 @@ int main(int argc, char *argv[])
 	WorkerInterface::Reply reply;
 	reply.createReply(worker);
 
+	Utils::Logger::getInstance()->switchAllOn();
+
 	if ( !reply.isReplyBuilt() )
 	{
-		cerr << "Reply is not being built" << endl;
+		Utils::Logger::getInstance()->log("Reply has not being built");
 		return -1;
 	}
 	else
 	{
-		cout << "Reply is successfully built" << endl;
+		Utils::Logger::getInstance()->error("Reply is successfully built");
 	}
 
 	vector< pair< string, ByteStream > > rawData = reply.getRawData();
