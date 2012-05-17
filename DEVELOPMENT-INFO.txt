@@ -45,5 +45,6 @@ can be added from the build directory)
 
 3-) All C or C++ source code is to be written in K&R style only
 
+4-) All code to be licensed (for now on the 16/05/2012) under BSD 3 Clause license
 
 
