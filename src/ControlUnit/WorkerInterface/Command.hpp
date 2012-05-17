@@ -37,7 +37,7 @@ private:
 	Command();
 
 	Worker m_worker;
-	string m_commandName;
+	string m_order;
 	vector<string> m_arguments;
 };
 

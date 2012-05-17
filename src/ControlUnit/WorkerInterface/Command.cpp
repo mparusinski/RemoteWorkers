@@ -24,13 +24,13 @@ namespace WorkerInterface
 Command::Command(const Worker& worker, const string& commandName, const vector<string>& arguments)
 {
 	m_worker = worker;
-	m_commandName = commandName;
+	m_order = commandName;
 	m_arguments = arguments;
 }
 
 void Command::execute() const
 {
-	if ( Utils::CrossPlatform::executeCommand(m_worker.getName(), m_commandName, m_arguments) == 0 )
+	if ( Utils::CrossPlatform::executeCommand(m_worker.getPath(), m_order, m_arguments) == 0 )
 	{
 		string errorMessage = toString();
 		errorMessage += " did not execute properly";
@@ -48,9 +48,9 @@ string Command::toString() const
 {
 	string commandName;
 	commandName += "Command ";
-	commandName += m_worker.getName();
+	commandName += m_worker.getPath();
 	commandName += " ";
-	commandName += m_commandName;
+	commandName += m_order;
 
 	return commandName;
 }

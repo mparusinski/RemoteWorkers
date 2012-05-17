@@ -38,7 +38,7 @@ public:
 #define error(message) reportError(__FILE__, (__func__), __LINE__, message)
 
 #ifndef NDEBUG
-#define debug(message) _debugMessage(message);
+#define debug(message) _debugMessage(__FILE__, message);
 #else
 #define debug(message)
 #endif // NDEBUG
@@ -63,8 +63,8 @@ public:
 	void switchAllOn();
 	void switchAllOff();
 
-	void _debugMessage(const char* message) const;
-	void _debugMessage(const string& message) const;
+	void _debugMessage(const char* file, const char* message) const;
+	void _debugMessage(const char* file, const string& message) const;
 
 private:
 	Logger(); // singleton pattern

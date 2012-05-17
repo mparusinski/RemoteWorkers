@@ -25,11 +25,10 @@ namespace WorkerInterface
 class Configuration
 {
 public:
-
 	typedef map<string, string> ConfigurationsType;
 
 	~Configuration();
-	Configuration* getInstance();
+	static Configuration* getInstance();
 
 	string getWorkersPath() const;
 	string getConfiguration(const string& descriptor) const;

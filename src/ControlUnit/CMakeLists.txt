@@ -45,3 +45,5 @@ ADD_SUBDIRECTORY(WorkerInterface)
 ADD_SUBDIRECTORY(ConsoleInterface)
 ADD_SUBDIRECTORY(Utils)
 ADD_SUBDIRECTORY(DataStructures)
+
+FILE( COPY conf.txt DESTINATION ${RemoteWorkers_ControlUnit_BINARY_DIR} )

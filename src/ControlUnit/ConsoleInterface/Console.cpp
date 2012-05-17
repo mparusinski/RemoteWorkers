@@ -18,26 +18,30 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 15/05/2012.
 
 #include "WorkerInterface/Reply.hpp"
 #include "WorkerInterface/Worker.hpp"
+#include "WorkerInterface/Command.hpp"
+#include "WorkerInterface/Management.hpp"
 #include "Utils/Logger.hpp"
 
 using namespace std;
+using namespace WorkerInterface;
 
 int main(int argc, char *argv[])
 {
-	WorkerInterface::Worker worker("/Users/mparusinski/Desktop/");
-	WorkerInterface::Reply reply;
-	reply.createReply(worker);
-
 	Utils::Logger::getInstance()->switchAllOn();
+
+	Worker worker = Management::getInstance()->createWorker("SimpleTestWorker");
+	Command command(worker, "SimpleTestWorker", vector<string>());
+	command.execute();
+	Reply reply = worker.getReply();
 
 	if ( !reply.isReplyBuilt() )
 	{
-		Utils::Logger::getInstance()->log("Reply has not being built");
+		Utils::Logger::getInstance()->error("Reply is not built");
 		return -1;
 	}
 	else
 	{
-		Utils::Logger::getInstance()->error("Reply is successfully built");
+		Utils::Logger::getInstance()->log("Reply is built");
 	}
 
 	vector< pair< string, ByteStream > > rawData = reply.getRawData();

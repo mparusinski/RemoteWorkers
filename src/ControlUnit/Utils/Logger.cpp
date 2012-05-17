@@ -38,12 +38,8 @@ Logger* Logger::getInstance()
 	if (instance == 0)
 	{
 		instance = new Logger();
-		return instance;
 	}
-	else
-	{
-		return instance;
-	}
+	return instance;
 }
 
 void Logger::useConsoleLogger()
@@ -154,14 +150,14 @@ void Logger::reportError(
 	}
 }
 
-void Logger::_debugMessage(const char* message) const
+void Logger::_debugMessage(const char* file, const char* message) const
 {
-	cerr << "DEBUG: " << message << endl;
+	cerr << "DEBUG (" << file << "): " << message << endl;
 }
 
-void Logger::_debugMessage(const string& message) const
+void Logger::_debugMessage(const char* file, const string& message) const
 {
-	cerr << "DEBUG: " << message << endl;
+	cerr << "DEBUG (" << file << "): " << message << endl;
 }
 
 }

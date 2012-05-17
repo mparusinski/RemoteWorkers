@@ -10,10 +10,12 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 15/05/2012.
 
 */
 
+#include "Worker.hpp"
+
 #include <string>
 #include <iostream>
 
-#include "Worker.hpp"
+#include "Reply.hpp"
 
 using namespace std;
 
@@ -24,14 +26,21 @@ Worker::Worker()
 {
 }
 
-Worker::Worker(string name)
+Worker::Worker(string path)
 {
-	m_name = name;
+	m_path = path;
 }
 
-string Worker::getName() const
+string Worker::getPath() const
 {
-	return m_name;
+	return m_path;
+}
+
+Reply Worker::getReply() const
+{
+	Reply reply(*this);
+	reply.cleanWorkerOutput();
+	return reply;
 }
 
 }

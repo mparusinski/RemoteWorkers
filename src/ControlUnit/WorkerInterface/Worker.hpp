@@ -16,22 +16,27 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 15/05/2012.
 #include <string>
 #include <vector>
 
+//#include "Reply.hpp"
+
 using namespace std;
 
 namespace WorkerInterface
 {
 
+class Reply;
+
 class Worker {
 
 public:
 	Worker();
-	Worker(string name);
+	Worker(string path);
 	virtual ~Worker() { }
 
-	string getName() const;
+	string getPath() const;
+	Reply getReply() const;
 
 private:
-	string m_name;
+	string m_path;
 
 };
 

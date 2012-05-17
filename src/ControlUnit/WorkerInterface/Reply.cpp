@@ -28,6 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <string>
 #include <LzmaLib.h>
 
+#include "Worker.hpp"
+
 #include "Utils/CrossPlatform.hpp"
 #include "Utils/Logger.hpp"
 
@@ -46,20 +48,32 @@ Reply::~Reply()
 
 }
 
-bool Reply::isReplyBuilt()
+Reply::Reply(const Worker& worker)
+{
+	m_replyBuilt = false;
+	m_worker = worker;
+	createReply();
+}
+
+bool Reply::isReplyBuilt() const
 {
 	return m_replyBuilt;
 }
 
-void Reply::createReply(const Worker& worker)
+string Reply::getOutputPath() const
 {
-	m_worker = worker;
-
 	string outputPath = "";
-	outputPath += m_worker.getName();
+	outputPath += m_worker.getPath();
 	outputPath += Utils::CrossPlatform::getPathSeparator();
 	outputPath += "output";
 	outputPath += Utils::CrossPlatform::getPathSeparator();
+
+	return outputPath;
+}
+
+void Reply::createReply()
+{
+	string outputPath = getOutputPath();
 
 	vector< string > files;
 
@@ -72,7 +86,6 @@ void Reply::createReply(const Worker& worker)
 	for (size_t i = 0; i < numberOfFiles; ++i)
 	{
 		const string& fileName = files[i];
-		cout << fileName.c_str() << endl;
 		file.open(fileName.c_str(), ifstream::binary);
 		if ( !file.is_open() )
 		{
@@ -96,6 +109,17 @@ void Reply::createReply(const Worker& worker)
 	}
 
 	m_replyBuilt = true;
+}
+
+void Reply::cleanWorkerOutput() const
+{
+	string outputPath = getOutputPath();
+
+	vector< string > files;
+
+	Utils::CrossPlatform::getListOfFilesInDir(outputPath, files);
+
+	Utils::CrossPlatform::deleteFiles(files);
 }
 
 const Reply::ByteStreams& Reply::getRawData()

@@ -35,12 +35,8 @@ Configuration* Configuration::getInstance()
 	if (instance == 0)
 	{
 		instance = new Configuration();
-		return instance;
 	}
-	else
-	{
-		return instance;
-	}
+	return instance;
 }
 
 void Configuration::readConfiguration()

@@ -15,6 +15,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 15/05/2012.
 
 #include <iostream>
 #include <fstream>
+#include <vector>
 
 #include "Worker.hpp"
 #include "DataStructures/ByteStream.hpp"
@@ -31,13 +32,17 @@ public:
 	typedef vector< pair<string, ByteStream> > ByteStreams;
 
 	Reply();
+	Reply(const Worker& worker);
 	virtual ~Reply();
 
-	bool isReplyBuilt();
-	void createReply(const Worker& worker);
+	bool isReplyBuilt() const;
+	void createReply();
+	void cleanWorkerOutput() const;
 	const ByteStreams& getRawData();
 
 private:
+	string getOutputPath() const;
+
 	bool m_replyBuilt;
 	ByteStreams m_rawData;
 	Worker m_worker;

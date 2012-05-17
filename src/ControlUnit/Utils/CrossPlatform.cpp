@@ -47,6 +47,7 @@ int CrossPlatform::executeCommand(
 		fullCommand += arguments[i];
 	}
 
+
 	system(fullCommand.c_str());
 	return 1;
 }
@@ -70,7 +71,10 @@ void CrossPlatform::getListOfFilesInDir(const string& directory, vector<string>&
 		}
 		else
 		{
-			Utils::Logger::getInstance()->error("Directory not found");
+			string errorMessage = "Directory ";
+			errorMessage += directoryPath.string();;
+			errorMessage += " not found";
+			Utils::Logger::getInstance()->error(errorMessage);
 			return;
 		}
 	}
@@ -78,9 +82,20 @@ void CrossPlatform::getListOfFilesInDir(const string& directory, vector<string>&
 	catch (const filesystem_error& ex)
 	{
 		string errorMessage = "Unable to get list of files in directory in";
-		errorMessage += directory;
+		errorMessage += directoryPath.string();
 		Utils::Logger::getInstance()->error(errorMessage);
 		return;
+	}
+}
+
+void CrossPlatform::deleteFiles(const vector<string>& files)
+{
+	const size_t numberOfFiles = files.size();
+
+	for (size_t i = 0; i < numberOfFiles; ++i)
+	{
+		const path filePath = files[i];
+		remove(filePath);
 	}
 }
 

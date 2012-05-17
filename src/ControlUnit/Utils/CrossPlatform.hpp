@@ -33,6 +33,8 @@ public:
 				const vector<string>& arguments);
 
 	static void getListOfFilesInDir(const string& directory, vector<string>& files);
+
+	static void deleteFiles(const vector<string>& files);
 };
 
 }
