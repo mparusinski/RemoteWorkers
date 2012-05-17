@@ -54,14 +54,14 @@ public:
 			const int lineNumber,
 			const string& message) const;
 
-	void switchLoggingOn();
-	void switchLoggingOff();
+	void turnLoggingOn();
+	void turnLoggingOff();
 
-	void switchErrorReportingOn();
-	void switchErrorReportingOff();
+	void turnErrorReportingOn();
+	void turnErrorReportingOff();
 
-	void switchAllOn();
-	void switchAllOff();
+	void turnAllOn();
+	void turnAllOff();
 
 	void _debugMessage(const char* file, const char* message) const;
 	void _debugMessage(const char* file, const string& message) const;

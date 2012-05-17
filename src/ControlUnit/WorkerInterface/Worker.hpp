@@ -16,15 +16,13 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 15/05/2012.
 #include <string>
 #include <vector>
 
-//#include "Reply.hpp"
+#include "Reply.hpp"
 #include "Command.hpp"
 
 using namespace std;
 
 namespace WorkerInterface
 {
-
-class Reply;
 
 class Worker {
 
@@ -39,6 +37,9 @@ public:
 
 private:
 	string commandToString(const Command& command) const;
+	Reply createReply() const;
+	string getOutputPath() const;
+	void cleanOutput() const;
 
 	string m_path;
 };

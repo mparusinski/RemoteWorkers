@@ -25,16 +25,15 @@ class Command
 {
 
 public:
-	Command(const string& commandName, const vector<string>& arguments);
+	Command(const string& order, const vector<string>& arguments);
 	virtual ~Command() { }
 
 	string toString() const;
+
 	string getOrder() const;
 	vector<string> getArguments() const;
 
 private:
-	Command();
-
 	string m_order;
 	vector<string> m_arguments;
 };

@@ -30,9 +30,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "Worker.hpp"
 
-#include "Utils/CrossPlatform.hpp"
-#include "Utils/Logger.hpp"
-
 using namespace std;
 
 namespace WorkerInterface
@@ -40,7 +37,7 @@ namespace WorkerInterface
 
 Reply::Reply()
 {
-
+	m_empty = true;
 }
 
 Reply::~Reply()
@@ -48,78 +45,15 @@ Reply::~Reply()
 
 }
 
-Reply::Reply(const Worker& worker)
+Reply::Reply(const ByteStreams & rawData)
 {
-	m_replyBuilt = false;
-	m_worker = worker;
-	createReply();
+	m_rawData = rawData;
+	m_empty = false;
 }
 
-bool Reply::isReplyBuilt() const
+bool Reply::empty() const
 {
-	return m_replyBuilt;
-}
-
-string Reply::getOutputPath() const
-{
-	string outputPath = "";
-	outputPath += m_worker.getPath();
-	outputPath += Utils::CrossPlatform::getPathSeparator();
-	outputPath += "output";
-	outputPath += Utils::CrossPlatform::getPathSeparator();
-
-	return outputPath;
-}
-
-void Reply::createReply()
-{
-	string outputPath = getOutputPath();
-
-	vector< string > files;
-
-	Utils::CrossPlatform::getListOfFilesInDir(outputPath, files);
-
-	const size_t numberOfFiles = files.size();
-
-	m_rawData.clear();
-	ifstream file;
-	for (size_t i = 0; i < numberOfFiles; ++i)
-	{
-		const string& fileName = files[i];
-		file.open(fileName.c_str(), ifstream::binary);
-		if ( !file.is_open() )
-		{
-			string errorMessage = "Failed to open file ";
-			errorMessage += fileName;
-			Utils::Logger::getInstance()->error(errorMessage);
-			return;
-		}
-
-		file.seekg(0, ios::end);
-		const int length = file.tellg();
-		if (length < 0)
-			continue;
-		file.seekg(0, ios::beg);
-
-		ByteStream bytes(length);
-		file.read(bytes.getRawData(), length);
-		file.close();
-
-		m_rawData.push_back(pair<string, ByteStream>(fileName, bytes));
-	}
-
-	m_replyBuilt = true;
-}
-
-void Reply::cleanWorkerOutput() const
-{
-	string outputPath = getOutputPath();
-
-	vector< string > files;
-
-	Utils::CrossPlatform::getListOfFilesInDir(outputPath, files);
-
-	Utils::CrossPlatform::deleteFiles(files);
+	return m_empty;
 }
 
 const Reply::ByteStreams& Reply::getRawData()

@@ -54,33 +54,33 @@ void Logger::useFileLogger()
 	m_strategy = new LoggerFileStrategy();
 }
 
-void Logger::switchLoggingOff()
+void Logger::turnLoggingOff()
 {
 	m_logging = false;
 }
 
-void Logger::switchLoggingOn()
+void Logger::turnLoggingOn()
 {
 	m_logging = true;
 }
 
-void Logger::switchErrorReportingOff()
+void Logger::turnErrorReportingOff()
 {
 	m_reportingErrors = false;
 }
 
-void Logger::switchErrorReportingOn()
+void Logger::turnErrorReportingOn()
 {
 	m_reportingErrors = true;
 }
 
-void Logger::switchAllOff()
+void Logger::turnAllOff()
 {
 	m_logging = false;
 	m_reportingErrors = false;
 }
 
-void Logger::switchAllOn()
+void Logger::turnAllOn()
 {
 	m_logging = true;
 	m_reportingErrors = true;

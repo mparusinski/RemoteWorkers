@@ -27,14 +27,14 @@ using namespace WorkerInterface;
 
 int main(int argc, char *argv[])
 {
-	Utils::Logger::getInstance()->switchAllOn();
+	Utils::Logger::getInstance()->turnAllOn();
 
 	Worker worker = Management::getInstance()->createWorker("SimpleTestWorker");
 	Command command("SimpleTestWorker", vector<string>());
 	worker.executeCommand(command);
 	Reply reply = worker.getReply();
 
-	if ( !reply.isReplyBuilt() )
+	if ( reply.empty() )
 	{
 		Utils::Logger::getInstance()->error("Reply is not built");
 		return -1;

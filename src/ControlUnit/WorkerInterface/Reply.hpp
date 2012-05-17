@@ -14,10 +14,8 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 15/05/2012.
 #define _REPLY_HPP_
 
 #include <iostream>
-#include <fstream>
 #include <vector>
 
-#include "Worker.hpp"
 #include "DataStructures/ByteStream.hpp"
 
 using namespace std;
@@ -32,20 +30,15 @@ public:
 	typedef vector< pair<string, ByteStream> > ByteStreams;
 
 	Reply();
-	Reply(const Worker& worker);
+	Reply(const ByteStreams& rawData);
 	virtual ~Reply();
 
-	bool isReplyBuilt() const;
-	void createReply();
-	void cleanWorkerOutput() const;
+	bool empty() const;
 	const ByteStreams& getRawData();
 
 private:
-	string getOutputPath() const;
-
-	bool m_replyBuilt;
+	bool m_empty;
 	ByteStreams m_rawData;
-	Worker m_worker;
 
 };
 
