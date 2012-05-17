@@ -1,0 +1,6 @@
+This contains a set of default workers designed to ease the
+development of the Remote Workers. All of these workers 
+should be cross platform.
+
+Specialise workers for certains platforms should be placed in another
+project than this one.
