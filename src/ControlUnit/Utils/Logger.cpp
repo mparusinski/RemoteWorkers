@@ -154,4 +154,14 @@ void Logger::reportError(
 	}
 }
 
+void Logger::_debugMessage(const char* message) const
+{
+	cerr << "DEBUG: " << message << endl;
+}
+
+void Logger::_debugMessage(const string& message) const
+{
+	cerr << "DEBUG: " << message << endl;
+}
+
 }

@@ -37,6 +37,12 @@ public:
 
 #define error(message) reportError(__FILE__, (__func__), __LINE__, message)
 
+#ifndef NDEBUG
+#define debug(message) _debugMessage(message);
+#else
+#define debug(message)
+#endif // NDEBUG
+
 	void reportError(
 			const char* file,
 			const char* function,
@@ -56,6 +62,9 @@ public:
 
 	void switchAllOn();
 	void switchAllOff();
+
+	void _debugMessage(const char* message) const;
+	void _debugMessage(const string& message) const;
 
 private:
 	Logger(); // singleton pattern
