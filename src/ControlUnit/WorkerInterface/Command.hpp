@@ -16,8 +16,6 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 15/05/2012.
 #include <string>
 #include <vector>
 
-#include "Worker.hpp"
-
 using namespace std;
 
 namespace WorkerInterface
@@ -27,16 +25,16 @@ class Command
 {
 
 public:
-	Command(const Worker& worker, const string& commandName, const vector<string>& arguments);
+	Command(const string& commandName, const vector<string>& arguments);
 	virtual ~Command() { }
 
-	void execute() const;
 	string toString() const;
+	string getOrder() const;
+	vector<string> getArguments() const;
 
 private:
 	Command();
 
-	Worker m_worker;
 	string m_order;
 	vector<string> m_arguments;
 };

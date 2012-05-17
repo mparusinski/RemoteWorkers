@@ -48,7 +48,7 @@ void SimpleTestWorker::createGenericHTMLFile(const string& fileName)
 	outputFile << "\t</head>" << endl;
 	outputFile << endl;
 	outputFile << "\t<body>" << endl;
-	outputFile << endl;
+	outputFile << "Simple message" << endl;
 	outputFile << "\t</body>" << endl;
 	outputFile << "</html>" << endl;
 

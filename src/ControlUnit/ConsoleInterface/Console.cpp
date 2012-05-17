@@ -30,8 +30,8 @@ int main(int argc, char *argv[])
 	Utils::Logger::getInstance()->switchAllOn();
 
 	Worker worker = Management::getInstance()->createWorker("SimpleTestWorker");
-	Command command(worker, "SimpleTestWorker", vector<string>());
-	command.execute();
+	Command command("SimpleTestWorker", vector<string>());
+	worker.executeCommand(command);
 	Reply reply = worker.getReply();
 
 	if ( !reply.isReplyBuilt() )

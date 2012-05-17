@@ -17,6 +17,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 15/05/2012.
 #include <vector>
 
 //#include "Reply.hpp"
+#include "Command.hpp"
 
 using namespace std;
 
@@ -32,12 +33,14 @@ public:
 	Worker(string path);
 	virtual ~Worker() { }
 
-	string getPath() const;
 	Reply getReply() const;
+	void executeCommand(const Command& command) const;
+	string getPath() const;
 
 private:
-	string m_path;
+	string commandToString(const Command& command) const;
 
+	string m_path;
 };
 
 }

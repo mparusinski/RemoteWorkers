@@ -40,7 +40,7 @@ namespace WorkerInterface
 
 Reply::Reply()
 {
-	m_replyBuilt = false;
+
 }
 
 Reply::~Reply()
