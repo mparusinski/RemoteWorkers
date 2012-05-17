@@ -31,7 +31,7 @@ int main(int argc, char *argv[])
 {
 	const path pathToExecutable = argv[0];
 	const path& currentDirectory = pathToExecutable.parent_path();
-	string  executablePath = currentDirectory.string();
+	string executablePath = currentDirectory.string();
 	executablePath += PATH_SEPARATOR "output" PATH_SEPARATOR "page.html";
 	cout << executablePath << endl;
 

@@ -13,6 +13,8 @@ SET(WorkerInterfaceSRC STATIC
   Command.cpp
   Reply.hpp
   Reply.cpp
+  Configuration.hpp
+  Configuration.cpp
 )
 
 ADD_LIBRARY(WorkerInterface ${WorkerInterfaceSRC})
