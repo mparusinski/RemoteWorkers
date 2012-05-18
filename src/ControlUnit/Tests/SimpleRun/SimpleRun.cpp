@@ -6,7 +6,7 @@ As part of the Remote Workers project which creates a framework for remote
 management of laptops, desktop and servers. 
 
 Copyright (C) 2012 Remote Workers Project. All rights reserved.
-Created by Michal Parusinski <mparusinski@googlemail.com> on 15/05/2012.
+Created by Michal Parusinski <mparusinski@googlemail.com> on 18/05/2012.
 
 */
 
