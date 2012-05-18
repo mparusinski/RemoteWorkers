@@ -54,4 +54,11 @@ Worker Management::createWorker(const string& workerName) const
 	return Worker(fullPath);
 }
 
+vector<string> Management::listAvailableWorkers() const
+{
+	vector<string> availableWorkers;
+	Utils::CrossPlatform::getListOfDirsInDir(m_pathToWorkers, availableWorkers);
+	return availableWorkers;
+}
+
 }

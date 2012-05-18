@@ -15,13 +15,21 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 16/05/2012.
 
 #include <iostream>
 
-#include "LoggerStrategy.hpp"
+#include "LoggerBaseClass.hpp"
 
 using namespace std;
 
 namespace Utils
 {
 
+////////////////////////////////////////////////////////////////////////////////
+/// \brief This class provides an interface to logging, report errors and
+///        debugging. It does so using external logging mechanism classes.
+///        It also provides the necessary mechanism to easily silence all
+///        logging/error messages. It also provide a framework allowing to choose
+///        where to send the logs and the errors messages. The logger is a
+///        singleton class
+////////////////////////////////////////////////////////////////////////////////
 class Logger
 {
 public:
@@ -72,7 +80,7 @@ private:
 	bool m_logging;
 	bool m_reportingErrors;
 
-	LoggerStrategy* m_strategy;
+	LoggerBaseClass* m_strategy;
 };
 
 }

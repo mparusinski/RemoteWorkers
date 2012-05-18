@@ -16,6 +16,11 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 16/05/2012.
 namespace DataStructures
 {
 
+////////////////////////////////////////////////////////////////////////////////
+/// \brief This class encapsulate raw data (used by the reply class). This is
+///        used instead of a vector<char> since the latter is harder to be
+///        written to by a file object. It is also of simple design.
+////////////////////////////////////////////////////////////////////////////////
 class ByteStream
 {
 public:

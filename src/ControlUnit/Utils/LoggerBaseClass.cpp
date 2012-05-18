@@ -10,34 +10,34 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 16/05/2012.
 
 */
 
-#include "LoggerStrategy.hpp"
+#include "LoggerBaseClass.hpp"
 
 #include <iostream>
 
 namespace Utils
 {
 
-LoggerStrategy::LoggerStrategy()
+LoggerBaseClass::LoggerBaseClass()
 {
 
 }
 
-LoggerStrategy::~LoggerStrategy()
+LoggerBaseClass::~LoggerBaseClass()
 {
 
 }
 
-void LoggerStrategy::WriteToLog(const string & message) const
-{
-	usingBaseClassError();
-}
-
-void LoggerStrategy::WriteToError(const string & message) const
+void LoggerBaseClass::WriteToLog(const string & message) const
 {
 	usingBaseClassError();
 }
 
-inline void LoggerStrategy::usingBaseClassError() const
+void LoggerBaseClass::WriteToError(const string & message) const
+{
+	usingBaseClassError();
+}
+
+inline void LoggerBaseClass::usingBaseClassError() const
 {
 	cerr << "DEVELOPMENT-ERROR: Using base class in strategy pattern (Logger system)!" << endl;
 	cerr << "Please use the specialised classes for the LoggerStrategy";

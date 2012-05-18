@@ -14,8 +14,8 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 16/05/2012.
 
 #include <boost/lexical_cast.hpp>
 
-#include "LoggerConsoleStrategy.hpp"
-#include "LoggerFileStrategy.hpp"
+#include "ConsoleLogger.hpp"
+#include "FileLogger.hpp"
 
 namespace Utils
 {
@@ -24,7 +24,7 @@ Logger::Logger()
 {
 	m_logging = false;
 	m_reportingErrors = false;
-	m_strategy = new LoggerConsoleStrategy();
+	m_strategy = new ConsoleLogger();
 }
 
 Logger::~Logger()
@@ -45,13 +45,13 @@ Logger* Logger::getInstance()
 void Logger::useConsoleLogger()
 {
 	delete m_strategy;
-	m_strategy = new LoggerConsoleStrategy();
+	m_strategy = new ConsoleLogger();
 }
 
 void Logger::useFileLogger()
 {
 	delete m_strategy;
-	m_strategy = new LoggerFileStrategy();
+	m_strategy = new FileLogger();
 }
 
 void Logger::turnLoggingOff()

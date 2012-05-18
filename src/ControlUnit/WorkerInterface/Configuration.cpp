@@ -20,7 +20,6 @@ namespace WorkerInterface
 Configuration::Configuration()
 {
 	m_configurationRead = false;
-	m_configurationFile.open("conf.txt");
 	readConfiguration();
 }
 
@@ -41,6 +40,7 @@ Configuration* Configuration::getInstance()
 
 void Configuration::readConfiguration()
 {
+	m_configurationFile.open("conf.txt");
 	if ( m_configurationFile.is_open() )
 	{
 		if (m_configurationRead)
@@ -56,7 +56,7 @@ void Configuration::readConfiguration()
 			m_configurationFile >> value;
 			m_configurations[descriptor] = value;
 		}
-		m_configurationFile.seekg(0, ios::beg);
+		m_configurationFile.close();
 
 		m_configurationRead = true;
 	}

@@ -11,12 +11,12 @@ SET(UtilsSRC STATIC
    CrossPlatform.cpp
    Logger.hpp
    Logger.cpp
-   LoggerStrategy.hpp
-   LoggerStrategy.cpp
-   LoggerFileStrategy.hpp
-   LoggerFileStrategy.cpp
-   LoggerConsoleStrategy.hpp
-   LoggerConsoleStrategy.cpp
+   LoggerBaseClass.hpp
+   LoggerBaseClass.cpp
+   FileLogger.hpp
+   FileLogger.cpp
+   ConsoleLogger.hpp
+   ConsoleLogger.cpp
 )
 
 ADD_LIBRARY(Utils ${UtilsSRC})

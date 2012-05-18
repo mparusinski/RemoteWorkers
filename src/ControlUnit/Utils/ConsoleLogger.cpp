@@ -10,7 +10,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 16/05/2012.
 
 */
 
-#include "LoggerConsoleStrategy.hpp"
+#include "ConsoleLogger.hpp"
 
 #include <iostream>
 
@@ -19,22 +19,22 @@ using namespace std;
 namespace Utils
 {
 
-LoggerConsoleStrategy::LoggerConsoleStrategy()
+ConsoleLogger::ConsoleLogger()
 {
 
 }
 
-LoggerConsoleStrategy::~LoggerConsoleStrategy()
+ConsoleLogger::~ConsoleLogger()
 {
 
 }
 
-void LoggerConsoleStrategy::WriteToLog(const string& message) const
+void ConsoleLogger::WriteToLog(const string& message) const
 {
 	cout << message << endl;
 }
 
-void LoggerConsoleStrategy::WriteToError(const string& message) const
+void ConsoleLogger::WriteToError(const string& message) const
 {
 	cerr << message << endl;
 }

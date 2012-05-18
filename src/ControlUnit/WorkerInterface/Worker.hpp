@@ -24,6 +24,10 @@ using namespace std;
 namespace WorkerInterface
 {
 
+////////////////////////////////////////////////////////////////////////////////
+/// \brief This class represents a worker. It can execute commands and produce
+///        replies. This is the core class behind workers system.
+////////////////////////////////////////////////////////////////////////////////
 class Worker {
 
 public:

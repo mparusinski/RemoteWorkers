@@ -29,6 +29,12 @@ int main(int argc, char *argv[])
 {
 	Utils::Logger::getInstance()->turnAllOn();
 
+	vector<string> availableWorkers = Management::getInstance()->listAvailableWorkers();
+	for (size_t i = 0; i < availableWorkers.size(); ++i)
+	{
+		cout << availableWorkers[i] << endl;
+	}
+
 	Worker worker = Management::getInstance()->createWorker("SimpleTestWorker");
 	Command command("SimpleTestWorker", vector<string>());
 	worker.executeCommand(command);

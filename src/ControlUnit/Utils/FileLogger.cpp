@@ -10,29 +10,29 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 16/05/2012.
 
 */
 
-#include "LoggerFileStrategy.hpp"
+#include "FileLogger.hpp"
 
 namespace Utils
 {
 
-LoggerFileStrategy::LoggerFileStrategy()
+FileLogger::FileLogger()
 {
 	m_logFile.open("log.txt", ofstream::out);
 	m_errorFile.open("error.txt", ofstream::out);
 }
 
-LoggerFileStrategy::~LoggerFileStrategy()
+FileLogger::~FileLogger()
 {
 	m_logFile.close();
 	m_errorFile.close();
 }
 
-void LoggerFileStrategy::WriteToLog(const string& message) const
+void FileLogger::WriteToLog(const string& message) const
 {
 	m_logFile << message;
 }
 
-void LoggerFileStrategy::WriteToError(const string& message) const
+void FileLogger::WriteToError(const string& message) const
 {
 	m_errorFile << message;
 }

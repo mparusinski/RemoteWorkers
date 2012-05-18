@@ -22,6 +22,10 @@ using namespace std;
 namespace Utils
 {
 
+////////////////////////////////////////////////////////////////////////////////
+/// \brief This class contains a set of function to allow cross platform
+///        functionality.
+////////////////////////////////////////////////////////////////////////////////
 class CrossPlatform
 {
 public:
@@ -33,7 +37,7 @@ public:
 				const vector<string>& arguments);
 
 	static void getListOfFilesInDir(const string& directory, vector<string>& files);
-
+	static void getListOfDirsInDir(const string& directory, vector<string>& directories);
 	static void deleteFiles(const vector<string>& files);
 };
 

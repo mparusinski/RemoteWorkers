@@ -10,8 +10,8 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 16/05/2012.
 
 */
 
-#ifndef _LOGGERSTRATEGY_HPP_
-#define _LOGGERSTRATEGY_HPP_
+#ifndef _LOGGERBASECLASS_HPP_
+#define _LOGGERBASECLASS_HPP_
 
 #include <string>
 
@@ -20,12 +20,16 @@ using namespace std;
 namespace Utils
 {
 
-class LoggerStrategy
+////////////////////////////////////////////////////////////////////////////////
+/// \brief This class is a abstract base class to logging systems. It is used by
+///        the logger class to allow the logger to choose the logging mechanism.
+////////////////////////////////////////////////////////////////////////////////
+class LoggerBaseClass
 {
 public:
 
-	LoggerStrategy();
-	virtual ~LoggerStrategy();
+	LoggerBaseClass();
+	virtual ~LoggerBaseClass();
 
 	virtual void WriteToLog(const string& message) const;
 	virtual void WriteToError(const string& message) const;
@@ -37,4 +41,4 @@ private:
 
 }
 
-#endif // _LOGGERSTRATEGY_HPP_
+#endif // _LOGGERBASECLASS_HPP_

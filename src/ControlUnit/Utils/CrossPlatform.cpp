@@ -88,6 +88,42 @@ void CrossPlatform::getListOfFilesInDir(const string& directory, vector<string>&
 	}
 }
 
+void CrossPlatform::getListOfDirsInDir(const string& directory, vector<string>& directories)
+{
+	const path directoryPath = directory;
+
+	try
+	{
+		if (exists(directoryPath) && is_directory(directoryPath))
+		{
+			for (directory_iterator iter(directoryPath); iter != directory_iterator(); ++iter)
+			{
+				if ( is_directory((*iter).status()) )
+				{
+					const path& elemInDirectory = (*iter).path();
+					directories.push_back(elemInDirectory.string());
+				}
+			}
+		}
+		else
+		{
+			string errorMessage = "Directory ";
+			errorMessage += directoryPath.string();;
+			errorMessage += " not found";
+			Utils::Logger::getInstance()->error(errorMessage);
+			return;
+		}
+	}
+
+	catch (const filesystem_error& ex)
+	{
+		string errorMessage = "Unable to get list of directories in directory in";
+		errorMessage += directoryPath.string();
+		Utils::Logger::getInstance()->error(errorMessage);
+		return;
+	}
+}
+
 void CrossPlatform::deleteFiles(const vector<string>& files)
 {
 	const size_t numberOfFiles = files.size();

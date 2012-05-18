@@ -21,10 +21,16 @@ using namespace std;
 namespace WorkerInterface
 {
 
+////////////////////////////////////////////////////////////////////////////////
+/// \brief This class encapsulate a command into a data structure which can be
+///        passed to a worker.
+////////////////////////////////////////////////////////////////////////////////
 class Command
 {
 
 public:
+	typedef vector<string> ArgumentsType;
+
 	Command(const string& order, const vector<string>& arguments);
 	virtual ~Command() { }
 

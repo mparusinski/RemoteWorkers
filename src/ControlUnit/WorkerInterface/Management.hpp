@@ -13,6 +13,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 17/05/2012.
 #ifndef _MANAGEMENT_HPP_
 #define _MANAGEMENT_HPP_
 
+#include <vector>
 #include <string>
 
 #include "Worker.hpp"
@@ -23,6 +24,11 @@ using namespace std;
 namespace WorkerInterface
 {
 
+////////////////////////////////////////////////////////////////////////////////
+/// \brief This class is a singleton class which purpose is to manage workers.
+///        It provides a interface to the workers by creating them on demand,
+///        listing them and other.
+////////////////////////////////////////////////////////////////////////////////
 class Management
 {
 public:
@@ -30,6 +36,7 @@ public:
 	static Management* getInstance();
 
 	Worker createWorker(const string& workerName) const;
+	vector<string> listAvailableWorkers() const;
 
 private:
 	Management();

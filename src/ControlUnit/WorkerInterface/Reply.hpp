@@ -24,6 +24,11 @@ using namespace DataStructures;
 namespace WorkerInterface
 {
 
+////////////////////////////////////////////////////////////////////////////////
+/// \brief This class encapsulate the information of a worker reply. It contains
+///        the raw data of a reply. This class should not be created directly,
+///        but by a third party object like a worker.
+////////////////////////////////////////////////////////////////////////////////
 class Reply
 {
 public:

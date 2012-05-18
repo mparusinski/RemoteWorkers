@@ -10,25 +10,29 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 16/05/2012.
 
 */
 
-#ifndef _LOGGERCONSOLESTRATEGY_HPP_
-#define _LOGGERCONSOLESTRATEGY_HPP_
+#ifndef _CONSOLELOGGER_HPP_
+#define _CONSOLELOGGER_HPP_
 
 #include <iostream>
 #include <string>
 
-#include "LoggerStrategy.hpp"
+#include "LoggerBaseClass.hpp"
 
 using namespace std;
 
 namespace Utils
 {
 
-class LoggerConsoleStrategy : public LoggerStrategy
+////////////////////////////////////////////////////////////////////////////////
+/// \brief This class implements the a logger mechanism that writes to console.
+///        Should not be instantiated, use instead the Logger class.
+////////////////////////////////////////////////////////////////////////////////
+class ConsoleLogger : public LoggerBaseClass
 {
 public:
 
-	LoggerConsoleStrategy();
-	virtual ~LoggerConsoleStrategy();
+	ConsoleLogger();
+	virtual ~ConsoleLogger();
 
 	virtual void WriteToLog(const string& message) const;
 	virtual void WriteToError(const string& message) const;
@@ -39,4 +43,4 @@ private:
 
 }
 
-#endif // _LOGGERCONSOLESTRATEGY_HPP_
+#endif // _CONSOLELOGGER_HPP_

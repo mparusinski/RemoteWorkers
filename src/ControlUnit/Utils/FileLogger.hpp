@@ -10,10 +10,10 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 16/05/2012.
 
 */
 
-#ifndef _LOGGERFILESTRATEGY_HPP_
-#define _LOGGERFILESTRATEGY_HPP_
+#ifndef _FILELOGGER_HPP_
+#define _FILELOGGER_HPP_
 
-#include "LoggerStrategy.hpp"
+#include "LoggerBaseClass.hpp"
 
 #include <string>
 #include <iostream>
@@ -24,12 +24,16 @@ using namespace std;
 namespace Utils
 {
 
-class LoggerFileStrategy : public LoggerStrategy
+////////////////////////////////////////////////////////////////////////////////
+/// \brief This class implements the a logger mechanism that writes to files.
+///        Should not be instantiated, use instead the Logger class.
+////////////////////////////////////////////////////////////////////////////////
+class FileLogger : public LoggerBaseClass
 {
 public:
 
-	LoggerFileStrategy();
-	virtual ~LoggerFileStrategy();
+	FileLogger();
+	virtual ~FileLogger();
 
 	virtual void WriteToLog(const string& message) const;
 	virtual void WriteToError(const string& message) const;
@@ -41,4 +45,4 @@ private:
 
 }
 
-#endif // _LOGGERFILESTRATEGY_HPP_
+#endif // _FILELOGGER_HPP_
