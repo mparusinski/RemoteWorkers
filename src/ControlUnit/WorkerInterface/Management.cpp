@@ -14,7 +14,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 17/05/2012
 
 #include "Configuration.hpp"
 #include "Utils/Logger.hpp"
-#include "Utils/CrossPlatform.hpp"
+#include "Utils/SystemManagement.hpp"
 
 namespace WorkerInterface
 {
@@ -48,7 +48,7 @@ Management* Management::getInstance()
 Worker Management::createWorker(const string& workerName) const
 {
 	string fullPath = m_pathToWorkers;
-	fullPath += Utils::CrossPlatform::getPathSeparator();
+	fullPath += Utils::SystemManagement::getPathSeparator();
 	fullPath += workerName;
 
 	return Worker(fullPath);
@@ -57,7 +57,7 @@ Worker Management::createWorker(const string& workerName) const
 vector<string> Management::listAvailableWorkers() const
 {
 	vector<string> availableWorkers;
-	Utils::CrossPlatform::getListOfDirsInDir(m_pathToWorkers, availableWorkers);
+	Utils::SystemManagement::getListOfDirsInDir(m_pathToWorkers, availableWorkers);
 	return availableWorkers;
 }
 

@@ -17,7 +17,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 15/05/2012.
 #include <fstream>
 
 #include "Reply.hpp"
-#include "Utils/CrossPlatform.hpp"
+#include "Utils/SystemManagement.hpp"
 #include "Utils/Logger.hpp"
 #include "DataStructures/ByteStream.hpp"
 
@@ -54,7 +54,7 @@ void Worker::executeCommand(const Command& command) const
 	const string& order = command.getOrder();
 	const vector<string>& arguments = command.getArguments();
 
-	if ( Utils::CrossPlatform::executeCommand(m_path, order, arguments) == 0 )
+	if ( Utils::SystemManagement::executeCommand(m_path, order, arguments) == 0 )
 	{
 		string errorMessage = commandToString(command);
 		errorMessage += " did not execute properly";
@@ -74,7 +74,7 @@ string Worker::commandToString(const Command& command) const
 
 	commandName += "Command ";
 	commandName += m_path;
-	commandName += Utils::CrossPlatform::getPathSeparator();
+	commandName += Utils::SystemManagement::getPathSeparator();
 	commandName += command.getOrder();
 
 	return commandName;
@@ -88,7 +88,7 @@ Reply Worker::createReply() const
 
 	vector< string > files;
 
-	Utils::CrossPlatform::getListOfFilesInDir(outputPath, files);
+	Utils::SystemManagement::getListOfFilesInDir(outputPath, files);
 
 	const size_t numberOfFiles = files.size();
 
@@ -127,9 +127,9 @@ string Worker::getOutputPath() const
 {
 	string outputPath = "";
 	outputPath += m_path;
-	outputPath += Utils::CrossPlatform::getPathSeparator();
+	outputPath += Utils::SystemManagement::getPathSeparator();
 	outputPath += "output";
-	outputPath += Utils::CrossPlatform::getPathSeparator();
+	outputPath += Utils::SystemManagement::getPathSeparator();
 
 	return outputPath;
 }
@@ -140,9 +140,9 @@ void Worker::cleanOutput() const
 
 	vector< string > files;
 
-	Utils::CrossPlatform::getListOfFilesInDir(outputPath, files);
+	Utils::SystemManagement::getListOfFilesInDir(outputPath, files);
 
-	Utils::CrossPlatform::deleteFiles(files);
+	Utils::SystemManagement::deleteFiles(files);
 }
 
 }

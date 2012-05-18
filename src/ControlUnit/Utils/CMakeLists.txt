@@ -7,8 +7,8 @@ LINK_DIRECTORIES(
 )
 
 SET(UtilsSRC STATIC
-   CrossPlatform.hpp
-   CrossPlatform.cpp
+   SystemManagement.hpp
+   SystemManagement.cpp
    Logger.hpp
    Logger.cpp
    LoggerBaseClass.hpp

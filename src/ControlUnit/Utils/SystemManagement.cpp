@@ -12,7 +12,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 15/05/2012.
 
 #include <boost/filesystem.hpp>
 
-#include "CrossPlatform.hpp"
+#include "SystemManagement.hpp"
 #include "Utils/Logger.hpp"
 
 using namespace boost::filesystem;
@@ -20,7 +20,7 @@ using namespace boost::filesystem;
 namespace Utils
 {
 
-string CrossPlatform::getPathSeparator()
+string SystemManagement::getPathSeparator()
 {
 #ifdef __APPLE__
 		return string("/");
@@ -31,7 +31,7 @@ string CrossPlatform::getPathSeparator()
 #endif _APPLE_
 }
 
-int CrossPlatform::executeCommand(
+int SystemManagement::executeCommand(
 			const string& directory,
 			const string& command,
 			const vector<string>& arguments)
@@ -52,7 +52,7 @@ int CrossPlatform::executeCommand(
 	return 1;
 }
 
-void CrossPlatform::getListOfFilesInDir(const string& directory, vector<string>& files)
+void SystemManagement::getListOfFilesInDir(const string& directory, vector<string>& files)
 {
 	const path directoryPath = directory;
 
@@ -88,7 +88,7 @@ void CrossPlatform::getListOfFilesInDir(const string& directory, vector<string>&
 	}
 }
 
-void CrossPlatform::getListOfDirsInDir(const string& directory, vector<string>& directories)
+void SystemManagement::getListOfDirsInDir(const string& directory, vector<string>& directories)
 {
 	const path directoryPath = directory;
 
@@ -124,7 +124,7 @@ void CrossPlatform::getListOfDirsInDir(const string& directory, vector<string>& 
 	}
 }
 
-void CrossPlatform::deleteFiles(const vector<string>& files)
+void SystemManagement::deleteFiles(const vector<string>& files)
 {
 	const size_t numberOfFiles = files.size();
 
