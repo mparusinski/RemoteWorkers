@@ -30,11 +30,13 @@ namespace WorkerInterface
 Worker::Worker()
 {
 	m_path = string();
+	m_name = string();
 }
 
-Worker::Worker(string path)
+Worker::Worker(string path, string name)
 {
 	m_path = path;
+	m_name = name;
 }
 
 Reply Worker::getReply() const
@@ -49,12 +51,21 @@ string Worker::getPath() const
 	return m_path;
 }
 
+string Worker::getName() const
+{
+	return m_name;
+}
+
 void Worker::executeCommand(const Command& command) const
 {
 	const string& order = command.getOrder();
 	const vector<string>& arguments = command.getArguments();
 
-	if ( Utils::SystemManagement::executeCommand(m_path, order, arguments) == 0 )
+	string fullPath = m_path;
+	fullPath += Utils::SystemManagement::getPathSeparator();
+	fullPath += m_name;
+
+	if ( Utils::SystemManagement::executeCommand(fullPath, order, arguments) == 0 )
 	{
 		string errorMessage = commandToString(command);
 		errorMessage += " did not execute properly";
@@ -127,6 +138,8 @@ string Worker::getOutputPath() const
 {
 	string outputPath = "";
 	outputPath += m_path;
+	outputPath += Utils::SystemManagement::getPathSeparator();
+	outputPath += m_name;
 	outputPath += Utils::SystemManagement::getPathSeparator();
 	outputPath += "output";
 	outputPath += Utils::SystemManagement::getPathSeparator();

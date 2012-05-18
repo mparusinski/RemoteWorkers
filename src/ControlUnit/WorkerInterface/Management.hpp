@@ -35,7 +35,18 @@ public:
 	virtual ~Management();
 	static Management* getInstance();
 
+	/////////////////////////////////////////////////////////////////////////////////
+	/// \brief     Create the worker with given name. The function resolves the path
+	///            to the worker
+	/// \param[in] workerName	Name of the worker
+	/// \return    worker corresponding to the worker with given name
+	/////////////////////////////////////////////////////////////////////////////////
 	Worker createWorker(const string& workerName) const;
+
+	/////////////////////////////////////////////////////////////////////////////////
+	/// \brief     List all available workers in default path
+	/// \return    List of worker names (not a list of workers)
+	/////////////////////////////////////////////////////////////////////////////////
 	vector<string> listAvailableWorkers() const;
 
 private:

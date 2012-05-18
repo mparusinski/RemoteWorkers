@@ -17,13 +17,6 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 16/05/2012.
 namespace DataStructures
 {
 
-ByteStream::ByteStream()
-{
-	m_allocated = false;
-	m_sizeOfData = 0;
-	m_rawData = 0;
-}
-
 ByteStream::ByteStream(const int dataSize)
 {
 	m_sizeOfData = dataSize;

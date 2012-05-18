@@ -47,11 +47,7 @@ Management* Management::getInstance()
 
 Worker Management::createWorker(const string& workerName) const
 {
-	string fullPath = m_pathToWorkers;
-	fullPath += Utils::SystemManagement::getPathSeparator();
-	fullPath += workerName;
-
-	return Worker(fullPath);
+	return Worker(m_pathToWorkers, workerName);
 }
 
 vector<string> Management::listAvailableWorkers() const

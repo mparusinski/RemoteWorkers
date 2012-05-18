@@ -35,10 +35,21 @@ public:
 	FileLogger();
 	virtual ~FileLogger();
 
+	////////////////////////////////////////////////////////////////////////////////
+	/// \brief     Method for writing a message to a log which is stored in a file
+	/// \param[in] message	message to be logged
+	////////////////////////////////////////////////////////////////////////////////
 	virtual void WriteToLog(const string& message) const;
+
+	////////////////////////////////////////////////////////////////////////////////
+	/// \brief     Method for reporting an error to an error file
+	/// \param[in] message	error message to reported
+	////////////////////////////////////////////////////////////////////////////////
 	virtual void WriteToError(const string& message) const;
 
 private:
+	virtual void noInstantiation() {}
+
 	mutable ofstream m_logFile;
 	mutable ofstream m_errorFile;
 };

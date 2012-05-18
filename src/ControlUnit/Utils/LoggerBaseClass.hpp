@@ -31,10 +31,20 @@ public:
 	LoggerBaseClass();
 	virtual ~LoggerBaseClass();
 
+	////////////////////////////////////////////////////////////////////////////////
+	/// \brief     Abstract method for writing a message to a log
+	/// \param[in] message	message to be logged
+	////////////////////////////////////////////////////////////////////////////////
 	virtual void WriteToLog(const string& message) const;
+
+	////////////////////////////////////////////////////////////////////////////////
+	/// \brief     Abstract method for writing a report an error
+	/// \param[in] message	error message to reported
+	////////////////////////////////////////////////////////////////////////////////
 	virtual void WriteToError(const string& message) const;
 
 private:
+	virtual void noInstantiation() = 0;
 	inline void usingBaseClassError() const;
 
 };
