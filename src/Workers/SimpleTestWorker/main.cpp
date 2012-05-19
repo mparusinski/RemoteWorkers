@@ -32,7 +32,7 @@ int main(int argc, char *argv[])
 	const path pathToExecutable = argv[0];
 	const path& currentDirectory = pathToExecutable.parent_path();
 	string executablePath = currentDirectory.string();
-	executablePath += PATH_SEPARATOR "output" PATH_SEPARATOR "page.html";
+	executablePath += PATH_SEPARATOR "output" PATH_SEPARATOR "index.html";
 	cout << executablePath << endl;
 
 	SimpleTestWorker::createGenericHTMLFile(executablePath);

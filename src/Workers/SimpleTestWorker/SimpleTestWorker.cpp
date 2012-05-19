@@ -1,6 +1,6 @@
 /* 
 
-<file name>: <purpose>
+SimpleTestWorker.hpp: Class file for simple test worker that generates a generic output
 
 As part of the Remote Workers Project which creates a framework for remote
 management of laptops, desktop and servers. 

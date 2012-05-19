@@ -4,3 +4,21 @@ should be cross platform.
 
 Specialise workers for certains platforms should be placed in another
 project than this one.
+
+====================================================================
+
+-- SimpleTestWorker: Simple worker to use for tests! Generates a 
+simple html file as output and that's all and simple test worker
+abides to the standard workers must abide to. Use this worker
+to check if basic functionality works.
+
+-- NastyBadWorker: Complex worker that respects the standards for
+workers but functions unproperly in many other ways. Here are the 
+following things this worker does to stress test the system:
+	  * Use python a non-compiled (non-optimal) language
+	  * Creates a lot of files (100 files)
+	  * Each file created has 1 MB of content
+	  * The worker creates non standard html files
+	  * The worker wastes time at startup (1 second)
+
+This worker should be use for stress testing

@@ -32,3 +32,5 @@ IF (Boost_FOUND)
 ENDIF()
 
 ADD_SUBDIRECTORY(SimpleTestWorker)
+ADD_SUBDIRECTORY(NastyBadWorker)
+
