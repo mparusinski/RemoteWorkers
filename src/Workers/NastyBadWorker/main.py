@@ -76,18 +76,19 @@ def generateHTMLWithBody(fileName, bodyContent):
 
 
 def main(arguments):
-    randomText      = generateRandomText(1000)
-    listOfFilesText = generateListOfFilesText("/Users/mparusinski/")
-    blankText       = generateBlankText(1000)
-    fibonaciText    = generateFibonaciText(1000)
     currentPath = arguments[0]
     currentPath = os.path.dirname(currentPath) 
     outputPath  = currentPath + os.path.sep + 'output/'
+    size = 1000000
+    randomText      = generateRandomText(size)
+    listOfFilesText = generateListOfFilesText("/Users/mparusinski/Documents")
+    blankText       = generateBlankText(size)
+    fibonaciText    = generateFibonaciText(3250)
     for i in xrange(25):
-        randomTextName      = "random" + str(i)
-        listOfFilesTextName = "ls" + str(i)
-        blankTextName       = "blank" + str(i)
-        fibonaciTextName    = "fib" + str(i)
+        randomTextName      = outputPath + "random" + str(i)
+        listOfFilesTextName = outputPath + "ls" + str(i)
+        blankTextName       = outputPath + "blank" + str(i)
+        fibonaciTextName    = outputPath + "fib" + str(i)
         generateHTMLWithBody(randomTextName, randomText)
         generateHTMLWithBody(listOfFilesTextName, listOfFilesText)
         generateHTMLWithBody(blankTextName, blankText)

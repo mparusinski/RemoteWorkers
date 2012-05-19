@@ -17,6 +17,8 @@ SET(UtilsSRC STATIC
    FileLogger.cpp
    ConsoleLogger.hpp
    ConsoleLogger.cpp
+   Profiler.hpp
+   Profiler.cpp
 )
 
 ADD_LIBRARY(Utils ${UtilsSRC})

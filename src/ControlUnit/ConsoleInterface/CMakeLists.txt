@@ -11,4 +11,4 @@ SET(ControlUnitConsoleSRC
 
 ADD_EXECUTABLE(ControlUnitConsole ${ControlUnitConsoleSRC})
 
-TARGET_LINK_LIBRARIES(ControlUnitConsole WorkerInterface)
+TARGET_LINK_LIBRARIES(ControlUnitConsole WorkerInterface Utils)

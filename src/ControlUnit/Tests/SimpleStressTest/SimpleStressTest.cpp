@@ -1,6 +1,6 @@
 /* 
 
-Console.cpp: Entry point for the server side
+SimpleStressTest.cpp: Simple Stress Test that creates 100 files each of 1 megabyte
 
 As part of the Remote Workers project which creates a framework for remote
 management of laptops, desktop and servers. 
