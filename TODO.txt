@@ -1,2 +1,6 @@
-# TODO: Redesign CrossPlatform class
-# TODO: Rethink the way reply interact
+# TODO: Create a secure execute command function
+  -> Should not rely on shell
+  -> Should have a sanitized environment
+  -> Should not pass privileges to the extra command
+  -> Should execute the right command (not a modified version)
+     i.e Workers should not modify other workers
