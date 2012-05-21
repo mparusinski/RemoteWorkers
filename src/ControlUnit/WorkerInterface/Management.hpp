@@ -36,23 +36,27 @@ public:
 	static Management* getInstance();
 
 	/////////////////////////////////////////////////////////////////////////////////
-	/// \brief     Create the worker with given name. The function resolves the path
-	///            to the worker
-	/// \param[in] workerName	Name of the worker
-	/// \return    worker corresponding to the worker with given name
+	/// \brief      Create the worker with given name. The function resolves the path
+	///             to the worker
+	/// \param[in]  workerName	Name of the worker
+	/// \param[out] worker      The worker we wish to create
+	/// \return     returns true if successfully created worker
 	/////////////////////////////////////////////////////////////////////////////////
-	Worker createWorker(const string& workerName) const;
+	bool createWorker(const string& workerName, Worker& worker);
 
 	/////////////////////////////////////////////////////////////////////////////////
 	/// \brief     List all available workers in default path
 	/// \return    List of worker names (not a list of workers)
 	/////////////////////////////////////////////////////////////////////////////////
-	vector<string> listAvailableWorkers() const;
+	vector<string>& listAvailableWorkers();
 
 private:
 	Management();
 
+	inline void getListOfWorkers();
+
 	string m_pathToWorkers;
+	vector<string> m_availableWorkers;
 };
 
 }

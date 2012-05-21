@@ -43,7 +43,8 @@ int main(int argc, char *argv[])
 	Utils::Profiler::profile("Reading workers");
 
 	Utils::Profiler::startProfiler();
-	Worker worker = Management::getInstance()->createWorker("NastyBadWorker");
+	Worker worker;
+	Management::getInstance()->createWorker("NastyBadWorker", worker);
 	Utils::Profiler::stopProfiler();
 	Utils::Profiler::profile("Creating worker");
 

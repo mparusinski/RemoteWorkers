@@ -48,8 +48,7 @@ int SystemManagement::executeCommand(
 	}
 
 
-	system(fullCommand.c_str());
-	return 1;
+	return system(fullCommand.c_str());
 }
 
 void SystemManagement::getListOfFilesInDir(const string& directory, vector<string>& files)
@@ -101,7 +100,7 @@ void SystemManagement::getListOfDirsInDir(const string& directory, vector<string
 				if ( is_directory((*iter).status()) )
 				{
 					const path& elemInDirectory = (*iter).path();
-					directories.push_back(elemInDirectory.string());
+					directories.push_back(elemInDirectory.filename().string());
 				}
 			}
 		}

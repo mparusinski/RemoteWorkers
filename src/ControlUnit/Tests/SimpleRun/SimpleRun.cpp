@@ -35,7 +35,8 @@ int main(int argc, char *argv[])
 		cout << availableWorkers[i] << endl;
 	}
 
-	Worker worker = Management::getInstance()->createWorker("SimpleTestWorker");
+	Worker worker;
+	Management::getInstance()->createWorker("SimpleTestWorker", worker);
 	Command command("SimpleTestWorker", vector<string>());
 	worker.executeCommand(command);
 	Reply reply = worker.getReply();

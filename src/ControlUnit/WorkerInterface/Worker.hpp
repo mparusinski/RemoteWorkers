@@ -48,9 +48,9 @@ public:
 	/// \brief     Worker will execute the command represented by the input and
 	///            and produce an output accessible from getReply().
 	/// \param[in] command
-	/// \return    The only possible instance of the object
+	/// \return    true if successful, false otherwise
 	////////////////////////////////////////////////////////////////////////////////
-	void executeCommand(const Command& command) const;
+	bool executeCommand(const Command& command) const;
 
 	////////////////////////////////////////////////////////////////////////////////
 	/// \brief     Returns the path to the worker (not the worker name)

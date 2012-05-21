@@ -33,4 +33,4 @@ ENDIF()
 
 ADD_SUBDIRECTORY(SimpleTestWorker)
 ADD_SUBDIRECTORY(NastyBadWorker)
-
+ADD_SUBDIRECTORY(SecurityPenetrationTestWorker)

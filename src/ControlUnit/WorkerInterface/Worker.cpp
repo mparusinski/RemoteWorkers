@@ -56,7 +56,7 @@ string Worker::getName() const
 	return m_name;
 }
 
-void Worker::executeCommand(const Command& command) const
+bool Worker::executeCommand(const Command& command) const
 {
 	const string& order = command.getOrder();
 	const vector<string>& arguments = command.getArguments();
@@ -65,25 +65,24 @@ void Worker::executeCommand(const Command& command) const
 	fullPath += Utils::SystemManagement::getPathSeparator();
 	fullPath += m_name;
 
-	if ( Utils::SystemManagement::executeCommand(fullPath, order, arguments) == 0 )
+	string fullCommand = commandToString(command);
+	fullCommand += " ";
+	for (size_t i = 0; i < arguments.size(); ++i)
 	{
-		string errorMessage = commandToString(command);
-		errorMessage += " did not execute properly";
-		Utils::Logger::getInstance()->error(errorMessage);
+		fullCommand += arguments[i];
 	}
-	else
-	{
-		string successMessage = commandToString(command);
-		successMessage += " did execute properly";
-		Utils::Logger::getInstance()->log(successMessage);
-	}
+	fullCommand += "\" was executed";
+	Utils::Logger::getInstance()->log(fullCommand);
+
+
+	return Utils::SystemManagement::executeCommand(fullPath, order, arguments) == 0;
 }
 
 string Worker::commandToString(const Command& command) const
 {
 	string commandName;
 
-	commandName += "Command ";
+	commandName += "Command \"";
 	commandName += m_path;
 	commandName += Utils::SystemManagement::getPathSeparator();
 	commandName += command.getOrder();

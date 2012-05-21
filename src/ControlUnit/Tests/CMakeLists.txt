@@ -1,2 +1,3 @@
 ADD_SUBDIRECTORY(SimpleRun)
 ADD_SUBDIRECTORY(SimpleStressTest)
+ADD_SUBDIRECTORY(SecurityPenetrationTest)

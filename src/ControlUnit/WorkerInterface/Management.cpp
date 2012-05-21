@@ -45,16 +45,34 @@ Management* Management::getInstance()
 	return instance;
 }
 
-Worker Management::createWorker(const string& workerName) const
+bool Management::createWorker(const string& workerName, Worker& worker)
 {
-	return Worker(m_pathToWorkers, workerName);
+	getListOfWorkers();
+	const size_t numberOfWorkers = m_availableWorkers.size();
+	for (size_t i = 0; i < numberOfWorkers; ++i)
+	{
+		const string& currentWorkerName = m_availableWorkers[i];
+		if (currentWorkerName == workerName)
+		{
+			worker = Worker(m_pathToWorkers, workerName);
+			return true;
+		}
+	}
+	return false;
 }
 
-vector<string> Management::listAvailableWorkers() const
+vector<string>& Management::listAvailableWorkers()
 {
-	vector<string> availableWorkers;
-	Utils::SystemManagement::getListOfDirsInDir(m_pathToWorkers, availableWorkers);
-	return availableWorkers;
+	getListOfWorkers();
+	return m_availableWorkers;
+}
+
+void Management::getListOfWorkers()
+{
+	if (m_availableWorkers.empty())
+	{
+		Utils::SystemManagement::getListOfDirsInDir(m_pathToWorkers, m_availableWorkers);
+	}
 }
 
 }
