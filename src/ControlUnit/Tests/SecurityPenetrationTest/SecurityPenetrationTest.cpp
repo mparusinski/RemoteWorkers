@@ -12,6 +12,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 21/05/2012
 
 #include <vector>
 #include <string>
+#include <cstdlib>
 
 #include "WorkerInterface/Worker.hpp"
 #include "WorkerInterface/Management.hpp"
@@ -98,7 +99,7 @@ int main(int argc, char *argv[])
 
 	bool theGreatEscapeTest1;
 	{
-		string workerName = "; echo \"The great escape test succeeded\" ";
+		string workerName = "; echo \"The great escape test succeeded (not good)\" ";
 		Worker worker;
 		Management::getInstance()->createWorker(workerName, worker);
 		vector<string> arguments;
@@ -115,7 +116,7 @@ int main(int argc, char *argv[])
 		Worker worker;
 		Management::getInstance()->createWorker(workerName, worker);
 		vector<string> arguments;
-		string theGreatEscape = "; echo \"The great escape test succeeded\" ";
+		string theGreatEscape = "; echo \"The great escape test succeeded (not good)\" ";
 		Command command("", arguments);
 		theGreatEscapeTest2 = worker.executeCommand(command);
 		allTest = allTest && !theGreatEscapeTest2;
@@ -128,7 +129,7 @@ int main(int argc, char *argv[])
 		string workerName = "SimpleTestWorker";
 		Worker worker;
 		Management::getInstance()->createWorker(workerName, worker);
-		string theGreatEscape = "; echo \"The great escape test succeeded\" ";
+		string theGreatEscape = "; echo \"The great escape test succeeded (not good)\" ";
 		vector<string> arguments;
 		arguments.push_back(theGreatEscape);
 		Command command(workerName, arguments);
@@ -136,6 +137,48 @@ int main(int argc, char *argv[])
 		allTest = allTest && !theGreatEscapeTest3;
 
 		TEST(theGreatEscapeTest3, "The great escape test 3");
+	}
+
+	bool theGreatEscapeTest4;
+	{
+		string workerName = "SimpleTestWorker";
+		Worker worker;
+		Management::getInstance()->createWorker(workerName, worker);
+		string theGreatEscape
+			= "`VAR=\"The great escape test succeeded (not good)\"; echo SimpleTestWorker`";
+		vector<string> arguments;
+		Command command(theGreatEscape, arguments);
+		theGreatEscapeTest4 = worker.executeCommand(command);
+		allTest = allTest && !theGreatEscapeTest4;
+
+		TEST(theGreatEscapeTest4, "The great escape test 4");
+	}
+
+	bool environmentTest;
+	{
+		string workerName = "SecurityPenetrationTestWorker";
+		Worker worker;
+		Management::getInstance()->createWorker(workerName, worker);
+		string commandName = "SanitizedEnvironment";
+		vector<string> arguments;
+		Command command(commandName, arguments);
+
+		// changing the environment
+		char* originalPath = getenv("HOME");
+		char* newPath = "HOME=/usr/bin";
+		putenv(newPath);
+
+		environmentTest = worker.executeCommand(command);
+		allTest = allTest && !environmentTest;
+
+		string restorePath = "HOME=";
+		restorePath += originalPath;
+		char* restorePathStr = new char[restorePath.length()];
+		strncpy(restorePathStr, restorePath.c_str(), restorePath.length());
+		putenv(restorePathStr);
+
+		TEST(environmentTest, "The environment test was passed");
+		delete[] restorePathStr;
 	}
 
 	return allTest;
