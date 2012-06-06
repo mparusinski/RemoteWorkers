@@ -13,7 +13,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 15/05/2012.
 #ifndef _REPLY_HPP_
 #define _REPLY_HPP_
 
-#include <iostream>
+#include <QString>
 #include <vector>
 
 #include "DataStructures/ByteStream.hpp"
@@ -32,7 +32,7 @@ namespace WorkerInterface
 class Reply
 {
 public:
-	typedef vector< pair<string, ByteStream> > ByteStreams;
+	typedef vector< pair<QString, ByteStream> > ByteStreams;
 
 	Reply();
 	Reply(const ByteStreams& rawData);

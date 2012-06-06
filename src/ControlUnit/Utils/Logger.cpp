@@ -90,17 +90,17 @@ void Logger::log(const char* message) const
 {
 	if (m_logging)
 	{
-		string strMessage(message);
+		QString strMessage(message);
 		strMessage += "\n";
 		m_strategy->WriteToLog(strMessage);
 	}
 }
 
-void Logger::log(const string& message) const
+void Logger::log(const QString& message) const
 {
 	if (m_logging)
 	{
-		string actualMessage = message;
+		QString actualMessage = message;
 		actualMessage += "\n";
 		m_strategy->WriteToLog(actualMessage);
 	}
@@ -114,13 +114,13 @@ void Logger::reportError(
 {
 	if (m_reportingErrors)
 	{
-		string actualMessage;
+		QString actualMessage;
 		actualMessage += "ERROR (file:";
 		actualMessage += file;
 		actualMessage += ", function: ";
 		actualMessage += function;
 		actualMessage += ", lineNumber: ";
-		actualMessage += QString::number(lineNumber).toStdString();
+		actualMessage += QString::number(lineNumber);
 		actualMessage += "): ";
 		actualMessage += message;
 		actualMessage += "\n";
@@ -132,17 +132,17 @@ void Logger::reportError(
 		const char* file,
 		const char* function,
 		const int lineNumber,
-		const string& message) const
+		const QString& message) const
 {
 	if (m_reportingErrors)
 	{
-		string actualMessage;
+		QString actualMessage;
 		actualMessage += "ERROR (file:";
 		actualMessage += file;
 		actualMessage += ", function: ";
 		actualMessage += function;
 		actualMessage += ", lineNumber: ";
-		actualMessage += QString::number(lineNumber).toStdString();
+		actualMessage += QString::number(lineNumber);
 		actualMessage += "): ";
 		actualMessage += message;
 		actualMessage += "\n";
@@ -155,9 +155,9 @@ void Logger::_debugMessage(const char* file, const char* message) const
 	cerr << "DEBUG (" << file << "): " << message << endl;
 }
 
-void Logger::_debugMessage(const char* file, const string& message) const
+void Logger::_debugMessage(const char* file, const QString& message) const
 {
-	cerr << "DEBUG (" << file << "): " << message << endl;
+	cerr << "DEBUG (" << file << "): " << message.toStdString() << endl;
 }
 
 }

@@ -13,7 +13,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 15/05/2012.
 #ifndef _WORKER_HPP_
 #define _WORKER_HPP_
 
-#include <string>
+#include <QString>
 #include <vector>
 
 #include "Reply.hpp"
@@ -32,7 +32,7 @@ class Worker {
 
 public:
 	Worker();
-	Worker(string path, string name);
+	Worker(QString path, QString name);
 	virtual ~Worker() { }
 
 	////////////////////////////////////////////////////////////////////////////////
@@ -56,22 +56,22 @@ public:
 	/// \brief     Returns the path to the worker (not the worker name)
 	/// \return    Path to the worker, not the name
 	////////////////////////////////////////////////////////////////////////////////
-	string getPath() const;
+	QString getPath() const;
 
 	////////////////////////////////////////////////////////////////////////////////
 	/// \brief     Returns the name of the worker (not the path to the worker)
 	/// \return    Path to the worker, not the name
 	////////////////////////////////////////////////////////////////////////////////
-	string getName() const;
+	QString getName() const;
 
 private:
-	string commandToString(const Command& command) const;
+	QString commandToString(const Command& command) const;
 	Reply createReply() const;
-	string getOutputPath() const;
+	QString getOutputPath() const;
 	void cleanOutput() const;
 
-	string m_path;
-	string m_name;
+	QString m_path;
+	QString m_name;
 };
 
 }

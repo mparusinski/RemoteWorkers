@@ -12,7 +12,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 18/05/2012.
 
 // NO FUNCTIONS TO BE ADDED TO THIS FILE
 
-#include <string>
+#include <QString>
 #include <vector>
 #include <iostream>
 
@@ -29,15 +29,15 @@ int main(int argc, char *argv[])
 {
 	Utils::Logger::getInstance()->turnAllOn();
 
-	vector<string> availableWorkers = Management::getInstance()->listAvailableWorkers();
+	vector<QString> availableWorkers = Management::getInstance()->listAvailableWorkers();
 	for (size_t i = 0; i < availableWorkers.size(); ++i)
 	{
-		cout << availableWorkers[i] << endl;
+		cout << availableWorkers[i].toStdString() << endl;
 	}
 
 	Worker worker;
 	Management::getInstance()->createWorker("SimpleTestWorker", worker);
-	Command command("SimpleTestWorker", vector<string>());
+	Command command("SimpleTestWorker", vector<QString>());
 	worker.executeCommand(command);
 	Reply reply = worker.getReply();
 
@@ -51,13 +51,13 @@ int main(int argc, char *argv[])
 		Utils::Logger::getInstance()->log("Reply is built");
 	}
 
-	vector< pair< string, ByteStream > > rawData = reply.getRawData();
+	vector< pair< QString, ByteStream > > rawData = reply.getRawData();
 	const size_t numberOfByteStreams = rawData.size();
 	for (size_t i = 0; i < numberOfByteStreams; ++i)
 	{
-		const string& fileName = rawData[i].first;
+		const QString& fileName = rawData[i].first;
 		ByteStream& byteStream = rawData[i].second;
-		cout << "File: " << fileName << endl;
+		cout << "File: " << fileName.toStdString() << endl;
 
 		const size_t lengthOfStream = byteStream.size();
 		const char * rawData = byteStream.getRawData();

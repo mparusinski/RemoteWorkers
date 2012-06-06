@@ -13,7 +13,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 16/05/2012.
 #ifndef _LOGGERBASECLASS_HPP_
 #define _LOGGERBASECLASS_HPP_
 
-#include <string>
+#include <QString>
 
 using namespace std;
 
@@ -35,13 +35,13 @@ public:
 	/// \brief     Abstract method for writing a message to a log
 	/// \param[in] message	message to be logged
 	////////////////////////////////////////////////////////////////////////////////
-	virtual void WriteToLog(const string& message) const;
+	virtual void WriteToLog(const QString& message) const;
 
 	////////////////////////////////////////////////////////////////////////////////
 	/// \brief     Abstract method for writing a report an error
 	/// \param[in] message	error message to reported
 	////////////////////////////////////////////////////////////////////////////////
-	virtual void WriteToError(const string& message) const;
+	virtual void WriteToError(const QString& message) const;
 
 private:
 	virtual void noInstantiation() = 0;

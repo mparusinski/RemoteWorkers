@@ -27,12 +27,12 @@ LoggerBaseClass::~LoggerBaseClass()
 
 }
 
-void LoggerBaseClass::WriteToLog(const string & message) const
+void LoggerBaseClass::WriteToLog(const QString & message) const
 {
 	usingBaseClassError();
 }
 
-void LoggerBaseClass::WriteToError(const string & message) const
+void LoggerBaseClass::WriteToError(const QString & message) const
 {
 	usingBaseClassError();
 }

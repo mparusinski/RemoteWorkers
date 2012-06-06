@@ -29,14 +29,14 @@ ConsoleLogger::~ConsoleLogger()
 
 }
 
-void ConsoleLogger::WriteToLog(const string& message) const
+void ConsoleLogger::WriteToLog(const QString& message) const
 {
-	cout << message << endl;
+	cout << message.toStdString() << endl;
 }
 
-void ConsoleLogger::WriteToError(const string& message) const
+void ConsoleLogger::WriteToError(const QString& message) const
 {
-	cerr << message << endl;
+	cerr << message.toStdString() << endl;
 }
 
 }

@@ -15,7 +15,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 16/05/2012.
 
 #include "LoggerBaseClass.hpp"
 
-#include <string>
+#include <QString>
 #include <iostream>
 #include <fstream>
 
@@ -39,13 +39,13 @@ public:
 	/// \brief     Method for writing a message to a log which is stored in a file
 	/// \param[in] message	message to be logged
 	////////////////////////////////////////////////////////////////////////////////
-	virtual void WriteToLog(const string& message) const;
+	virtual void WriteToLog(const QString& message) const;
 
 	////////////////////////////////////////////////////////////////////////////////
 	/// \brief     Method for reporting an error to an error file
 	/// \param[in] message	error message to reported
 	////////////////////////////////////////////////////////////////////////////////
-	virtual void WriteToError(const string& message) const;
+	virtual void WriteToError(const QString& message) const;
 
 private:
 	virtual void noInstantiation() {}

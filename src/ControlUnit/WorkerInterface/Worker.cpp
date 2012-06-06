@@ -12,7 +12,6 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 15/05/2012.
 
 #include "Worker.hpp"
 
-#include <string>
 #include <iostream>
 #include <fstream>
 
@@ -29,11 +28,11 @@ namespace WorkerInterface
 
 Worker::Worker()
 {
-	m_path = string();
-	m_name = string();
+	m_path = QString();
+	m_name = QString();
 }
 
-Worker::Worker(string path, string name)
+Worker::Worker(QString path, QString name)
 {
 	m_path = path;
 	m_name = name;
@@ -46,26 +45,26 @@ Reply Worker::getReply() const
 	return reply;
 }
 
-string Worker::getPath() const
+QString Worker::getPath() const
 {
 	return m_path;
 }
 
-string Worker::getName() const
+QString Worker::getName() const
 {
 	return m_name;
 }
 
 bool Worker::executeCommand(const Command& command) const
 {
-	const string& order = command.getOrder();
-	const vector<string>& arguments = command.getArguments();
+	const QString& order = command.getOrder();
+	const vector<QString>& arguments = command.getArguments();
 
-	string fullPath = m_path;
+	QString fullPath = m_path;
 	fullPath += PATH_SEPERATOR;
 	fullPath += m_name;
 
-	string fullCommand = commandToString(command);
+	QString fullCommand = commandToString(command);
 	fullCommand += " ";
 	for (size_t i = 0; i < arguments.size(); ++i)
 	{
@@ -77,9 +76,9 @@ bool Worker::executeCommand(const Command& command) const
 	return Utils::SystemManagement::executeCommand(fullPath, order, arguments) == 0;
 }
 
-string Worker::commandToString(const Command& command) const
+QString Worker::commandToString(const Command& command) const
 {
-	string commandName;
+	QString commandName;
 
 	commandName += "Command \"";
 	commandName += m_path;
@@ -93,9 +92,9 @@ Reply Worker::createReply() const
 {
 	typedef Reply::ByteStreams ByteStreams;
 
-	string outputPath = getOutputPath();
+	QString outputPath = getOutputPath();
 
-	vector< string > files;
+	vector< QString > files;
 
 	Utils::SystemManagement::getListOfFilesInDir(outputPath, files);
 
@@ -106,11 +105,11 @@ Reply Worker::createReply() const
 	ifstream file;
 	for (size_t i = 0; i < numberOfFiles; ++i)
 	{
-		const string& fileName = files[i];
-		file.open(fileName.c_str(), ifstream::binary);
+		const QString& fileName = files[i];
+		file.open(fileName.toStdString().c_str(), ifstream::binary);
 		if ( !file.is_open() )
 		{
-			string errorMessage = "Failed to open file ";
+			QString errorMessage = "Failed to open file ";
 			errorMessage += fileName;
 			Utils::Logger::getInstance()->error_msg(errorMessage);
 			return Reply();
@@ -126,15 +125,15 @@ Reply Worker::createReply() const
 		file.read(bytes.getRawData(), length);
 		file.close();
 
-		rawData.push_back(pair<string, ByteStream>(fileName, bytes));
+		rawData.push_back(pair<QString, ByteStream>(fileName, bytes));
 	}
 
 	return Reply(rawData);
 }
 
-string Worker::getOutputPath() const
+QString Worker::getOutputPath() const
 {
-	string outputPath = "";
+	QString outputPath = "";
 	outputPath += m_path;
 	outputPath += PATH_SEPERATOR;
 	outputPath += m_name;
@@ -147,9 +146,9 @@ string Worker::getOutputPath() const
 
 void Worker::cleanOutput() const
 {
-	string outputPath = getOutputPath();
+	QString outputPath = getOutputPath();
 
-	vector< string > files;
+	vector< QString > files;
 
 	Utils::SystemManagement::getListOfFilesInDir(outputPath, files);
 

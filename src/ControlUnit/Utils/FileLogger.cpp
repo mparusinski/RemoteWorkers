@@ -27,14 +27,14 @@ FileLogger::~FileLogger()
 	m_errorFile.close();
 }
 
-void FileLogger::WriteToLog(const string& message) const
+void FileLogger::WriteToLog(const QString& message) const
 {
-	m_logFile << message;
+	m_logFile << message.toStdString();
 }
 
-void FileLogger::WriteToError(const string& message) const
+void FileLogger::WriteToError(const QString& message) const
 {
-	m_errorFile << message;
+	m_errorFile << message.toStdString();
 }
 
 }

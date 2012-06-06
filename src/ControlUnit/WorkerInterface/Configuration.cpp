@@ -50,10 +50,16 @@ void Configuration::readConfiguration()
 
 		while( !m_configurationFile.eof() )
 		{
-			string descriptor;
-			string value;
-			m_configurationFile >> descriptor;
-			m_configurationFile >> value;
+			QString descriptor;
+			QString value;
+			string descriptor_str;
+			string value_str;
+
+			m_configurationFile >> descriptor_str;
+			m_configurationFile >> value_str;
+			descriptor = descriptor_str.c_str();
+			value = value_str.c_str();
+
 			m_configurations[descriptor] = value;
 		}
 		m_configurationFile.close();
@@ -66,7 +72,7 @@ void Configuration::readConfiguration()
 	}
 }
 
-string Configuration::getConfiguration(const string& descriptor) const
+QString Configuration::getConfiguration(const QString& descriptor) const
 {
 	if (m_configurationRead)
 	{
@@ -77,21 +83,21 @@ string Configuration::getConfiguration(const string& descriptor) const
 		}
 		else
 		{
-			string errorMessage = "There is no configuration for descriptor ";
+			QString errorMessage = "There is no configuration for descriptor ";
 			errorMessage += descriptor;
 			Utils::Logger::getInstance()->error_msg(errorMessage);
 
-			return string();
+			return QString();
 		}
 	}
 	else
 	{
 		Utils::Logger::getInstance()->error_msg("Configuration has not been read");
-		return string();
+		return QString();
 	}
 }
 
-string Configuration::getWorkersPath() const
+QString Configuration::getWorkersPath() const
 {
 	return getConfiguration("WorkersPath");
 }

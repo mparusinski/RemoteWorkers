@@ -23,7 +23,7 @@ Management::Management()
 {
 	m_pathToWorkers = Configuration::getInstance()->getWorkersPath();
 	//Utils::Logger::getInstance()->debug(m_pathToWorkers)
-	if (m_pathToWorkers == string())
+	if (m_pathToWorkers == QString())
 	{
 		Utils::Logger::getInstance()->error_msg("Path to workers not read! Closing");
 		exit(-1);
@@ -45,13 +45,13 @@ Management* Management::getInstance()
 	return instance;
 }
 
-bool Management::createWorker(const string& workerName, Worker& worker)
+bool Management::createWorker(const QString& workerName, Worker& worker)
 {
 	getListOfWorkers();
 	const size_t numberOfWorkers = m_availableWorkers.size();
 	for (size_t i = 0; i < numberOfWorkers; ++i)
 	{
-		const string& currentWorkerName = m_availableWorkers[i];
+		const QString& currentWorkerName = m_availableWorkers[i];
 		if (currentWorkerName == workerName)
 		{
 			worker = Worker(m_pathToWorkers, workerName);
@@ -64,7 +64,7 @@ bool Management::createWorker(const string& workerName, Worker& worker)
 	return false;
 }
 
-vector<string>& Management::listAvailableWorkers()
+vector<QString>& Management::listAvailableWorkers()
 {
 	getListOfWorkers();
 	return m_availableWorkers;

@@ -11,19 +11,21 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 21/05/2012
 */
 
 #include <vector>
-#include <string>
+#include <iostream>
+#include <QString>
 #include <cstdlib>
 
 #include "WorkerInterface/Worker.hpp"
 #include "WorkerInterface/Management.hpp"
 #include "Utils/Logger.hpp"
 
+using namespace std;
+
 #define TEST(condition, msg) do { if (condition) { \
 	cout << "PASS: " << (msg) << " (which is bad!)" << endl; \
     } else { \
 	cout << "FAIL: " << (msg) << " (which is good!)" << endl; }  } while(0);
 
-using namespace std;
 using namespace WorkerInterface;
 
 int main(int argc, char *argv[])
@@ -35,11 +37,13 @@ int main(int argc, char *argv[])
 	// Testing if shell is executed instead of command
 
 	// TEST 1
+
+
 	bool shellTest1;
 	{
 		Worker worker("", ""); // empty path and command echo
-		vector<string> arguments;
-		arguments.push_back(string("Managed to execute shell!!!! FAILED"));
+		vector<QString> arguments;
+		arguments.push_back(QString("Managed to execute shell!!!! FAILED"));
 		Command command("echo", arguments);
 		shellTest1 = worker.executeCommand(command);
 		allTest = allTest && !shellTest1;
@@ -51,8 +55,8 @@ int main(int argc, char *argv[])
 	bool shellTest2;
 	{
 		Worker worker("echo ","");
-		vector<string> arguments;
-		arguments.push_back(string("Managed to execute shell!!!! FAILED"));
+		vector<QString> arguments;
+		arguments.push_back(QString("Managed to execute shell!!!! FAILED"));
 		Command command("", arguments);
 		shellTest2 = worker.executeCommand(command);
 		allTest = allTest && !shellTest2;
@@ -63,8 +67,8 @@ int main(int argc, char *argv[])
 	bool shellTest3;
 	{
 		Worker worker("", " echo");
-		vector<string> arguments;
-		arguments.push_back(string("Managed to execute shell!!!!! FAILED"));
+		vector<QString> arguments;
+		arguments.push_back(QString("Managed to execute shell!!!!! FAILED"));
 		Command command("", arguments);
 		shellTest3 = worker.executeCommand(command);
 		allTest = allTest && !shellTest3;
@@ -76,8 +80,8 @@ int main(int argc, char *argv[])
 	bool systemTest1;
 	{
 		Worker worker("/bin/sh ", " echo ");
-		vector<string> arguments;
-		arguments.push_back(string("Managed to execute a shell!!!!! FAILED"));
+		vector<QString> arguments;
+		arguments.push_back(QString("Managed to execute a shell!!!!! FAILED"));
 		Command command("", arguments);
 		systemTest1 = worker.executeCommand(command);
 		allTest = allTest && !systemTest1;
@@ -88,8 +92,8 @@ int main(int argc, char *argv[])
 	bool systemTest2;
 	{
 		Worker worker("/bin/echo ", " ");
-		vector<string> arguments;
-		arguments.push_back(string("Managed to execute a shell!!!!!!  FAILED"));
+		vector<QString> arguments;
+		arguments.push_back(QString("Managed to execute a shell!!!!!!  FAILED"));
 		Command command("", arguments);
 		systemTest2 = worker.executeCommand(command);
 		allTest = allTest && !systemTest2;
@@ -99,10 +103,10 @@ int main(int argc, char *argv[])
 
 	bool theGreatEscapeTest1;
 	{
-		string workerName = "; echo \"The great escape test succeeded (not good)\" ";
+		QString workerName = "; echo \"The great escape test succeeded (not good)\" ";
 		Worker worker;
 		Management::getInstance()->createWorker(workerName, worker);
-		vector<string> arguments;
+		vector<QString> arguments;
 		Command command("", arguments);
 		theGreatEscapeTest1 = worker.executeCommand(command);
 		allTest = allTest && !theGreatEscapeTest1;
@@ -112,11 +116,11 @@ int main(int argc, char *argv[])
 
 	bool theGreatEscapeTest2;
 	{
-		string workerName = "";
+		QString workerName = "";
 		Worker worker;
 		Management::getInstance()->createWorker(workerName, worker);
-		vector<string> arguments;
-		string theGreatEscape = "; echo \"The great escape test succeeded (not good)\" ";
+		vector<QString> arguments;
+		QString theGreatEscape = "; echo \"The great escape test succeeded (not good)\" ";
 		Command command("", arguments);
 		theGreatEscapeTest2 = worker.executeCommand(command);
 		allTest = allTest && !theGreatEscapeTest2;
@@ -126,11 +130,11 @@ int main(int argc, char *argv[])
 
 	bool theGreatEscapeTest3;
 	{
-		string workerName = "SimpleTestWorker";
+		QString workerName = "SimpleTestWorker";
 		Worker worker;
 		Management::getInstance()->createWorker(workerName, worker);
-		string theGreatEscape = "; echo \"The great escape test succeeded (not good)\" ";
-		vector<string> arguments;
+		QString theGreatEscape = "; echo \"The great escape test succeeded (not good)\" ";
+		vector<QString> arguments;
 		arguments.push_back(theGreatEscape);
 		Command command(workerName, arguments);
 		theGreatEscapeTest3 = worker.executeCommand(command);
@@ -141,12 +145,12 @@ int main(int argc, char *argv[])
 
 	bool theGreatEscapeTest4;
 	{
-		string workerName = "SimpleTestWorker";
+		QString workerName = "SimpleTestWorker";
 		Worker worker;
 		Management::getInstance()->createWorker(workerName, worker);
-		string theGreatEscape
+		QString theGreatEscape
 			= "`VAR=\"The great escape test succeeded (not good)\"; echo SimpleTestWorker`";
-		vector<string> arguments;
+		vector<QString> arguments;
 		Command command(theGreatEscape, arguments);
 		theGreatEscapeTest4 = worker.executeCommand(command);
 		allTest = allTest && !theGreatEscapeTest4;
@@ -156,11 +160,11 @@ int main(int argc, char *argv[])
 
 	bool environmentTest;
 	{
-		string workerName = "SecurityPenetrationTestWorker";
+		QString workerName = "SecurityPenetrationTestWorker";
 		Worker worker;
 		Management::getInstance()->createWorker(workerName, worker);
-		string commandName = "SanitizedEnvironment";
-		vector<string> arguments;
+		QString commandName = "SanitizedEnvironment";
+		vector<QString> arguments;
 		Command command(commandName, arguments);
 
 		// changing the environment

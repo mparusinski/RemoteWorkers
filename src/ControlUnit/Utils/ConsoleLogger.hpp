@@ -14,7 +14,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 16/05/2012.
 #define _CONSOLELOGGER_HPP_
 
 #include <iostream>
-#include <string>
+#include <QString>
 
 #include "LoggerBaseClass.hpp"
 
@@ -38,13 +38,13 @@ public:
 	/// \brief     Method for writing a message to the console
 	/// \param[in] message	message to be logged
 	////////////////////////////////////////////////////////////////////////////////
-	virtual void WriteToLog(const string& message) const;
+	virtual void WriteToLog(const QString& message) const;
 
 	////////////////////////////////////////////////////////////////////////////////
 	/// \brief     Method for reporting an error to the console
 	/// \param[in] message	error message to reported
 	////////////////////////////////////////////////////////////////////////////////
-	virtual void WriteToError(const string& message) const;
+	virtual void WriteToError(const QString& message) const;
 
 private:
 	virtual void noInstantiation() {}

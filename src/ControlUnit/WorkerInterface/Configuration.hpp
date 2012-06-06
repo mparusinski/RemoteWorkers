@@ -13,7 +13,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 17/05/2012.
 #ifndef _CONFIGURATION_HPP_
 #define _CONFIGURATION_HPP_
 
-#include <string>
+#include <QString>
 #include <fstream>
 #include <map>
 
@@ -29,7 +29,7 @@ namespace WorkerInterface
 class Configuration
 {
 public:
-	typedef map<string, string> ConfigurationsType;
+	typedef map<QString, QString> ConfigurationsType;
 
 	~Configuration();
 
@@ -44,13 +44,13 @@ public:
 	/// \brief     Returns the path to the directory containing the workers
 	/// \return    A string representing a file path
 	/////////////////////////////////////////////////////////////////////////////////
-	string getWorkersPath() const;
+	QString getWorkersPath() const;
 
 	/////////////////////////////////////////////////////////////////////////////////
 	/// \brief     Returns the value of corresponding to the descriptor
 	/// \return    Configuration value for given descriptor
 	/////////////////////////////////////////////////////////////////////////////////
-	string getConfiguration(const string& descriptor) const;
+	QString getConfiguration(const QString& descriptor) const;
 
 	/////////////////////////////////////////////////////////////////////////////////
 	/// \brief     Reads the configuration file. This is already done at construction.

@@ -14,7 +14,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 17/05/2012.
 #define _MANAGEMENT_HPP_
 
 #include <vector>
-#include <string>
+#include <QString>
 
 #include "Worker.hpp"
 #include "Reply.hpp"
@@ -42,21 +42,21 @@ public:
 	/// \param[out] worker      The worker we wish to create
 	/// \return     returns true if successfully created worker
 	/////////////////////////////////////////////////////////////////////////////////
-	bool createWorker(const string& workerName, Worker& worker);
+	bool createWorker(const QString& workerName, Worker& worker);
 
 	/////////////////////////////////////////////////////////////////////////////////
 	/// \brief     List all available workers in default path
 	/// \return    List of worker names (not a list of workers)
 	/////////////////////////////////////////////////////////////////////////////////
-	vector<string>& listAvailableWorkers();
+	vector<QString>& listAvailableWorkers();
 
 private:
 	Management();
 
 	inline void getListOfWorkers();
 
-	string m_pathToWorkers;
-	vector<string> m_availableWorkers;
+	QString m_pathToWorkers;
+	vector<QString> m_availableWorkers;
 };
 
 }
