@@ -8,9 +8,9 @@
 
 4-) Git
 
-5-) Boost 1.49
+# (NO LONGER NEEDED) 5-) Boost 1.49
 
-6-) Boost Process (seperate download but fully compatible with boost process)
+# (NO LONGER NEEDED 6-) Boost Process (seperate download but fully compatible with boost process)
 
 6-) LZMA 9.20
 
@@ -22,12 +22,12 @@
 
 MAKE SURE TO ADD ALL LIBRARIES TO lib/
 MAKE SURE ALL LIBRARIES SUPPORT THE CORRECT ARCHITECTURE
-(OS X = i386)
+(OS X = x86_64)
 
 ==== CMAKE SETUP ==== 
 
 1-) Run CMake with Eclipse option and choose native compilers
--> GCC 4.2 for MAC OS X ... NOT CLANG!!!!
+-> CLANG for MAC OS X
 -> GCC for Linux
 -> MSVC for Windows
 

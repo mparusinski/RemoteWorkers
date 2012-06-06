@@ -25,7 +25,7 @@ Management::Management()
 	//Utils::Logger::getInstance()->debug(m_pathToWorkers)
 	if (m_pathToWorkers == string())
 	{
-		Utils::Logger::getInstance()->error("Path to workers not read! Closing");
+		Utils::Logger::getInstance()->error_msg("Path to workers not read! Closing");
 		exit(-1);
 	}
 }
@@ -58,6 +58,9 @@ bool Management::createWorker(const string& workerName, Worker& worker)
 			return true;
 		}
 	}
+
+	Utils::Logger::getInstance()->error_msg("Worker not available");
+
 	return false;
 }
 

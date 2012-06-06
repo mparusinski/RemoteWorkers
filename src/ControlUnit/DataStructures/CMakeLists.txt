@@ -1,6 +1,10 @@
-SET(DataStructuresSRC STATIC
-    ByteStream.hpp
+SET(DataStructures_SOURCES
     ByteStream.cpp
 )
 
-ADD_LIBRARY(DataStructures ${DataStructuresSRC})
+SET(DataStructures_HEADERS
+    ByteStream.hpp
+)
+
+ADD_LIBRARY(DataStructures STATIC 
+  ${DataStructures_SOURCES} ${DataStructures_HEADERS})

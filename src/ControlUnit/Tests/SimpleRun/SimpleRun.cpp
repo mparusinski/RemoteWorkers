@@ -43,7 +43,7 @@ int main(int argc, char *argv[])
 
 	if ( reply.empty() )
 	{
-		Utils::Logger::getInstance()->error("Reply is not built");
+		Utils::Logger::getInstance()->error_msg("Reply is not built");
 		return -1;
 	}
 	else

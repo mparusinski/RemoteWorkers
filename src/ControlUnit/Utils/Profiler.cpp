@@ -21,29 +21,28 @@ Profiler::TimerTypes Profiler::m_timers = Profiler::TimerTypes();
 
 void Profiler::startProfiler()
 {
-	cpu_timer timer;
+	QElapsedTimer timer;
 	timer.start();
 	m_timers.push(timer);
 }
 
-void Profiler::stopProfiler()
+double Profiler::stopProfiler()
 {
-	m_timers.top().stop();
+	double time = timeElapsed();
+	m_timers.pop();
+	return time;
 }
 
 double Profiler::timeElapsed()
 {
-	const cpu_timer& timer = m_timers.top();
-	m_timers.pop();
-
-	const cpu_times& time = timer.elapsed();
-	const nanosecond_type& diffNs = time.wall;
-	return (double) diffNs / 1000000; // milliseconds
+	const QElapsedTimer& timer = m_timers.top();
+	const qint64& time = timer.elapsed();
+	return (double) time; // milliseconds
 }
 
 void Profiler::profile(const string& message)
 {
-	cout << "PROFILE: " << message << " took time " << timeElapsed() << " ms" << endl;
+	cout << "PROFILE: " << message << " took time " << stopProfiler() << " ms" << endl;
 }
 
 }

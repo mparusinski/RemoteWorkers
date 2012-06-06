@@ -12,10 +12,10 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 16/05/2012.
 
 #include "Logger.hpp"
 
-#include <boost/lexical_cast.hpp>
-
 #include "ConsoleLogger.hpp"
 #include "FileLogger.hpp"
+
+#include <QString>
 
 namespace Utils
 {
@@ -120,7 +120,7 @@ void Logger::reportError(
 		actualMessage += ", function: ";
 		actualMessage += function;
 		actualMessage += ", lineNumber: ";
-		actualMessage += boost::lexical_cast<string>(lineNumber);
+		actualMessage += QString::number(lineNumber).toStdString();
 		actualMessage += "): ";
 		actualMessage += message;
 		actualMessage += "\n";
@@ -142,7 +142,7 @@ void Logger::reportError(
 		actualMessage += ", function: ";
 		actualMessage += function;
 		actualMessage += ", lineNumber: ";
-		actualMessage += boost::lexical_cast<string>(lineNumber);
+		actualMessage += QString::number(lineNumber).toStdString();
 		actualMessage += "): ";
 		actualMessage += message;
 		actualMessage += "\n";

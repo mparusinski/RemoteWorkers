@@ -73,7 +73,7 @@ public:
 	///            in which the error occurred, the function name and the line number.
 	///            Use this instead of reportError.
 	////////////////////////////////////////////////////////////////////////////////
-#define error(message) reportError(__FILE__, (__func__), __LINE__, message)
+#define error_msg(message) reportError(__FILE__, (__func__), __LINE__, message)
 
 	////////////////////////////////////////////////////////////////////////////////
 	/// \def debug(message)

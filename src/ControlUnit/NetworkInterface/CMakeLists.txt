@@ -6,11 +6,14 @@ LINK_DIRECTORIES(
     ${RemoteWorkers_ControlUnit_BINARY_DIR}
 )
 
-SET(NetworkInterfaceSRC STATIC
-    NetworkSocketBase.hpp
+SET(NetworkInterface_SOURCES
     NetworkSocketBase.cpp
-    NetworkSocketSsl.hpp
     NetworkSocketSsl.cpp
 )
 
-ADD_LIBRARY(NetworkInterface ${NetworkInterfaceSRC})
+SET(NetworkInterface_HEADERS
+    NetworkSocketBase.hpp
+    NetworkSocketSsl.hpp
+)
+
+ADD_LIBRARY(NetworkInterface STATIC ${NetworkInterface_SOURCES} ${NetworkInterface_HEADERS})

@@ -6,22 +6,24 @@ LINK_DIRECTORIES(
     ${RemoteWorkers_ControlUnit_BINARY_DIR}
 )
 
-SET(UtilsSRC STATIC
-   SystemManagement.hpp
+SET(Utils_SOURCES
    SystemManagement.cpp
-   Logger.hpp
    Logger.cpp
-   LoggerBaseClass.hpp
    LoggerBaseClass.cpp
-   FileLogger.hpp
    FileLogger.cpp
-   ConsoleLogger.hpp
    ConsoleLogger.cpp
-   Profiler.hpp
    Profiler.cpp
 )
 
-ADD_LIBRARY(Utils ${UtilsSRC})
+SET(Utils_HEADERS
+   SystemManagement.hpp
+   Logger.hpp
+   LoggerBaseClass.hpp
+   FileLogger.hpp
+   ConsoleLogger.hpp
+   Profiler.hpp
+)
 
-TARGET_LINK_LIBRARIES(Utils ${Boost_LIBRARIES})
+ADD_LIBRARY(Utils STATIC ${Utils_SOURCES} ${Utils_HEADERS})
 
+TARGET_LINK_LIBRARIES(Utils ${QT_LIBRARIES})

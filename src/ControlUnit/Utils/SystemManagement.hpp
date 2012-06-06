@@ -17,6 +17,9 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 15/05/2012.
 #include <vector>
 #include <iostream>
 
+#include <QProcess>
+#include <QString>
+
 using namespace std;
 
 namespace Utils
@@ -29,12 +32,8 @@ namespace Utils
 class SystemManagement
 {
 public:
-	////////////////////////////////////////////////////////////////////////////////
-	/// \brief  Function that returns the appropriate path separator for current
-	///         operating system
-	/// \return A string representing the path separator for the OS
-	////////////////////////////////////////////////////////////////////////////////
-	static string getPathSeparator();
+
+#define PATH_SEPERATOR "/";
 
 	////////////////////////////////////////////////////////////////////////////////
 	/// \brief     Executes a command in given directory with given arguments
@@ -68,6 +67,10 @@ public:
 	/// \param[in] files 	Files to be deleted
 	////////////////////////////////////////////////////////////////////////////////
 	static void deleteFiles(const vector<string>& files);
+
+private:
+	static void setSafeEnvironment(QProcessEnvironment& environment);
+
 };
 
 }

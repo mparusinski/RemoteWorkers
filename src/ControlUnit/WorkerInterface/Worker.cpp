@@ -62,7 +62,7 @@ bool Worker::executeCommand(const Command& command) const
 	const vector<string>& arguments = command.getArguments();
 
 	string fullPath = m_path;
-	fullPath += Utils::SystemManagement::getPathSeparator();
+	fullPath += PATH_SEPERATOR;
 	fullPath += m_name;
 
 	string fullCommand = commandToString(command);
@@ -74,7 +74,6 @@ bool Worker::executeCommand(const Command& command) const
 	fullCommand += "\" was executed";
 	Utils::Logger::getInstance()->log(fullCommand);
 
-
 	return Utils::SystemManagement::executeCommand(fullPath, order, arguments) == 0;
 }
 
@@ -84,7 +83,7 @@ string Worker::commandToString(const Command& command) const
 
 	commandName += "Command \"";
 	commandName += m_path;
-	commandName += Utils::SystemManagement::getPathSeparator();
+	commandName +=PATH_SEPERATOR;
 	commandName += command.getOrder();
 
 	return commandName;
@@ -113,7 +112,7 @@ Reply Worker::createReply() const
 		{
 			string errorMessage = "Failed to open file ";
 			errorMessage += fileName;
-			Utils::Logger::getInstance()->error(errorMessage);
+			Utils::Logger::getInstance()->error_msg(errorMessage);
 			return Reply();
 		}
 
@@ -137,11 +136,11 @@ string Worker::getOutputPath() const
 {
 	string outputPath = "";
 	outputPath += m_path;
-	outputPath += Utils::SystemManagement::getPathSeparator();
+	outputPath += PATH_SEPERATOR;
 	outputPath += m_name;
-	outputPath += Utils::SystemManagement::getPathSeparator();
+	outputPath += PATH_SEPERATOR;
 	outputPath += "output";
-	outputPath += Utils::SystemManagement::getPathSeparator();
+	outputPath += PATH_SEPERATOR;
 
 	return outputPath;
 }

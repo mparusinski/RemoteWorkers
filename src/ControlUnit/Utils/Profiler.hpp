@@ -17,10 +17,9 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 19/05/2012.
 #include <string>
 #include <stack>
 
-#include <boost/timer/timer.hpp>
+#include <QElapsedTimer>
 
 using namespace std;
-using namespace boost::timer;
 
 namespace Utils
 {
@@ -35,7 +34,7 @@ namespace Utils
 class Profiler
 {
 public:
-	typedef stack<cpu_timer> TimerTypes;
+	typedef stack<QElapsedTimer> TimerTypes;
 
 	////////////////////////////////////////////////////////////////////////////////
 	/// \brief Starts the profiler i.e checks the system clock and record the time
@@ -43,9 +42,9 @@ public:
 	static void startProfiler();
 
 	////////////////////////////////////////////////////////////////////////////////
-	/// \brief Stops the profiler i.e checks the system clock and record the time
+	/// \brief Stops the profiler i.e checks the system clock and returns the time taken
 	////////////////////////////////////////////////////////////////////////////////
-	static void stopProfiler();
+	static double stopProfiler();
 
 	////////////////////////////////////////////////////////////////////////////////
 	/// \brief Measure the time spent between when the profiler has been started

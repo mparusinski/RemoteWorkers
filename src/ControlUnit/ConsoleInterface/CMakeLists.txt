@@ -5,10 +5,10 @@ LINK_DIRECTORIES(
   ${RemoteWorkers_ControlUnit_BINARY_DIR}
 )
 
-SET(ControlUnitConsoleSRC
+SET(ControlUnitConsoleSOURCES
     Console.cpp
 )
 
-ADD_EXECUTABLE(ControlUnitConsole ${ControlUnitConsoleSRC})
+ADD_EXECUTABLE(ControlUnitConsole ${ControlUnitConsoleSOURCES})
 
 TARGET_LINK_LIBRARIES(ControlUnitConsole WorkerInterface Utils)

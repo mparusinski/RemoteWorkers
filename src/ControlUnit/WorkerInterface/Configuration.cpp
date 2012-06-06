@@ -62,7 +62,7 @@ void Configuration::readConfiguration()
 	}
 	else
 	{
-		Utils::Logger::getInstance()->error("Unable to read configuration! Configuration file did not open");
+		Utils::Logger::getInstance()->error_msg("Unable to read configuration! Configuration file did not open");
 	}
 }
 
@@ -79,14 +79,14 @@ string Configuration::getConfiguration(const string& descriptor) const
 		{
 			string errorMessage = "There is no configuration for descriptor ";
 			errorMessage += descriptor;
-			Utils::Logger::getInstance()->error(errorMessage);
+			Utils::Logger::getInstance()->error_msg(errorMessage);
 
 			return string();
 		}
 	}
 	else
 	{
-		Utils::Logger::getInstance()->error("Configuration has not been read");
+		Utils::Logger::getInstance()->error_msg("Configuration has not been read");
 		return string();
 	}
 }
