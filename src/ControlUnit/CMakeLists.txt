@@ -6,8 +6,8 @@ MESSAGE("Checking for Apple system")
 
 IF(APPLE)
   MESSAGE("Apple system detected")
-  SET(CMAKE_CXX_COMPILER /usr/bin/clang++)
-  SET(CMAKE_C_COMPILER /usr/bin/clang)
+#  SET(CMAKE_CXX_COMPILER /usr/bin/g++)
+#  SET(CMAKE_C_COMPILER /usr/bin/gcc)
   SET(CMAKE_OSX_ARCHITECTURES x86_64)
   INCLUDE_DIRECTORIES(
     /usr/include
