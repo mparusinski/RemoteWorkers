@@ -92,6 +92,7 @@ Reply Worker::createReply() const
 	const size_t numberOfFiles = files.size();
 
 	ByteStreams rawData;
+    rawData.reserve(numberOfFiles);
 
 	ifstream file;
 	for (size_t i = 0; i < numberOfFiles; ++i)
