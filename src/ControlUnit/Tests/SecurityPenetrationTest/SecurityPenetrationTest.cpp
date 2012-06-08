@@ -13,7 +13,9 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 21/05/2012
 #include <vector>
 #include <iostream>
 #include <QString>
-#include <cstdlib>
+#include <QStringList>
+#include <stdlib.h>
+#include <stdio.h>
 
 #include "WorkerInterface/Worker.hpp"
 #include "WorkerInterface/Management.hpp"
@@ -41,8 +43,8 @@ int main(int argc, char *argv[])
 
 	bool shellTest1;
 	{
-		Worker worker("", ""); // empty path and command echo
-		vector<QString> arguments;
+		Worker worker(QFileInfo("")); // empty path and command echo
+		QStringList arguments;
 		arguments.push_back(QString("Managed to execute shell!!!! FAILED"));
 		Command command("echo", arguments);
 		shellTest1 = worker.executeCommand(command);
@@ -54,8 +56,8 @@ int main(int argc, char *argv[])
 	// TEST 2
 	bool shellTest2;
 	{
-		Worker worker("echo ","");
-		vector<QString> arguments;
+		Worker worker(QFileInfo("echo "));
+		QStringList arguments;
 		arguments.push_back(QString("Managed to execute shell!!!! FAILED"));
 		Command command("", arguments);
 		shellTest2 = worker.executeCommand(command);
@@ -64,23 +66,12 @@ int main(int argc, char *argv[])
 		TEST(shellTest2, "Shell test 2");
 	}
 
-	bool shellTest3;
-	{
-		Worker worker("", " echo");
-		vector<QString> arguments;
-		arguments.push_back(QString("Managed to execute shell!!!!! FAILED"));
-		Command command("", arguments);
-		shellTest3 = worker.executeCommand(command);
-		allTest = allTest && !shellTest3;
-
-		TEST(shellTest3, "Shell test 3");
-	}
 
 	// TESTING IF WE CAN EXECUTE DANGEROUS SYSTEM COMMANDS
 	bool systemTest1;
 	{
-		Worker worker("/bin/sh ", " echo ");
-		vector<QString> arguments;
+		Worker worker(QFileInfo("/bin/sh echo"));
+		QStringList arguments;
 		arguments.push_back(QString("Managed to execute a shell!!!!! FAILED"));
 		Command command("", arguments);
 		systemTest1 = worker.executeCommand(command);
@@ -91,8 +82,8 @@ int main(int argc, char *argv[])
 
 	bool systemTest2;
 	{
-		Worker worker("/bin/echo ", " ");
-		vector<QString> arguments;
+		Worker worker(QFileInfo("/bin/echo "));
+		QStringList arguments;
 		arguments.push_back(QString("Managed to execute a shell!!!!!!  FAILED"));
 		Command command("", arguments);
 		systemTest2 = worker.executeCommand(command);
@@ -106,7 +97,7 @@ int main(int argc, char *argv[])
 		QString workerName = "; echo \"The great escape test succeeded (not good)\" ";
 		Worker worker;
 		Management::getInstance()->createWorker(workerName, worker);
-		vector<QString> arguments;
+		QStringList arguments;
 		Command command("", arguments);
 		theGreatEscapeTest1 = worker.executeCommand(command);
 		allTest = allTest && !theGreatEscapeTest1;
@@ -119,7 +110,7 @@ int main(int argc, char *argv[])
 		QString workerName = "";
 		Worker worker;
 		Management::getInstance()->createWorker(workerName, worker);
-		vector<QString> arguments;
+		QStringList arguments;
 		QString theGreatEscape = "; echo \"The great escape test succeeded (not good)\" ";
 		Command command("", arguments);
 		theGreatEscapeTest2 = worker.executeCommand(command);
@@ -134,7 +125,7 @@ int main(int argc, char *argv[])
 		Worker worker;
 		Management::getInstance()->createWorker(workerName, worker);
 		QString theGreatEscape = "; echo \"The great escape test succeeded (not good)\" ";
-		vector<QString> arguments;
+		QStringList arguments;
 		arguments.push_back(theGreatEscape);
 		Command command(workerName, arguments);
 		theGreatEscapeTest3 = worker.executeCommand(command);
@@ -150,7 +141,7 @@ int main(int argc, char *argv[])
 		Management::getInstance()->createWorker(workerName, worker);
 		QString theGreatEscape
 			= "`VAR=\"The great escape test succeeded (not good)\"; echo SimpleTestWorker`";
-		vector<QString> arguments;
+		QStringList arguments;
 		Command command(theGreatEscape, arguments);
 		theGreatEscapeTest4 = worker.executeCommand(command);
 		allTest = allTest && !theGreatEscapeTest4;
@@ -164,12 +155,14 @@ int main(int argc, char *argv[])
 		Worker worker;
 		Management::getInstance()->createWorker(workerName, worker);
 		QString commandName = "SanitizedEnvironment";
-		vector<QString> arguments;
+		QStringList arguments;
 		Command command(commandName, arguments);
 
 		// changing the environment
 		char* originalPath = getenv("HOME");
-		char* newPath = "HOME=/usr/bin";
+        const string newPath_str = string("HOME=/usr/bin");
+		char* newPath = new char[newPath_str.length()]; 
+        strcpy(newPath, newPath_str.c_str());
 		putenv(newPath);
 
 		environmentTest = worker.executeCommand(command);

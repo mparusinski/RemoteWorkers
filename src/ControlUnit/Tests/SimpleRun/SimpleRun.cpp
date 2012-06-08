@@ -13,6 +13,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 18/05/2012.
 // NO FUNCTIONS TO BE ADDED TO THIS FILE
 
 #include <QString>
+#include <QStringList>
 #include <vector>
 #include <iostream>
 
@@ -29,15 +30,15 @@ int main(int argc, char *argv[])
 {
 	Utils::Logger::getInstance()->turnAllOn();
 
-	vector<QString> availableWorkers = Management::getInstance()->listAvailableWorkers();
+	QFileInfoList availableWorkers = Management::getInstance()->listAvailableWorkers();
 	for (size_t i = 0; i < availableWorkers.size(); ++i)
 	{
-		cout << availableWorkers[i].toStdString() << endl;
+		cout << availableWorkers[i].fileName().toStdString() << endl;
 	}
 
 	Worker worker;
 	Management::getInstance()->createWorker("SimpleTestWorker", worker);
-	Command command("SimpleTestWorker", vector<QString>());
+	Command command("SimpleTestWorker", QStringList());
 	worker.executeCommand(command);
 	Reply reply = worker.getReply();
 

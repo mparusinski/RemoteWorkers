@@ -13,6 +13,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 15/05/2012.
 // NO FUNCTIONS TO BE ADDED TO THIS FILE
 
 #include <QString>
+#include <QStringList>
 #include <vector>
 #include <iostream>
 
@@ -33,10 +34,10 @@ int main(int argc, char *argv[])
 	Utils::Profiler::profile("Turning logging on");
 
 	Utils::Profiler::startProfiler();
-	vector<QString> availableWorkers = Management::getInstance()->listAvailableWorkers();
+	QFileInfoList availableWorkers = Management::getInstance()->listAvailableWorkers();
 	for (size_t i = 0; i < availableWorkers.size(); ++i)
 	{
-		cout << availableWorkers[i].toStdString() << endl;
+		cout << availableWorkers[i].fileName().toStdString() << endl;
 	}
 	Utils::Profiler::profile("Reading workers");
 
@@ -46,7 +47,7 @@ int main(int argc, char *argv[])
 	Utils::Profiler::profile("Creating worker");
 
 	Utils::Profiler::startProfiler();
-	Command command("NastyBadWorker", vector<QString>());
+	Command command("NastyBadWorker", QStringList());
 	worker.executeCommand(command);
 	Utils::Profiler::profile("Executing a command");
 

@@ -15,6 +15,8 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 15/05/2012.
 #include <iostream>
 #include <fstream>
 
+#include <QDir>
+
 #include "Reply.hpp"
 #include "Utils/SystemManagement.hpp"
 #include "Utils/Logger.hpp"
@@ -28,14 +30,12 @@ namespace WorkerInterface
 
 Worker::Worker()
 {
-	m_path = QString();
-	m_name = QString();
 }
 
-Worker::Worker(QString path, QString name)
+Worker::Worker(const QFileInfo& path)
 {
 	m_path = path;
-	m_name = name;
+	getOutputPath();
 }
 
 Reply Worker::getReply() const
@@ -45,24 +45,17 @@ Reply Worker::getReply() const
 	return reply;
 }
 
-QString Worker::getPath() const
+const QFileInfo& Worker::getPath() const
 {
 	return m_path;
-}
-
-QString Worker::getName() const
-{
-	return m_name;
 }
 
 bool Worker::executeCommand(const Command& command) const
 {
 	const QString& order = command.getOrder();
-	const vector<QString>& arguments = command.getArguments();
+	const QStringList& arguments = command.getArguments();
 
-	QString fullPath = m_path;
-	fullPath += PATH_SEPERATOR;
-	fullPath += m_name;
+	QString fullPath = m_path.filePath();
 
 	QString fullCommand = commandToString(command);
 	fullCommand += " ";
@@ -80,8 +73,8 @@ QString Worker::commandToString(const Command& command) const
 {
 	QString commandName;
 
-	commandName += "Command \"";
-	commandName += m_path;
+	commandName += "Command ";
+	commandName += m_path.filePath();
 	commandName +=PATH_SEPERATOR;
 	commandName += command.getOrder();
 
@@ -92,11 +85,9 @@ Reply Worker::createReply() const
 {
 	typedef Reply::ByteStreams ByteStreams;
 
-	QString outputPath = getOutputPath();
+	QFileInfoList files;
 
-	vector< QString > files;
-
-	Utils::SystemManagement::getListOfFilesInDir(outputPath, files);
+	Utils::SystemManagement::getListOfFilesInDir(m_outputPath, files);
 
 	const size_t numberOfFiles = files.size();
 
@@ -105,12 +96,13 @@ Reply Worker::createReply() const
 	ifstream file;
 	for (size_t i = 0; i < numberOfFiles; ++i)
 	{
-		const QString& fileName = files[i];
-		file.open(fileName.toStdString().c_str(), ifstream::binary);
+		const QString& filePath = files[i].filePath();
+		const char * fileName   = filePath.toAscii().data();
+		file.open(fileName, ifstream::binary);
 		if ( !file.is_open() )
 		{
 			QString errorMessage = "Failed to open file ";
-			errorMessage += fileName;
+			errorMessage += filePath;
 			Utils::Logger::getInstance()->error_msg(errorMessage);
 			return Reply();
 		}
@@ -131,27 +123,20 @@ Reply Worker::createReply() const
 	return Reply(rawData);
 }
 
-QString Worker::getOutputPath() const
+void Worker::getOutputPath()
 {
-	QString outputPath = "";
-	outputPath += m_path;
-	outputPath += PATH_SEPERATOR;
-	outputPath += m_name;
-	outputPath += PATH_SEPERATOR;
-	outputPath += "output";
-	outputPath += PATH_SEPERATOR;
+	QString fullPathString = m_path.filePath();
+	fullPathString += PATH_SEPERATOR;
+	fullPathString += "output";
+	fullPathString += PATH_SEPERATOR;
 
-	return outputPath;
+	m_outputPath = QFileInfo(fullPathString);
 }
 
 void Worker::cleanOutput() const
 {
-	QString outputPath = getOutputPath();
-
-	vector< QString > files;
-
-	Utils::SystemManagement::getListOfFilesInDir(outputPath, files);
-
+	QFileInfoList files;
+	Utils::SystemManagement::getListOfFilesInDir(m_outputPath, files);
 	Utils::SystemManagement::deleteFiles(files);
 }
 

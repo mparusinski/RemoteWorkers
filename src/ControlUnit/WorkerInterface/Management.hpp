@@ -13,8 +13,8 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 17/05/2012.
 #ifndef _MANAGEMENT_HPP_
 #define _MANAGEMENT_HPP_
 
-#include <vector>
 #include <QString>
+#include <QFileInfo>
 
 #include "Worker.hpp"
 #include "Reply.hpp"
@@ -48,15 +48,15 @@ public:
 	/// \brief     List all available workers in default path
 	/// \return    List of worker names (not a list of workers)
 	/////////////////////////////////////////////////////////////////////////////////
-	vector<QString>& listAvailableWorkers();
+	const QFileInfoList& listAvailableWorkers();
 
 private:
 	Management();
 
 	inline void getListOfWorkers();
 
-	QString m_pathToWorkers;
-	vector<QString> m_availableWorkers;
+	QFileInfo m_pathToWorkers;
+	QFileInfoList m_availableWorkers;
 };
 
 }

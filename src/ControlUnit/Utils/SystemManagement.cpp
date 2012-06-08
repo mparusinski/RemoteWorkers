@@ -25,97 +25,77 @@ namespace Utils
 int SystemManagement::executeCommand(
 			const QString& directory,
 			const QString& command,
-			const vector<QString>& arguments)
+			const QStringList& arguments)
 {
 	QString fullCommand("");
 	fullCommand += directory;
 	fullCommand += PATH_SEPERATOR;
 	fullCommand += command;
 
-	QStringList argumentsList;
-
-	for (size_t i = 0; i < arguments.size(); i++)
-	{
-		argumentsList.push_back(QString(arguments[i]));
-	}
-
 	QProcess process;
 	QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
 	setSafeEnvironment(env);
 	process.setProcessEnvironment(env);
 
-	process.start(fullCommand, argumentsList);
-	bool finished = process.waitForFinished(300000);
+	process.start(fullCommand, arguments);
+	//bool finished = process.waitForFinished(300000);
+	process.waitForFinished(-1);
+	process.terminate();
 
-	if (!finished)
-	{
-		Utils::Logger::getInstance()->error_msg("The run command did not finish properly! May have timed out");
-		process.kill();
-		return 0;
-	}
+//	if (!finished)
+//	{
+//		Utils::Logger::getInstance()->error_msg("The run command did not finish properly! May have timed out");
+//		process.kill();
+//		return 0;
+//	}
 
 	int exitCode = process.exitCode();
 
 	return exitCode;
 }
 
-void SystemManagement::getListOfFilesInDir(const QString& directory, vector<QString>& files)
+void SystemManagement::getListOfFilesInDir(const QFileInfo& directory, QFileInfoList& files)
 {
-	QFileInfo directoryPath(directory);
-
-	if (directoryPath.exists() && directoryPath.isDir())
+	if (directory.exists() && directory.isDir())
 	{
-		const QDir directoryReal(directoryPath.absolutePath());
-	    const QFileInfoList fileList = directoryReal.entryInfoList(QDir::Files);
-		for (int i = 0; i < fileList.length(); ++i)
-		{
-			files.push_back(fileList[i].filePath());
-		}
+		const QDir directoryReal(directory.absolutePath());
+	    files = directoryReal.entryInfoList(QDir::Files);
 	}
 	else
 	{
 		QString errorMessage = "Directory ";
-		errorMessage += directoryPath.filePath();
-
+		errorMessage += directory.filePath();
 		errorMessage += " not found";
+
 		Utils::Logger::getInstance()->error_msg(errorMessage);
-		return;
 	}
 }
 
-void SystemManagement::getListOfDirsInDir(const QString& directory, vector<QString>& directories)
+void SystemManagement::getListOfDirsInDir(const QFileInfo& directory, QFileInfoList& directories)
 {
-	const QFileInfo directoryPath(directory);
-
-	if (directoryPath.exists() && directoryPath.isDir())
+	if (directory.exists() && directory.isDir())
 	{
-		const QDir directoryReal(directoryPath.absolutePath());
-		const QFileInfoList directoryList = directoryReal.entryInfoList(QDir::Dirs);
+		const QDir directoryReal(directory.absolutePath());
+		directories = directoryReal.entryInfoList(QDir::Dirs);
 		//Utils::Logger::getInstance()->debug(directoryReal.absolutePath().toStdString());
-
-		for (int i = 0; i < directoryList.size(); ++i)
-		{
-			//Utils::Logger::getInstance()->debug(directoryList[i].fileName().toStdString());
-			directories.push_back(directoryList[i].fileName());
-		}
 	}
 	else
 	{
 		QString errorMessage = "Directory ";
-		errorMessage += directoryPath.filePath();
+		errorMessage += directory.filePath();
 		errorMessage += " not found";
 		Utils::Logger::getInstance()->error_msg(errorMessage);
 		return;
 	}
 }
 
-void SystemManagement::deleteFiles(const vector<QString>& files)
+void SystemManagement::deleteFiles(const QFileInfoList& files)
 {
-	const size_t numberOfFiles = files.size();
+	const int numberOfFiles = files.size();
 
-	for (size_t i = 0; i < numberOfFiles; ++i)
+	for (int i = 0; i < numberOfFiles; ++i)
 	{
-		const QFileInfo filePath(files[i]);
+		const QFileInfo& filePath = files[i];
 		QDir fileDirectory = filePath.absoluteDir();
 		fileDirectory.remove(filePath.filePath());
 	}

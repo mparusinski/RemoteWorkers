@@ -14,7 +14,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 15/05/2012.
 #define _WORKER_HPP_
 
 #include <QString>
-#include <vector>
+#include <QFileInfo>
 
 #include "Reply.hpp"
 #include "Command.hpp"
@@ -32,7 +32,7 @@ class Worker {
 
 public:
 	Worker();
-	Worker(QString path, QString name);
+	Worker(const QFileInfo& path);
 	virtual ~Worker() { }
 
 	////////////////////////////////////////////////////////////////////////////////
@@ -56,22 +56,16 @@ public:
 	/// \brief     Returns the path to the worker (not the worker name)
 	/// \return    Path to the worker, not the name
 	////////////////////////////////////////////////////////////////////////////////
-	QString getPath() const;
-
-	////////////////////////////////////////////////////////////////////////////////
-	/// \brief     Returns the name of the worker (not the path to the worker)
-	/// \return    Path to the worker, not the name
-	////////////////////////////////////////////////////////////////////////////////
-	QString getName() const;
+	const QFileInfo& getPath() const;
 
 private:
 	QString commandToString(const Command& command) const;
 	Reply createReply() const;
-	QString getOutputPath() const;
+	void getOutputPath();
 	void cleanOutput() const;
 
-	QString m_path;
-	QString m_name;
+	QFileInfo m_path;
+	QFileInfo m_outputPath;
 };
 
 }

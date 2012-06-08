@@ -33,10 +33,10 @@ int main(int argc, char *argv[])
 	Utils::Profiler::profile("Turning logging on");
 
 	Utils::Profiler::startProfiler();
-	vector<QString> availableWorkers = Management::getInstance()->listAvailableWorkers();
+	QFileInfoList availableWorkers = Management::getInstance()->listAvailableWorkers();
 	for (size_t i = 0; i < availableWorkers.size(); ++i)
 	{
-		cout << availableWorkers[i].toStdString() << endl;
+		cout << availableWorkers[i].fileName().toStdString() << endl;
 	}
 	Utils::Profiler::profile("Reading workers");
 

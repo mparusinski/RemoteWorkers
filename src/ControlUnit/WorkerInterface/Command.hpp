@@ -14,6 +14,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 15/05/2012.
 #define _COMMAND_HPP_
 
 #include <QString>
+#include <QStringList>
 #include <vector>
 
 using namespace std;
@@ -31,24 +32,24 @@ class Command
 public:
 	typedef vector<QString> ArgumentsType;
 
-	Command(const QString& order, const vector<QString>& arguments);
+	Command(const QString& order, const QStringList& arguments);
 	virtual ~Command() { }
 
 	/////////////////////////////////////////////////////////////////////////////////
 	/// \brief     Return the order i.e the command the object represents
 	/// \return    A string representing the command
 	/////////////////////////////////////////////////////////////////////////////////
-	QString getOrder() const;
+	const QString& getOrder() const;
 
 	/////////////////////////////////////////////////////////////////////////////////
 	/// \brief     Returns the list of arguments the real command needs to receive
 	/// \return    A list of arguments
 	/////////////////////////////////////////////////////////////////////////////////
-	vector<QString> getArguments() const;
+	const QStringList& getArguments() const;
 
 private:
 	QString m_order;
-	vector<QString> m_arguments;
+	QStringList m_arguments;
 };
 
 }

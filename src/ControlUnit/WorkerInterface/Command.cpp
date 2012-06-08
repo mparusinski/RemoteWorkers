@@ -19,18 +19,18 @@ using namespace std;
 namespace WorkerInterface
 {
 
-Command::Command(const QString& commandName, const vector<QString>& arguments)
+Command::Command(const QString& commandName, const QStringList& arguments)
 {
 	m_order = commandName;
 	m_arguments = arguments;
 }
 
-QString Command::getOrder() const
+const QString& Command::getOrder() const
 {
 	return m_order;
 }
 
-vector<QString> Command::getArguments() const
+const QStringList& Command::getArguments() const
 {
 	return m_arguments;
 }

@@ -41,16 +41,19 @@ public:
 	static Configuration* getInstance();
 
 	/////////////////////////////////////////////////////////////////////////////////
-	/// \brief     Returns the path to the directory containing the workers
-	/// \return    A string representing a file path
+	/// \brief      Returns the path to the directory containing the workers
+    /// \param[out] workerPath path to the workers
+	/// \return     A string representing a file path
 	/////////////////////////////////////////////////////////////////////////////////
-	QString getWorkersPath() const;
+	void getWorkersPath(QString& workerPath) const;
 
 	/////////////////////////////////////////////////////////////////////////////////
-	/// \brief     Returns the value of corresponding to the descriptor
-	/// \return    Configuration value for given descriptor
+	/// \brief      Returns the value of corresponding to the descriptor
+    /// \param[in]  descriptor    Name of the configuration
+    /// \param[out] configuration Value of the configuration
+	/// \return     Configuration value for given descriptor
 	/////////////////////////////////////////////////////////////////////////////////
-	QString getConfiguration(const QString& descriptor) const;
+	void getConfiguration(const QString& descriptor, QString& configuration) const;
 
 	/////////////////////////////////////////////////////////////////////////////////
 	/// \brief     Reads the configuration file. This is already done at construction.

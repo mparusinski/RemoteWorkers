@@ -21,7 +21,9 @@ namespace WorkerInterface
 
 Management::Management()
 {
-	m_pathToWorkers = Configuration::getInstance()->getWorkersPath();
+    QString pathToWorkers;
+	Configuration::getInstance()->getWorkersPath(pathToWorkers);
+    m_pathToWorkers.setFile(pathToWorkers);
 	//Utils::Logger::getInstance()->debug(m_pathToWorkers)
 	if (m_pathToWorkers == QString())
 	{
@@ -51,10 +53,10 @@ bool Management::createWorker(const QString& workerName, Worker& worker)
 	const size_t numberOfWorkers = m_availableWorkers.size();
 	for (size_t i = 0; i < numberOfWorkers; ++i)
 	{
-		const QString& currentWorkerName = m_availableWorkers[i];
-		if (currentWorkerName == workerName)
+		const QFileInfo& currentWorkerName = m_availableWorkers[i];
+		if (currentWorkerName.fileName() == workerName)
 		{
-			worker = Worker(m_pathToWorkers, workerName);
+			worker = Worker(currentWorkerName);
 			return true;
 		}
 	}
@@ -64,7 +66,7 @@ bool Management::createWorker(const QString& workerName, Worker& worker)
 	return false;
 }
 
-vector<QString>& Management::listAvailableWorkers()
+const QFileInfoList& Management::listAvailableWorkers()
 {
 	getListOfWorkers();
 	return m_availableWorkers;

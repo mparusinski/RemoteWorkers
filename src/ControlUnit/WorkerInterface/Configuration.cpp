@@ -12,6 +12,8 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 17/05/2012.
 
 #include "Configuration.hpp"
 
+#include <QDir>
+
 #include "Utils/Logger.hpp"
 
 namespace WorkerInterface
@@ -72,34 +74,31 @@ void Configuration::readConfiguration()
 	}
 }
 
-QString Configuration::getConfiguration(const QString& descriptor) const
+void Configuration::getConfiguration(const QString& descriptor, QString& configuration) const
 {
 	if (m_configurationRead)
 	{
 		ConfigurationsType::const_iterator iter = m_configurations.find(descriptor);
 		if (iter != m_configurations.end())
 		{
-			return iter->second;
+			configuration = iter->second;
 		}
 		else
 		{
 			QString errorMessage = "There is no configuration for descriptor ";
 			errorMessage += descriptor;
 			Utils::Logger::getInstance()->error_msg(errorMessage);
-
-			return QString();
 		}
 	}
 	else
 	{
 		Utils::Logger::getInstance()->error_msg("Configuration has not been read");
-		return QString();
 	}
 }
 
-QString Configuration::getWorkersPath() const
+void Configuration::getWorkersPath(QString& workersPath) const
 {
-	return getConfiguration("WorkersPath");
+    getConfiguration("WorkersPath", workersPath);
 }
 
 }
