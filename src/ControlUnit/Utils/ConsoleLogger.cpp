@@ -12,8 +12,6 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 16/05/2012.
 
 #include "ConsoleLogger.hpp"
 
-#include <iostream>
-
 using namespace std;
 
 namespace Utils
@@ -21,22 +19,24 @@ namespace Utils
 
 ConsoleLogger::ConsoleLogger()
 {
-
+    m_stdout  = new QTextStream(stdout);
+    m_stderr = new QTextStream(stderr); 
 }
 
 ConsoleLogger::~ConsoleLogger()
 {
-
+    delete m_stdout;
+    delete m_stderr;
 }
 
 void ConsoleLogger::WriteToLog(const QString& message) const
 {
-	cout << message.toStdString() << endl;
+	*m_stdout << message << endl;
 }
 
 void ConsoleLogger::WriteToError(const QString& message) const
 {
-	cerr << message.toStdString() << endl;
+	*m_stderr << message << endl;
 }
 
 }

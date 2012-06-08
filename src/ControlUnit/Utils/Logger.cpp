@@ -152,12 +152,18 @@ void Logger::reportError(
 
 void Logger::_debugMessage(const char* file, const char* message) const
 {
-	cerr << "DEBUG (" << file << "): " << message << endl;
+	fprintf(stderr, "DEBUG (%s): %s\n", file, message);
 }
 
 void Logger::_debugMessage(const char* file, const QString& message) const
 {
-	cerr << "DEBUG (" << file << "): " << message.toStdString() << endl;
+    QTextStream errout(stderr);
+    QString debugMessage = "DEBUG (";
+    debugMessage += file;
+    debugMessage += "): ";
+    debugMessage += message;
+    debugMessage += "\n";
+    errout << debugMessage;
 }
 
 }

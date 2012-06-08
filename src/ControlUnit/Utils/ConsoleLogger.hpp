@@ -13,8 +13,8 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 16/05/2012.
 #ifndef _CONSOLELOGGER_HPP_
 #define _CONSOLELOGGER_HPP_
 
-#include <iostream>
 #include <QString>
+#include <QTextStream>
 
 #include "LoggerBaseClass.hpp"
 
@@ -48,6 +48,9 @@ public:
 
 private:
 	virtual void noInstantiation() {}
+    
+    QTextStream* m_stdout;
+    QTextStream* m_stderr;
 
 };
 

@@ -10,8 +10,6 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 15/05/2012.
 
 */
 
-#include <iostream>
-
 #include "Command.hpp"
 
 using namespace std;

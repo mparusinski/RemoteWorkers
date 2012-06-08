@@ -12,9 +12,8 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 15/05/2012.
 
 #include "Worker.hpp"
 
-#include <iostream>
-#include <fstream>
-
+#include <QFile>
+#include <QDataStream>
 #include <QDir>
 
 #include "Reply.hpp"
@@ -38,11 +37,10 @@ Worker::Worker(const QFileInfo& path)
 	getOutputPath();
 }
 
-Reply Worker::getReply() const
+void Worker::getReply(Reply& reply) const
 {
-	Reply reply = createReply();
+	createReply(reply);
 	cleanOutput();
-	return reply;
 }
 
 const QFileInfo& Worker::getPath() const
@@ -63,7 +61,7 @@ bool Worker::executeCommand(const Command& command) const
 	{
 		fullCommand += arguments[i];
 	}
-	fullCommand += "\" was executed";
+	fullCommand += " was executed";
 	Utils::Logger::getInstance()->log(fullCommand);
 
 	return Utils::SystemManagement::executeCommand(fullPath, order, arguments) == 0;
@@ -81,7 +79,7 @@ QString Worker::commandToString(const Command& command) const
 	return commandName;
 }
 
-Reply Worker::createReply() const
+void Worker::createReply(Reply& reply) const
 {
 	typedef Reply::ByteStreams ByteStreams;
 
@@ -94,34 +92,31 @@ Reply Worker::createReply() const
 	ByteStreams rawData;
     rawData.reserve(numberOfFiles);
 
-	ifstream file;
 	for (size_t i = 0; i < numberOfFiles; ++i)
 	{
 		const QString& filePath = files[i].filePath();
-		const char * fileName   = filePath.toAscii().data();
-		file.open(fileName, ifstream::binary);
-		if ( !file.is_open() )
+        QFile dataFile(filePath);
+		dataFile.open(QFile::ReadOnly);
+        
+        
+		if ( !dataFile.isOpen() )
 		{
 			QString errorMessage = "Failed to open file ";
 			errorMessage += filePath;
 			Utils::Logger::getInstance()->error_msg(errorMessage);
-			return Reply();
 		}
 
-		file.seekg(0, ios::end);
-		const int length = file.tellg();
-		if (length < 0)
-			continue;
-		file.seekg(0, ios::beg);
-
+        QDataStream dataStream(&dataFile);
+        const int length = dataFile.size();
 		ByteStream bytes(length);
-		file.read(bytes.getRawData(), length);
-		file.close();
+        
+        dataStream.readRawData(bytes.getRawData(), length);
+		dataFile.close();
 
-		rawData.push_back(pair<QString, ByteStream>(fileName, bytes));
+		rawData.push_back(QPair<QString, ByteStream>(filePath, bytes));
 	}
 
-	return Reply(rawData);
+	reply.setRawData(rawData);
 }
 
 void Worker::getOutputPath()

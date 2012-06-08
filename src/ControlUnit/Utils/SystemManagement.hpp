@@ -13,9 +13,6 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 15/05/2012.
 #ifndef _SYSTEMMANAGEMENT_HPP_
 #define _SYSTEMMANAGEMENT_HPP_
 
-#include <vector>
-#include <iostream>
-
 #include <QProcess>
 #include <QString>
 #include <QFileInfo>

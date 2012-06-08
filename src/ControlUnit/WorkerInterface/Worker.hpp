@@ -36,13 +36,13 @@ public:
 	virtual ~Worker() { }
 
 	////////////////////////////////////////////////////////////////////////////////
-	/// \brief     Get the reply from worker (which is present of the disk). Reply
-	///            will be empty if the worker has not executed a command. After
-	///            each call this function remove all the content form the disk
-	///            corresponding to the reply. So this can be called only once.
-	/// \return    Reply corresponding to output of the worker.
+	/// \brief       Get the reply from worker (which is present of the disk). Reply
+	///              will be empty if the worker has not executed a command. After
+	///              each call this function remove all the content form the disk
+	///              corresponding to the reply. So this can be called only once.
+	/// \param[out]  reply Reply corresponding to output of the worker.
 	////////////////////////////////////////////////////////////////////////////////
-	Reply getReply() const;
+	void getReply(Reply& reply) const;
 
 	////////////////////////////////////////////////////////////////////////////////
 	/// \brief     Worker will execute the command represented by the input and
@@ -60,7 +60,7 @@ public:
 
 private:
 	QString commandToString(const Command& command) const;
-	Reply createReply() const;
+	void createReply(Reply& reply) const;
 	void getOutputPath();
 	void cleanOutput() const;
 

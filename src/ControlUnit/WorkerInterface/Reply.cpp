@@ -34,31 +34,36 @@ using namespace std;
 
 namespace WorkerInterface
 {
-
-Reply::Reply()
-{
-	m_empty = true;
-}
-
-Reply::~Reply()
-{
-
-}
-
-Reply::Reply(const ByteStreams & rawData)
-{
-	m_rawData = rawData;
-	m_empty = false;
-}
-
-bool Reply::empty() const
-{
-	return m_empty;
-}
-
-const Reply::ByteStreams& Reply::getRawData()
-{
-	return m_rawData;
-}
-
+    
+    Reply::Reply()
+    {
+        m_empty = true;
+    }
+    
+    Reply::~Reply()
+    {
+        
+    }
+    
+    Reply::Reply(const ByteStreams & rawData)
+    {
+        m_rawData = rawData;
+        m_empty = false;
+    }
+    
+    bool Reply::empty() const
+    {
+        return m_empty;
+    }
+    
+    const Reply::ByteStreams& Reply::getRawData() const
+    {
+        return m_rawData;
+    }
+    
+    void Reply::setRawData(Reply::ByteStreams& rawData)
+    {
+        m_rawData = rawData;
+    }
+    
 }

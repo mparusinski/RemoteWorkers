@@ -16,8 +16,8 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 16/05/2012.
 #include "LoggerBaseClass.hpp"
 
 #include <QString>
-#include <iostream>
-#include <fstream>
+#include <QFile>
+#include <QTextStream>
 
 using namespace std;
 
@@ -50,8 +50,10 @@ public:
 private:
 	virtual void noInstantiation() {}
 
-	mutable ofstream m_logFile;
-	mutable ofstream m_errorFile;
+	QFile* m_logFile;
+	QFile* m_errorFile;
+    QTextStream* m_logOut;
+    QTextStream* m_errorOut;
 };
 
 }

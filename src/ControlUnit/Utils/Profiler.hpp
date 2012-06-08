@@ -13,10 +13,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 19/05/2012.
 #ifndef _PROFILER_HPP_
 #define _PROFILER_HPP_
 
-#include <ctime>
-#include <string>
-#include <stack>
-
+#include <QStack>
 #include <QElapsedTimer>
 
 using namespace std;
@@ -34,7 +31,7 @@ namespace Utils
 class Profiler
 {
 public:
-	typedef stack<QElapsedTimer> TimerTypes;
+	typedef QStack<QElapsedTimer> TimerTypes;
 
 	////////////////////////////////////////////////////////////////////////////////
 	/// \brief Starts the profiler i.e checks the system clock and record the time
@@ -58,7 +55,7 @@ public:
 	///        taken between start time and stop time in milliseconds
 	/// \param[in] message	Message corresponding to the profiling measure did
 	////////////////////////////////////////////////////////////////////////////////
-	static void profile(const string& message);
+	static void profile(const char* message);
 
 private:
 	static TimerTypes m_timers;

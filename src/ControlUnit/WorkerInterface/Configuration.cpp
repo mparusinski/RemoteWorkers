@@ -13,6 +13,8 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 17/05/2012.
 #include "Configuration.hpp"
 
 #include <QDir>
+#include <QFile>
+#include <QTextStream>
 
 #include "Utils/Logger.hpp"
 
@@ -27,7 +29,6 @@ Configuration::Configuration()
 
 Configuration::~Configuration()
 {
-	m_configurationFile.close();
 }
 
 Configuration* Configuration::getInstance()
@@ -42,29 +43,28 @@ Configuration* Configuration::getInstance()
 
 void Configuration::readConfiguration()
 {
-	m_configurationFile.open("conf.txt");
-	if ( m_configurationFile.is_open() )
+    QFile configurationFile("conf.txt");
+    configurationFile.open(QFile::ReadOnly | QFile::Text);
+    
+	if ( configurationFile.isOpen() )
 	{
+        QTextStream configurationIn(&configurationFile);
+        
 		if (m_configurationRead)
 		{
 			Utils::Logger::getInstance()->log("Configuration already read, rereading it");
 		}
 
-		while( !m_configurationFile.eof() )
+		while( !configurationIn.atEnd() )
 		{
 			QString descriptor;
 			QString value;
-			string descriptor_str;
-			string value_str;
 
-			m_configurationFile >> descriptor_str;
-			m_configurationFile >> value_str;
-			descriptor = descriptor_str.c_str();
-			value = value_str.c_str();
+			configurationIn >> descriptor;
+			configurationIn >> value;
 
 			m_configurations[descriptor] = value;
 		}
-		m_configurationFile.close();
 
 		m_configurationRead = true;
 	}
@@ -72,6 +72,8 @@ void Configuration::readConfiguration()
 	{
 		Utils::Logger::getInstance()->error_msg("Unable to read configuration! Configuration file did not open");
 	}
+    
+    configurationFile.close();
 }
 
 void Configuration::getConfiguration(const QString& descriptor, QString& configuration) const
@@ -81,7 +83,7 @@ void Configuration::getConfiguration(const QString& descriptor, QString& configu
 		ConfigurationsType::const_iterator iter = m_configurations.find(descriptor);
 		if (iter != m_configurations.end())
 		{
-			configuration = iter->second;
+			configuration = iter.value();
 		}
 		else
 		{

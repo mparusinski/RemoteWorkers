@@ -83,6 +83,11 @@ void ByteStream::free()
 	m_sizeOfData = 0;
 	m_allocated = false;
 }
+    
+const ByteStream::ByteType * ByteStream::getRawData() const
+{
+    return m_rawData;
+}
 
 ByteStream::ByteType * ByteStream::getRawData()
 {

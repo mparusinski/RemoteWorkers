@@ -14,8 +14,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 17/05/2012.
 #define _CONFIGURATION_HPP_
 
 #include <QString>
-#include <fstream>
-#include <map>
+#include <QMap>
 
 using namespace std;
 
@@ -29,7 +28,7 @@ namespace WorkerInterface
 class Configuration
 {
 public:
-	typedef map<QString, QString> ConfigurationsType;
+	typedef QMap<QString, QString> ConfigurationsType;
 
 	~Configuration();
 
@@ -63,7 +62,6 @@ public:
 private:
 	Configuration();
 
-	ifstream m_configurationFile;
 	bool m_configurationRead;
 	ConfigurationsType m_configurations;
 };

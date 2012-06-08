@@ -14,7 +14,8 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 15/05/2012.
 #define _REPLY_HPP_
 
 #include <QString>
-#include <vector>
+#include <QPair>
+#include <QList>
 
 #include "DataStructures/ByteStream.hpp"
 
@@ -32,7 +33,7 @@ namespace WorkerInterface
 class Reply
 {
 public:
-	typedef vector< pair<QString, ByteStream> > ByteStreams;
+	typedef QList< QPair<QString, ByteStream> > ByteStreams;
 
 	Reply();
 	Reply(const ByteStreams& rawData);
@@ -49,7 +50,13 @@ public:
 	/// \brief     Returns the raw data representing the reply
 	/// \return    Raw data representing the reply
 	////////////////////////////////////////////////////////////////////////////////
-	const ByteStreams& getRawData();
+	const ByteStreams& getRawData() const;
+    
+    ////////////////////////////////////////////////////////////////////////////////
+	/// \brief        Returns the raw data representing the reply
+	/// \param[in]    rawData Raw data representing the reply
+	////////////////////////////////////////////////////////////////////////////////
+    void setRawData(ByteStreams& rawData);
 
 private:
 	bool m_empty;

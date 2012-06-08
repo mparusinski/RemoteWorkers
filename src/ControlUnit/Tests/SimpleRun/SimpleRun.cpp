@@ -14,7 +14,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 18/05/2012.
 
 #include <QString>
 #include <QStringList>
-#include <vector>
+#include <QVector>
 #include <iostream>
 
 #include "WorkerInterface/Reply.hpp"
@@ -40,7 +40,8 @@ int main(int argc, char *argv[])
 	Management::getInstance()->createWorker("SimpleTestWorker", worker);
 	Command command("SimpleTestWorker", QStringList());
 	worker.executeCommand(command);
-	Reply reply = worker.getReply();
+	Reply reply;
+    worker.getReply(reply);
 
 	if ( reply.empty() )
 	{
@@ -52,12 +53,12 @@ int main(int argc, char *argv[])
 		Utils::Logger::getInstance()->log("Reply is built");
 	}
 
-	vector< pair< QString, ByteStream > > rawData = reply.getRawData();
+	const Reply::ByteStreams& rawData = reply.getRawData();
 	const size_t numberOfByteStreams = rawData.size();
 	for (size_t i = 0; i < numberOfByteStreams; ++i)
 	{
 		const QString& fileName = rawData[i].first;
-		ByteStream& byteStream = rawData[i].second;
+		const ByteStream& byteStream = rawData[i].second;
 		cout << "File: " << fileName.toStdString() << endl;
 
 		const size_t lengthOfStream = byteStream.size();

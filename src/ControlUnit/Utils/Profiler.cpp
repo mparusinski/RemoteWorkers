@@ -12,8 +12,6 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 19/05/2012.
 
 #include "Profiler.hpp"
 
-#include <iostream>
-
 namespace Utils
 {
 
@@ -40,9 +38,9 @@ double Profiler::timeElapsed()
 	return (double) time; // milliseconds
 }
 
-void Profiler::profile(const string& message)
+void Profiler::profile(const char* message)
 {
-	cout << "PROFILE: " << message << " took time " << stopProfiler() << " ms" << endl;
+    printf("PROFILE: %s took time %f ms\n", message, stopProfiler());
 }
 
 }

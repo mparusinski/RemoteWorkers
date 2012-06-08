@@ -12,8 +12,6 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 16/05/2012.
 
 #include "LoggerBaseClass.hpp"
 
-#include <iostream>
-
 namespace Utils
 {
 
@@ -39,8 +37,8 @@ void LoggerBaseClass::WriteToError(const QString & message) const
 
 inline void LoggerBaseClass::usingBaseClassError() const
 {
-	cerr << "DEVELOPMENT-ERROR: Using base class in strategy pattern (Logger system)!" << endl;
-	cerr << "Please use the specialised classes for the LoggerStrategy";
+	fprintf(stderr, "DEVELOPMENT-ERROR: Using base class in strategy pattern (Logger system)!\n");
+	fprintf(stderr, "Please use the specialised classes for the LoggerStrategy\n");
 	exit(-1);
 }
 
