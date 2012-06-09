@@ -14,8 +14,6 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 17/05/2012.
 #include <string>
 #include <cstdio>
 
-#include <boost/filesystem.hpp>
-
 #include "SimpleTestWorker.hpp"
 
 #if defined(__APPLE__) || defined(__unix__)
@@ -25,14 +23,11 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 17/05/2012.
 #endif // __APPLE__ || __unix__
 
 using namespace std;
-using namespace boost::filesystem;
 
 int main(int argc, char *argv[])
 {
-	const path pathToExecutable = argv[0];
-	const path& currentDirectory = pathToExecutable.parent_path();
-	string executablePath = currentDirectory.string();
-	executablePath += PATH_SEPARATOR "output" PATH_SEPARATOR "index.html";
+	string executablePath;
+	executablePath += "." PATH_SEPARATOR "output" PATH_SEPARATOR "index.html";
 	cout << executablePath << endl;
 
 	SimpleTestWorker::createGenericHTMLFile(executablePath);

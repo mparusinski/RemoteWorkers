@@ -15,6 +15,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 18/05/2012.
 #include <QString>
 #include <QStringList>
 #include <QVector>
+#include <QTextStream>
 #include <iostream>
 
 #include "WorkerInterface/Reply.hpp"
@@ -23,17 +24,17 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 18/05/2012.
 #include "WorkerInterface/Management.hpp"
 #include "Utils/Logger.hpp"
 
-using namespace std;
 using namespace WorkerInterface;
 
 int main(int argc, char *argv[])
 {
 	Utils::Logger::getInstance()->turnAllOn();
+    QTextStream streamStdout(stdout);
 
 	QFileInfoList availableWorkers = Management::getInstance()->listAvailableWorkers();
 	for (size_t i = 0; i < availableWorkers.size(); ++i)
 	{
-		cout << availableWorkers[i].fileName().toStdString() << endl;
+		streamStdout << availableWorkers[i].fileName() << endl;
 	}
 
 	Worker worker;
@@ -59,15 +60,15 @@ int main(int argc, char *argv[])
 	{
 		const QString& fileName = rawData[i].first;
 		const ByteStream& byteStream = rawData[i].second;
-		cout << "File: " << fileName.toStdString() << endl;
+		streamStdout << "File: " << fileName << endl;
 
 		const size_t lengthOfStream = byteStream.size();
 		const char * rawData = byteStream.getRawData();
 		for (size_t j = 0; j < lengthOfStream; ++j)
 		{
-			cout << rawData[j];
+			streamStdout << rawData[j];
 		}
-		cout << endl << endl;
+		streamStdout << endl << endl;
 	}
 
 	return 1;

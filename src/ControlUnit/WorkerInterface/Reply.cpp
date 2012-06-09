@@ -48,7 +48,8 @@ namespace WorkerInterface
     Reply::Reply(const ByteStreams & rawData)
     {
         m_rawData = rawData;
-        m_empty = false;
+        if (m_rawData.length() != 0)
+            m_empty = false;
     }
     
     bool Reply::empty() const
@@ -64,6 +65,8 @@ namespace WorkerInterface
     void Reply::setRawData(Reply::ByteStreams& rawData)
     {
         m_rawData = rawData;
+        if (m_rawData.length() != 0)
+            m_empty = false;
     }
     
 }
