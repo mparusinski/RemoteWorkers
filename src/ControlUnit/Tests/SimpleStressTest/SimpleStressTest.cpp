@@ -14,8 +14,9 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 15/05/2012.
 
 #include <QString>
 #include <QStringList>
-#include <vector>
-#include <iostream>
+#include <QList>
+#include <QPair>
+#include <cstdio>
 
 #include "WorkerInterface/Reply.hpp"
 #include "WorkerInterface/Worker.hpp"
@@ -37,7 +38,7 @@ int main(int argc, char *argv[])
 	QFileInfoList availableWorkers = Management::getInstance()->listAvailableWorkers();
 	for (size_t i = 0; i < availableWorkers.size(); ++i)
 	{
-		cout << availableWorkers[i].fileName().toStdString() << endl;
+		printf("%s\n", availableWorkers[i].fileName().toAscii().data());
 	}
 	Utils::Profiler::profile("Reading workers");
 
@@ -52,16 +53,17 @@ int main(int argc, char *argv[])
 	Utils::Profiler::profile("Executing a command");
 
 	Utils::Profiler::startProfiler();
-	Reply reply = worker.getReply();
+	Reply reply;
+	worker.getReply(reply);
 	Utils::Profiler::profile("Creating the reply");
 
 	Utils::Profiler::startProfiler();
-	vector< pair< QString, ByteStream > > rawData = reply.getRawData();
+	QList< QPair< QString, ByteStream > > rawData = reply.getRawData();
 	const size_t numberOfByteStreams = rawData.size();
 	for (size_t i = 0; i < numberOfByteStreams; ++i)
 	{
 		const QString& fileName = rawData[i].first;
-		cout << "File: " << fileName.toStdString() << endl;
+		printf("File: %s\n", fileName.toAscii().data());
 	}
 	Utils::Profiler::profile("Listing files");
 

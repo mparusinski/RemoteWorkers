@@ -16,7 +16,6 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 18/05/2012.
 #include <QStringList>
 #include <QVector>
 #include <QTextStream>
-#include <iostream>
 
 #include "WorkerInterface/Reply.hpp"
 #include "WorkerInterface/Worker.hpp"

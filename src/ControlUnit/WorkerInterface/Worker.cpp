@@ -73,7 +73,7 @@ QString Worker::commandToString(const Command& command) const
 
 	commandName += "Command ";
 	commandName += m_path.filePath();
-	commandName +=PATH_SEPERATOR;
+	commandName += PATH_SEPERATOR;
 	commandName += command.getOrder();
 
 	return commandName;
@@ -97,7 +97,6 @@ void Worker::createReply(Reply& reply) const
 		const QString& filePath = files[i].filePath();
         QFile dataFile(filePath);
 		dataFile.open(QFile::ReadOnly);
-        
         
 		if ( !dataFile.isOpen() )
 		{

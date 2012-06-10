@@ -10,6 +10,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 16/05/2012.
 
 */
 
+#include <cstdio>
 #include "LoggerBaseClass.hpp"
 
 namespace Utils
