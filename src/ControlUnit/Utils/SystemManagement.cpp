@@ -32,15 +32,25 @@ int SystemManagement::executeCommand(
 	fullCommand += PATH_SEPERATOR;
 	fullCommand += command;
 
-	QProcess process;
-	QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
-	setSafeEnvironment(env);
-	process.setProcessEnvironment(env);
+	//QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
+	//setSafeEnvironment(env);
+	//process.setProcessEnvironment(env);
 
-	process.start(fullCommand, arguments);
-	//bool finished = process.waitForFinished(300000);
-	process.waitForFinished(-1);
-	process.terminate();
+	int returnCode = QProcess::execute(fullCommand, arguments);
+
+	if (returnCode == -2)
+	{
+		QString errorMsg = fullCommand;
+		errorMsg += " was not executed";
+		Utils::Logger::getInstance()->error_msg(errorMsg);
+	} else if (returnCode == -1)
+	{
+		QString errorMsg = fullCommand;
+		errorMsg += " has crashed";
+		Utils::Logger::getInstance()->error_msg(errorMsg);
+	}
+
+	//bool finished = process.waitForFinished(3000
 
 //	if (!finished)
 //	{
@@ -49,9 +59,9 @@ int SystemManagement::executeCommand(
 //		return 0;
 //	}
 
-	int exitCode = process.exitCode();
+	//int exitCode = process.exitCode();
 
-	return exitCode;
+	return returnCode;
 }
 
 void SystemManagement::getListOfFilesInDir(const QFileInfo& directory, QFileInfoList& files)

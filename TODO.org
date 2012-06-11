@@ -1,0 +1,14 @@
+* TODO Create a secure environment for executing commands
+** DONE No reliance on shell
+** TODO Sanitized environment
+** TODO No extra privileges to the command
+** TODO Should execute the right command
+   
+** TODO Set the right file permissions
+* TODO Test on other platforms
+** DONE MacOSX
+** TODO Ubuntu 12.04
+** TODO Mint Cinnamon
+** TODO Mint KDE
+** TODO Win 7
+** TODO Win XP
