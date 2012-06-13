@@ -13,6 +13,8 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 17/05/2012.
 #include <iostream>
 #include <string>
 #include <cstdio>
+#include <QFileInfo>
+#include <QDir>
 
 #include "SimpleTestWorker.hpp"
 
@@ -26,11 +28,12 @@ using namespace std;
 
 int main(int argc, char *argv[])
 {
-	string executablePath;
-	executablePath += "." PATH_SEPARATOR "output" PATH_SEPARATOR "index.html";
-	cout << executablePath << endl;
+	QFileInfo pathToExecutable(argv[0]);
+	string outputPath = pathToExecutable.absoluteDir().absolutePath().toStdString();
+	outputPath += PATH_SEPARATOR "output" PATH_SEPARATOR "index.html";
+	cout << outputPath << endl;
 
-	SimpleTestWorker::createGenericHTMLFile(executablePath);
+	SimpleTestWorker::createGenericHTMLFile(outputPath);
 
 	cout << "Worker successfully ran" << endl;
 

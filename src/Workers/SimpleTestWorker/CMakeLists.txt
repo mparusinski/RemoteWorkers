@@ -18,4 +18,4 @@ ADD_EXECUTABLE(SimpleTestWorker
   ${SimpleTestWorkerSRC}
 )
 
-TARGET_LINK_LIBRARIES(SimpleTestWorker ${Boost_LIBRARIES})
+TARGET_LINK_LIBRARIES(SimpleTestWorker ${QT_LIBRARIES})
