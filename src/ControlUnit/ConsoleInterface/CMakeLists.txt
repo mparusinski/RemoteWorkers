@@ -11,4 +11,4 @@ SET(ControlUnitConsoleSOURCES
 
 ADD_EXECUTABLE(ControlUnitConsole ${ControlUnitConsoleSOURCES})
 
-TARGET_LINK_LIBRARIES(ControlUnitConsole WorkerInterface Utils)
+TARGET_LINK_LIBRARIES(ControlUnitConsole WorkerInterface Log System)

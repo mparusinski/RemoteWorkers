@@ -22,54 +22,12 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 15/05/2012.
 namespace Utils
 {
 
-int SystemManagement::executeCommand(
-			const QString& directory,
-			const QString& command,
-			const QStringList& arguments)
-{
-	QString fullCommand("");
-	fullCommand += directory;
-	fullCommand += PATH_SEPERATOR;
-	fullCommand += command;
-
-	//QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
-	//setSafeEnvironment(env);
-	//process.setProcessEnvironment(env);
-
-	int returnCode = QProcess::execute(fullCommand, arguments);
-
-	if (returnCode == -2)
-	{
-		QString errorMsg = fullCommand;
-		errorMsg += " was not executed";
-		Utils::Logger::getInstance()->error_msg(errorMsg);
-	} else if (returnCode == -1)
-	{
-		QString errorMsg = fullCommand;
-		errorMsg += " has crashed";
-		Utils::Logger::getInstance()->error_msg(errorMsg);
-	}
-
-	//bool finished = process.waitForFinished(3000
-
-//	if (!finished)
-//	{
-//		Utils::Logger::getInstance()->error_msg("The run command did not finish properly! May have timed out");
-//		process.kill();
-//		return 0;
-//	}
-
-	//int exitCode = process.exitCode();
-
-	return returnCode;
-}
-
 void SystemManagement::getListOfFilesInDir(const QFileInfo& directory, QFileInfoList& files)
 {
 	if (directory.exists() && directory.isDir())
 	{
 		const QDir directoryReal(directory.absolutePath());
-	    files = directoryReal.entryInfoList(QDir::Files);
+		files = directoryReal.entryInfoList(QDir::Files);
 	}
 	else
 	{

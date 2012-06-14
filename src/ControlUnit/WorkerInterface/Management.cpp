@@ -12,9 +12,11 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 17/05/2012
 
 #include "Management.hpp"
 
+#include <cstdio>
+
 #include "Configuration.hpp"
-#include "Utils/Logger.hpp"
-#include "Utils/SystemManagement.hpp"
+#include "Utils/Log/Logger.hpp"
+#include "Utils/System/FileManagement.hpp"
 
 namespace WorkerInterface
 {
@@ -27,7 +29,7 @@ Management::Management()
 	//Utils::Logger::getInstance()->debug(m_pathToWorkers)
 	if (m_pathToWorkers == QString())
 	{
-		Utils::Logger::getInstance()->error_msg("Path to workers not read! Closing");
+		Utils::Log::Logger::getInstance()->error_msg("Path to workers not read! Closing");
 		exit(-1);
 	}
 }
@@ -50,8 +52,8 @@ Management* Management::getInstance()
 bool Management::createWorker(const QString& workerName, Worker& worker)
 {
 	getListOfWorkers();
-	const size_t numberOfWorkers = m_availableWorkers.size();
-	for (size_t i = 0; i < numberOfWorkers; ++i)
+	const int numberOfWorkers = m_availableWorkers.size();
+	for (int i = 0; i < numberOfWorkers; ++i)
 	{
 		const QFileInfo& currentWorkerName = m_availableWorkers[i];
 		if (currentWorkerName.fileName() == workerName)
@@ -61,7 +63,7 @@ bool Management::createWorker(const QString& workerName, Worker& worker)
 		}
 	}
 
-	Utils::Logger::getInstance()->error_msg("Worker not available");
+	Utils::Log::Logger::getInstance()->error_msg("Worker not available");
 
 	return false;
 }
@@ -76,7 +78,7 @@ void Management::getListOfWorkers()
 {
 	if (m_availableWorkers.empty())
 	{
-		Utils::SystemManagement::getListOfDirsInDir(m_pathToWorkers, m_availableWorkers);
+		Utils::System::FileManagement::getListOfDirsInDir(m_pathToWorkers, m_availableWorkers);
 	}
 }
 

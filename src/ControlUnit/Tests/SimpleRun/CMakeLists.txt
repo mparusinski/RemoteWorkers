@@ -13,3 +13,4 @@ SET(SimpleRunSRC
 ADD_EXECUTABLE(SimpleRun ${SimpleRunSRC})
 
 TARGET_LINK_LIBRARIES(SimpleRun WorkerInterface)
+TARGET_LINK_LIBRARIES(SimpleRun ${QT_LIBRARIES})

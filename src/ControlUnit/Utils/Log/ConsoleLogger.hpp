@@ -18,9 +18,9 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 16/05/2012.
 
 #include "LoggerBaseClass.hpp"
 
-using namespace std;
-
 namespace Utils
+{
+namespace Log
 {
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -54,6 +54,7 @@ private:
 
 };
 
+}
 }
 
 #endif // _CONSOLELOGGER_HPP_

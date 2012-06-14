@@ -15,6 +15,8 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 16/05/2012.
 
 namespace Utils
 {
+namespace Log
+{
 
 LoggerBaseClass::LoggerBaseClass()
 {
@@ -43,4 +45,5 @@ inline void LoggerBaseClass::usingBaseClassError() const
 	exit(-1);
 }
 
+}
 }

@@ -25,7 +25,8 @@ SET(WorkerInterface_SOURCES
 ADD_LIBRARY(WorkerInterface
   ${WorkerInterface_SOURCES} ${WorkerInterface_HEADERS})
 
-TARGET_LINK_LIBRARIES(WorkerInterface Utils)
+TARGET_LINK_LIBRARIES(WorkerInterface Log)
+TARGET_LINK_LIBRARIES(WorkerInterface System)
 TARGET_LINK_LIBRARIES(WorkerInterface DataStructures)
 
 

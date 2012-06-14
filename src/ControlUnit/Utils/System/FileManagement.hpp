@@ -10,8 +10,8 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 15/05/2012.
 
 */
 
-#ifndef _SYSTEMMANAGEMENT_HPP_
-#define _SYSTEMMANAGEMENT_HPP_
+#ifndef _FILEMANAGEMENT_HPP_
+#define _FILEMANAGEMENT_HPP_
 
 #include <QProcess>
 #include <QString>
@@ -22,28 +22,18 @@ using namespace std;
 
 namespace Utils
 {
+namespace System
+{
 
 ////////////////////////////////////////////////////////////////////////////////
 /// \brief This class contains a set of function to allow cross platform
 ///        functionality.
 ////////////////////////////////////////////////////////////////////////////////
-class SystemManagement
+class FileManagement
 {
 public:
 
 #define PATH_SEPERATOR "/";
-
-	////////////////////////////////////////////////////////////////////////////////
-	/// \brief     Executes a command in given directory with given arguments
-	/// \param[in] directory	Name of the directory in which is placed command
-	/// \param[in] command		Name of the command to be run
-	/// \param[in] arguments	Name of the arguments to be passed to the command
-	/// \return    Return 1 if success 0 otherwise
-	////////////////////////////////////////////////////////////////////////////////
-	static int executeCommand(
-				const QString& directory,
-				const QString& command,
-				const QStringList& arguments);
 
 	////////////////////////////////////////////////////////////////////////////////
 	/// \brief      Function that returns the list of files in a given directory.
@@ -72,5 +62,6 @@ private:
 };
 
 }
+}
 
-#endif //_SYSTEMMANAGEMENT_HPP_
+#endif //_FILEMANAGEMENT_HPP_

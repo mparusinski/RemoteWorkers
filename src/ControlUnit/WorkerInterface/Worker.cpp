@@ -17,8 +17,9 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 15/05/2012.
 #include <QDir>
 
 #include "Reply.hpp"
-#include "Utils/SystemManagement.hpp"
-#include "Utils/Logger.hpp"
+#include "Utils/System/FileManagement.hpp"
+#include "Utils/System/ExternalApplication.hpp"
+#include "Utils/Log/Logger.hpp"
 #include "DataStructures/ByteStream.hpp"
 
 using namespace std;
@@ -55,16 +56,19 @@ bool Worker::executeCommand(const Command& command) const
 
 	QString fullPath = m_path.filePath();
 
-	QString fullCommand = commandToString(command);
-	fullCommand += " ";
-	for (size_t i = 0; i < arguments.size(); ++i)
-	{
-		fullCommand += arguments[i];
-	}
-	fullCommand += " was executed";
-	Utils::Logger::getInstance()->log(fullCommand);
+	QString commandPath = fullPath;
+	commandPath += PATH_SEPERATOR;
+	commandPath += order;
 
-	return Utils::SystemManagement::executeCommand(fullPath, order, arguments) == 0;
+	if (Utils::Log::Logger::getInstance()->logging())
+	{
+		QString logMessage = commandPath;
+		logMessage += " is been executed";
+		Utils::Log::Logger::getInstance()->log(logMessage);
+	}
+
+    Utils::System::ExternalApplication application(commandPath, arguments);
+    return application.execute();
 }
 
 QString Worker::commandToString(const Command& command) const
@@ -85,14 +89,14 @@ void Worker::createReply(Reply& reply) const
 
 	QFileInfoList files;
 
-	Utils::SystemManagement::getListOfFilesInDir(m_outputPath, files);
+	Utils::System::FileManagement::getListOfFilesInDir(m_outputPath, files);
 
-	const size_t numberOfFiles = files.size();
+	const int numberOfFiles = files.size();
 
 	ByteStreams rawData;
     rawData.reserve(numberOfFiles);
 
-	for (size_t i = 0; i < numberOfFiles; ++i)
+	for (int i = 0; i < numberOfFiles; ++i)
 	{
 		const QString& filePath = files[i].filePath();
         QFile dataFile(filePath);
@@ -102,7 +106,7 @@ void Worker::createReply(Reply& reply) const
 		{
 			QString errorMessage = "Failed to open file ";
 			errorMessage += filePath;
-			Utils::Logger::getInstance()->error_msg(errorMessage);
+			Utils::Log::Logger::getInstance()->error_msg(errorMessage);
 		}
 
         QDataStream dataStream(&dataFile);
@@ -131,8 +135,8 @@ void Worker::getOutputPath()
 void Worker::cleanOutput() const
 {
 	QFileInfoList files;
-	Utils::SystemManagement::getListOfFilesInDir(m_outputPath, files);
-	Utils::SystemManagement::deleteFiles(files);
+	Utils::System::FileManagement::getListOfFilesInDir(m_outputPath, files);
+	Utils::System::FileManagement::deleteFiles(files);
 }
 
 }

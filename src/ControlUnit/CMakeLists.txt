@@ -1,5 +1,7 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 
+PROJECT(RemoteWorkers_ControlUnit CXX)
+
 MESSAGE("-- Checking operating system:")
 
 IF(APPLE)
@@ -8,8 +10,7 @@ IF(APPLE)
   SET(CMAKE_C_COMPILER /usr/bin/clang)
   SET(CMAKE_OSX_ARCHITECTURES x86_64)
   INCLUDE_DIRECTORIES(
-    /usr/include
-    /usr/include/c++/4.2.1/
+    
   )
 ENDIF(APPLE)
 
@@ -18,8 +19,6 @@ IF(NOT APPLE AND UNIX)
   SET(CMAKE_CXX_COMPILER /usr/bin/g++)
   SET(CMAKE_C_COMPILER /usr/bin/gcc)
 ENDIF(NOT APPLE AND UNIX)
-
-PROJECT(RemoteWorkers_ControlUnit CXX)
 
 MESSAGE("Setting up QT4")
 FIND_PACKAGE(Qt4 REQUIRED)

@@ -16,7 +16,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 17/05/2012.
 #include <QFile>
 #include <QTextStream>
 
-#include "Utils/Logger.hpp"
+#include "Utils/Log/Logger.hpp"
 
 namespace WorkerInterface
 {
@@ -52,7 +52,7 @@ void Configuration::readConfiguration()
         
 		if (m_configurationRead)
 		{
-			Utils::Logger::getInstance()->log("Configuration already read, rereading it");
+			Utils::Log::Logger::getInstance()->log("Configuration already read, rereading it");
 		}
 
 		while( !configurationIn.atEnd() )
@@ -70,7 +70,7 @@ void Configuration::readConfiguration()
 	}
 	else
 	{
-		Utils::Logger::getInstance()->error_msg("Unable to read configuration! Configuration file did not open");
+		Utils::Log::Logger::getInstance()->error_msg("Unable to read configuration! Configuration file did not open");
 	}
     
     configurationFile.close();
@@ -89,12 +89,12 @@ void Configuration::getConfiguration(const QString& descriptor, QString& configu
 		{
 			QString errorMessage = "There is no configuration for descriptor ";
 			errorMessage += descriptor;
-			Utils::Logger::getInstance()->error_msg(errorMessage);
+			Utils::Log::Logger::getInstance()->error_msg(errorMessage);
 		}
 	}
 	else
 	{
-		Utils::Logger::getInstance()->error_msg("Configuration has not been read");
+		Utils::Log::Logger::getInstance()->error_msg("Configuration has not been read");
 	}
 }
 

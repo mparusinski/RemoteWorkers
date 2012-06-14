@@ -14,6 +14,8 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 16/05/2012.
 
 namespace Utils
 {
+namespace Log
+{
 
 FileLogger::FileLogger()
 {
@@ -49,4 +51,5 @@ void FileLogger::WriteToError(const QString& message) const
 	*m_errorOut << message;
 }
 
+}
 }

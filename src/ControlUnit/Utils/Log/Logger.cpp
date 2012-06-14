@@ -19,6 +19,8 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 16/05/2012.
 
 namespace Utils
 {
+namespace Log
+{
 
 Logger::Logger()
 {
@@ -84,6 +86,16 @@ void Logger::turnAllOn()
 {
 	m_logging = true;
 	m_reportingErrors = true;
+}
+
+bool Logger::logging()
+{
+	return m_logging;
+}
+
+bool Logger::reportErrors()
+{
+	return m_reportingErrors;
 }
 
 void Logger::log(const char* message) const
@@ -166,4 +178,5 @@ void Logger::_debugMessage(const char* file, const QString& message) const
     errout << debugMessage;
 }
 
+}
 }

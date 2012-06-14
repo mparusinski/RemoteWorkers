@@ -12,6 +12,8 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 18/05/2012.
 
 // NO FUNCTIONS TO BE ADDED TO THIS FILE
 
+#include <cstdio>
+#include <cstdlib>
 #include <QString>
 #include <QStringList>
 #include <QVector>
@@ -21,17 +23,17 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 18/05/2012.
 #include "WorkerInterface/Worker.hpp"
 #include "WorkerInterface/Command.hpp"
 #include "WorkerInterface/Management.hpp"
-#include "Utils/Logger.hpp"
+#include "Utils/Log/Logger.hpp"
 
 using namespace WorkerInterface;
 
 int main(int argc, char *argv[])
 {
-	Utils::Logger::getInstance()->turnAllOn();
+	Utils::Log::Logger::getInstance()->turnAllOn();
     QTextStream streamStdout(stdout);
 
 	QFileInfoList availableWorkers = Management::getInstance()->listAvailableWorkers();
-	for (size_t i = 0; i < availableWorkers.size(); ++i)
+	for (int i = 0; i < availableWorkers.size(); ++i)
 	{
 		streamStdout << availableWorkers[i].fileName() << endl;
 	}
@@ -45,25 +47,25 @@ int main(int argc, char *argv[])
 
 	if ( reply.empty() )
 	{
-		Utils::Logger::getInstance()->error_msg("Reply is not built");
+		Utils::Log::Logger::getInstance()->error_msg("Reply is not built");
 		return -1;
 	}
 	else
 	{
-		Utils::Logger::getInstance()->log("Reply is built");
+		Utils::Log::Logger::getInstance()->log("Reply is built");
 	}
 
 	const Reply::ByteStreams& rawData = reply.getRawData();
-	const size_t numberOfByteStreams = rawData.size();
-	for (size_t i = 0; i < numberOfByteStreams; ++i)
+	const int numberOfByteStreams = rawData.size();
+	for (int i = 0; i < numberOfByteStreams; ++i)
 	{
 		const QString& fileName = rawData[i].first;
 		const ByteStream& byteStream = rawData[i].second;
 		streamStdout << "File: " << fileName << endl;
 
-		const size_t lengthOfStream = byteStream.size();
+		const int lengthOfStream = byteStream.size();
 		const char * rawData = byteStream.getRawData();
-		for (size_t j = 0; j < lengthOfStream; ++j)
+		for (int j = 0; j < lengthOfStream; ++j)
 		{
 			streamStdout << rawData[j];
 		}

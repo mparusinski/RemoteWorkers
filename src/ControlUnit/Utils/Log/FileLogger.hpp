@@ -23,6 +23,8 @@ using namespace std;
 
 namespace Utils
 {
+namespace Log
+{
 
 ////////////////////////////////////////////////////////////////////////////////
 /// \brief This class implements the a logger mechanism that writes to files.
@@ -56,6 +58,7 @@ private:
     QTextStream* m_errorOut;
 };
 
+}
 }
 
 #endif // _FILELOGGER_HPP_

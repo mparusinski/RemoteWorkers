@@ -19,6 +19,8 @@ using namespace std;
 
 namespace Utils
 {
+namespace Log
+{
 
 ////////////////////////////////////////////////////////////////////////////////
 /// \brief This class is a abstract base class to logging systems. It is used by
@@ -49,6 +51,7 @@ private:
 
 };
 
+}
 }
 
 #endif // _LOGGERBASECLASS_HPP_

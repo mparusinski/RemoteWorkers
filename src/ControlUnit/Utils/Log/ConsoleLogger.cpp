@@ -12,14 +12,17 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 16/05/2012.
 
 #include "ConsoleLogger.hpp"
 
-using namespace std;
+#include <cstdio>
+#include <cstdlib>
 
 namespace Utils
+{
+namespace Log
 {
 
 ConsoleLogger::ConsoleLogger()
 {
-    m_stdout  = new QTextStream(stdout);
+    m_stdout = new QTextStream(stdout);
     m_stderr = new QTextStream(stderr); 
 }
 
@@ -39,4 +42,5 @@ void ConsoleLogger::WriteToError(const QString& message) const
 	*m_stderr << message << endl;
 }
 
+}
 }
