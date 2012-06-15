@@ -64,5 +64,6 @@ private:
 };
 
 }
+}
 
 #endif // _PROFILER_HPP_

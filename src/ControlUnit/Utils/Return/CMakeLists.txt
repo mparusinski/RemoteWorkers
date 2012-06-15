@@ -6,18 +6,12 @@ LINK_DIRECTORIES(
     ${RemoteWorkers_ControlUnit_BINARY_DIR}
 )
 
-SET(ReturnStatus_SOURCES
-  ReturnStatus.cpp
-  StatusBase.cpp
-  Success.cpp
-  Failure.cpp
+SET(Return_SOURCES
+  Return.cpp
 )
 
-SET(ReturnStatus_HEADERS
-  ReturnStatus.hpp
-  StatusBase.hpp
-  Success.hpp
-  Failure.hpp
+SET(Return_HEADERS
+  Return.hpp
 )
 
-ADD_LIBRARY(ReturnStatus STATIC ${ReturnStatus_SOURCES} ${ReturnStatus_HEADERS})
+ADD_LIBRARY(Return STATIC ${Return_SOURCES} ${Return_HEADERS})

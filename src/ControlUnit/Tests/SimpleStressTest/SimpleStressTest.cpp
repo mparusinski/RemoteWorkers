@@ -22,42 +22,42 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 15/05/2012.
 #include "WorkerInterface/Worker.hpp"
 #include "WorkerInterface/Command.hpp"
 #include "WorkerInterface/Management.hpp"
-#include "Utils/Logger.hpp"
-#include "Utils/Profiler.hpp"
+#include "Utils/Log/Logger.hpp"
+#include "Utils/Profile/Profiler.hpp"
 
 using namespace std;
 using namespace WorkerInterface;
 
 int main(int argc, char *argv[])
 {
-	Utils::Profiler::startProfiler();
-	Utils::Logger::getInstance()->turnAllOn();
-	Utils::Profiler::profile("Turning logging on");
+	Utils::Profile::Profiler::startProfiler();
+	Utils::Log::Logger::getInstance()->turnAllOn();
+	Utils::Profile::Profiler::profile("Turning logging on");
 
-	Utils::Profiler::startProfiler();
+	Utils::Profile::Profiler::startProfiler();
 	QFileInfoList availableWorkers = Management::getInstance()->listAvailableWorkers();
 	for (size_t i = 0; i < availableWorkers.size(); ++i)
 	{
 		printf("%s\n", availableWorkers[i].fileName().toAscii().data());
 	}
-	Utils::Profiler::profile("Reading workers");
+	Utils::Profile::Profiler::profile("Reading workers");
 
-	Utils::Profiler::startProfiler();
+	Utils::Profile::Profiler::startProfiler();
 	Worker worker;
 	Management::getInstance()->createWorker("NastyBadWorker", worker);
-	Utils::Profiler::profile("Creating worker");
+	Utils::Profile::Profiler::profile("Creating worker");
 
-	Utils::Profiler::startProfiler();
+	Utils::Profile::Profiler::startProfiler();
 	Command command("NastyBadWorker", QStringList());
 	worker.executeCommand(command);
-	Utils::Profiler::profile("Executing a command");
+	Utils::Profile::Profiler::profile("Executing a command");
 
-	Utils::Profiler::startProfiler();
+	Utils::Profile::Profiler::startProfiler();
 	Reply reply;
 	worker.getReply(reply);
-	Utils::Profiler::profile("Creating the reply");
+	Utils::Profile::Profiler::profile("Creating the reply");
 
-	Utils::Profiler::startProfiler();
+	Utils::Profile::Profiler::startProfiler();
 	QList< QPair< QString, ByteStream > > rawData = reply.getRawData();
 	const size_t numberOfByteStreams = rawData.size();
 	for (size_t i = 0; i < numberOfByteStreams; ++i)
@@ -65,7 +65,7 @@ int main(int argc, char *argv[])
 		const QString& fileName = rawData[i].first;
 		printf("File: %s\n", fileName.toAscii().data());
 	}
-	Utils::Profiler::profile("Listing files");
+	Utils::Profile::Profiler::profile("Listing files");
 
 	return 1;
 }

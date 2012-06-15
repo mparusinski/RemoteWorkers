@@ -19,7 +19,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 21/05/2012
 
 #include "WorkerInterface/Worker.hpp"
 #include "WorkerInterface/Management.hpp"
-#include "Utils/Logger.hpp"
+#include "Utils/Log/Logger.hpp"
 
 using namespace std;
 
@@ -32,7 +32,7 @@ using namespace WorkerInterface;
 
 int main(int argc, char *argv[])
 {
-	Utils::Logger::getInstance()->turnAllOn();
+	Utils::Log::Logger::getInstance()->turnAllOn();
 
 	bool allTest = true;
 
