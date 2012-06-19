@@ -13,3 +13,5 @@ SET(SecurityPenetrationTestSRC
 ADD_EXECUTABLE(SecurityPenetrationTest ${SecurityPenetrationTestSRC})
 
 TARGET_LINK_LIBRARIES(SecurityPenetrationTest WorkerInterface)
+TARGET_LINK_LIBRARIES(SecurityPenetrationTest ${QT_LIBRARIES})
+

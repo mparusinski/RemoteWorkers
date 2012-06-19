@@ -28,5 +28,5 @@ ADD_LIBRARY(WorkerInterface
 TARGET_LINK_LIBRARIES(WorkerInterface Log)
 TARGET_LINK_LIBRARIES(WorkerInterface System)
 TARGET_LINK_LIBRARIES(WorkerInterface DataStructures)
-
+TARGET_LINK_LIBRARIES(WorkerInterface ${QT_LIBRAIRES})
 
