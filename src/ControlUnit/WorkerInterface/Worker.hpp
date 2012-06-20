@@ -16,10 +16,12 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 15/05/2012.
 #include <QString>
 #include <QFileInfo>
 
+#include "Utils/Return/Return.hpp"
+
 #include "Reply.hpp"
 #include "Command.hpp"
 
-using namespace std;
+using namespace Utils::Return;
 
 namespace WorkerInterface
 {
@@ -42,7 +44,7 @@ public:
 	///              corresponding to the reply. So this can be called only once.
 	/// \param[out]  reply Reply corresponding to output of the worker.
 	////////////////////////////////////////////////////////////////////////////////
-	void getReply(Reply& reply) const;
+	ReturnType getReply(Reply& reply) const;
 
 	////////////////////////////////////////////////////////////////////////////////
 	/// \brief     Worker will execute the command represented by the input and
@@ -50,7 +52,7 @@ public:
 	/// \param[in] command
 	/// \return    true if successful, false otherwise
 	////////////////////////////////////////////////////////////////////////////////
-	bool executeCommand(const Command& command) const;
+    ReturnType executeCommand(const Command& command) const;
 
 	////////////////////////////////////////////////////////////////////////////////
 	/// \brief     Returns the path to the worker (not the worker name)

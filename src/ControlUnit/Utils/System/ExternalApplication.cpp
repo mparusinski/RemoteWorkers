@@ -32,7 +32,7 @@ ExternalApplication::~ExternalApplication()
 
 }
 
-bool ExternalApplication::execute() const
+ReturnType ExternalApplication::execute() const
 {
 	QString errorMsg;
 
@@ -47,7 +47,7 @@ bool ExternalApplication::execute() const
 		QString errorMsg = m_commandPath;
 		errorMsg += ": External process did not launch successfully";
 		Utils::Log::Logger::getInstance()->error_msg(errorMsg);
-		return false;
+		return RW_ERROR_NO_EXECUTION;
 	}
 
 	if (!externalProcess.waitForFinished(m_waitingTime))
@@ -57,7 +57,7 @@ bool ExternalApplication::execute() const
 		Utils::Log::Logger::getInstance()->error_msg(errorMsg);
 
 		externalProcess.terminate();
-		return false;
+		return RW_ERROR_NO_EXECUTION;
 	}
 
 	QProcess::ExitStatus exitStatus = externalProcess.exitStatus();
@@ -67,9 +67,9 @@ bool ExternalApplication::execute() const
 		errorMsg  = m_commandPath;
 		errorMsg += ": External process crashed";
 		Utils::Log::Logger::getInstance()->error_msg(errorMsg);
-		return false;
+		return RW_ERROR_EXECUTION_FAIL;
 	default:
-		return true;
+		return RW_NO_ERROR;
 	}
 }
 

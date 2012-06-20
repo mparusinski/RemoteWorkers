@@ -16,6 +16,10 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 13/06/2012.
 #include <QString>
 #include <QProcess>
 
+#include "Utils/Return/Return.hpp"
+
+using namespace Utils::Return;
+
 namespace Utils
 {
 namespace System
@@ -32,7 +36,7 @@ public:
 	/// \brief     Execute application represented by application
 	/// \return    True if successfully executed, otherwise false
 	////////////////////////////////////////////////////////////////////////////////
-	bool execute(void) const;
+	ReturnType execute(void) const;
 
 private:
 	static const int m_waitingTime = -1;

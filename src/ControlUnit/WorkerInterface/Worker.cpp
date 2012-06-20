@@ -38,10 +38,15 @@ Worker::Worker(const QFileInfo& path)
 	getOutputPath();
 }
 
-void Worker::getReply(Reply& reply) const
+ReturnType Worker::getReply(Reply& reply) const
 {
 	createReply(reply);
 	cleanOutput();
+    
+    if (reply.empty())
+        return RW_ERROR_NO_REPLY;
+    else 
+        return RW_NO_ERROR;
 }
 
 const QFileInfo& Worker::getPath() const
@@ -49,7 +54,7 @@ const QFileInfo& Worker::getPath() const
 	return m_path;
 }
 
-bool Worker::executeCommand(const Command& command) const
+ReturnType Worker::executeCommand(const Command& command) const
 {
 	const QString& order = command.getOrder();
 	const QStringList& arguments = command.getArguments();

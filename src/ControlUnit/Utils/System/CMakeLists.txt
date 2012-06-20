@@ -13,7 +13,7 @@ SET(System_SOURCES
 
 SET(System_HEADERS
   FileManagement.hpp
-  FileManagement.cpp
+  ExternalApplication.hpp
 )
 
 ADD_LIBRARY(System STATIC ${System_SOURCES} ${System_HEADERS})

@@ -16,10 +16,12 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 17/05/2012.
 #include <QString>
 #include <QFileInfo>
 
+#include "Utils/Return/Return.hpp"
+
 #include "Worker.hpp"
 #include "Reply.hpp"
 
-using namespace std;
+using namespace Utils::Return;
 
 namespace WorkerInterface
 {
@@ -42,7 +44,7 @@ public:
 	/// \param[out] worker      The worker we wish to create
 	/// \return     returns true if successfully created worker
 	/////////////////////////////////////////////////////////////////////////////////
-	bool createWorker(const QString& workerName, Worker& worker);
+	ReturnType createWorker(const QString& workerName, Worker& worker);
 
 	/////////////////////////////////////////////////////////////////////////////////
 	/// \brief     List all available workers in default path

@@ -29,7 +29,7 @@ Management::Management()
 	//Utils::Logger::getInstance()->debug(m_pathToWorkers)
 	if (m_pathToWorkers == QString())
 	{
-		Utils::Log::Logger::getInstance()->error_msg("Path to workers not read! Closing");
+		Utils::Log::Logger::getInstance()->error_msg("Path to workers not read! Closing!");
 		exit(-1);
 	}
 }
@@ -49,7 +49,7 @@ Management* Management::getInstance()
 	return instance;
 }
 
-bool Management::createWorker(const QString& workerName, Worker& worker)
+ReturnType Management::createWorker(const QString& workerName, Worker& worker)
 {
 	getListOfWorkers();
 	const int numberOfWorkers = m_availableWorkers.size();
@@ -59,13 +59,13 @@ bool Management::createWorker(const QString& workerName, Worker& worker)
 		if (currentWorkerName.fileName() == workerName)
 		{
 			worker = Worker(currentWorkerName);
-			return true;
+			return RW_NO_ERROR;
 		}
 	}
 
 	Utils::Log::Logger::getInstance()->error_msg("Worker not available");
 
-	return false;
+	return RW_ERROR_NO_WORKER;
 }
 
 const QFileInfoList& Management::listAvailableWorkers()
