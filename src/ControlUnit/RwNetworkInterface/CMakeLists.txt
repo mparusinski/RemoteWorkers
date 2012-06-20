@@ -6,14 +6,15 @@ LINK_DIRECTORIES(
     ${RemoteWorkers_ControlUnit_BINARY_DIR}
 )
 
-SET(NetworkInterface_SOURCES
-    NetworkSocketBase.cc
-    NetworkSocketSsl.cc
+SET(RwNetworkInterface_SOURCES
+    RwNetworkSocketBase.cc
+    RwNetworkSocketSsl.cc
 )
 
-SET(NetworkInterface_HEADERS
-    NetworkSocketBase.h
-    NetworkSocketSsl.h
+SET(RwNetworkInterface_HEADERS
+    RwNetworkSocketBase.h
+    RwNetworkSocketSsl.h
 )
 
-ADD_LIBRARY(NetworkInterface STATIC ${NetworkInterface_SOURCES} ${NetworkInterface_HEADERS})
+ADD_LIBRARY(RwNetworkInterface STATIC 
+  ${RwNetworkInterface_SOURCES} ${RwNetworkInterface_HEADERS})

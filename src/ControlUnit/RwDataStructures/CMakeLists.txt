@@ -1,10 +1,10 @@
-SET(DataStructures_SOURCES
-    ByteStream.cc
+SET(RwDataStructures_SOURCES
+    RwByteStream.cc
 )
 
-SET(DataStructures_HEADERS
-    ByteStream.h
+SET(RwDataStructures_HEADERS
+    RwByteStream.h
 )
 
-ADD_LIBRARY(DataStructures STATIC 
-  ${DataStructures_SOURCES} ${DataStructures_HEADERS})
+ADD_LIBRARY(RwDataStructures STATIC 
+  ${RwDataStructures_SOURCES} ${RwDataStructures_HEADERS})
