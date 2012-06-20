@@ -10,15 +10,15 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 19/05/2012.
 
 */
 
-#ifndef _PROFILER_HPP_
-#define _PROFILER_HPP_
+#ifndef _RWPROFILER_HPP_
+#define _RWPROFILER_HPP_
 
 #include <QStack>
 #include <QElapsedTimer>
 
-namespace Utils
+namespace RwUtils
 {
-    namespace Profile
+    namespace RwProfile
     {
         
         ////////////////////////////////////////////////////////////////////////////////
@@ -28,7 +28,7 @@ namespace Utils
         ///        for simple quick profiling. For better results use a proper profiler
         ///        like Valgrind.
         ////////////////////////////////////////////////////////////////////////////////
-        class Profiler
+        class RwProfiler
         {
         public:
             typedef QStack<QElapsedTimer> TimerTypes;

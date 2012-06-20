@@ -10,19 +10,19 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 17/05/2012.
 
 */
 
-#ifndef _MANAGEMENT_HPP_
-#define _MANAGEMENT_HPP_
+#ifndef _RWMANAGEMENT_HPP_
+#define _RWMANAGEMENT_HPP_
 
 #include <QString>
 #include <QFileInfo>
 
-#include "Utils/Programming/Return.h"
-#include "Utils/Programming/Classes.h"
+#include "RwUtils/RwProgramming/RwReturn.h"
+#include "RwUtils/RwProgramming/RwClasses.h"
 
-#include "Worker.h"
-#include "Reply.h"
+#include "RwWorker.h"
+#include "RwReply.h"
 
-namespace WorkerInterface
+namespace RwWorkerInterface
 {
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -30,11 +30,11 @@ namespace WorkerInterface
 ///        It provides a interface to the workers by creating them on demand,
 ///        listing them and other.
 ////////////////////////////////////////////////////////////////////////////////
-class Management
+class RwManagement
 {
 public:
-	virtual ~Management();
-	static Management* getInstance();
+	virtual ~RwManagement();
+	static RwManagement* getInstance();
 
 	/////////////////////////////////////////////////////////////////////////////////
 	/// \brief      Create the worker with given name. The function resolves the path
@@ -43,7 +43,7 @@ public:
 	/// \param[out] worker      The worker we wish to create
 	/// \return     returns true if successfully created worker
 	/////////////////////////////////////////////////////////////////////////////////
-	ReturnType createWorker(const QString& workerName, Worker& worker);
+	RwReturnType createWorker(const QString& workerName, RwWorker& worker);
 
 	/////////////////////////////////////////////////////////////////////////////////
 	/// \brief     List all available workers in default path
@@ -52,8 +52,8 @@ public:
 	const QFileInfoList& listAvailableWorkers();
 
 private:
-    DISALLOW_COPY_AND_ASSIGN(Management);
-	Management();
+    DISALLOW_COPY_AND_ASSIGN(RwManagement);
+	RwManagement();
 
 	inline void getListOfWorkers();
 

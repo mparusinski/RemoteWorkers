@@ -10,26 +10,24 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 15/05/2012.
 
 */
 
-#ifndef _FILEMANAGEMENT_HPP_
-#define _FILEMANAGEMENT_HPP_
+#ifndef _RWFILEMANAGEMENT_HPP_
+#define _RWFILEMANAGEMENT_HPP_
 
 #include <QProcess>
 #include <QString>
 #include <QFileInfo>
 #include <QFileInfoList>
 
-using namespace std;
-
-namespace Utils
+namespace RwUtils
 {
-namespace System
+namespace RwSystem
 {
 
 ////////////////////////////////////////////////////////////////////////////////
 /// \brief This class contains a set of function to allow cross platform
 ///        functionality.
 ////////////////////////////////////////////////////////////////////////////////
-class FileManagement
+class RwFileManagement
 {
 public:
 

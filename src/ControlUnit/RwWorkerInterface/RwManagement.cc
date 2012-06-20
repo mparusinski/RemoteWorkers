@@ -10,46 +10,46 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 17/05/2012
 
 */
 
-#include "Management.h"
+#include "RwManagement.h"
 
 #include <cstdio>
 
-#include "Configuration.h"
-#include "Utils/Log/Logger.h"
-#include "Utils/System/FileManagement.h"
+#include "RwConfiguration.h"
+#include "RwUtils/RwLog/RwLogger.h"
+#include "RwUtils/RwSystem/RwFileManagement.h"
 
-namespace WorkerInterface
+namespace RwWorkerInterface
 {
 
-Management::Management()
+RwManagement::RwManagement()
 {
     QString pathToWorkers;
-	Configuration::getInstance()->getWorkersPath(pathToWorkers);
+	RwConfiguration::getInstance()->getWorkersPath(pathToWorkers);
     m_pathToWorkers.setFile(pathToWorkers);
 	//Utils::Logger::getInstance()->debug(m_pathToWorkers)
 	if (m_pathToWorkers == QString())
 	{
-		Utils::Log::Logger::getInstance()->error_msg("Path to workers not read! Closing!");
+		RwUtils::RwLog::RwLogger::getInstance()->error_msg("Path to workers not read! Closing!");
 		exit(-1);
 	}
 }
 
-Management::~Management()
+RwManagement::~RwManagement()
 {
 
 }
 
-Management* Management::getInstance()
+RwManagement* RwManagement::getInstance()
 {
-	static Management* instance = 0;
+	static RwManagement* instance = 0;
 	if (instance == 0)
 	{
-		instance = new Management();
+		instance = new RwManagement();
 	}
 	return instance;
 }
 
-ReturnType Management::createWorker(const QString& workerName, Worker& worker)
+RwReturnType RwManagement::createWorker(const QString& workerName, RwWorker& worker)
 {
 	getListOfWorkers();
 	const int numberOfWorkers = m_availableWorkers.size();
@@ -58,27 +58,27 @@ ReturnType Management::createWorker(const QString& workerName, Worker& worker)
 		const QFileInfo& currentWorkerName = m_availableWorkers[i];
 		if (currentWorkerName.fileName() == workerName)
 		{
-			worker = Worker(currentWorkerName);
+			worker = RwWorker(currentWorkerName);
 			return RW_NO_ERROR;
 		}
 	}
 
-	Utils::Log::Logger::getInstance()->error_msg("Worker not available");
+	RwUtils::RwLog::RwLogger::getInstance()->error_msg("Worker not available");
 
 	return RW_ERROR_NO_WORKER;
 }
 
-const QFileInfoList& Management::listAvailableWorkers()
+const QFileInfoList& RwManagement::listAvailableWorkers()
 {
 	getListOfWorkers();
 	return m_availableWorkers;
 }
 
-void Management::getListOfWorkers()
+void RwManagement::getListOfWorkers()
 {
 	if (m_availableWorkers.empty())
 	{
-		Utils::System::FileManagement::getListOfDirsInDir(m_pathToWorkers, m_availableWorkers);
+		RwUtils::RwSystem::RwFileManagement::getListOfDirsInDir(m_pathToWorkers, m_availableWorkers);
 	}
 }
 

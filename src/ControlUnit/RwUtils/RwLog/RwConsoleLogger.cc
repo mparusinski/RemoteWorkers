@@ -10,30 +10,30 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 16/05/2012.
 
 */
 
-#include "ConsoleLogger.h"
+#include "RwConsoleLogger.h"
 
 #include <cstdio>
 #include <cstdlib>
 
-namespace Utils
+namespace RwUtils
 {
-    namespace Log
+    namespace RwLog
     {
         
-        ConsoleLogger::ConsoleLogger()
+        RwConsoleLogger::RwConsoleLogger()
         {
         }
         
-        ConsoleLogger::~ConsoleLogger()
+        RwConsoleLogger::~RwConsoleLogger()
         {
         }
         
-        void ConsoleLogger::WriteToLog(const QString& message) const
+        void RwConsoleLogger::WriteToLog(const QString& message) const
         {
             fprintf(stdout, "%s\n", message.toAscii().data());
         }
         
-        void ConsoleLogger::WriteToError(const QString& message) const
+        void RwConsoleLogger::WriteToError(const QString& message) const
         {
             fprintf(stderr, "%s\n", message.toAscii().data());
         }

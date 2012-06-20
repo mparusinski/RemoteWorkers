@@ -10,32 +10,32 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 16/05/2012.
 
 */
 
-#ifndef _FILELOGGER_HPP_
-#define _FILELOGGER_HPP_
+#ifndef _RWFILELOGGER_HPP_
+#define _RWFILELOGGER_HPP_
 
-#include "LoggerBaseClass.h"
+#include "RwLoggerBaseClass.h"
 
 #include <QString>
 #include <cstdio>
 #include <cstdlib>
 
-#include "Utils/Programming/Classes.h"
+#include "RwUtils/RwProgramming/RwClasses.h"
 
-namespace Utils
+namespace RwUtils
 {
-    namespace Log
+    namespace RwLog
     {
         
         ////////////////////////////////////////////////////////////////////////////////
         /// \brief This class implements the a logger mechanism that writes to files.
         ///        Should not be instantiated, use instead the Logger class.
         ////////////////////////////////////////////////////////////////////////////////
-        class FileLogger : public LoggerBaseClass
+        class RwFileLogger : public RwLoggerBaseClass
         {
         public:
             
-            FileLogger();
-            virtual ~FileLogger();
+            RwFileLogger();
+            virtual ~RwFileLogger();
             
             ////////////////////////////////////////////////////////////////////////////////
             /// \brief     Method for writing a message to a log which is stored in a file
@@ -53,7 +53,7 @@ namespace Utils
             FILE* m_out;
             FILE* m_err;
             
-            DISALLOW_COPY_AND_ASSIGN(FileLogger);
+            DISALLOW_COPY_AND_ASSIGN(RwFileLogger);
             virtual void noInstantiation() {}
         };
         

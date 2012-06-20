@@ -10,99 +10,99 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 16/05/2012.
 
 */
 
-#include "Logger.h"
+#include "RwLogger.h"
 
 #include <cstdio>
 #include <cstdlib>
 
 #include <QString>
 
-#include "ConsoleLogger.h"
-#include "FileLogger.h"
+#include "RwConsoleLogger.h"
+#include "RwFileLogger.h"
 
 
-namespace Utils
+namespace RwUtils
 {
-    namespace Log
+    namespace RwLog
     {
         
-        Logger::Logger()
+        RwLogger::RwLogger()
         {
             m_logging = false;
             m_reportingErrors = false;
-            m_strategy = new ConsoleLogger();
+            m_strategy = new RwConsoleLogger();
         }
         
-        Logger::~Logger()
+        RwLogger::~RwLogger()
         {
             delete m_strategy;
         }
         
-        Logger* Logger::getInstance()
+        RwLogger* RwLogger::getInstance()
         {
-            static Logger* instance = 0;
+            static RwLogger* instance = 0;
             if (instance == 0)
             {
-                instance = new Logger();
+                instance = new RwLogger();
             }
             return instance;
         }
         
-        void Logger::useConsoleLogger()
+        void RwLogger::useConsoleLogger()
         {
             delete m_strategy;
-            m_strategy = new ConsoleLogger();
+            m_strategy = new RwConsoleLogger();
         }
         
-        void Logger::useFileLogger()
+        void RwLogger::useFileLogger()
         {
             delete m_strategy;
-            m_strategy = new FileLogger();
+            m_strategy = new RwFileLogger();
         }
         
-        void Logger::turnLoggingOff()
+        void RwLogger::turnLoggingOff()
         {
             m_logging = false;
         }
         
-        void Logger::turnLoggingOn()
+        void RwLogger::turnLoggingOn()
         {
             m_logging = true;
         }
         
-        void Logger::turnErrorReportingOff()
+        void RwLogger::turnErrorReportingOff()
         {
             m_reportingErrors = false;
         }
         
-        void Logger::turnErrorReportingOn()
+        void RwLogger::turnErrorReportingOn()
         {
             m_reportingErrors = true;
         }
         
-        void Logger::turnAllOff()
+        void RwLogger::turnAllOff()
         {
             m_logging = false;
             m_reportingErrors = false;
         }
         
-        void Logger::turnAllOn()
+        void RwLogger::turnAllOn()
         {
             m_logging = true;
             m_reportingErrors = true;
         }
         
-        bool Logger::logging()
+        bool RwLogger::logging()
         {
             return m_logging;
         }
         
-        bool Logger::reportErrors()
+        bool RwLogger::reportErrors()
         {
             return m_reportingErrors;
         }
         
-        void Logger::log(const char* message) const
+        void RwLogger::log(const char* message) const
         {
             if (m_logging)
             {
@@ -112,7 +112,7 @@ namespace Utils
             }
         }
         
-        void Logger::log(const QString& message) const
+        void RwLogger::log(const QString& message) const
         {
             if (m_logging)
             {
@@ -122,7 +122,7 @@ namespace Utils
             }
         }
         
-        void Logger::reportError(
+        void RwLogger::reportError(
                                  const char* file,
                                  const char* function,
                                  const int lineNumber,
@@ -144,7 +144,7 @@ namespace Utils
             }
         }
         
-        void Logger::reportError(
+        void RwLogger::reportError(
                                  const char* file,
                                  const char* function,
                                  const int lineNumber,
@@ -166,12 +166,12 @@ namespace Utils
             }
         }
         
-        void Logger::_debugMessage(const char* file, const char* message) const
+        void RwLogger::_debugMessage(const char* file, const char* message) const
         {
             fprintf(stderr, "DEBUG (%s): %s\n", file, message);
         }
         
-        void Logger::_debugMessage(const char* file, const QString& message) const
+        void RwLogger::_debugMessage(const char* file, const QString& message) const
         {
             QString debugMessage = "DEBUG (";
             debugMessage += file;

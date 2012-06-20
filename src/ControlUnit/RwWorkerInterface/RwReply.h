@@ -10,19 +10,19 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 15/05/2012.
 
 */
 
-#ifndef _REPLY_HPP_
-#define _REPLY_HPP_
+#ifndef _RWREPLY_HPP_
+#define _RWREPLY_HPP_
 
 #include <QString>
 #include <QPair>
 #include <QList>
 
-#include "Utils/Programming/Classes.h"
-#include "DataStructures/ByteStream.h"
+#include "RwUtils/RwProgramming/RwClasses.h"
+#include "RwDataStructures/RwByteStream.h"
 
-using namespace DataStructures;
+using namespace RwDataStructures;
 
-namespace WorkerInterface
+namespace RwWorkerInterface
 {
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -30,14 +30,14 @@ namespace WorkerInterface
 ///        the raw data of a reply. This class should not be created directly,
 ///        but by a third party object like a worker.
 ////////////////////////////////////////////////////////////////////////////////
-class Reply
+class RwReply
 {
 public:
-	typedef QList< QPair<QString, ByteStream> > ByteStreams;
+	typedef QList< QPair<QString, RwByteStream> > ByteStreams;
 
-	Reply();
-	explicit Reply(const ByteStreams& rawData);
-	virtual ~Reply();
+	RwReply();
+	explicit RwReply(const ByteStreams& rawData);
+	virtual ~RwReply();
 
 	////////////////////////////////////////////////////////////////////////////////
 	/// \brief     Checks if the reply has data corresponding to a reply from a
@@ -59,7 +59,7 @@ public:
     void setRawData(ByteStreams& rawData);
 
 private:
-    DISALLOW_COPY_AND_ASSIGN(Reply);
+    DISALLOW_COPY_AND_ASSIGN(RwReply);
     
 	bool m_empty;
 	ByteStreams m_rawData;

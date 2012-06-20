@@ -10,29 +10,30 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 13/06/2012.
 
 */
 
-#include "ExternalApplication.h"
+#include "RwExternalApplication.h"
 
 #include <QProcess>
 
-#include "Utils/Log/Logger.h"
+#include "RwUtils/RwLog/RwLogger.h"
 
-namespace Utils
+namespace RwUtils
 {
-namespace System
+namespace RwSystem
 {
 
-ExternalApplication::ExternalApplication(const QString& pathToCommand, const QStringList& arguments)
+RwExternalApplication::RwExternalApplication(const QString& pathToCommand, 
+                                             const QStringList& arguments)
 {
 	m_commandPath = pathToCommand;
 	m_arguments   = arguments;
 }
 
-ExternalApplication::~ExternalApplication()
+RwExternalApplication::~RwExternalApplication()
 {
 
 }
 
-ReturnType ExternalApplication::execute() const
+RwReturnType RwExternalApplication::execute() const
 {
 	QString errorMsg;
 
@@ -46,7 +47,7 @@ ReturnType ExternalApplication::execute() const
 	{
 		QString errorMsg = m_commandPath;
 		errorMsg += ": External process did not launch successfully";
-		Utils::Log::Logger::getInstance()->error_msg(errorMsg);
+		RwUtils::RwLog::RwLogger::getInstance()->error_msg(errorMsg);
 		return RW_ERROR_NO_EXECUTION;
 	}
 
@@ -54,7 +55,7 @@ ReturnType ExternalApplication::execute() const
 	{
 		errorMsg = m_commandPath;
 		errorMsg += ": External process did not finish without errors or took too long to execute";
-		Utils::Log::Logger::getInstance()->error_msg(errorMsg);
+		RwUtils::RwLog::RwLogger::getInstance()->error_msg(errorMsg);
 
 		externalProcess.terminate();
 		return RW_ERROR_NO_EXECUTION;
@@ -66,7 +67,7 @@ ReturnType ExternalApplication::execute() const
 	case QProcess::CrashExit:
 		errorMsg  = m_commandPath;
 		errorMsg += ": External process crashed";
-		Utils::Log::Logger::getInstance()->error_msg(errorMsg);
+		RwUtils::RwLog::RwLogger::getInstance()->error_msg(errorMsg);
 		return RW_ERROR_EXECUTION_FAIL;
 	default:
 		return RW_NO_ERROR;

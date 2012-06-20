@@ -10,40 +10,40 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 17/05/2012.
 
 */
 
-#include "Configuration.h"
+#include "RwConfiguration.h"
 
 #include <QDir>
 #include <QFile>
 #include <QTextStream>
 
-#include "Utils/Log/Logger.h"
+#include "RwUtils/RwLog/RwLogger.h"
 
-namespace WorkerInterface
+namespace RwWorkerInterface
 {
 
-Configuration::Configuration()
+RwConfiguration::RwConfiguration()
 {
 	m_configurationRead = false;
 	//readConfiguration(); // should not be called as it can fail
 }
 
-Configuration::~Configuration()
+RwConfiguration::~RwConfiguration()
 {
 }
 
-Configuration* Configuration::getInstance()
+RwConfiguration* RwConfiguration::getInstance()
 {
-	static Configuration* instance = 0;
+	static RwConfiguration* instance = 0;
 	if (instance == 0)
 	{
-		instance = new Configuration();
+		instance = new RwConfiguration();
 	}
 	return instance;
 }
 
-ReturnType Configuration::readConfiguration()
+RwReturnType RwConfiguration::readConfiguration()
 {
-    ReturnType returnMsg = RW_NO_ERROR;
+    RwReturnType returnMsg = RW_NO_ERROR;
     QFile configurationFile("conf.txt");
     configurationFile.open(QFile::ReadOnly | QFile::Text);
     
@@ -53,7 +53,7 @@ ReturnType Configuration::readConfiguration()
         
 		if (m_configurationRead)
 		{
-			Utils::Log::Logger::getInstance()->log("Configuration already read, rereading it");
+			RwUtils::RwLog::RwLogger::getInstance()->log("Configuration already read, rereading it");
 		}
 
 		while( !configurationIn.atEnd() )
@@ -71,7 +71,7 @@ ReturnType Configuration::readConfiguration()
 	}
 	else
 	{
-		Utils::Log::Logger::getInstance()->error_msg("Unable to read configuration! Configuration file did not open");
+		RwUtils::RwLog::RwLogger::getInstance()->error_msg("Unable to read configuration! Configuration file did not open");
         returnMsg = returnMsg | RW_ERROR_FILE_NOT_READ;
 	}
     
@@ -80,9 +80,9 @@ ReturnType Configuration::readConfiguration()
     return returnMsg;
 }
 
-ReturnType Configuration::getConfiguration(const QString& descriptor, QString& configuration)
+RwReturnType RwConfiguration::getConfiguration(const QString& descriptor, QString& configuration)
 {
-    ReturnType returnMsg = RW_NO_ERROR;
+    RwReturnType returnMsg = RW_NO_ERROR;
     if (!m_configurationRead)
     {
         returnMsg = readConfiguration();
@@ -90,7 +90,7 @@ ReturnType Configuration::getConfiguration(const QString& descriptor, QString& c
     
 	if (returnMsg != RW_NO_ERROR)
     {
-        Utils::Log::Logger::getInstance()->error_msg("Error occurred when reading configuration file!");
+        RwUtils::RwLog::RwLogger::getInstance()->error_msg("Error occurred when reading configuration file!");
         return returnMsg;
     }
         
@@ -105,14 +105,14 @@ ReturnType Configuration::getConfiguration(const QString& descriptor, QString& c
 		{
 			QString errorMessage = "There is no configuration for descriptor ";
 			errorMessage += descriptor;
-			Utils::Log::Logger::getInstance()->error_msg(errorMessage);
+			RwUtils::RwLog::RwLogger::getInstance()->error_msg(errorMessage);
 		}
 	}
     
     return returnMsg;
 }
 
-void Configuration::getWorkersPath(QString& workersPath)
+void RwConfiguration::getWorkersPath(QString& workersPath)
 {
     getConfiguration("WorkersPath", workersPath);
 }

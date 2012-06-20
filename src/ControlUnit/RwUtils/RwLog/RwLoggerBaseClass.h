@@ -10,28 +10,28 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 16/05/2012.
 
 */
 
-#ifndef _LOGGERBASECLASS_HPP_
-#define _LOGGERBASECLASS_HPP_
+#ifndef _RWLOGGERBASECLASS_HPP_
+#define _RWLOGGERBASECLASS_HPP_
 
 #include <QString>
 
-#include "Utils/Programming/Classes.h"
+#include "RwUtils/RwProgramming/RwClasses.h"
 
-namespace Utils
+namespace RwUtils
 {
-    namespace Log
+    namespace RwLog
     {
         
         ////////////////////////////////////////////////////////////////////////////////
         /// \brief This class is a abstract base class to logging systems. It is used by
         ///        the logger class to allow the logger to choose the logging mechanism.
         ////////////////////////////////////////////////////////////////////////////////
-        class LoggerBaseClass
+        class RwLoggerBaseClass
         {
         public:
             
-            LoggerBaseClass();
-            virtual ~LoggerBaseClass();
+            RwLoggerBaseClass();
+            virtual ~RwLoggerBaseClass();
             
             ////////////////////////////////////////////////////////////////////////////////
             /// \brief     Abstract method for writing a message to a log
@@ -46,7 +46,7 @@ namespace Utils
             virtual void WriteToError(const QString& message) const;
             
         private:
-            DISALLOW_COPY_AND_ASSIGN(LoggerBaseClass);
+            DISALLOW_COPY_AND_ASSIGN(RwLoggerBaseClass);
             
             virtual void noInstantiation() = 0;
             inline void usingBaseClassError() const;

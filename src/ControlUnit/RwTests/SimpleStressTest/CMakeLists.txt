@@ -12,7 +12,7 @@ SET(SimpleStressTestSRC
 
 ADD_EXECUTABLE(SimpleStressTest ${SimpleStressTestSRC})
 
-TARGET_LINK_LIBRARIES(SimpleStressTest WorkerInterface)
-TARGET_LINK_LIBRARIES(SimpleStressTest Profile)
+TARGET_LINK_LIBRARIES(SimpleStressTest RwWorkerInterface)
+TARGET_LINK_LIBRARIES(SimpleStressTest RwProfile)
 TARGET_LINK_LIBRARIES(SimpleStressTest ${QT_LIBRARIES})
 

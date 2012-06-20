@@ -10,28 +10,28 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 15/05/2012.
 
 */
 
-#ifndef _COMMAND_HPP_
-#define _COMMAND_HPP_
+#ifndef _RWCOMMAND_HPP_
+#define _RWCOMMAND_HPP_
 
 #include <QString>
 #include <QStringList>
 
-#include "Utils/Programming/Classes.h"
+#include "RwUtils/RwProgramming/RwClasses.h"
 
-namespace WorkerInterface
+namespace RwWorkerInterface
 {
 
 ////////////////////////////////////////////////////////////////////////////////
 /// \brief This class encapsulate a command into a data structure which can be
 ///        passed to a worker.
 ////////////////////////////////////////////////////////////////////////////////
-class Command
+class RwCommand
 {
 
 public:
 
-	explicit Command(const QString& order, const QStringList& arguments);
-	virtual ~Command() { }
+	explicit RwCommand(const QString& order, const QStringList& arguments);
+	virtual ~RwCommand() { }
 
 	/////////////////////////////////////////////////////////////////////////////////
 	/// \brief     Return the order i.e the command the object represents
@@ -46,7 +46,7 @@ public:
 	const QStringList& getArguments() const;
 
 private:
-    DISALLOW_COPY_AND_ASSIGN(Command);
+    DISALLOW_COPY_AND_ASSIGN(RwCommand);
 	QString m_order;
 	QStringList m_arguments;
 };

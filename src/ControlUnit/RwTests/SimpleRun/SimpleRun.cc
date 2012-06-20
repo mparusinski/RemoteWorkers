@@ -19,48 +19,48 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 18/05/2012.
 #include <QVector>
 #include <QTextStream>
 
-#include "WorkerInterface/Reply.h"
-#include "WorkerInterface/Worker.h"
-#include "WorkerInterface/Command.h"
-#include "WorkerInterface/Management.h"
-#include "Utils/Log/Logger.h"
+#include "RwWorkerInterface/RwReply.h"
+#include "RwWorkerInterface/RwWorker.h"
+#include "RwWorkerInterface/RwCommand.h"
+#include "RwWorkerInterface/RwManagement.h"
+#include "RwUtils/RwLog/RwLogger.h"
 
-using namespace WorkerInterface;
+using namespace RwWorkerInterface;
 
 int main(int argc, char *argv[])
 {
-	Utils::Log::Logger::getInstance()->turnAllOn();
+	RwUtils::RwLog::RwLogger::getInstance()->turnAllOn();
     QTextStream streamStdout(stdout);
 
-	QFileInfoList availableWorkers = Management::getInstance()->listAvailableWorkers();
+	QFileInfoList availableWorkers = RwManagement::getInstance()->listAvailableWorkers();
 	for (int i = 0; i < availableWorkers.size(); ++i)
 	{
 		streamStdout << availableWorkers[i].fileName() << endl;
 	}
 
-	Worker worker;
-	Management::getInstance()->createWorker("SimpleTestWorker", worker);
-	Command command("SimpleTestWorker", QStringList());
+	RwWorker worker;
+	RwManagement::getInstance()->createWorker("SimpleTestWorker", worker);
+	RwCommand command("SimpleTestWorker", QStringList());
 	worker.executeCommand(command);
-	Reply reply;
+	RwReply reply;
     worker.getReply(reply);
 
 	if ( reply.empty() )
 	{
-		Utils::Log::Logger::getInstance()->error_msg("Reply is not built");
+		RwUtils::RwLog::RwLogger::getInstance()->error_msg("Reply is not built");
 		return -1;
 	}
 	else
 	{
-		Utils::Log::Logger::getInstance()->log("Reply is built");
+		RwUtils::RwLog::RwLogger::getInstance()->log("Reply is built");
 	}
 
-	const Reply::ByteStreams& rawData = reply.getRawData();
+	const RwReply::ByteStreams& rawData = reply.getRawData();
 	const int numberOfByteStreams = rawData.size();
 	for (int i = 0; i < numberOfByteStreams; ++i)
 	{
 		const QString& fileName = rawData[i].first;
-		const ByteStream& byteStream = rawData[i].second;
+		const RwByteStream& byteStream = rawData[i].second;
 		streamStdout << "File: " << fileName << endl;
 
 		const int lengthOfStream = byteStream.size();

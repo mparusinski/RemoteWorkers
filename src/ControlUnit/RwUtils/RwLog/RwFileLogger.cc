@@ -10,31 +10,31 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 16/05/2012.
 
 */
 
-#include "FileLogger.h"
+#include "RwFileLogger.h"
 
-namespace Utils
+namespace RwUtils
 {
-    namespace Log
+    namespace RwLog
     {
         
-        FileLogger::FileLogger()
+        RwFileLogger::RwFileLogger()
         {
             m_out = fopen("out.log", "a");
             m_err = fopen("err.log", "a");
         }
         
-        FileLogger::~FileLogger()
+        RwFileLogger::~RwFileLogger()
         {
             fclose(m_out);
             fclose(m_err);
         }
         
-        void FileLogger::WriteToLog(const QString& message) const
+        void RwFileLogger::WriteToLog(const QString& message) const
         {
             fprintf(m_out, "%s\n", message.toAscii().data());
         }
         
-        void FileLogger::WriteToError(const QString& message) const
+        void RwFileLogger::WriteToError(const QString& message) const
         {
             fprintf(m_err, "%s\n", message.toAscii().data());
         }

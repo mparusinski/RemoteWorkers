@@ -10,35 +10,35 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 15/05/2012.
 
 */
 
-#include "Worker.h"
+#include "RwWorker.h"
 
 #include <QFile>
 #include <QDataStream>
 #include <QDir>
 
-#include "Reply.h"
-#include "Utils/System/FileManagement.h"
-#include "Utils/System/ExternalApplication.h"
-#include "Utils/Log/Logger.h"
-#include "DataStructures/ByteStream.h"
+#include "RwReply.h"
+#include "RwUtils/RwSystem/RwFileManagement.h"
+#include "RwUtils/RwSystem/RwExternalApplication.h"
+#include "RwUtils/RwLog/RwLogger.h"
+#include "RwDataStructures/RwByteStream.h"
 
-using namespace DataStructures;
+using namespace RwDataStructures;
 
-namespace WorkerInterface
+namespace RwWorkerInterface
 {
     
-    Worker::Worker()
+    RwWorker::RwWorker()
     {
         
     }
     
-    Worker::Worker(const QFileInfo& path)
+    RwWorker::RwWorker(const QFileInfo& path)
     {
         m_path = path;
         getOutputPath();
     }
     
-    ReturnType Worker::getReply(Reply& reply) const
+    RwReturnType RwWorker::getReply(RwReply& reply) const
     {
         createReply(reply);
         cleanOutput();
@@ -49,13 +49,13 @@ namespace WorkerInterface
             return RW_NO_ERROR;
     }
     
-    Worker::Worker(const Worker& otherWorker)
+    RwWorker::RwWorker(const RwWorker& otherWorker)
     {
         m_path       = otherWorker.m_path;
         m_outputPath = otherWorker.m_outputPath;
     }
     
-    Worker& Worker::operator=(const WorkerInterface::Worker &otherWorker)
+    RwWorker& RwWorker::operator=(const RwWorker &otherWorker)
     {
         if (this != &otherWorker)
         {
@@ -66,12 +66,12 @@ namespace WorkerInterface
         return *this;
     }
     
-    const QFileInfo& Worker::getPath() const
+    const QFileInfo& RwWorker::getPath() const
     {
         return m_path;
     }
     
-    ReturnType Worker::executeCommand(const Command& command) const
+    RwReturnType RwWorker::executeCommand(const RwCommand& command) const
     {
         const QString& order = command.getOrder();
         const QStringList& arguments = command.getArguments();
@@ -82,18 +82,18 @@ namespace WorkerInterface
         commandPath += PATH_SEPERATOR;
         commandPath += order;
         
-        if (Utils::Log::Logger::getInstance()->logging())
+        if (RwUtils::RwLog::RwLogger::getInstance()->logging())
         {
             QString logMessage = commandPath;
             logMessage += " is been executed";
-            Utils::Log::Logger::getInstance()->log(logMessage);
+            RwUtils::RwLog::RwLogger::getInstance()->log(logMessage);
         }
         
-        Utils::System::ExternalApplication application(commandPath, arguments);
+        RwUtils::RwSystem::RwExternalApplication application(commandPath, arguments);
         return application.execute();
     }
     
-    QString Worker::commandToString(const Command& command) const
+    QString RwWorker::commandToString(const RwCommand& command) const
     {
         QString commandName;
         
@@ -105,13 +105,13 @@ namespace WorkerInterface
         return commandName;
     }
     
-    void Worker::createReply(Reply& reply) const
+    void RwWorker::createReply(RwReply& reply) const
     {
-        typedef Reply::ByteStreams ByteStreams;
+        typedef RwReply::ByteStreams ByteStreams;
         
         QFileInfoList files;
         
-        Utils::System::FileManagement::getListOfFilesInDir(m_outputPath, files);
+        RwUtils::RwSystem::RwFileManagement::getListOfFilesInDir(m_outputPath, files);
         
         const int numberOfFiles = files.size();
         
@@ -128,23 +128,23 @@ namespace WorkerInterface
             {
                 QString errorMessage = "Failed to open file ";
                 errorMessage += filePath;
-                Utils::Log::Logger::getInstance()->error_msg(errorMessage);
+                RwUtils::RwLog::RwLogger::getInstance()->error_msg(errorMessage);
             }
             
             QDataStream dataStream(&dataFile);
             const int length = dataFile.size();
-            ByteStream bytes(length);
+            RwByteStream bytes(length);
             
             dataStream.readRawData(bytes.getRawData(), length);
             dataFile.close();
             
-            rawData.push_back(QPair<QString, ByteStream>(filePath, bytes));
+            rawData.push_back(QPair<QString, RwByteStream>(filePath, bytes));
         }
         
         reply.setRawData(rawData);
     }
     
-    void Worker::getOutputPath()
+    void RwWorker::getOutputPath()
     {
         QString fullPathString = m_path.filePath();
         fullPathString += PATH_SEPERATOR;
@@ -154,11 +154,11 @@ namespace WorkerInterface
         m_outputPath = QFileInfo(fullPathString);
     }
     
-    void Worker::cleanOutput() const
+    void RwWorker::cleanOutput() const
     {
         QFileInfoList files;
-        Utils::System::FileManagement::getListOfFilesInDir(m_outputPath, files);
-        Utils::System::FileManagement::deleteFiles(files);
+        RwUtils::RwSystem::RwFileManagement::getListOfFilesInDir(m_outputPath, files);
+        RwUtils::RwSystem::RwFileManagement::deleteFiles(files);
     }
     
 }

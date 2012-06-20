@@ -10,37 +10,37 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 17/05/2012.
 
 */
 
-#ifndef _CONFIGURATION_HPP_
-#define _CONFIGURATION_HPP_
+#ifndef _RWCONFIGURATION_HPP_
+#define _RWCONFIGURATION_HPP_
 
 #include <QString>
 #include <QMap>
 
-#include "Utils/Programming/Classes.h"
-#include "Utils/Programming/Return.h"
+#include "RwUtils/RwProgramming/RwClasses.h"
+#include "RwUtils/RwProgramming/RwReturn.h"
 
-using namespace Utils::Programming;
+using namespace RwUtils::RwProgramming;
 
-namespace WorkerInterface
+namespace RwWorkerInterface
 {
 
 ////////////////////////////////////////////////////////////////////////////////
 /// \brief This class is a singleton class which purpose is to retrieve
 ///        configuration data from the configuration file
 ////////////////////////////////////////////////////////////////////////////////
-class Configuration
+class RwConfiguration
 {
 public:
 	typedef QMap<QString, QString> ConfigurationsType;
 
-	~Configuration();
+	~RwConfiguration();
 
 	////////////////////////////////////////////////////////////////////////////////
 	/// \brief     Returns an instance of the object (see Singleton pattern).
 	///            Most important function as it is the only way to access the object
 	/// \return    The only possible instance of the object
 	////////////////////////////////////////////////////////////////////////////////
-	static Configuration* getInstance();
+	static RwConfiguration* getInstance();
 
 	/////////////////////////////////////////////////////////////////////////////////
 	/// \brief      Returns the path to the directory containing the workers
@@ -55,16 +55,16 @@ public:
     /// \param[out] configuration Value of the configuration
 	/// \return     Configuration value for given descriptor
 	/////////////////////////////////////////////////////////////////////////////////
-	ReturnType getConfiguration(const QString& descriptor, QString& configuration);
+	RwReturnType getConfiguration(const QString& descriptor, QString& configuration);
 
 private:
-    DISALLOW_COPY_AND_ASSIGN(Configuration);
-	Configuration();
+    DISALLOW_COPY_AND_ASSIGN(RwConfiguration);
+	RwConfiguration();
 
 	/////////////////////////////////////////////////////////////////////////////////
 	/// \brief     Reads the configuration file. This is already done at construction.
 	/////////////////////////////////////////////////////////////////////////////////
-	ReturnType readConfiguration();
+	RwReturnType readConfiguration();
     
 	bool m_configurationRead;
 	ConfigurationsType m_configurations;
@@ -72,4 +72,4 @@ private:
 
 }
 
-#endif // _CONFIGURATION_HPP_
+#endif // _RWCONFIGURATION_HPP_

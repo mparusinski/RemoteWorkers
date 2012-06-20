@@ -10,10 +10,10 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 14/05/2012.
 
 */
 
-namespace NetworkInterface
+namespace RwNetworkInterface
 {
 
-class NetworkSocketBase {
+class RwNetworkSocketBase {
 
 };
 

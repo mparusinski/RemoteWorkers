@@ -10,36 +10,36 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 15/05/2012.
 
 */
 
-#ifndef _WORKER_HPP_
-#define _WORKER_HPP_
+#ifndef _RWWORKER_HPP_
+#define _RWWORKER_HPP_
 
 #include <QString>
 #include <QFileInfo>
 
-#include "Utils/Programming/Return.h"
-#include "Utils/Programming/Classes.h"
+#include "RwUtils/RwProgramming/RwReturn.h"
+#include "RwUtils/RwProgramming/RwClasses.h"
 
-#include "Reply.h"
-#include "Command.h"
+#include "RwReply.h"
+#include "RwCommand.h"
 
-using namespace Utils::Programming;
+using namespace RwUtils::RwProgramming;
 
-namespace WorkerInterface
+namespace RwWorkerInterface
 {
 
 ////////////////////////////////////////////////////////////////////////////////
 /// \brief This class represents a worker. It can execute commands and produce
 ///        replies. This is the core class behind workers system.
 ////////////////////////////////////////////////////////////////////////////////
-class Worker {
+class RwWorker {
 
 public:
-	Worker();
-	explicit Worker(const QFileInfo& path);
-	virtual ~Worker() { }
+	RwWorker();
+	explicit RwWorker(const QFileInfo& path);
+	virtual ~RwWorker() { }
     
-    Worker(const Worker& otherWorker);
-    Worker& operator=(const Worker& otherWorker);
+    RwWorker(const RwWorker& otherWorker);
+    RwWorker& operator=(const RwWorker& otherWorker);
     
 	////////////////////////////////////////////////////////////////////////////////
 	/// \brief       Get the reply from worker (which is present of the disk). Reply
@@ -48,7 +48,7 @@ public:
 	///              corresponding to the reply. So this can be called only once.
 	/// \param[out]  reply Reply corresponding to output of the worker.
 	////////////////////////////////////////////////////////////////////////////////
-	ReturnType getReply(Reply& reply) const;
+	RwReturnType getReply(RwReply& reply) const;
 
 	////////////////////////////////////////////////////////////////////////////////
 	/// \brief     Worker will execute the command represented by the input and
@@ -56,7 +56,7 @@ public:
 	/// \param[in] command
 	/// \return    Returns the appropriate error code
 	////////////////////////////////////////////////////////////////////////////////
-    ReturnType executeCommand(const Command& command) const;
+    RwReturnType executeCommand(const RwCommand& command) const;
 
 	////////////////////////////////////////////////////////////////////////////////
 	/// \brief     Returns the path to the worker (not the worker name)
@@ -66,8 +66,8 @@ public:
 
 private:
     
-	QString commandToString(const Command& command) const;
-	void createReply(Reply& reply) const;
+	QString commandToString(const RwCommand& command) const;
+	void createReply(RwReply& reply) const;
 	void getOutputPath();
 	void cleanOutput() const;
 
@@ -77,4 +77,4 @@ private:
 
 }
 
-#endif // _WORKER_HPP_
+#endif // _RWWORKER_HPP_

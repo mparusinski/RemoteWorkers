@@ -11,39 +11,39 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 16/05/2012.
 */
 
 #include <cstdio>
-#include "LoggerBaseClass.h"
+#include "RwLoggerBaseClass.h"
 
-namespace Utils
+namespace RwUtils
 {
-namespace Log
-{
-
-LoggerBaseClass::LoggerBaseClass()
-{
-
-}
-
-LoggerBaseClass::~LoggerBaseClass()
-{
-
-}
-
-void LoggerBaseClass::WriteToLog(const QString & message) const
-{
-	usingBaseClassError();
-}
-
-void LoggerBaseClass::WriteToError(const QString & message) const
-{
-	usingBaseClassError();
-}
-
-inline void LoggerBaseClass::usingBaseClassError() const
-{
-	fprintf(stderr, "DEVELOPMENT-ERROR: Using base class in strategy pattern (Logger system)!\n");
-	fprintf(stderr, "Please use the specialised classes for the LoggerStrategy\n");
-	exit(-1);
-}
-
-}
+    namespace RwLog
+    {
+        
+        RwLoggerBaseClass::RwLoggerBaseClass()
+        {
+            
+        }
+        
+        RwLoggerBaseClass::~RwLoggerBaseClass()
+        {
+            
+        }
+        
+        void RwLoggerBaseClass::WriteToLog(const QString & message) const
+        {
+            usingBaseClassError();
+        }
+        
+        void RwLoggerBaseClass::WriteToError(const QString & message) const
+        {
+            usingBaseClassError();
+        }
+        
+        inline void RwLoggerBaseClass::usingBaseClassError() const
+        {
+            fprintf(stderr, "DEVELOPMENT-ERROR: Using base class in strategy pattern (Logger system)!\n");
+            fprintf(stderr, "Please use the specialised classes for the LoggerStrategy\n");
+            exit(-1);
+        }
+        
+    }
 }

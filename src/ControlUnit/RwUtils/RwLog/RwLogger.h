@@ -10,17 +10,17 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 16/05/2012.
 
 */
 
-#ifndef _LOGGER_HPP_
-#define _LOGGER_HPP_
+#ifndef _RWLOGGER_HPP_
+#define _RWLOGGER_HPP_
 
 #include <QString>
-#include "Utils/Programming/Classes.h"
+#include "RwUtils/RwProgramming/RwClasses.h"
 
-#include "LoggerBaseClass.h"
+#include "RwLoggerBaseClass.h"
 
-namespace Utils
+namespace RwUtils
 {
-    namespace Log
+    namespace RwLog
     {
         
         ////////////////////////////////////////////////////////////////////////////////
@@ -31,17 +31,17 @@ namespace Utils
         ///        where to send the logs and the errors messages. The logger is a
         ///        singleton class
         ////////////////////////////////////////////////////////////////////////////////
-        class Logger
+        class RwLogger
         {
         public:
-            virtual ~Logger();
+            virtual ~RwLogger();
             
             ////////////////////////////////////////////////////////////////////////////////
             /// \brief     Returns an instance of the object (see Singleton pattern).
             ///            Most important function as it is the only way to access the object
             /// \return    The only possible instance of the object
             ////////////////////////////////////////////////////////////////////////////////
-            static Logger* getInstance();
+            static RwLogger* getInstance();
             
             ////////////////////////////////////////////////////////////////////////////////
             /// \brief     Tells the logger to use a console logger to perform all logging
@@ -168,16 +168,16 @@ namespace Utils
             void _debugMessage(const char* file, const QString& message) const;
             
         private:
-            DISALLOW_COPY_AND_ASSIGN(Logger);
-            Logger(); // singleton pattern
+            DISALLOW_COPY_AND_ASSIGN(RwLogger);
+            RwLogger(); // singleton pattern
             
             bool m_logging;
             bool m_reportingErrors;
             
-            LoggerBaseClass* m_strategy;
+            RwLoggerBaseClass* m_strategy;
         };
         
     }
 }
 
-#endif // _LOGGER_HPP_
+#endif // _RWLOGGER_HPP_

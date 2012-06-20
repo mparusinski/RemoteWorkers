@@ -10,30 +10,30 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 16/05/2012.
 
 */
 
-#ifndef _CONSOLELOGGER_HPP_
-#define _CONSOLELOGGER_HPP_
+#ifndef _RWCONSOLELOGGER_HPP_
+#define _RWCONSOLELOGGER_HPP_
 
 #include <QString>
 
-#include "Utils/Programming/Classes.h"
+#include "RwUtils/RwProgramming/RwClasses.h"
 
-#include "LoggerBaseClass.h"
+#include "RwLoggerBaseClass.h"
 
-namespace Utils
+namespace RwUtils
 {
-    namespace Log
+    namespace RwLog
     {
         
         ////////////////////////////////////////////////////////////////////////////////
         /// \brief This class implements the a logger mechanism that writes to console.
         ///        Should not be instantiated, use instead the Logger class.
         ////////////////////////////////////////////////////////////////////////////////
-        class ConsoleLogger : public LoggerBaseClass
+        class RwConsoleLogger : public RwLoggerBaseClass
         {
         public:
             
-            ConsoleLogger();
-            virtual ~ConsoleLogger();
+            RwConsoleLogger();
+            virtual ~RwConsoleLogger();
             
             ////////////////////////////////////////////////////////////////////////////////
             /// \brief     Method for writing a message to the console
@@ -48,7 +48,7 @@ namespace Utils
             virtual void WriteToError(const QString& message) const;
             
         private:
-            DISALLOW_COPY_AND_ASSIGN(ConsoleLogger);
+            DISALLOW_COPY_AND_ASSIGN(RwConsoleLogger);
             virtual void noInstantiation() {}
             
         };
@@ -56,4 +56,4 @@ namespace Utils
     }
 }
 
-#endif // _CONSOLELOGGER_HPP_
+#endif // _RWCONSOLELOGGER_HPP_

@@ -10,40 +10,40 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 19/05/2012.
 
 */
 
-#include "Profiler.h"
+#include "RwProfiler.h"
 
-namespace Utils
+namespace RwUtils
 {
-namespace Profile
-{
-
-Profiler::TimerTypes Profiler::m_timers = Profiler::TimerTypes();
-
-void Profiler::startProfiler()
-{
-	QElapsedTimer timer;
-	timer.start();
-	m_timers.push(timer);
-}
-
-double Profiler::stopProfiler()
-{
-	double time = timeElapsed();
-	m_timers.pop();
-	return time;
-}
-
-double Profiler::timeElapsed()
-{
-	const QElapsedTimer& timer = m_timers.top();
-	const qint64& time = timer.elapsed();
-	return (double) time; // milliseconds
-}
-
-void Profiler::profile(const char* message)
-{
-    printf("PROFILE: %s took time %f ms\n", message, stopProfiler());
-}
-
-}
+    namespace RwProfile
+    {
+        
+        RwProfiler::TimerTypes RwProfiler::m_timers = RwProfiler::TimerTypes();
+        
+        void RwProfiler::startProfiler()
+        {
+            QElapsedTimer timer;
+            timer.start();
+            m_timers.push(timer);
+        }
+        
+        double RwProfiler::stopProfiler()
+        {
+            double time = timeElapsed();
+            m_timers.pop();
+            return time;
+        }
+        
+        double RwProfiler::timeElapsed()
+        {
+            const QElapsedTimer& timer = m_timers.top();
+            const qint64& time = timer.elapsed();
+            return (double) time; // milliseconds
+        }
+        
+        void RwProfiler::profile(const char* message)
+        {
+            printf("PROFILE: %s took time %f ms\n", message, stopProfiler());
+        }
+        
+    }
 }

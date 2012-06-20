@@ -23,29 +23,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 */
 
-#include "Reply.h"
+#include "RwReply.h"
 
 #include <QString>
 //#include <LzmaLib.h>
 
-#include "Worker.h"
+#include "RwWorker.h"
 
-using namespace std;
-
-namespace WorkerInterface
+namespace RwWorkerInterface
 {
     
-    Reply::Reply()
+    RwReply::RwReply()
     {
         m_empty = true;
     }
     
-    Reply::~Reply()
+    RwReply::~RwReply()
     {
         
     }
     
-    Reply::Reply(const ByteStreams & rawData)
+    RwReply::RwReply(const ByteStreams & rawData)
     {
     	m_empty = true;
         m_rawData = rawData;
@@ -53,17 +51,17 @@ namespace WorkerInterface
             m_empty = false;
     }
     
-    bool Reply::empty() const
+    bool RwReply::empty() const
     {
         return m_empty;
     }
     
-    const Reply::ByteStreams& Reply::getRawData() const
+    const RwReply::ByteStreams& RwReply::getRawData() const
     {
         return m_rawData;
     }
     
-    void Reply::setRawData(Reply::ByteStreams& rawData)
+    void RwReply::setRawData(RwReply::ByteStreams& rawData)
     {
     	m_empty = true;
         m_rawData = rawData;

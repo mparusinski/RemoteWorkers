@@ -16,31 +16,31 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 13/06/2012.
 #include <QString>
 #include <QProcess>
 
-#include "Utils/Programming/Return.h"
-#include "Utils/Programming/Classes.h"
+#include "RwUtils/RwProgramming/RwReturn.h"
+#include "RwUtils/RwProgramming/RwClasses.h"
 
-using namespace Utils::Programming;
+using namespace RwUtils::RwProgramming;
 
-namespace Utils
+namespace RwUtils
 {
-    namespace System
+    namespace RwSystem
     {
         
-        class ExternalApplication
+        class RwExternalApplication
         {
         public:
             // ExternalApplication();
-            explicit ExternalApplication(const QString& commandPath, const QStringList& arguments);
-            virtual ~ExternalApplication();
+            explicit RwExternalApplication(const QString& commandPath, const QStringList& arguments);
+            virtual ~RwExternalApplication();
             
             ////////////////////////////////////////////////////////////////////////////////
             /// \brief     Execute application represented by application
             /// \return    True if successfully executed, otherwise false
             ////////////////////////////////////////////////////////////////////////////////
-            ReturnType execute(void) const;
+            RwReturnType execute(void) const;
             
         private:
-            DISALLOW_COPY_AND_ASSIGN(ExternalApplication);
+            DISALLOW_COPY_AND_ASSIGN(RwExternalApplication);
             
             static const int m_waitingTime = -1;
             QString m_commandPath;

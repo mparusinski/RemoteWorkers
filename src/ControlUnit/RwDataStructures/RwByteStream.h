@@ -10,10 +10,10 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 16/05/2012.
 
 */
 
-#ifndef _BYTESTREAM_HPP_
-#define _BYTESTREAM_HPP_
+#ifndef _RWBYTESTREAM_HPP_
+#define _RWBYTESTREAM_HPP_
 
-namespace DataStructures
+namespace RwDataStructures
 {
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -21,16 +21,16 @@ namespace DataStructures
 ///        used instead of a vector<char> since the latter is harder to be
 ///        written to by a file object. It is also of simple design.
 ////////////////////////////////////////////////////////////////////////////////
-class ByteStream
+class RwByteStream
 {
 public:
-	typedef char ByteType;
+	typedef char RwByteType;
 
-	explicit ByteStream(const int dataSize);
-	explicit ByteStream(const ByteStream& other);
-	virtual ~ByteStream();
+	explicit RwByteStream(const int dataSize);
+	explicit RwByteStream(const RwByteStream& other);
+	virtual ~RwByteStream();
 
-	ByteStream & operator=(const ByteStream & other);
+	RwByteStream & operator=(const RwByteStream & other);
 
 	////////////////////////////////////////////////////////////////////////////////
 	/// \brief     Reallocate memory to hold the given amount of data. It discards
@@ -49,13 +49,13 @@ public:
 	/// \brief     Return a pointer to the data allocated by the object
 	/// \return    Pointer to the data allocated by the object
 	////////////////////////////////////////////////////////////////////////////////
-	ByteType* getRawData();
+	RwByteType* getRawData();
     
     ////////////////////////////////////////////////////////////////////////////////
 	/// \brief     Return a pointer to the data allocated by the object
 	/// \return    Pointer to the data allocated by the object
 	////////////////////////////////////////////////////////////////////////////////
-    const ByteType* getRawData() const;
+    const RwByteType* getRawData() const;
 
 	////////////////////////////////////////////////////////////////////////////////
 	/// \brief     Returns the byte-size of the data allocated by the object
@@ -66,7 +66,7 @@ public:
 private:
 	bool m_allocated;
 	int m_sizeOfData;
-	ByteType* m_rawData;
+	RwByteType* m_rawData;
 
 };
 

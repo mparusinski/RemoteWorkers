@@ -9,3 +9,8 @@ Copyright (C) 2012 Remote Workers Project. All rights reserved.
 Created by Michal Parusinski <mparusinski@googlemail.com> on 14/05/2012.
 
 */
+
+namespace RwNetworkInterface
+{
+    
+}

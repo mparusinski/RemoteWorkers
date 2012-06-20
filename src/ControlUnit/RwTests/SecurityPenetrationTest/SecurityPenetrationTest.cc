@@ -17,9 +17,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include "WorkerInterface/Worker.h"
-#include "WorkerInterface/Management.h"
-#include "Utils/Log/Logger.h"
+#include "RwWorkerInterface/RwWorker.h"
+#include "RwWorkerInterface/RwManagement.h"
+#include "RwUtils/RwLog/RwLogger.h"
 
 using namespace std;
 
@@ -28,11 +28,11 @@ cout << "PASS: " << (msg) << " (which is bad!)" << endl; \
 } else { \
 cout << "FAIL: " << (msg) << " (which is good!)" << endl; }  } while(0);
 
-using namespace WorkerInterface;
+using namespace RwWorkerInterface;
 
 int main(int argc, char *argv[])
 {
-	Utils::Log::Logger::getInstance()->turnAllOn();
+	RwUtils::RwLog::RwLogger::getInstance()->turnAllOn();
     
 	bool allTest = true;
     
@@ -43,10 +43,10 @@ int main(int argc, char *argv[])
     
 	bool shellTest1;
 	{
-		Worker worker(QFileInfo("")); // empty path and command echo
+		RwWorker worker(QFileInfo("")); // empty path and command echo
 		QStringList arguments;
 		arguments.push_back(QString("Managed to execute shell!!!! FAILED"));
-		Command command("echo", arguments);
+		RwCommand command("echo", arguments);
 		shellTest1 = worker.executeCommand(command);
 		allTest = allTest && !shellTest1;
         
@@ -56,10 +56,10 @@ int main(int argc, char *argv[])
 	// TEST 2
 	bool shellTest2;
 	{
-		Worker worker(QFileInfo("echo "));
+		RwWorker worker(QFileInfo("echo "));
 		QStringList arguments;
 		arguments.push_back(QString("Managed to execute shell!!!! FAILED"));
-		Command command("", arguments);
+		RwCommand command("", arguments);
 		shellTest2 = worker.executeCommand(command);
 		allTest = allTest && !shellTest2;
         
@@ -70,10 +70,10 @@ int main(int argc, char *argv[])
 	// TESTING IF WE CAN EXECUTE DANGEROUS SYSTEM COMMANDS
 	bool systemTest1;
 	{
-		Worker worker(QFileInfo("/bin/sh echo"));
+		RwWorker worker(QFileInfo("/bin/sh echo"));
 		QStringList arguments;
 		arguments.push_back(QString("Managed to execute a shell!!!!! FAILED"));
-		Command command("", arguments);
+		RwCommand command("", arguments);
 		systemTest1 = worker.executeCommand(command);
 		allTest = allTest && !systemTest1;
         
@@ -82,10 +82,10 @@ int main(int argc, char *argv[])
     
 	bool systemTest2;
 	{
-		Worker worker(QFileInfo("/bin/echo "));
+		RwWorker worker(QFileInfo("/bin/echo "));
 		QStringList arguments;
 		arguments.push_back(QString("Managed to execute a shell!!!!!!  FAILED"));
-		Command command("", arguments);
+		RwCommand command("", arguments);
 		systemTest2 = worker.executeCommand(command);
 		allTest = allTest && !systemTest2;
         
@@ -95,10 +95,10 @@ int main(int argc, char *argv[])
 	bool theGreatEscapeTest1;
 	{
 		QString workerName = "; echo \"The great escape test succeeded (not good)\" ";
-		Worker worker;
-		Management::getInstance()->createWorker(workerName, worker);
+		RwWorker worker;
+		RwManagement::getInstance()->createWorker(workerName, worker);
 		QStringList arguments;
-		Command command("", arguments);
+		RwCommand command("", arguments);
 		theGreatEscapeTest1 = worker.executeCommand(command);
 		allTest = allTest && !theGreatEscapeTest1;
         
@@ -108,11 +108,11 @@ int main(int argc, char *argv[])
 	bool theGreatEscapeTest2;
 	{
 		QString workerName = "";
-		Worker worker;
-		Management::getInstance()->createWorker(workerName, worker);
+		RwWorker worker;
+		RwManagement::getInstance()->createWorker(workerName, worker);
 		QStringList arguments;
 		QString theGreatEscape = "; echo \"The great escape test succeeded (not good)\" ";
-		Command command("", arguments);
+		RwCommand command("", arguments);
 		theGreatEscapeTest2 = worker.executeCommand(command);
 		allTest = allTest && !theGreatEscapeTest2;
         
@@ -122,12 +122,12 @@ int main(int argc, char *argv[])
 	bool theGreatEscapeTest3;
 	{
 		QString workerName = "SimpleTestWorker";
-		Worker worker;
-		Management::getInstance()->createWorker(workerName, worker);
+		RwWorker worker;
+		RwManagement::getInstance()->createWorker(workerName, worker);
 		QString theGreatEscape = "; echo \"The great escape test succeeded (not good)\" ";
 		QStringList arguments;
 		arguments.push_back(theGreatEscape);
-		Command command(workerName, arguments);
+		RwCommand command(workerName, arguments);
 		theGreatEscapeTest3 = worker.executeCommand(command);
 		allTest = allTest && !theGreatEscapeTest3;
         
@@ -137,12 +137,12 @@ int main(int argc, char *argv[])
 	bool theGreatEscapeTest4;
 	{
 		QString workerName = "SimpleTestWorker";
-		Worker worker;
-		Management::getInstance()->createWorker(workerName, worker);
+		RwWorker worker;
+		RwManagement::getInstance()->createWorker(workerName, worker);
 		QString theGreatEscape
         = "`VAR=\"The great escape test succeeded (not good)\"; echo SimpleTestWorker`";
 		QStringList arguments;
-		Command command(theGreatEscape, arguments);
+		RwCommand command(theGreatEscape, arguments);
 		theGreatEscapeTest4 = worker.executeCommand(command);
 		allTest = allTest && !theGreatEscapeTest4;
         
@@ -152,11 +152,11 @@ int main(int argc, char *argv[])
 	bool environmentTest;
 	{
 		QString workerName = "SecurityPenetrationTestWorker";
-		Worker worker;
-		Management::getInstance()->createWorker(workerName, worker);
+		RwWorker worker;
+		RwManagement::getInstance()->createWorker(workerName, worker);
 		QString commandName = "SanitizedEnvironment";
 		QStringList arguments;
-		Command command(commandName, arguments);
+		RwCommand command(commandName, arguments);
         
 		// changing the environment
 		char* originalPath = getenv("HOME");

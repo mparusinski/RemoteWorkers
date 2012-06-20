@@ -10,47 +10,47 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 16/05/2012.
 
 */
 
-#include "ByteStream.h"
+#include "RwByteStream.h"
 
 #include <cstring>
 
-namespace DataStructures
+namespace RwDataStructures
 {
     
-    ByteStream::ByteStream(const int dataSize)
+    RwByteStream::RwByteStream(const int dataSize)
     {
         m_sizeOfData = dataSize;
-        m_rawData = new ByteType[m_sizeOfData];
+        m_rawData = new RwByteType[m_sizeOfData];
         m_allocated = true;
     }
     
-    ByteStream::~ByteStream()
+    RwByteStream::~RwByteStream()
     {
         if (m_allocated)
             delete[] m_rawData;
     }
     
-    ByteStream::ByteStream(const ByteStream & other)
+    RwByteStream::RwByteStream(const RwByteStream & other)
     {
         m_allocated = other.m_allocated;
         m_sizeOfData = other.m_sizeOfData;
         if (m_allocated)
         {
-            m_rawData = new ByteType[m_sizeOfData];
+            m_rawData = new RwByteType[m_sizeOfData];
             memcpy(m_rawData, other.m_rawData, m_sizeOfData);
         }
     }
     
-    ByteStream & ByteStream::operator =(const ByteStream & other)
+    RwByteStream & RwByteStream::operator =(const RwByteStream & other)
     {
         if (this != &other)
         {
             const int sizeOfData  = other.m_sizeOfData;
-            ByteType * newRawData = 0;
+            RwByteType * newRawData = 0;
             const bool allocated = other.m_allocated;
             if (allocated)
             {
-                newRawData = new ByteType[sizeOfData];
+                newRawData = new RwByteType[sizeOfData];
                 memcpy(newRawData, other.m_rawData, sizeOfData);
             }
             
@@ -65,17 +65,17 @@ namespace DataStructures
         return *this;
     }
     
-    void ByteStream::reallocate(const int dataSize)
+    void RwByteStream::reallocate(const int dataSize)
     {
         if (m_allocated)
             delete[] m_rawData;
         
         m_sizeOfData = dataSize;
-        m_rawData = new ByteType[m_sizeOfData];
+        m_rawData = new RwByteType[m_sizeOfData];
         m_allocated = true;
     }
     
-    void ByteStream::free()
+    void RwByteStream::free()
     {
         if (m_allocated)
             delete[] m_rawData;
@@ -84,17 +84,17 @@ namespace DataStructures
         m_allocated = false;
     }
     
-    const ByteStream::ByteType * ByteStream::getRawData() const
+    const RwByteStream::RwByteType * RwByteStream::getRawData() const
     {
         return m_rawData;
     }
     
-    ByteStream::ByteType * ByteStream::getRawData()
+    RwByteStream::RwByteType * RwByteStream::getRawData()
     {
         return m_rawData;
     }
     
-    int ByteStream::size() const
+    int RwByteStream::size() const
     {
         return m_sizeOfData;
     }

@@ -1,6 +1,6 @@
 /* 
  
- Macros.h: Several useful general purpose macros
+ RwClasses.h: Several useful general purpose macros
  
  As part of the RemoteWorkers program which creates a framework for remote
  management of laptops, desktop and servers. 
@@ -10,11 +10,11 @@
  
  */
 
-#ifndef _MACROS_
-#define _MACROS_
+#ifndef _RWCLASSES_
+#define _RWCLASSES_
 
-namespace Utils {
-    namespace Programming {
+namespace RwUtils {
+    namespace RwProgramming {
         
 #define DISALLOW_COPY_AND_ASSIGN(TypeName) \
         TypeName(const TypeName&);               \
@@ -23,4 +23,4 @@ namespace Utils {
     }
 }
 
-#endif // _MACROS_
+#endif // _RWCLASSES_
