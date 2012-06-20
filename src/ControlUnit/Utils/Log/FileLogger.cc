@@ -14,42 +14,30 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 16/05/2012.
 
 namespace Utils
 {
-namespace Log
-{
-
-FileLogger::FileLogger()
-{
-	m_logFile   = new QFile("log.txt");
-	m_errorFile = new QFile("error.txt");
-    
-    m_logFile->open(QIODevice::WriteOnly | QIODevice::Text);
-    m_errorFile->open(QIODevice::WriteOnly | QIODevice::Text);
-    
-    m_logOut    = new QTextStream(m_logFile);
-    m_errorOut  = new QTextStream(m_errorFile);
-}
-
-FileLogger::~FileLogger()
-{
-    m_logFile->close();
-	m_errorFile->close();
-    
-    delete m_logOut;
-    delete m_errorOut;
-    
-    delete m_logFile;
-    delete m_errorFile;
-}
-
-void FileLogger::WriteToLog(const QString& message) const
-{
-	*m_logOut << message;
-}
-
-void FileLogger::WriteToError(const QString& message) const
-{
-	*m_errorOut << message;
-}
-
-}
+    namespace Log
+    {
+        
+        FileLogger::FileLogger()
+        {
+            m_out = fopen("out.log", "a");
+            m_err = fopen("err.log", "a");
+        }
+        
+        FileLogger::~FileLogger()
+        {
+            fclose(m_out);
+            fclose(m_err);
+        }
+        
+        void FileLogger::WriteToLog(const QString& message) const
+        {
+            fprintf(m_out, "%s\n", message.toAscii().data());
+        }
+        
+        void FileLogger::WriteToError(const QString& message) const
+        {
+            fprintf(m_err, "%s\n", message.toAscii().data());
+        }
+        
+    }
 }

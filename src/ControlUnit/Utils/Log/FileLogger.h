@@ -16,8 +16,8 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 16/05/2012.
 #include "LoggerBaseClass.h"
 
 #include <QString>
-#include <QFile>
-#include <QTextStream>
+#include <cstdio>
+#include <cstdlib>
 
 #include "Utils/Programming/Classes.h"
 
@@ -50,13 +50,11 @@ namespace Utils
             virtual void WriteToError(const QString& message) const;
             
         private:
+            FILE* m_out;
+            FILE* m_err;
+            
             DISALLOW_COPY_AND_ASSIGN(FileLogger);
             virtual void noInstantiation() {}
-            
-            QFile* m_logFile;
-            QFile* m_errorFile;
-            QTextStream* m_logOut;
-            QTextStream* m_errorOut;
         };
         
     }

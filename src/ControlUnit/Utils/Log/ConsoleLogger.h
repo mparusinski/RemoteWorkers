@@ -14,7 +14,6 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 16/05/2012.
 #define _CONSOLELOGGER_HPP_
 
 #include <QString>
-#include <QTextStream>
 
 #include "Utils/Programming/Classes.h"
 
@@ -51,9 +50,6 @@ namespace Utils
         private:
             DISALLOW_COPY_AND_ASSIGN(ConsoleLogger);
             virtual void noInstantiation() {}
-            
-            QTextStream* m_stdout;
-            QTextStream* m_stderr;
             
         };
         
