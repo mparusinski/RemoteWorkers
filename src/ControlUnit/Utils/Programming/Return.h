@@ -27,6 +27,7 @@ namespace Utils {
 #define RW_ERROR_NO_REPLY 0x4
 #define RW_ERROR_NO_EXECUTION 0x8
 #define RW_ERROR_EXECUTION_FAIL 0x10
+#define RW_ERROR_FILE_NOT_READ 0x20
         
         inline ReturnType combine(const ReturnType& ret1, 
                                   const ReturnType& ret2)

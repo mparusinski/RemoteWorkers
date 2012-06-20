@@ -17,6 +17,9 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 17/05/2012.
 #include <QMap>
 
 #include "Utils/Programming/Classes.h"
+#include "Utils/Programming/Return.h"
+
+using namespace Utils::Programming;
 
 namespace WorkerInterface
 {
@@ -44,7 +47,7 @@ public:
     /// \param[out] workerPath path to the workers
 	/// \return     A string representing a file path
 	/////////////////////////////////////////////////////////////////////////////////
-	void getWorkersPath(QString& workerPath) const;
+	void getWorkersPath(QString& workerPath);
 
 	/////////////////////////////////////////////////////////////////////////////////
 	/// \brief      Returns the value of corresponding to the descriptor
@@ -52,17 +55,17 @@ public:
     /// \param[out] configuration Value of the configuration
 	/// \return     Configuration value for given descriptor
 	/////////////////////////////////////////////////////////////////////////////////
-	void getConfiguration(const QString& descriptor, QString& configuration) const;
-
-	/////////////////////////////////////////////////////////////////////////////////
-	/// \brief     Reads the configuration file. This is already done at construction.
-	/////////////////////////////////////////////////////////////////////////////////
-	void readConfiguration();
+	ReturnType getConfiguration(const QString& descriptor, QString& configuration);
 
 private:
     DISALLOW_COPY_AND_ASSIGN(Configuration);
 	Configuration();
 
+	/////////////////////////////////////////////////////////////////////////////////
+	/// \brief     Reads the configuration file. This is already done at construction.
+	/////////////////////////////////////////////////////////////////////////////////
+	ReturnType readConfiguration();
+    
 	bool m_configurationRead;
 	ConfigurationsType m_configurations;
 };

@@ -24,7 +24,7 @@ namespace WorkerInterface
 Configuration::Configuration()
 {
 	m_configurationRead = false;
-	readConfiguration();
+	//readConfiguration(); // should not be called as it can fail
 }
 
 Configuration::~Configuration()
@@ -41,8 +41,9 @@ Configuration* Configuration::getInstance()
 	return instance;
 }
 
-void Configuration::readConfiguration()
+ReturnType Configuration::readConfiguration()
 {
+    ReturnType returnMsg = RW_NO_ERROR;
     QFile configurationFile("conf.txt");
     configurationFile.open(QFile::ReadOnly | QFile::Text);
     
@@ -71,14 +72,29 @@ void Configuration::readConfiguration()
 	else
 	{
 		Utils::Log::Logger::getInstance()->error_msg("Unable to read configuration! Configuration file did not open");
+        returnMsg = returnMsg | RW_ERROR_FILE_NOT_READ;
 	}
     
     configurationFile.close();
+    
+    return returnMsg;
 }
 
-void Configuration::getConfiguration(const QString& descriptor, QString& configuration) const
+ReturnType Configuration::getConfiguration(const QString& descriptor, QString& configuration)
 {
-	if (m_configurationRead)
+    ReturnType returnMsg = RW_NO_ERROR;
+    if (!m_configurationRead)
+    {
+        returnMsg = readConfiguration();
+    }
+    
+	if (returnMsg != RW_NO_ERROR)
+    {
+        Utils::Log::Logger::getInstance()->error_msg("Error occurred when reading configuration file!");
+        return returnMsg;
+    }
+        
+    if (m_configurationRead)
 	{
 		ConfigurationsType::const_iterator iter = m_configurations.find(descriptor);
 		if (iter != m_configurations.end())
@@ -92,13 +108,11 @@ void Configuration::getConfiguration(const QString& descriptor, QString& configu
 			Utils::Log::Logger::getInstance()->error_msg(errorMessage);
 		}
 	}
-	else
-	{
-		Utils::Log::Logger::getInstance()->error_msg("Configuration has not been read");
-	}
+    
+    return returnMsg;
 }
 
-void Configuration::getWorkersPath(QString& workersPath) const
+void Configuration::getWorkersPath(QString& workersPath)
 {
     getConfiguration("WorkersPath", workersPath);
 }
