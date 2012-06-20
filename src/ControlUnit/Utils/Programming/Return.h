@@ -13,11 +13,13 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 15/06/2012.
 #ifndef _RETURN_
 #define _RETURN_
 
+#include "stdint.h"
+
 namespace Utils {
     
     namespace Return{
         
-        typedef unsigned int ReturnType;
+        typedef uint32_t ReturnType;
         
 #define RW_NO_ERROR 0x0
 #define RW_ERROR_GENERIC 0x1
