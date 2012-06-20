@@ -15,43 +15,45 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 16/05/2012.
 
 #include <QString>
 
-using namespace std;
+#include "Utils/Programming/Classes.h"
 
 namespace Utils
 {
-namespace Log
-{
-
-////////////////////////////////////////////////////////////////////////////////
-/// \brief This class is a abstract base class to logging systems. It is used by
-///        the logger class to allow the logger to choose the logging mechanism.
-////////////////////////////////////////////////////////////////////////////////
-class LoggerBaseClass
-{
-public:
-
-	LoggerBaseClass();
-	virtual ~LoggerBaseClass();
-
-	////////////////////////////////////////////////////////////////////////////////
-	/// \brief     Abstract method for writing a message to a log
-	/// \param[in] message	message to be logged
-	////////////////////////////////////////////////////////////////////////////////
-	virtual void WriteToLog(const QString& message) const;
-
-	////////////////////////////////////////////////////////////////////////////////
-	/// \brief     Abstract method for writing a report an error
-	/// \param[in] message	error message to reported
-	////////////////////////////////////////////////////////////////////////////////
-	virtual void WriteToError(const QString& message) const;
-
-private:
-	virtual void noInstantiation() = 0;
-	inline void usingBaseClassError() const;
-
-};
-
-}
+    namespace Log
+    {
+        
+        ////////////////////////////////////////////////////////////////////////////////
+        /// \brief This class is a abstract base class to logging systems. It is used by
+        ///        the logger class to allow the logger to choose the logging mechanism.
+        ////////////////////////////////////////////////////////////////////////////////
+        class LoggerBaseClass
+        {
+        public:
+            
+            LoggerBaseClass();
+            virtual ~LoggerBaseClass();
+            
+            ////////////////////////////////////////////////////////////////////////////////
+            /// \brief     Abstract method for writing a message to a log
+            /// \param[in] message	message to be logged
+            ////////////////////////////////////////////////////////////////////////////////
+            virtual void WriteToLog(const QString& message) const;
+            
+            ////////////////////////////////////////////////////////////////////////////////
+            /// \brief     Abstract method for writing a report an error
+            /// \param[in] message	error message to reported
+            ////////////////////////////////////////////////////////////////////////////////
+            virtual void WriteToError(const QString& message) const;
+            
+        private:
+            DISALLOW_COPY_AND_ASSIGN(LoggerBaseClass);
+            
+            virtual void noInstantiation() = 0;
+            inline void usingBaseClassError() const;
+            
+        };
+        
+    }
 }
 
 #endif // _LOGGERBASECLASS_HPP_

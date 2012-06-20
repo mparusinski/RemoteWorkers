@@ -16,12 +16,11 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 17/05/2012.
 #include <QString>
 #include <QFileInfo>
 
-#include "Utils/Return/Return.h"
+#include "Utils/Programming/Return.h"
+#include "Utils/Programming/Classes.h"
 
 #include "Worker.h"
 #include "Reply.h"
-
-using namespace Utils::Return;
 
 namespace WorkerInterface
 {
@@ -53,6 +52,7 @@ public:
 	const QFileInfoList& listAvailableWorkers();
 
 private:
+    DISALLOW_COPY_AND_ASSIGN(Management);
 	Management();
 
 	inline void getListOfWorkers();

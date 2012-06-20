@@ -16,35 +16,38 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 13/06/2012.
 #include <QString>
 #include <QProcess>
 
-#include "Utils/Return/Return.h"
+#include "Utils/Programming/Return.h"
+#include "Utils/Programming/Classes.h"
 
-using namespace Utils::Return;
+using namespace Utils::Programming;
 
 namespace Utils
 {
-namespace System
-{
-
-class ExternalApplication
-{
-public:
-	// ExternalApplication();
-	ExternalApplication(const QString& commandPath, const QStringList& arguments);
-	virtual ~ExternalApplication();
-
-	////////////////////////////////////////////////////////////////////////////////
-	/// \brief     Execute application represented by application
-	/// \return    True if successfully executed, otherwise false
-	////////////////////////////////////////////////////////////////////////////////
-	ReturnType execute(void) const;
-
-private:
-	static const int m_waitingTime = -1;
-	QString m_commandPath;
-	QStringList m_arguments;
-};
-
-}
+    namespace System
+    {
+        
+        class ExternalApplication
+        {
+        public:
+            // ExternalApplication();
+            explicit ExternalApplication(const QString& commandPath, const QStringList& arguments);
+            virtual ~ExternalApplication();
+            
+            ////////////////////////////////////////////////////////////////////////////////
+            /// \brief     Execute application represented by application
+            /// \return    True if successfully executed, otherwise false
+            ////////////////////////////////////////////////////////////////////////////////
+            ReturnType execute(void) const;
+            
+        private:
+            DISALLOW_COPY_AND_ASSIGN(ExternalApplication);
+            
+            static const int m_waitingTime = -1;
+            QString m_commandPath;
+            QStringList m_arguments;
+        };
+        
+    }
 }
 
 #endif // _EXTERNAL_APPLICATION_

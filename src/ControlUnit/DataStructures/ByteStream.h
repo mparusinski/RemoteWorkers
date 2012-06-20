@@ -26,8 +26,8 @@ class ByteStream
 public:
 	typedef char ByteType;
 
-	ByteStream(const int dataSize);
-	ByteStream(const ByteStream& other);
+	explicit ByteStream(const int dataSize);
+	explicit ByteStream(const ByteStream& other);
 	virtual ~ByteStream();
 
 	ByteStream & operator=(const ByteStream & other);

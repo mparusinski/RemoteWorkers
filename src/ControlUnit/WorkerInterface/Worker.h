@@ -16,12 +16,13 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 15/05/2012.
 #include <QString>
 #include <QFileInfo>
 
-#include "Utils/Return/Return.h"
+#include "Utils/Programming/Return.h"
+#include "Utils/Programming/Classes.h"
 
 #include "Reply.h"
 #include "Command.h"
 
-using namespace Utils::Return;
+using namespace Utils::Programming;
 
 namespace WorkerInterface
 {
@@ -34,9 +35,12 @@ class Worker {
 
 public:
 	Worker();
-	Worker(const QFileInfo& path);
+	explicit Worker(const QFileInfo& path);
 	virtual ~Worker() { }
-
+    
+    Worker(const Worker& otherWorker);
+    Worker& operator=(const Worker& otherWorker);
+    
 	////////////////////////////////////////////////////////////////////////////////
 	/// \brief       Get the reply from worker (which is present of the disk). Reply
 	///              will be empty if the worker has not executed a command. After
@@ -50,7 +54,7 @@ public:
 	/// \brief     Worker will execute the command represented by the input and
 	///            and produce an output accessible from getReply().
 	/// \param[in] command
-	/// \return    true if successful, false otherwise
+	/// \return    Returns the appropriate error code
 	////////////////////////////////////////////////////////////////////////////////
     ReturnType executeCommand(const Command& command) const;
 
@@ -61,6 +65,7 @@ public:
 	const QFileInfo& getPath() const;
 
 private:
+    
 	QString commandToString(const Command& command) const;
 	void createReply(Reply& reply) const;
 	void getOutputPath();

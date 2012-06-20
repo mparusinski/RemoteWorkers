@@ -19,46 +19,47 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 16/05/2012.
 #include <QFile>
 #include <QTextStream>
 
-using namespace std;
+#include "Utils/Programming/Classes.h"
 
 namespace Utils
 {
-namespace Log
-{
-
-////////////////////////////////////////////////////////////////////////////////
-/// \brief This class implements the a logger mechanism that writes to files.
-///        Should not be instantiated, use instead the Logger class.
-////////////////////////////////////////////////////////////////////////////////
-class FileLogger : public LoggerBaseClass
-{
-public:
-
-	FileLogger();
-	virtual ~FileLogger();
-
-	////////////////////////////////////////////////////////////////////////////////
-	/// \brief     Method for writing a message to a log which is stored in a file
-	/// \param[in] message	message to be logged
-	////////////////////////////////////////////////////////////////////////////////
-	virtual void WriteToLog(const QString& message) const;
-
-	////////////////////////////////////////////////////////////////////////////////
-	/// \brief     Method for reporting an error to an error file
-	/// \param[in] message	error message to reported
-	////////////////////////////////////////////////////////////////////////////////
-	virtual void WriteToError(const QString& message) const;
-
-private:
-	virtual void noInstantiation() {}
-
-	QFile* m_logFile;
-	QFile* m_errorFile;
-    QTextStream* m_logOut;
-    QTextStream* m_errorOut;
-};
-
-}
+    namespace Log
+    {
+        
+        ////////////////////////////////////////////////////////////////////////////////
+        /// \brief This class implements the a logger mechanism that writes to files.
+        ///        Should not be instantiated, use instead the Logger class.
+        ////////////////////////////////////////////////////////////////////////////////
+        class FileLogger : public LoggerBaseClass
+        {
+        public:
+            
+            FileLogger();
+            virtual ~FileLogger();
+            
+            ////////////////////////////////////////////////////////////////////////////////
+            /// \brief     Method for writing a message to a log which is stored in a file
+            /// \param[in] message	message to be logged
+            ////////////////////////////////////////////////////////////////////////////////
+            virtual void WriteToLog(const QString& message) const;
+            
+            ////////////////////////////////////////////////////////////////////////////////
+            /// \brief     Method for reporting an error to an error file
+            /// \param[in] message	error message to reported
+            ////////////////////////////////////////////////////////////////////////////////
+            virtual void WriteToError(const QString& message) const;
+            
+        private:
+            DISALLOW_COPY_AND_ASSIGN(FileLogger);
+            virtual void noInstantiation() {}
+            
+            QFile* m_logFile;
+            QFile* m_errorFile;
+            QTextStream* m_logOut;
+            QTextStream* m_errorOut;
+        };
+        
+    }
 }
 
 #endif // _FILELOGGER_HPP_

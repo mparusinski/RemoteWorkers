@@ -16,7 +16,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 17/05/2012.
 #include <QString>
 #include <QMap>
 
-using namespace std;
+#include "Utils/Programming/Classes.h"
 
 namespace WorkerInterface
 {
@@ -60,6 +60,7 @@ public:
 	void readConfiguration();
 
 private:
+    DISALLOW_COPY_AND_ASSIGN(Configuration);
 	Configuration();
 
 	bool m_configurationRead;

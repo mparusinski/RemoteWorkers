@@ -16,45 +16,48 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 16/05/2012.
 #include <QString>
 #include <QTextStream>
 
+#include "Utils/Programming/Classes.h"
+
 #include "LoggerBaseClass.h"
 
 namespace Utils
 {
-namespace Log
-{
-
-////////////////////////////////////////////////////////////////////////////////
-/// \brief This class implements the a logger mechanism that writes to console.
-///        Should not be instantiated, use instead the Logger class.
-////////////////////////////////////////////////////////////////////////////////
-class ConsoleLogger : public LoggerBaseClass
-{
-public:
-
-	ConsoleLogger();
-	virtual ~ConsoleLogger();
-
-	////////////////////////////////////////////////////////////////////////////////
-	/// \brief     Method for writing a message to the console
-	/// \param[in] message	message to be logged
-	////////////////////////////////////////////////////////////////////////////////
-	virtual void WriteToLog(const QString& message) const;
-
-	////////////////////////////////////////////////////////////////////////////////
-	/// \brief     Method for reporting an error to the console
-	/// \param[in] message	error message to reported
-	////////////////////////////////////////////////////////////////////////////////
-	virtual void WriteToError(const QString& message) const;
-
-private:
-	virtual void noInstantiation() {}
-    
-    QTextStream* m_stdout;
-    QTextStream* m_stderr;
-
-};
-
-}
+    namespace Log
+    {
+        
+        ////////////////////////////////////////////////////////////////////////////////
+        /// \brief This class implements the a logger mechanism that writes to console.
+        ///        Should not be instantiated, use instead the Logger class.
+        ////////////////////////////////////////////////////////////////////////////////
+        class ConsoleLogger : public LoggerBaseClass
+        {
+        public:
+            
+            ConsoleLogger();
+            virtual ~ConsoleLogger();
+            
+            ////////////////////////////////////////////////////////////////////////////////
+            /// \brief     Method for writing a message to the console
+            /// \param[in] message	message to be logged
+            ////////////////////////////////////////////////////////////////////////////////
+            virtual void WriteToLog(const QString& message) const;
+            
+            ////////////////////////////////////////////////////////////////////////////////
+            /// \brief     Method for reporting an error to the console
+            /// \param[in] message	error message to reported
+            ////////////////////////////////////////////////////////////////////////////////
+            virtual void WriteToError(const QString& message) const;
+            
+        private:
+            DISALLOW_COPY_AND_ASSIGN(ConsoleLogger);
+            virtual void noInstantiation() {}
+            
+            QTextStream* m_stdout;
+            QTextStream* m_stderr;
+            
+        };
+        
+    }
 }
 
 #endif // _CONSOLELOGGER_HPP_

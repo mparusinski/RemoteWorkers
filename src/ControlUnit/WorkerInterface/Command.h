@@ -16,7 +16,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 15/05/2012.
 #include <QString>
 #include <QStringList>
 
-using namespace std;
+#include "Utils/Programming/Classes.h"
 
 namespace WorkerInterface
 {
@@ -30,7 +30,7 @@ class Command
 
 public:
 
-	Command(const QString& order, const QStringList& arguments);
+	explicit Command(const QString& order, const QStringList& arguments);
 	virtual ~Command() { }
 
 	/////////////////////////////////////////////////////////////////////////////////
@@ -46,6 +46,7 @@ public:
 	const QStringList& getArguments() const;
 
 private:
+    DISALLOW_COPY_AND_ASSIGN(Command);
 	QString m_order;
 	QStringList m_arguments;
 };

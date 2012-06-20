@@ -17,7 +17,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 15/06/2012.
 
 namespace Utils {
     
-    namespace Return{
+    namespace Programming {
         
         typedef uint32_t ReturnType;
         

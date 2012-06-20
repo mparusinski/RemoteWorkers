@@ -14,7 +14,7 @@
 #define _MACROS_
 
 namespace Utils {
-    namespace Macros {
+    namespace Programming {
         
 #define DISALLOW_COPY_AND_ASSIGN(TypeName) \
         TypeName(const TypeName&);               \

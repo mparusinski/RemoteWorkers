@@ -17,9 +17,9 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 15/05/2012.
 #include <QPair>
 #include <QList>
 
+#include "Utils/Programming/Classes.h"
 #include "DataStructures/ByteStream.h"
 
-using namespace std;
 using namespace DataStructures;
 
 namespace WorkerInterface
@@ -36,7 +36,7 @@ public:
 	typedef QList< QPair<QString, ByteStream> > ByteStreams;
 
 	Reply();
-	Reply(const ByteStreams& rawData);
+	explicit Reply(const ByteStreams& rawData);
 	virtual ~Reply();
 
 	////////////////////////////////////////////////////////////////////////////////
@@ -59,6 +59,8 @@ public:
     void setRawData(ByteStreams& rawData);
 
 private:
+    DISALLOW_COPY_AND_ASSIGN(Reply);
+    
 	bool m_empty;
 	ByteStreams m_rawData;
 
