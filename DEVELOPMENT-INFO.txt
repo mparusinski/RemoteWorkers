@@ -8,10 +8,6 @@
 
 4-) Git
 
-# (NO LONGER NEEDED) 5-) Boost 1.49
-
-# (NO LONGER NEEDED 6-) Boost Process (seperate download but fully compatible with boost process)
-
 6-) LZMA 9.20
 
 7-) Doxygen 1.8.0
@@ -47,12 +43,15 @@ can be added from the build directory)
 
 ==== SOURCE CODE RULES ====
 
-1-) All source code is to be written in British English (UK)
+1-) All source code is to be written in American English (USA)
 
 2-) All source code is to be written in the object-oriented paradigm
 
-3-) All C or C++ source code is to be written in K&R style only
+3-) All C or C++ source code style is to be complient with Google C++ Style
 
 4-) All code to be licensed (for now on the 16/05/2012) under BSD 3 Clause license
+
+5-) All code should use C library or QT library instead of STD
+
 
 
