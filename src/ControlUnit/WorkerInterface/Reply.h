@@ -17,7 +17,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 15/05/2012.
 #include <QPair>
 #include <QList>
 
-#include "DataStructures/ByteStream.hpp"
+#include "DataStructures/ByteStream.h"
 
 using namespace std;
 using namespace DataStructures;

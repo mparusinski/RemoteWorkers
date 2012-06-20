@@ -7,11 +7,11 @@ LINK_DIRECTORIES(
 )
 
 SET(Profile_SOURCES
-  Profiler.cpp
+  Profiler.cc
 )
 
 SET(Profile_HEADERS
-  Profiler.hpp
+  Profiler.h
 )
 
 ADD_LIBRARY(Profile STATIC ${Profile_SOURCES} ${Profile_HEADERS})

@@ -13,7 +13,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 16/05/2012.
 #ifndef _FILELOGGER_HPP_
 #define _FILELOGGER_HPP_
 
-#include "LoggerBaseClass.hpp"
+#include "LoggerBaseClass.h"
 
 #include <QString>
 #include <QFile>

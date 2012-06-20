@@ -16,10 +16,10 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 17/05/2012.
 #include <QString>
 #include <QFileInfo>
 
-#include "Utils/Return/Return.hpp"
+#include "Utils/Return/Return.h"
 
-#include "Worker.hpp"
-#include "Reply.hpp"
+#include "Worker.h"
+#include "Reply.h"
 
 using namespace Utils::Return;
 

@@ -15,7 +15,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 16/05/2012.
 
 #include <QString>
 
-#include "LoggerBaseClass.hpp"
+#include "LoggerBaseClass.h"
 
 using namespace std;
 

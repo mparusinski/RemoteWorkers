@@ -23,12 +23,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 */
 
-#include "Reply.hpp"
+#include "Reply.h"
 
 #include <QString>
 //#include <LzmaLib.h>
 
-#include "Worker.hpp"
+#include "Worker.h"
 
 using namespace std;
 

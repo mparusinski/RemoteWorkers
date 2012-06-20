@@ -16,7 +16,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 16/05/2012.
 #include <QString>
 #include <QTextStream>
 
-#include "LoggerBaseClass.hpp"
+#include "LoggerBaseClass.h"
 
 namespace Utils
 {

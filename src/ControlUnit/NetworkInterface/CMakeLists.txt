@@ -7,13 +7,13 @@ LINK_DIRECTORIES(
 )
 
 SET(NetworkInterface_SOURCES
-    NetworkSocketBase.cpp
-    NetworkSocketSsl.cpp
+    NetworkSocketBase.cc
+    NetworkSocketSsl.cc
 )
 
 SET(NetworkInterface_HEADERS
-    NetworkSocketBase.hpp
-    NetworkSocketSsl.hpp
+    NetworkSocketBase.h
+    NetworkSocketSsl.h
 )
 
 ADD_LIBRARY(NetworkInterface STATIC ${NetworkInterface_SOURCES} ${NetworkInterface_HEADERS})

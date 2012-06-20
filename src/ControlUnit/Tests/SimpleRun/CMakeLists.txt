@@ -7,7 +7,7 @@ LINK_DIRECTORIES(
 )
 
 SET(SimpleRunSRC
-  SimpleRun.cpp
+  SimpleRun.cc
 )
 
 ADD_EXECUTABLE(SimpleRun ${SimpleRunSRC})

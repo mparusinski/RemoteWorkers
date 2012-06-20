@@ -10,9 +10,9 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 15/05/2012.
 
 */
 
-#include "FileManagement.hpp"
+#include "FileManagement.h"
 
-#include "Utils/Log/Logger.hpp"
+#include "Utils/Log/Logger.h"
 
 #include <QFileInfo>
 #include <QDir>

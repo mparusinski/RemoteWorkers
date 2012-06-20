@@ -16,12 +16,12 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 15/05/2012.
 #include <QList>
 #include <QPair>
 
-#include "WorkerInterface/Reply.hpp"
-#include "WorkerInterface/Worker.hpp"
-#include "WorkerInterface/Command.hpp"
-#include "WorkerInterface/Management.hpp"
-#include "Utils/Log/Logger.hpp"
-#include "Utils/Profile/Profiler.hpp"
+#include "WorkerInterface/Reply.h"
+#include "WorkerInterface/Worker.h"
+#include "WorkerInterface/Command.h"
+#include "WorkerInterface/Management.h"
+#include "Utils/Log/Logger.h"
+#include "Utils/Profile/Profiler.h"
 
 using namespace std;
 using namespace WorkerInterface;

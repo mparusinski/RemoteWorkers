@@ -7,11 +7,11 @@ LINK_DIRECTORIES(
 )
 
 SET(Return_SOURCES
-  Return.cpp
+  Return.cc
 )
 
 SET(Return_HEADERS
-  Return.hpp
+  Return.h
 )
 
 ADD_LIBRARY(Return STATIC ${Return_SOURCES} ${Return_HEADERS})

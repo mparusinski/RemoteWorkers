@@ -10,10 +10,10 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 16/05/2012.
 
 */
 
-#include "Logger.hpp"
+#include "Logger.h"
 
-#include "ConsoleLogger.hpp"
-#include "FileLogger.hpp"
+#include "ConsoleLogger.h"
+#include "FileLogger.h"
 
 #include <QString>
 

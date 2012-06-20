@@ -10,13 +10,13 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 17/05/2012
 
 */
 
-#include "Management.hpp"
+#include "Management.h"
 
 #include <cstdio>
 
-#include "Configuration.hpp"
-#include "Utils/Log/Logger.hpp"
-#include "Utils/System/FileManagement.hpp"
+#include "Configuration.h"
+#include "Utils/Log/Logger.h"
+#include "Utils/System/FileManagement.h"
 
 namespace WorkerInterface
 {

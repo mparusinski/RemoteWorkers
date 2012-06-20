@@ -7,17 +7,17 @@ LINK_DIRECTORIES(
 )
 
 SET(Log_SOURCES
-   Logger.cpp
-   LoggerBaseClass.cpp
-   FileLogger.cpp
-   ConsoleLogger.cpp
+   Logger.cc
+   LoggerBaseClass.cc
+   FileLogger.cc
+   ConsoleLogger.cc
 )
 
 SET(Log_HEADERS
-   Logger.hpp
-   LoggerBaseClass.hpp
-   FileLogger.hpp
-   ConsoleLogger.hpp
+   Logger.h
+   LoggerBaseClass.h
+   FileLogger.h
+   ConsoleLogger.h
 )
 
 ADD_LIBRARY(Log STATIC ${Log_SOURCES} ${Log_HEADERS})

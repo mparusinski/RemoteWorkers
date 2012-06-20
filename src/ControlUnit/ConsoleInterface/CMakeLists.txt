@@ -6,9 +6,10 @@ LINK_DIRECTORIES(
 )
 
 SET(ControlUnitConsoleSOURCES
-    Console.cpp
+    Console.cc
 )
 
 ADD_EXECUTABLE(ControlUnitConsole ${ControlUnitConsoleSOURCES})
 
-TARGET_LINK_LIBRARIES(ControlUnitConsole WorkerInterface Log System)
+TARGET_LINK_LIBRARIES(ControlUnitConsole WorkerInterface Log System Profile)
+TARGET_LINK_LIBRARIES(ControlUnitConsole ${QT_LIBRARIES})

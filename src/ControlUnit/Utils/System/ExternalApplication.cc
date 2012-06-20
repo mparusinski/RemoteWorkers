@@ -10,11 +10,11 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 13/06/2012.
 
 */
 
-#include "ExternalApplication.hpp"
+#include "ExternalApplication.h"
 
 #include <QProcess>
 
-#include "Utils/Log/Logger.hpp"
+#include "Utils/Log/Logger.h"
 
 namespace Utils
 {

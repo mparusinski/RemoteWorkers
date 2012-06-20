@@ -7,13 +7,13 @@ LINK_DIRECTORIES(
 )
 
 SET(System_SOURCES
-  ExternalApplication.cpp
-  FileManagement.cpp
+  ExternalApplication.cc
+  FileManagement.cc
 )
 
 SET(System_HEADERS
-  FileManagement.hpp
-  ExternalApplication.hpp
+  FileManagement.h
+  ExternalApplication.h
 )
 
 ADD_LIBRARY(System STATIC ${System_SOURCES} ${System_HEADERS})

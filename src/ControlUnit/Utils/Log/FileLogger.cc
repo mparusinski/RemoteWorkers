@@ -10,7 +10,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 16/05/2012.
 
 */
 
-#include "FileLogger.hpp"
+#include "FileLogger.h"
 
 namespace Utils
 {

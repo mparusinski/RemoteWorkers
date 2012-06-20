@@ -7,7 +7,7 @@ LINK_DIRECTORIES(
 )
 
 SET(SimpleStressTestSRC
-  SimpleStressTest.cpp
+  SimpleStressTest.cc
 )
 
 ADD_EXECUTABLE(SimpleStressTest ${SimpleStressTestSRC})

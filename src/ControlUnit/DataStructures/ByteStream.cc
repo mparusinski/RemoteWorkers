@@ -10,7 +10,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 16/05/2012.
 
 */
 
-#include "ByteStream.hpp"
+#include "ByteStream.h"
 
 #include <cstring>
 

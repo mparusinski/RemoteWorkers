@@ -10,7 +10,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 15/05/2012.
 
 */
 
-#include "Command.hpp"
+#include "Command.h"
 
 using namespace std;
 

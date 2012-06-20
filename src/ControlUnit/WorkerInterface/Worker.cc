@@ -10,17 +10,17 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 15/05/2012.
 
 */
 
-#include "Worker.hpp"
+#include "Worker.h"
 
 #include <QFile>
 #include <QDataStream>
 #include <QDir>
 
-#include "Reply.hpp"
-#include "Utils/System/FileManagement.hpp"
-#include "Utils/System/ExternalApplication.hpp"
-#include "Utils/Log/Logger.hpp"
-#include "DataStructures/ByteStream.hpp"
+#include "Reply.h"
+#include "Utils/System/FileManagement.h"
+#include "Utils/System/ExternalApplication.h"
+#include "Utils/Log/Logger.h"
+#include "DataStructures/ByteStream.h"
 
 using namespace std;
 using namespace DataStructures;

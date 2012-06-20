@@ -7,7 +7,7 @@ LINK_DIRECTORIES(
 )
 
 SET(SecurityPenetrationTestSRC
-  SecurityPenetrationTest.cpp
+  SecurityPenetrationTest.cc
 )
 
 ADD_EXECUTABLE(SecurityPenetrationTest ${SecurityPenetrationTestSRC})

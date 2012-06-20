@@ -1,9 +1,9 @@
 SET(DataStructures_SOURCES
-    ByteStream.cpp
+    ByteStream.cc
 )
 
 SET(DataStructures_HEADERS
-    ByteStream.hpp
+    ByteStream.h
 )
 
 ADD_LIBRARY(DataStructures STATIC 

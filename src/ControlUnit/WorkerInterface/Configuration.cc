@@ -10,13 +10,13 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 17/05/2012.
 
 */
 
-#include "Configuration.hpp"
+#include "Configuration.h"
 
 #include <QDir>
 #include <QFile>
 #include <QTextStream>
 
-#include "Utils/Log/Logger.hpp"
+#include "Utils/Log/Logger.h"
 
 namespace WorkerInterface
 {

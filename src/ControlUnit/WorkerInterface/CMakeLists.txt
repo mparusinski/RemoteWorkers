@@ -7,19 +7,19 @@ LINK_DIRECTORIES(
 )
 
 SET(WorkerInterface_HEADERS
-  Worker.hpp
-  Command.hpp
-  Reply.hpp
-  Configuration.hpp
-  Management.hpp
+  Worker.h
+  Command.h
+  Reply.h
+  Configuration.h
+  Management.h
 )
 
 SET(WorkerInterface_SOURCES 
-  Worker.cpp
-  Command.cpp
-  Reply.cpp
-  Configuration.cpp
-  Management.cpp
+  Worker.cc
+  Command.cc
+  Reply.cc
+  Configuration.cc
+  Management.cc
 )
 
 ADD_LIBRARY(WorkerInterface
