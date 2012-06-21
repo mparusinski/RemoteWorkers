@@ -15,11 +15,9 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 16/05/2012.
 
 #include "RwUtils/RwProgramming/RwClasses.h"
 
-#include <string>
+#include <QString>
 
 #include "RwLoggerBaseClass.h"
-
-using namespace std;
 
 namespace RwUtils
 {
@@ -68,7 +66,7 @@ namespace RwUtils
             /// \brief     Function which logs a message (if logging if turned on)
             /// \param[in] message	Message to be logged
             /////////////////////////////////////////////////////////////////////////////////
-            void log(const string& message) const;
+            void log(const QString& message) const;
             
             ////////////////////////////////////////////////////////////////////////////////
             /// \def error(message)
@@ -111,7 +109,7 @@ namespace RwUtils
                              const char* file,
                              const char* function,
                              const int lineNumber,
-                             const string& message) const;
+                             const QString& message) const;
             
             /////////////////////////////////////////////////////////////////////////////////
             /// \brief     Switches on logger to log all messages to appropriate logger.
@@ -168,7 +166,7 @@ namespace RwUtils
             /// \brief     Sends a debug message to the console. Do not use this function
             ///            directly, use the debug macro instead
             /////////////////////////////////////////////////////////////////////////////////
-            void _debugMessage(const char* file, const string& message) const;
+            void _debugMessage(const char* file, const QString& message) const;
             
         private:
             DISALLOW_COPY_AND_ASSIGN(RwLogger);

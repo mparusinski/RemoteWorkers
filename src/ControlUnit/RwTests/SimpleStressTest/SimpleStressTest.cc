@@ -37,7 +37,7 @@ int main(int argc, char *argv[])
 	QFileInfoList availableWorkers = RwManagement::getInstance()->listAvailableWorkers();
 	for (size_t i = 0; i < availableWorkers.size(); ++i)
 	{
-		printf("%s\n", availableWorkers[i].fileName().toAscii().data());
+		printf("%s\n", availableWorkers[i].filePath().toAscii().data());
 	}
 	RwUtils::RwProfile::RwProfiler::profile("Reading workers");
 

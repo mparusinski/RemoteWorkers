@@ -24,8 +24,8 @@ namespace RwUtils
     namespace RwSystem
     {
         
-        RwExternalApplication::RwExternalApplication(const string& pathToCommand, 
-                                                     const vector<string>& arguments)
+        RwExternalApplication::RwExternalApplication(const QString& pathToCommand, 
+                                                     const QStringList& arguments)
         {
             m_commandPath = pathToCommand;
             m_arguments   = arguments;
@@ -38,26 +38,17 @@ namespace RwUtils
         
         RwReturnType RwExternalApplication::execute() const
         {
-            string errorMsg;
+            QString errorMsg;
             
             QProcess externalProcess;
             // TODO: Sanitise environment
             QStringList environment = QProcess::systemEnvironment();
             externalProcess.setEnvironment(environment);
             
-            const QString qCommandPath(m_commandPath.c_str());
-            QStringList qArgumentList;
-            
-            const int numOfArguments = m_arguments.size();
-            for (int i = 0; i < numOfArguments; ++i)
-            {
-                qArgumentList.append(m_arguments[i].c_str());
-            }
-            
-            externalProcess.start(qCommandPath, qArgumentList);
+            externalProcess.start(m_commandPath, m_arguments);
             if (!externalProcess.waitForStarted())
             {
-                string errorMsg = m_commandPath;
+                errorMsg = m_commandPath;
                 errorMsg += ": External process did not launch successfully";
                 RwLogger::getInstance()->error_msg(errorMsg);
                 return RW_ERROR_NO_EXECUTION;

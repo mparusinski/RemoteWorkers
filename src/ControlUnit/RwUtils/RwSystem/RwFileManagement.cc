@@ -15,8 +15,6 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 15/05/2012.
 #include "RwUtils/RwLog/RwLogger.h"
 
 #include <QString>
-#include <QFileInfoList>
-#include <QFileInfo>
 #include <QDir>
 
 #define PATH_SEPERATOR "/";
@@ -26,26 +24,19 @@ namespace RwUtils
     namespace RwSystem
     {
         
-        RwReturnType RwFileManagement::getListOfFilesInDir(const string& directory, vector<string>& files)
+        RwReturnType RwFileManagement::getListOfFilesInDir(const QFileInfo& directory, 
+                                                           QFileInfoList& files)
         {
-            const QFileInfo qDirectory(directory.c_str());
-            if (qDirectory.exists() && qDirectory.isDir())
+            if (directory.exists() && directory.isDir())
             {
-                const QDir directoryReal(qDirectory.absolutePath());
-                QFileInfoList qFiles = directoryReal.entryInfoList(QDir::Files);
-                
-                const int numOfFiles = qFiles.length();
-                files.reserve(numOfFiles);
-                for (int i = 0; i < numOfFiles; ++i)
-                {
-                    files.push_back(qFiles[i].fileName().toStdString());
-                }
+                const QDir directoryReal(directory.absolutePath());
+                files = directoryReal.entryInfoList(QDir::Files);
                 return RW_NO_ERROR;
             }
             else
             {
-                string errorMessage = "Directory ";
-                errorMessage += directory;
+                QString errorMessage = "Directory ";
+                errorMessage += directory.filePath();
                 errorMessage += " not found";
                 
                 RwUtils::RwLog::RwLogger::getInstance()->error_msg(errorMessage);
@@ -53,29 +44,19 @@ namespace RwUtils
             }
         }
         
-        RwReturnType RwFileManagement::getListOfDirsInDir(const string& directory, 
-                                                  vector<string>& directories)
+        RwReturnType RwFileManagement::getListOfDirsInDir(const QFileInfo& directory, 
+                                                          QFileInfoList& directories)
         {
-            const QFileInfo qDirectory(directory.c_str());
-            if (qDirectory.exists() && qDirectory.isDir())
+            if (directory.exists() && directory.isDir())
             {
-                const QDir directoryReal(qDirectory.absolutePath());
-                
-                const QFileInfoList qDirectories = directoryReal.entryInfoList(QDir::Dirs);
-                
-                const int numOfDirs = qDirectories.length();
-                directories.reserve(numOfDirs);
-                for (int i = 0; i < numOfDirs; ++i)
-                {
-                    directories.push_back(qDirectories[i].fileName().toStdString());
-                }
-                
+                const QDir directoryReal(directory.absolutePath());
+                directories = directoryReal.entryInfoList(QDir::Dirs);
                 return RW_NO_ERROR;
             }
             else
             {
-                string errorMessage = "Directory ";
-                errorMessage += directory;
+                QString errorMessage = "Directory ";
+                errorMessage += directory.filePath();
                 errorMessage += " not found";
                 RwUtils::RwLog::RwLogger::getInstance()->error_msg(errorMessage);
                 
@@ -83,35 +64,16 @@ namespace RwUtils
             }
         }
         
-        RwReturnType RwFileManagement::deleteFiles(const vector<string>& files)
+        RwReturnType RwFileManagement::deleteFiles(const QFileInfoList& files)
         {
             const int numberOfFiles = files.size();
             
             for (int i = 0; i < numberOfFiles; ++i)
             {
-                const QFileInfo filePath(files[i].c_str());
+                const QFileInfo& filePath = files[i];
                 QDir fileDirectory = filePath.absoluteDir();
                 fileDirectory.remove(filePath.filePath());
             }
-            
-            return RW_NO_ERROR;
-        }
-        
-        RwReturnType RwFileManagement::getSizeOfFile(ifstream &inputFile, int &size)
-        {
-            if (!inputFile.is_open())
-            {
-                string errMsg = "Unable to read size of file as it is not open";
-                RwUtils::RwLog::RwLogger::getInstance()->error_msg(errMsg);
-                
-                return RW_ERROR_GENERIC;
-            }
-            
-            int current = inputFile.tellg();
-            
-            inputFile.seekg(0, ifstream::end);
-            size = inputFile.tellg();
-            inputFile.seekg(current);
             
             return RW_NO_ERROR;
         }

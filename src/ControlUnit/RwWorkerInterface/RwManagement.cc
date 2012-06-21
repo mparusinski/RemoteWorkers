@@ -23,66 +23,80 @@ using namespace RwUtils::RwLog;
 
 namespace RwWorkerInterface
 {
-
-RwManagement::RwManagement()
-{
-	RwConfiguration::getInstance()->getWorkersPath(m_pathToWorkers);
-	//Utils::Logger::getInstance()->debug(m_pathToWorkers)
-	if (m_pathToWorkers == string())
-	{
-		RwLogger::getInstance()->error_msg("Path to workers not read! Closing!");
-		exit(-1);
-	}
-}
-
-RwManagement::~RwManagement()
-{
-
-}
-
-RwManagement* RwManagement::getInstance()
-{
-	static RwManagement* instance = 0;
-	if (instance == 0)
-	{
-		instance = new RwManagement();
-	}
-	return instance;
-}
-
-RwReturnType RwManagement::createWorker(const string& workerName, RwWorker& worker)
-{
-	getListOfWorkers();
-	const int numberOfWorkers = m_availableWorkers.size();
-	for (int i = 0; i < numberOfWorkers; ++i)
-	{
-		const string& currentWorkerName = m_availableWorkers[i];
-		if (currentWorkerName == workerName)
-		{
-            string fullPath = m_pathToWorkers;
-            fullPath += currentWorkerName;
-			worker = RwWorker(fullPath);
-			return RW_NO_ERROR;
-		}
-	}
-
-	RwUtils::RwLog::RwLogger::getInstance()->error_msg("Worker not available");
-
-	return RW_ERROR_NO_WORKER;
-}
-
-const vector<string>& RwManagement::listAvailableWorkers()
-{
-	getListOfWorkers();
-	return m_availableWorkers;
-}
-
-void RwManagement::getListOfWorkers()
-{
-	if (m_availableWorkers.empty())
-	{
-		RwFileManagement::getListOfDirsInDir(m_pathToWorkers, m_availableWorkers);
-	}
-}
-
+    
+    RwManagement::RwManagement()
+    {
+        m_pathToWorkers = QFileInfo();
+        m_availableWorkers = QFileInfoList();
+    }
+    
+    RwManagement::~RwManagement()
+    {
+        
+    }
+    
+    RwManagement* RwManagement::getInstance()
+    {
+        static RwManagement* instance = 0;
+        if (instance == 0)
+        {
+            instance = new RwManagement();
+        }
+        return instance;
+    }
+    
+    RwReturnType RwManagement::createWorker(const QString& workerName, RwWorker& worker)
+    {
+        getListOfWorkers();
+        const int numberOfWorkers = m_availableWorkers.size();
+        for (int i = 0; i < numberOfWorkers; ++i)
+        {
+            const QString& currentWorkerName = m_availableWorkers[i].fileName();;
+            if (currentWorkerName == workerName)
+            {
+                QString fullPath = m_pathToWorkers.filePath();
+                fullPath += currentWorkerName;
+                worker = RwWorker(QFileInfo(fullPath));
+                return RW_NO_ERROR;
+            }
+        }
+        
+        RwUtils::RwLog::RwLogger::getInstance()->error_msg("Worker not available");
+        
+        return RW_ERROR_NO_WORKER;
+    }
+    
+    const QFileInfoList& RwManagement::listAvailableWorkers()
+    {
+        getListOfWorkers();
+        return m_availableWorkers;
+    }
+    
+    RwReturnType RwManagement::getListOfWorkers()
+    {
+        RwReturnType returnMsg = RW_NO_ERROR;
+        if (m_availableWorkers.empty())
+        {
+            returnMsg = init();
+            returnMsg = returnMsg | 
+                RwFileManagement::getListOfDirsInDir(m_pathToWorkers, m_availableWorkers);
+        }
+        return returnMsg;
+    }
+    
+    RwReturnType RwManagement::init()
+    {
+        RwReturnType returnMsg = RW_NO_ERROR;
+        
+        QString pathToWorkersStr;
+        returnMsg = RwConfiguration::getInstance()->getWorkersPath(pathToWorkersStr);
+        m_pathToWorkers = QFileInfo(pathToWorkersStr);
+        
+        if (m_pathToWorkers == QFileInfo())
+        {
+            RwLogger::getInstance()->error_msg("Path to workers not read! Closing!");
+        }
+        return RW_NO_ERROR;
+    }
+    
 }

@@ -15,18 +15,18 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 15/05/2012.
 namespace RwWorkerInterface
 {
     
-    RwCommand::RwCommand(const string& commandName, const vector<string>& arguments)
+    RwCommand::RwCommand(const QString& commandName, const QStringList& arguments)
     {
         m_order = commandName;
         m_arguments = arguments;
     }
     
-    const string& RwCommand::getOrder() const
+    const QString& RwCommand::getOrder() const
     {
         return m_order;
     }
     
-    const vector<string>& RwCommand::getArguments() const
+    const QStringList& RwCommand::getArguments() const
     {
         return m_arguments;
     }

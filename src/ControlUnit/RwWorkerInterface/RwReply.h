@@ -13,8 +13,9 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 15/05/2012.
 #ifndef _RWREPLY_HPP_
 #define _RWREPLY_HPP_
 
-#include <string>
-#include <vector>
+#include <QString>
+#include <QPair>
+#include <QList>
 
 #include "RwUtils/RwProgramming/RwClasses.h"
 #include "RwDataStructures/RwByteStream.h"
@@ -34,7 +35,7 @@ namespace RwWorkerInterface
 class RwReply
 {
 public:
-	typedef vector< pair<string, RwByteStream> > ByteStreams;
+	typedef QList< QPair<QString, RwByteStream> > ByteStreams;
 
 	RwReply();
 	explicit RwReply(const ByteStreams& rawData);

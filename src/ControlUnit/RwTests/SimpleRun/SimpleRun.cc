@@ -14,8 +14,8 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 18/05/2012.
 
 #include <cstdio>
 #include <cstdlib>
-#include <vector>
-#include <string>
+#include <QString>
+#include <QFileInfo>
 
 #include "RwWorkerInterface/RwReply.h"
 #include "RwWorkerInterface/RwWorker.h"
@@ -31,16 +31,16 @@ int main(int argc, char *argv[])
 {
 	RwUtils::RwLog::RwLogger::getInstance()->turnAllOn();
 
-	vector<string> availableWorkers = RwManagement::getInstance()->listAvailableWorkers();
+	QFileInfoList availableWorkers = RwManagement::getInstance()->listAvailableWorkers();
     printf("Available workers\n");
 	for (int i = 0; i < availableWorkers.size(); ++i)
 	{
-        printf("\t%s\n", availableWorkers[i].c_str());
+        printf("\t%s\n", availableWorkers[i].filePath().toAscii().data());
 	}
 
 	RwWorker worker;
 	RwManagement::getInstance()->createWorker("SimpleTestWorker", worker);
-	RwCommand command("SimpleTestWorker",vector<string>());
+	RwCommand command("SimpleTestWorker", QStringList());
 	worker.executeCommand(command);
 	RwReply reply;
     worker.getReply(reply);
@@ -59,9 +59,9 @@ int main(int argc, char *argv[])
 	const int numberOfByteStreams = rawData.size();
 	for (int i = 0; i < numberOfByteStreams; ++i)
 	{
-		const string& fileName = rawData[i].first;
+		const QString& fileName = rawData[i].first;
 		const RwByteStream& byteStream = rawData[i].second;
-        printf("File: %s\n", fileName.c_str());
+        printf("File: %s\n", fileName.toAscii().data());
 
 		const int lengthOfStream = byteStream.size();
 		const char * rawData = byteStream.getRawData();

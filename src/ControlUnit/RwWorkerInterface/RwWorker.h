@@ -13,8 +13,8 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 15/05/2012.
 #ifndef _RWWORKER_HPP_
 #define _RWWORKER_HPP_
 
-#include <string>
 #include <QFileInfo>
+#include <QString>
 
 #include "RwUtils/RwProgramming/RwReturn.h"
 #include "RwUtils/RwProgramming/RwClasses.h"
@@ -35,7 +35,7 @@ namespace RwWorkerInterface
         
     public:
         RwWorker();
-        explicit RwWorker(const string& path);
+        explicit RwWorker(const QFileInfo& path);
         virtual ~RwWorker() { }
         
         RwWorker(const RwWorker& otherWorker);
@@ -62,17 +62,17 @@ namespace RwWorkerInterface
         /// \brief     Returns the path to the worker (not the worker name)
         /// \return    Path to the worker, not the name
         ////////////////////////////////////////////////////////////////////////////////
-        const string& getPath() const;
+        const QFileInfo& getPath() const;
         
     private:
         
-        string commandToString(const RwCommand& command) const;
+        QString commandToString(const RwCommand& command) const;
         void createReply(RwReply& reply) const;
         void getOutputPath();
         void cleanOutput() const;
         
-        string m_path;
-        string m_outputPath;
+        QFileInfo m_path;
+        QFileInfo m_outputPath;
     };
     
 }

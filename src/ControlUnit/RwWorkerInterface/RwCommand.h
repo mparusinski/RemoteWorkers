@@ -13,12 +13,10 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 15/05/2012.
 #ifndef _RWCOMMAND_HPP_
 #define _RWCOMMAND_HPP_
 
-#include <string>
-#include <vector>
+#include <QString>
+#include <QStringList>
 
 #include "RwUtils/RwProgramming/RwClasses.h"
-
-using namespace std;
 
 namespace RwWorkerInterface
 {
@@ -32,25 +30,25 @@ namespace RwWorkerInterface
         
     public:
         
-        explicit RwCommand(const string& order, const vector<string>& arguments);
+        explicit RwCommand(const QString& order, const QStringList& arguments);
         virtual ~RwCommand() { }
         
         /////////////////////////////////////////////////////////////////////////////////
         /// \brief     Return the order i.e the command the object represents
         /// \return    A string representing the command
         /////////////////////////////////////////////////////////////////////////////////
-        const string& getOrder() const;
+        const QString& getOrder() const;
         
         /////////////////////////////////////////////////////////////////////////////////
         /// \brief     Returns the list of arguments the real command needs to receive
         /// \return    A list of arguments
         /////////////////////////////////////////////////////////////////////////////////
-        const vector<string>& getArguments() const;
+        const QStringList& getArguments() const;
         
     private:
         DISALLOW_COPY_AND_ASSIGN(RwCommand);
-        string m_order;
-        vector<string> m_arguments;
+        QString m_order;
+        QStringList m_arguments;
     };
 
 }

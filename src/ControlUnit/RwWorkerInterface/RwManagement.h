@@ -13,17 +13,14 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 17/05/2012.
 #ifndef _RWMANAGEMENT_HPP_
 #define _RWMANAGEMENT_HPP_
 
-#include <string>
-
 #include <QFileInfo>
+#include <QFileInfoList>
 
 #include "RwUtils/RwProgramming/RwReturn.h"
 #include "RwUtils/RwProgramming/RwClasses.h"
 
 #include "RwWorker.h"
 #include "RwReply.h"
-
-using namespace std;
 
 namespace RwWorkerInterface
 {
@@ -46,22 +43,24 @@ public:
 	/// \param[out] worker      The worker we wish to create
 	/// \return     returns true if successfully created worker
 	/////////////////////////////////////////////////////////////////////////////////
-	RwReturnType createWorker(const string& workerName, RwWorker& worker);
+	RwReturnType createWorker(const QString& workerName, RwWorker& worker);
 
 	/////////////////////////////////////////////////////////////////////////////////
 	/// \brief     List all available workers in default path
 	/// \return    List of worker names (not a list of workers)
 	/////////////////////////////////////////////////////////////////////////////////
-	const vector<string>& listAvailableWorkers();
+	const QFileInfoList& listAvailableWorkers();
 
 private:
     DISALLOW_COPY_AND_ASSIGN(RwManagement);
 	RwManagement();
+    
+    inline RwReturnType init();
 
-	inline void getListOfWorkers();
-
-	string m_pathToWorkers;
-	vector<string> m_availableWorkers;
+	inline RwReturnType getListOfWorkers();
+    
+	QFileInfo m_pathToWorkers;
+	QFileInfoList m_availableWorkers;
 };
 
 }
