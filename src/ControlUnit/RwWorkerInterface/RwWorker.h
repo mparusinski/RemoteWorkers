@@ -67,7 +67,7 @@ namespace RwWorkerInterface
     private:
         
         QString commandToString(const RwCommand& command) const;
-        void createReply(RwReply& reply) const;
+        RwReturnType createReply(RwReply& reply) const;
         void getOutputPath();
         void cleanOutput() const;
         

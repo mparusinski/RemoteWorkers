@@ -14,7 +14,7 @@
 #define _RWWORKERINTERFACE_RWCONFIGURATION_H_
 
 #include <QString>
-#include <QMap>
+#include <QHash>
 
 #include "RwUtils/RwProgramming/RwClasses.h"
 #include "RwUtils/RwProgramming/RwReturn.h"
@@ -31,7 +31,7 @@ namespace RwWorkerInterface
     class RwConfiguration
     {
     public:
-        typedef QMap<QString, QString> ConfigurationsType;
+        typedef QHash<QString, QString> ConfigurationsType;
         
         ~RwConfiguration();
         

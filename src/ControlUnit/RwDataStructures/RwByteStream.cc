@@ -18,55 +18,25 @@ namespace  RwDataStructures
 {
     RwByteStream::RwByteStream()
     {
-        m_allocated  = false;
-        m_rawData    = 0;
-        m_sizeOfData = 0;
+        allocate(0);
     }
     
     RwByteStream::RwByteStream(const int dataSize)
     {
-        m_sizeOfData = dataSize;
-        m_allocated  = false;
-        m_rawData    = 0;
-        
-        if (dataSize > 0)
-        {
-            m_allocated  = true;
-            m_rawData    = new RwByteType[m_sizeOfData];
-        }
+        allocate(dataSize);
     }
     
     RwByteStream::RwByteStream(const RwByteStream& other)
     {
-        m_allocated  = other.m_allocated;
-        m_sizeOfData = other.m_sizeOfData;
-        m_rawData    = new RwByteType[m_sizeOfData];
-        memcpy(m_rawData, other.m_rawData, m_sizeOfData);
+        grab(other);
     }
     
     RwByteStream & RwByteStream::operator=(const RwDataStructures::RwByteStream &other)
     {
         if (this != &other)
         {
-            // Allocate new memory
-            RwByteType * newMemory = 0;
-            if (other.m_allocated)
-            {
-                newMemory = new RwByteType[other.m_sizeOfData];
-                memcpy(newMemory, other.m_rawData, other.m_sizeOfData);
-            }
-            
-            // Delete old memory
-            if (m_allocated)
-            {
-                delete[] m_rawData;
-                m_rawData = 0;
-            }
-            
-            // Assign
-            m_allocated  = other.m_allocated;
-            m_sizeOfData = other.m_sizeOfData;
-            m_rawData    = newMemory;
+            discard();
+            grab(other);
         }
         
         return *this;
@@ -74,31 +44,24 @@ namespace  RwDataStructures
     
     RwByteStream::~RwByteStream()
     {
-        if (m_allocated)
-            delete[] m_rawData;
+        discard();
     }
     
     void RwByteStream::reallocate(const int dataSize)
     {
-        if (m_allocated)
-            delete[] m_rawData;
-        
-        m_allocated  = false;
-        m_sizeOfData = dataSize;
-        m_rawData    = 0;
-        
-        if (dataSize > 0)
-        {
-            m_rawData   = new RwByteType[dataSize];
-            m_allocated = true;
-        }
+        discard();
+        allocate(dataSize);
     }
     
     void RwByteStream::free()
     {
-        if (m_allocated)
+        if (!unique())
         {
-            m_allocated  = false;
+            detach();
+        }
+        
+        if (allocated())
+        {
             m_sizeOfData = 0;
             delete[] m_rawData;
         }
@@ -106,16 +69,75 @@ namespace  RwDataStructures
     
     RwByteStream::RwByteType * RwByteStream::getRawData()
     {
-        return m_rawData;
-    }
-    
-    const RwByteStream::RwByteType * RwByteStream::getRawData() const
-    {
+        if (!unique())
+        {
+            detach();
+        }
+        
         return m_rawData;
     }
     
     int RwByteStream::size() const
     {
         return m_sizeOfData;
+    }
+    
+    bool RwByteStream::allocated() const
+    {
+        return m_rawData != 0;
+    }
+    
+    bool RwByteStream::held() const
+    {
+        return (*m_refCounter) != 0;
+    }
+    
+    bool RwByteStream::unique() const
+    {
+        return (*m_refCounter) == 1;
+    }
+    
+    void RwByteStream::grab(const RwByteStream& other)
+    {
+        m_sizeOfData = other.m_sizeOfData;
+        m_rawData    = other.m_rawData;
+        
+        m_refCounter  = other.m_refCounter;
+        *m_refCounter = *m_refCounter + 1;
+    }
+    
+    void RwByteStream::discard()
+    {
+        *m_refCounter = *m_refCounter - 1;
+        if (!held())
+        {
+            delete m_refCounter;
+            if (allocated())
+                delete[] m_rawData;
+        }
+    }
+    
+    void RwByteStream::allocate(const int dataSize)
+    {
+        m_sizeOfData = dataSize;
+        m_rawData    = 0;
+        
+        m_refCounter  = new int;
+        *m_refCounter = 1;
+        
+        if (dataSize > 0)
+        {
+            m_rawData = new RwByteType[m_sizeOfData];
+        }
+    }
+    
+    void RwByteStream::detach()
+    {
+        m_refCounter  = new int;
+        *m_refCounter = 1;
+        
+        const RwByteType* other = m_rawData;
+        m_rawData = new RwByteType[m_sizeOfData];
+        memcpy(m_rawData, other, m_sizeOfData);
     }
 }

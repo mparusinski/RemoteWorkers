@@ -15,7 +15,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 15/05/2012.
 
 #include <QString>
 #include <QPair>
-#include <QVector>
+#include <QList>
 
 #include "RwUtils/RwProgramming/RwClasses.h"
 #include "RwDataStructures/RwByteStream.h"
@@ -35,7 +35,7 @@ namespace RwWorkerInterface
     class RwReply
     {
     public:
-        typedef QVector< QPair<QString, RwByteStream> > ByteStreams;
+        typedef QList< QPair<QString, RwByteStream> > ByteStreams;
         
         RwReply();
         explicit RwReply(const ByteStreams& rawData);

@@ -39,13 +39,14 @@ namespace RwWorkerInterface
     
     RwReturnType RwWorker::getReply(RwReply& reply) const
     {
-        createReply(reply);
+        RwReturnType returnMsg = RW_NO_ERROR;
+        returnMsg = returnMsg | createReply(reply);
         cleanOutput();
         
         if (reply.empty())
-            return RW_ERROR_NO_REPLY;
-        else 
-            return RW_NO_ERROR;
+            returnMsg = returnMsg | RW_ERROR_NO_REPLY;
+
+        return returnMsg;
     }
     
     RwWorker::RwWorker(const RwWorker& otherWorker)
@@ -104,7 +105,7 @@ namespace RwWorkerInterface
         return commandName;
     }
     
-    void RwWorker::createReply(RwReply& reply) const
+    RwReturnType RwWorker::createReply(RwReply& reply) const
     {
         typedef RwReply::ByteStreams ByteStreams;
         
@@ -115,7 +116,7 @@ namespace RwWorkerInterface
         const int numberOfFiles = files.size();
         
         ByteStreams& rawData = reply.getRawData();
-        rawData.resize(numberOfFiles);
+        rawData.reserve(numberOfFiles);
         
         for (int i = 0; i < numberOfFiles; ++i)
         {
@@ -127,17 +128,21 @@ namespace RwWorkerInterface
                 QString errorMessage = "Failed to open file ";
                 errorMessage += filePath.filePath();
                 RwUtils::RwLog::RwLogger::getInstance()->error_msg(errorMessage);
+                
+                return RW_ERROR_FILE_NOT_READ;
             }
             
             qint64 length = dataFile.size();
             QDataStream dataFileIn(&dataFile);
             
-            rawData[i].second.reallocate(length);
-            dataFileIn.readRawData(rawData[i].second.getRawData(), length);
-            rawData[i].first = filePath.filePath();
+            RwByteStream bytes(length);
+            dataFileIn.readRawData(bytes.getRawData(), length);
+            rawData.append(QPair<QString, RwByteStream>(filePath.filePath(), bytes));
             
             dataFile.close();
         }
+        
+        return RW_NO_ERROR;
     }
     
     void RwWorker::getOutputPath()

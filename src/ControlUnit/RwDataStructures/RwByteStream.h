@@ -53,20 +53,32 @@ namespace RwDataStructures
         RwByteType* getRawData();
         
         ////////////////////////////////////////////////////////////////////////////////
-        /// \brief     Return a pointer to the data allocated by the object
-        /// \return    Pointer to the data allocated by the object
-        ////////////////////////////////////////////////////////////////////////////////
-        const RwByteType* getRawData() const;
-        
-        ////////////////////////////////////////////////////////////////////////////////
         /// \brief     Returns the byte-size of the data allocated by the object
         /// \return	   Integer representing the number of bytes allocated
         ////////////////////////////////////////////////////////////////////////////////
         int size() const;
         
+        ////////////////////////////////////////////////////////////////////////////////
+        /// \brief     Check if the object has memory allocated
+        /// \return	   True if some bytes have been allocated
+        ////////////////////////////////////////////////////////////////////////////////
+        bool allocated() const;
+        
     private:
-        bool m_allocated;
-        int m_sizeOfData;
+        inline bool held() const;
+        
+        inline bool unique() const;
+        
+        inline void grab(const RwByteStream & other);
+        
+        inline void discard();
+        
+        inline void allocate(const int dataSize);
+        
+        inline void detach();
+        
+        int  m_sizeOfData;
+        mutable int* m_refCounter;
         RwByteType* m_rawData;
         
     };

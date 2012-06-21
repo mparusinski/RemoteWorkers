@@ -55,16 +55,16 @@ int main(int argc, char *argv[])
 		RwUtils::RwLog::RwLogger::getInstance()->log("Reply is built");
 	}
 
-	const RwReply::ByteStreams& rawData = reply.getRawData();
+    RwReply::ByteStreams& rawData = reply.getRawData();
 	const int numberOfByteStreams = rawData.size();
 	for (int i = 0; i < numberOfByteStreams; ++i)
 	{
 		const QString& fileName = rawData[i].first;
-		const RwByteStream& byteStream = rawData[i].second;
+        RwByteStream& byteStream = rawData[i].second;
         printf("File: %s\n", fileName.toAscii().data());
 
 		const int lengthOfStream = byteStream.size();
-		const char * rawData = byteStream.getRawData();
+		char * rawData = byteStream.getRawData();
 		for (int j = 0; j < lengthOfStream; ++j)
 		{
             printf("%c", rawData[j]);
