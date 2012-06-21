@@ -1,16 +1,14 @@
 /* 
 
-ByteStream.cpp: Captures a stream of bytes in an efficient way
+ByteStream-incl.h: Captures a stream of bytes in an efficient way
 
 As part of the RemoteWorkers program which creates a framework for remote
 management of laptops, desktop and servers. 
 
 Copyright (C) 2012 Remote Workers Project. All rights reserved.
-Created by Michal Parusinski <mparusinski@googlemail.com> on 16/05/2012.
+Created by Michal Parusinski <mparusinski@googlemail.com> on 21/05/2012.
 
 */
-
-#include "RwByteStream.h"
 
 #include <cstring>
 
