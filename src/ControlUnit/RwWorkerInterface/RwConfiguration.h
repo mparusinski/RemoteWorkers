@@ -13,11 +13,13 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 17/05/2012.
 #ifndef _RWCONFIGURATION_HPP_
 #define _RWCONFIGURATION_HPP_
 
-#include <QString>
-#include <QMap>
+#include <string>
+#include <map>
 
 #include "RwUtils/RwProgramming/RwClasses.h"
 #include "RwUtils/RwProgramming/RwReturn.h"
+
+using namespace std;
 
 using namespace RwUtils::RwProgramming;
 
@@ -31,7 +33,7 @@ namespace RwWorkerInterface
 class RwConfiguration
 {
 public:
-	typedef QMap<QString, QString> ConfigurationsType;
+	typedef map<string, string> ConfigurationsType;
 
 	~RwConfiguration();
 
@@ -47,7 +49,7 @@ public:
     /// \param[out] workerPath path to the workers
 	/// \return     A string representing a file path
 	/////////////////////////////////////////////////////////////////////////////////
-	void getWorkersPath(QString& workerPath);
+	void getWorkersPath(string& workerPath);
 
 	/////////////////////////////////////////////////////////////////////////////////
 	/// \brief      Returns the value of corresponding to the descriptor
@@ -55,7 +57,7 @@ public:
     /// \param[out] configuration Value of the configuration
 	/// \return     Configuration value for given descriptor
 	/////////////////////////////////////////////////////////////////////////////////
-	RwReturnType getConfiguration(const QString& descriptor, QString& configuration);
+	RwReturnType getConfiguration(const string& descriptor, string& configuration);
 
 private:
     DISALLOW_COPY_AND_ASSIGN(RwConfiguration);

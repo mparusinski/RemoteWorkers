@@ -15,7 +15,6 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 16/05/2012.
 
 #include "RwLoggerBaseClass.h"
 
-#include <QString>
 #include <cstdio>
 #include <cstdlib>
 
@@ -41,13 +40,13 @@ namespace RwUtils
             /// \brief     Method for writing a message to a log which is stored in a file
             /// \param[in] message	message to be logged
             ////////////////////////////////////////////////////////////////////////////////
-            virtual void WriteToLog(const QString& message) const;
+            virtual void WriteToLog(const char* message) const;
             
             ////////////////////////////////////////////////////////////////////////////////
             /// \brief     Method for reporting an error to an error file
             /// \param[in] message	error message to reported
             ////////////////////////////////////////////////////////////////////////////////
-            virtual void WriteToError(const QString& message) const;
+            virtual void WriteToError(const char* message) const;
             
         private:
             FILE* m_out;

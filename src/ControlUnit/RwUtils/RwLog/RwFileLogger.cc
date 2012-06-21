@@ -29,14 +29,14 @@ namespace RwUtils
             fclose(m_err);
         }
         
-        void RwFileLogger::WriteToLog(const QString& message) const
+        void RwFileLogger::WriteToLog(const char* message) const
         {
-            fprintf(m_out, "%s\n", message.toAscii().data());
+            fprintf(m_out, "%s\n", message);
         }
         
-        void RwFileLogger::WriteToError(const QString& message) const
+        void RwFileLogger::WriteToError(const char* message) const
         {
-            fprintf(m_err, "%s\n", message.toAscii().data());
+            fprintf(m_err, "%s\n", message);
         }
         
     }

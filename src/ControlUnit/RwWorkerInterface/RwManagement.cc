@@ -18,18 +18,19 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 17/05/2012
 #include "RwUtils/RwLog/RwLogger.h"
 #include "RwUtils/RwSystem/RwFileManagement.h"
 
+using namespace RwUtils::RwSystem;
+using namespace RwUtils::RwLog;
+
 namespace RwWorkerInterface
 {
 
 RwManagement::RwManagement()
 {
-    QString pathToWorkers;
-	RwConfiguration::getInstance()->getWorkersPath(pathToWorkers);
-    m_pathToWorkers.setFile(pathToWorkers);
+	RwConfiguration::getInstance()->getWorkersPath(m_pathToWorkers);
 	//Utils::Logger::getInstance()->debug(m_pathToWorkers)
-	if (m_pathToWorkers == QString())
+	if (m_pathToWorkers == string())
 	{
-		RwUtils::RwLog::RwLogger::getInstance()->error_msg("Path to workers not read! Closing!");
+		RwLogger::getInstance()->error_msg("Path to workers not read! Closing!");
 		exit(-1);
 	}
 }
@@ -49,16 +50,18 @@ RwManagement* RwManagement::getInstance()
 	return instance;
 }
 
-RwReturnType RwManagement::createWorker(const QString& workerName, RwWorker& worker)
+RwReturnType RwManagement::createWorker(const string& workerName, RwWorker& worker)
 {
 	getListOfWorkers();
 	const int numberOfWorkers = m_availableWorkers.size();
 	for (int i = 0; i < numberOfWorkers; ++i)
 	{
-		const QFileInfo& currentWorkerName = m_availableWorkers[i];
-		if (currentWorkerName.fileName() == workerName)
+		const string& currentWorkerName = m_availableWorkers[i];
+		if (currentWorkerName == workerName)
 		{
-			worker = RwWorker(currentWorkerName);
+            string fullPath = m_pathToWorkers;
+            fullPath += currentWorkerName;
+			worker = RwWorker(fullPath);
 			return RW_NO_ERROR;
 		}
 	}
@@ -68,7 +71,7 @@ RwReturnType RwManagement::createWorker(const QString& workerName, RwWorker& wor
 	return RW_ERROR_NO_WORKER;
 }
 
-const QFileInfoList& RwManagement::listAvailableWorkers()
+const vector<string>& RwManagement::listAvailableWorkers()
 {
 	getListOfWorkers();
 	return m_availableWorkers;
@@ -78,7 +81,7 @@ void RwManagement::getListOfWorkers()
 {
 	if (m_availableWorkers.empty())
 	{
-		RwUtils::RwSystem::RwFileManagement::getListOfDirsInDir(m_pathToWorkers, m_availableWorkers);
+		RwFileManagement::getListOfDirsInDir(m_pathToWorkers, m_availableWorkers);
 	}
 }
 

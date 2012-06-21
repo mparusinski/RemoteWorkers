@@ -12,25 +12,23 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 15/05/2012.
 
 #include "RwCommand.h"
 
-using namespace std;
-
 namespace RwWorkerInterface
 {
-
-RwCommand::RwCommand(const QString& commandName, const QStringList& arguments)
-{
-	m_order = commandName;
-	m_arguments = arguments;
-}
-
-const QString& RwCommand::getOrder() const
-{
-	return m_order;
-}
-
-const QStringList& RwCommand::getArguments() const
-{
-	return m_arguments;
-}
-
+    
+    RwCommand::RwCommand(const string& commandName, const vector<string>& arguments)
+    {
+        m_order = commandName;
+        m_arguments = arguments;
+    }
+    
+    const string& RwCommand::getOrder() const
+    {
+        return m_order;
+    }
+    
+    const vector<string>& RwCommand::getArguments() const
+    {
+        return m_arguments;
+    }
+    
 }

@@ -10,14 +10,16 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 13/06/2012.
 
 */
 
-#ifndef _EXTERNAL_APPLICATION_
-#define _EXTERNAL_APPLICATION_
+#ifndef _RWEXTERNAL_APPLICATION_
+#define _RWEXTERNAL_APPLICATION_
 
-#include <QString>
-#include <QProcess>
+#include <string>
+#include <vector>
 
 #include "RwUtils/RwProgramming/RwReturn.h"
 #include "RwUtils/RwProgramming/RwClasses.h"
+
+using namespace std;
 
 using namespace RwUtils::RwProgramming;
 
@@ -30,7 +32,7 @@ namespace RwUtils
         {
         public:
             // ExternalApplication();
-            explicit RwExternalApplication(const QString& commandPath, const QStringList& arguments);
+            explicit RwExternalApplication(const string& commandPath, const vector<string>& arguments);
             virtual ~RwExternalApplication();
             
             ////////////////////////////////////////////////////////////////////////////////
@@ -43,8 +45,8 @@ namespace RwUtils
             DISALLOW_COPY_AND_ASSIGN(RwExternalApplication);
             
             static const int m_waitingTime = -1;
-            QString m_commandPath;
-            QStringList m_arguments;
+            string m_commandPath;
+            vector<string> m_arguments;
         };
         
     }

@@ -15,11 +15,11 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 16/05/2012.
 #include <cstdio>
 #include <cstdlib>
 
-#include <QString>
-
 #include "RwConsoleLogger.h"
 #include "RwFileLogger.h"
 
+
+using namespace std;
 
 namespace RwUtils
 {
@@ -106,19 +106,19 @@ namespace RwUtils
         {
             if (m_logging)
             {
-                QString strMessage(message);
+                string strMessage(message);
                 strMessage += "\n";
-                m_strategy->WriteToLog(strMessage);
+                m_strategy->WriteToLog(strMessage.c_str());
             }
         }
         
-        void RwLogger::log(const QString& message) const
+        void RwLogger::log(const string& message) const
         {
             if (m_logging)
             {
-                QString actualMessage = message;
+                string actualMessage = message;
                 actualMessage += "\n";
-                m_strategy->WriteToLog(actualMessage);
+                m_strategy->WriteToLog(actualMessage.c_str());
             }
         }
         
@@ -130,17 +130,17 @@ namespace RwUtils
         {
             if (m_reportingErrors)
             {
-                QString actualMessage;
+                string actualMessage;
                 actualMessage += "ERROR (file:";
                 actualMessage += file;
                 actualMessage += ", function: ";
                 actualMessage += function;
                 actualMessage += ", lineNumber: ";
-                actualMessage += QString::number(lineNumber);
+                actualMessage += lineNumber;
                 actualMessage += "): ";
                 actualMessage += message;
                 actualMessage += "\n";
-                m_strategy->WriteToError(actualMessage);
+                m_strategy->WriteToError(actualMessage.c_str());
             }
         }
         
@@ -148,21 +148,21 @@ namespace RwUtils
                                  const char* file,
                                  const char* function,
                                  const int lineNumber,
-                                 const QString& message) const
+                                 const string& message) const
         {
             if (m_reportingErrors)
             {
-                QString actualMessage;
+                string actualMessage;
                 actualMessage += "ERROR (file:";
                 actualMessage += file;
                 actualMessage += ", function: ";
                 actualMessage += function;
                 actualMessage += ", lineNumber: ";
-                actualMessage += QString::number(lineNumber);
+                actualMessage += lineNumber;
                 actualMessage += "): ";
                 actualMessage += message;
                 actualMessage += "\n";
-                m_strategy->WriteToError(actualMessage);
+                m_strategy->WriteToError(actualMessage.c_str());
             }
         }
         
@@ -171,15 +171,15 @@ namespace RwUtils
             fprintf(stderr, "DEBUG (%s): %s\n", file, message);
         }
         
-        void RwLogger::_debugMessage(const char* file, const QString& message) const
+        void RwLogger::_debugMessage(const char* file, const string& message) const
         {
-            QString debugMessage = "DEBUG (";
+            string debugMessage = "DEBUG (";
             debugMessage += file;
             debugMessage += "): ";
             debugMessage += message;
             debugMessage += "\n";
             
-            fprintf(stderr, "%s", debugMessage.toAscii().data());
+            fprintf(stderr, "DEBUG (%s): %s\n", file, debugMessage.c_str());
         }
         
     }

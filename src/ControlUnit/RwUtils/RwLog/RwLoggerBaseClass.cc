@@ -11,6 +11,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 16/05/2012.
 */
 
 #include <cstdio>
+#include <cstdlib>
 #include "RwLoggerBaseClass.h"
 
 namespace RwUtils
@@ -28,12 +29,12 @@ namespace RwUtils
             
         }
         
-        void RwLoggerBaseClass::WriteToLog(const QString & message) const
+        void RwLoggerBaseClass::WriteToLog(const char* message) const
         {
             usingBaseClassError();
         }
         
-        void RwLoggerBaseClass::WriteToError(const QString & message) const
+        void RwLoggerBaseClass::WriteToError(const char* message) const
         {
             usingBaseClassError();
         }

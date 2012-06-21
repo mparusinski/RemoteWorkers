@@ -13,8 +13,10 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 19/05/2012.
 #ifndef _RWPROFILER_HPP_
 #define _RWPROFILER_HPP_
 
-#include <QStack>
+#include <stack>
 #include <QElapsedTimer>
+
+using namespace std;
 
 namespace RwUtils
 {
@@ -31,8 +33,6 @@ namespace RwUtils
         class RwProfiler
         {
         public:
-            typedef QStack<QElapsedTimer> TimerTypes;
-            
             ////////////////////////////////////////////////////////////////////////////////
             /// \brief Starts the profiler i.e checks the system clock and record the time
             ////////////////////////////////////////////////////////////////////////////////
@@ -58,6 +58,8 @@ namespace RwUtils
             static void profile(const char* message);
             
         private:
+            typedef stack<QElapsedTimer> TimerTypes;
+            
             static TimerTypes m_timers;
         };
         

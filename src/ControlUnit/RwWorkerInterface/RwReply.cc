@@ -47,7 +47,7 @@ namespace RwWorkerInterface
     {
     	m_empty = true;
         m_rawData = rawData;
-        if (m_rawData.length() != 0)
+        if (m_rawData.size() != 0)
             m_empty = false;
     }
     
@@ -65,7 +65,7 @@ namespace RwWorkerInterface
     {
     	m_empty = true;
         m_rawData = rawData;
-        if (m_rawData.length() != 0)
+        if (m_rawData.size() != 0)
             m_empty = false;
     }
     

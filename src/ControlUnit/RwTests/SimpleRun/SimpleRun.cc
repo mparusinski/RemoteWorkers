@@ -14,10 +14,8 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 18/05/2012.
 
 #include <cstdio>
 #include <cstdlib>
-#include <QString>
-#include <QStringList>
-#include <QVector>
-#include <QTextStream>
+#include <vector>
+#include <string>
 
 #include "RwWorkerInterface/RwReply.h"
 #include "RwWorkerInterface/RwWorker.h"
@@ -25,22 +23,24 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 18/05/2012.
 #include "RwWorkerInterface/RwManagement.h"
 #include "RwUtils/RwLog/RwLogger.h"
 
+using namespace std;
+
 using namespace RwWorkerInterface;
 
 int main(int argc, char *argv[])
 {
 	RwUtils::RwLog::RwLogger::getInstance()->turnAllOn();
-    QTextStream streamStdout(stdout);
 
-	QFileInfoList availableWorkers = RwManagement::getInstance()->listAvailableWorkers();
+	vector<string> availableWorkers = RwManagement::getInstance()->listAvailableWorkers();
+    printf("Available workers\n");
 	for (int i = 0; i < availableWorkers.size(); ++i)
 	{
-		streamStdout << availableWorkers[i].fileName() << endl;
+        printf("\t%s\n", availableWorkers[i].c_str());
 	}
 
 	RwWorker worker;
 	RwManagement::getInstance()->createWorker("SimpleTestWorker", worker);
-	RwCommand command("SimpleTestWorker", QStringList());
+	RwCommand command("SimpleTestWorker",vector<string>());
 	worker.executeCommand(command);
 	RwReply reply;
     worker.getReply(reply);
@@ -59,17 +59,17 @@ int main(int argc, char *argv[])
 	const int numberOfByteStreams = rawData.size();
 	for (int i = 0; i < numberOfByteStreams; ++i)
 	{
-		const QString& fileName = rawData[i].first;
+		const string& fileName = rawData[i].first;
 		const RwByteStream& byteStream = rawData[i].second;
-		streamStdout << "File: " << fileName << endl;
+        printf("File: %s\n", fileName.c_str());
 
 		const int lengthOfStream = byteStream.size();
 		const char * rawData = byteStream.getRawData();
 		for (int j = 0; j < lengthOfStream; ++j)
 		{
-			streamStdout << rawData[j];
+            printf("%c", rawData[j]);
 		}
-		streamStdout << endl << endl;
+        printf("\n\n");
 	}
 
 	return 1;

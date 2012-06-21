@@ -18,7 +18,7 @@
 * TODO SSL
 ** TODO Set-up protocol
 * TODO Style
-** TODO Use RW in front of names
+** DONE Use RW in front of names
 ** TODO Follow Google C++ Style Guide
 *** TODO Change GUARDS TO FULL PATHS
 *** DONE Change .hpp -> .h and .cpp -> .c
@@ -27,8 +27,11 @@
 *** TODO Check if we need to inline functions
 *** TODO Check for inputs then outputs in every function
 *** TODO Remove Static function unless necessary
-*** TODO Check for constructors and move complex initialisation to an explicit Init() method
-*** TODO Check every constructor and modify so it gives a consistent behavior
-*** TODO Use explicit constructors for each single argument constructor
-*** TODO Disable copy and assignment constructors when not necessary
-*** TODO Check the logging mechanism. Prefer printf/fprintf whenever suitable.
+*** DONE Check for constructors and move complex initialisation to an explicit Init() method
+*** DONE Check every constructor and modify so it gives a consistent behavior
+*** DONE Use explicit constructors for each single argument constructor
+*** DONE Disable copy and assignment constructors when not necessary
+*** DONE Check the logging mechanism. Prefer printf/fprintf whenever suitable.
+
+* TODO Bugs: 
+** TODO Logging with numbers

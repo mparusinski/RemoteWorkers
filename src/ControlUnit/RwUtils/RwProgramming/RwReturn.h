@@ -27,7 +27,8 @@ namespace RwUtils {
 #define RW_ERROR_NO_REPLY 0x4
 #define RW_ERROR_NO_EXECUTION 0x8
 #define RW_ERROR_EXECUTION_FAIL 0x10
-#define RW_ERROR_FILE_NOT_READ 0x20
+#define RW_ERROR_FILE_OR_DIR_NOT_FOUND 0x20
+#define RW_ERROR_FILE_NOT_READ 0x40
         
         inline RwReturnType combine(const RwReturnType& ret1, 
                                     const RwReturnType& ret2)

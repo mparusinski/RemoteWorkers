@@ -12,9 +12,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 17/05/2012.
 
 #include "RwConfiguration.h"
 
-#include <QDir>
-#include <QFile>
-#include <QTextStream>
+#include <fstream>
 
 #include "RwUtils/RwLog/RwLogger.h"
 
@@ -44,25 +42,22 @@ RwConfiguration* RwConfiguration::getInstance()
 RwReturnType RwConfiguration::readConfiguration()
 {
     RwReturnType returnMsg = RW_NO_ERROR;
-    QFile configurationFile("conf.txt");
-    configurationFile.open(QFile::ReadOnly | QFile::Text);
+    ifstream configurationFile("conf.txt", ifstream::in);
     
-	if ( configurationFile.isOpen() )
+	if ( configurationFile.is_open() )
 	{
-        QTextStream configurationIn(&configurationFile);
-        
 		if (m_configurationRead)
 		{
 			RwUtils::RwLog::RwLogger::getInstance()->log("Configuration already read, rereading it");
 		}
 
-		while( !configurationIn.atEnd() )
+		while( !configurationFile.eof() )
 		{
-			QString descriptor;
-			QString value;
+			string descriptor;
+            string value;
 
-			configurationIn >> descriptor;
-			configurationIn >> value;
+			configurationFile >> descriptor;
+			configurationFile >> value;
 
 			m_configurations[descriptor] = value;
 		}
@@ -80,7 +75,7 @@ RwReturnType RwConfiguration::readConfiguration()
     return returnMsg;
 }
 
-RwReturnType RwConfiguration::getConfiguration(const QString& descriptor, QString& configuration)
+RwReturnType RwConfiguration::getConfiguration(const string& descriptor, string& configuration)
 {
     RwReturnType returnMsg = RW_NO_ERROR;
     if (!m_configurationRead)
@@ -99,11 +94,11 @@ RwReturnType RwConfiguration::getConfiguration(const QString& descriptor, QStrin
 		ConfigurationsType::const_iterator iter = m_configurations.find(descriptor);
 		if (iter != m_configurations.end())
 		{
-			configuration = iter.value();
+			configuration = iter->second;
 		}
 		else
 		{
-			QString errorMessage = "There is no configuration for descriptor ";
+			string errorMessage = "There is no configuration for descriptor ";
 			errorMessage += descriptor;
 			RwUtils::RwLog::RwLogger::getInstance()->error_msg(errorMessage);
 		}
@@ -112,7 +107,7 @@ RwReturnType RwConfiguration::getConfiguration(const QString& descriptor, QStrin
     return returnMsg;
 }
 
-void RwConfiguration::getWorkersPath(QString& workersPath)
+void RwConfiguration::getWorkersPath(string& workersPath)
 {
     getConfiguration("WorkersPath", workersPath);
 }

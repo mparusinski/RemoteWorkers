@@ -28,14 +28,14 @@ namespace RwUtils
         {
         }
         
-        void RwConsoleLogger::WriteToLog(const QString& message) const
+        void RwConsoleLogger::WriteToLog(const char* message) const
         {
-            fprintf(stdout, "%s\n", message.toAscii().data());
+            fprintf(stdout, "%s\n", message);
         }
         
-        void RwConsoleLogger::WriteToError(const QString& message) const
+        void RwConsoleLogger::WriteToError(const char* message) const
         {
-            fprintf(stderr, "%s\n", message.toAscii().data());
+            fprintf(stderr, "%s\n", message);
         }
         
     }
