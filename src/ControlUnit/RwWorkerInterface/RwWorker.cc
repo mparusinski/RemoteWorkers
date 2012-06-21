@@ -115,8 +115,8 @@ namespace RwWorkerInterface
         
         const int numberOfFiles = files.size();
         
-        ByteStreams rawData;
-        rawData.reserve(numberOfFiles);
+        ByteStreams& rawData = reply.getRawData();
+        rawData.resize(numberOfFiles);
         
         for (int i = 0; i < numberOfFiles; ++i)
         {
@@ -133,16 +133,12 @@ namespace RwWorkerInterface
             qint64 length = dataFile.size();
             QDataStream dataFileIn(&dataFile);
             
-            RwByteStream bytes(length);
-            
-            dataFileIn.readRawData(bytes.getRawData(), length);
+            rawData[i].second.reallocate(length);
+            dataFileIn.readRawData(rawData[i].second.getRawData(), length);
+            rawData[i].first = filePath.filePath();
             
             dataFile.close();
-            
-            rawData.push_back(QPair<QString, RwByteStream>(filePath.filePath(), bytes));
         }
-        
-        reply.setRawData(rawData);
     }
     
     void RwWorker::getOutputPath()

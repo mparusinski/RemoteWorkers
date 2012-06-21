@@ -27,5 +27,6 @@ ADD_LIBRARY(RwWorkerInterface
 
 TARGET_LINK_LIBRARIES(RwWorkerInterface RwLog)
 TARGET_LINK_LIBRARIES(RwWorkerInterface RwSystem)
+TARGET_LINK_LIBRARIES(RwWorkerInterface RwDataStructures)
 TARGET_LINK_LIBRARIES(RwWorkerInterface ${QT_LIBRAIRES})
 

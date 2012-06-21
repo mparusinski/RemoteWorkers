@@ -33,7 +33,6 @@ namespace RwWorkerInterface
     
     RwReply::RwReply()
     {
-        m_empty = true;
     }
     
     RwReply::~RwReply()
@@ -43,15 +42,12 @@ namespace RwWorkerInterface
     
     RwReply::RwReply(const ByteStreams & rawData)
     {
-    	m_empty = true;
         m_rawData = rawData;
-        if (m_rawData.size() != 0)
-            m_empty = false;
     }
     
     bool RwReply::empty() const
     {
-        return m_empty;
+        return (m_rawData.size() == 0);
     }
     
     const RwReply::ByteStreams& RwReply::getRawData() const
@@ -59,12 +55,14 @@ namespace RwWorkerInterface
         return m_rawData;
     }
     
+    RwReply::ByteStreams& RwReply::getRawData()
+    {
+        return m_rawData;
+    }
+    
     void RwReply::setRawData(RwReply::ByteStreams& rawData)
     {
-    	m_empty = true;
         m_rawData = rawData;
-        if (m_rawData.size() != 0)
-            m_empty = false;
     }
     
 }

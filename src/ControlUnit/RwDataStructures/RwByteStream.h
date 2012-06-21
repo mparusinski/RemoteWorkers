@@ -26,6 +26,7 @@ namespace RwDataStructures
     public:
         typedef char RwByteType;
         
+        RwByteStream();
         explicit RwByteStream(const int dataSize);
         explicit RwByteStream(const RwByteStream& other);
         virtual ~RwByteStream();
@@ -71,7 +72,5 @@ namespace RwDataStructures
     };
     
 }
-
-#include "RwByteStream-incl.h"
 
 #endif // _BYTESTREAM_HPP_
