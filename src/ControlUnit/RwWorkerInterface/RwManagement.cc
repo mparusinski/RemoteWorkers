@@ -1,6 +1,6 @@
 /* 
 
-Management.hpp: Manages workers
+RwManagement.cc: Manages workers
 
 As part of the Remote Workers Project which creates a framework for remote
 management of laptops, desktop and servers. 
@@ -26,8 +26,6 @@ namespace RwWorkerInterface
     
     RwManagement::RwManagement()
     {
-        m_pathToWorkers = QFileInfo();
-        m_availableWorkers = QFileInfoList();
     }
     
     RwManagement::~RwManagement()

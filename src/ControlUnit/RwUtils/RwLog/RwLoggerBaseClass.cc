@@ -1,6 +1,6 @@
 /* 
 
-LoggerStrategy.hpp: Set of function that handles the logging (ABSTRACT)
+RwLoggerBaseClass.cc: Set of function that handles the logging (ABSTRACT)
 
 As part of the RemoteWorkers program which creates a framework for remote
 management of laptops, desktop and servers. 

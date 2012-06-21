@@ -1,6 +1,6 @@
 /* 
 
-Logger.hpp: System to log errors and message smartly
+RwLogger.h: System to log errors and message smartly
 
 As part of the RemoteWorkers program which creates a framework for remote
 management of laptops, desktop and servers. 
@@ -10,8 +10,8 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 16/05/2012.
 
 */
 
-#ifndef _RWLOGGER_HPP_
-#define _RWLOGGER_HPP_
+#ifndef _RWUTILS_RWLOG_RWLOGGER_H_
+#define _RWUTILS_RWLOG_RWLOGGER_H_
 
 #include "RwUtils/RwProgramming/RwClasses.h"
 
@@ -181,4 +181,4 @@ namespace RwUtils
     }
 }
 
-#endif // _RWLOGGER_HPP_
+#endif // _RWUTILS_RWLOG_RWLOGGER_H_

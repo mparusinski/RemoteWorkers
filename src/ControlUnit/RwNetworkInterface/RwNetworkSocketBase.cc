@@ -1,6 +1,6 @@
 /* 
 
-NetworkSocketBase.cpp: Interface to the network socket
+NetworkSocketBase.cc: Interface to the network socket
 
 As part of the RemoteWorkers program which creates a framework for remote
 management of laptops, desktop and servers.
@@ -10,7 +10,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 14/05/2012.
 
 */
 
-#include "NetworkSocketBase.hpp"
+#include "NetworkSocketBase.h"
 
 namespace NetworkInterface {
 

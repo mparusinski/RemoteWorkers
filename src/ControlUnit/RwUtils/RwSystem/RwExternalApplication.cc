@@ -1,6 +1,6 @@
 /* 
 
-ExternalApplication.cpp: Class dedicated into launching 3rd party applications
+RwExternalApplication.cc: Class dedicated into launching 3rd party applications
 
 As part of the Remote Workers Project which creates a framework for remote
 management of laptops, desktop and servers. 

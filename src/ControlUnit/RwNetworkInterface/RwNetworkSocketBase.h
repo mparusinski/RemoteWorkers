@@ -1,6 +1,6 @@
 /* 
 
-NetworkSocketBase.hpp: Interface to the network socket
+RwNetworkSocketBase.h: Interface to the network socket
 
 As part of the RemoteWorkers program which creates a ramework for remote
 management of laptops,desktop and servers. 
@@ -10,11 +10,12 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 14/05/2012.
 
 */
 
+#ifndef _RWNETWORKINTERFACE_RWNETWORKSOCKETBASE_H_
+#define _RWNETWORKINTERFACE_RWNETWORKSOCKETBASE_H_
+
 namespace RwNetworkInterface
 {
-
-class RwNetworkSocketBase {
-
-};
-
+    
 }
+
+#endif // _RWNETWORKINTERFACE_RWNETWORKSOCKETBASE_H_

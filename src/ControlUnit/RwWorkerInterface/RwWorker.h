@@ -1,6 +1,6 @@
 /* 
 
-Worker.hpp: Interface to a worker program
+RwWorker.h: Interface to a worker program
 
 As part of the RemoteWorkers program which creates a framework for remote
 management of laptops, desktop and servers.
@@ -10,8 +10,8 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 15/05/2012.
 
 */
 
-#ifndef _RWWORKER_HPP_
-#define _RWWORKER_HPP_
+#ifndef _RWWORKERINTERFACE_RWWORKER_H_
+#define _RWWORKERINTERFACE_RWWORKER_H_
 
 #include <QFileInfo>
 #include <QString>
@@ -77,4 +77,4 @@ namespace RwWorkerInterface
     
 }
 
-#endif // _RWWORKER_HPP_
+#endif // _RWWORKERINTERFACE_RWWORKER_H_

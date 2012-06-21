@@ -1,6 +1,6 @@
 /* 
 
-LoggerFileStrategy.hpp: Strategy for logging which output everything to a file
+RwFileLogger.h: Strategy for logging which output everything to a file
 
 As part of the RemoteWorkers program which creates a framework for remote
 management of laptops, desktop and servers. 
@@ -10,8 +10,8 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 16/05/2012.
 
 */
 
-#ifndef _RWFILELOGGER_HPP_
-#define _RWFILELOGGER_HPP_
+#ifndef _RWUTILS_RWLOG_RWFILELOGGER_H_
+#define _RWUTILS_RWLOG_RWFILELOGGER_H_
 
 #include "RwLoggerBaseClass.h"
 
@@ -59,4 +59,4 @@ namespace RwUtils
     }
 }
 
-#endif // _FILELOGGER_HPP_
+#endif // _RWUTILS_RWLOG_RWFILELOGGER_H_

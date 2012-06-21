@@ -1,6 +1,6 @@
 /* 
 
-Command.hpp: Encapsulate a command
+RwCommand.h: Encapsulate a command
 
 As part of the RemoteWorkers program which creates a framework for remote
 management of laptops, desktop and servers. 
@@ -10,8 +10,8 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 15/05/2012.
 
 */
 
-#ifndef _RWCOMMAND_HPP_
-#define _RWCOMMAND_HPP_
+#ifndef _RWWORKERINTERFACE_RWCOMMAND_H_
+#define _RWWORKERINTERFACE_RWCOMMAND_H_
 
 #include <QString>
 #include <QStringList>
@@ -30,7 +30,7 @@ namespace RwWorkerInterface
         
     public:
         
-        explicit RwCommand(const QString& order, const QStringList& arguments);
+        RwCommand(const QString& order, const QStringList& arguments);
         virtual ~RwCommand() { }
         
         /////////////////////////////////////////////////////////////////////////////////
@@ -53,4 +53,4 @@ namespace RwWorkerInterface
 
 }
 
-#endif // _COMMAND_HPP_
+#endif // _RWWORKERINTERFACE_RWCOMMAND_H_

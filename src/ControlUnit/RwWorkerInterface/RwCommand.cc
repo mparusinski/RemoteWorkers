@@ -1,6 +1,6 @@
 /* 
 
-Command.cpp: Encapsulate a command
+RwCommand.cc: Encapsulate a command
 
 As part of the RemoteWorkers program which creates a framework for remote
 management of laptops, desktop and servers. 
@@ -17,7 +17,7 @@ namespace RwWorkerInterface
     
     RwCommand::RwCommand(const QString& commandName, const QStringList& arguments)
     {
-        m_order = commandName;
+        m_order     = commandName;
         m_arguments = arguments;
     }
     

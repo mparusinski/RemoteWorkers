@@ -1,6 +1,6 @@
 /* 
 
-Configuration.hpp: Create the configuration for the worker management system
+RwConfiguration.cc: Create the configuration for the worker management system
 
 As part of the Remote Workers Project which creates a framework for remote
 management of laptops, desktop and servers. 

@@ -1,6 +1,6 @@
 /* 
 
-RwFileManagement.cpp: Handles file operations
+RwFileManagement.cc: Handles file operations
 
 As part of the RemoteWorkers program which creates a framework for remote
 management of laptops, desktop and servers. 

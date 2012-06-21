@@ -1,6 +1,6 @@
 /* 
 
-ExternalApplication.hpp: Class dedicated into launching 3rd party applications
+RwExternalApplication.h: Class dedicated into launching 3rd party applications
 
 As part of the RemoteWorkers program which creates a framework for remote
 management of laptops, desktop and servers. 
@@ -10,8 +10,8 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 13/06/2012.
 
 */
 
-#ifndef _RWEXTERNAL_APPLICATION_
-#define _RWEXTERNAL_APPLICATION_
+#ifndef _RWUTILS_RWSYSTEM_RWEXTERNAL_APPLICATION_H_
+#define _RWUTILS_RWSYSTEM_RWEXTERNAL_APPLICATION_H_
 
 #include <QString>
 #include <QStringList>
@@ -50,4 +50,4 @@ namespace RwUtils
     }
 }
 
-#endif // _EXTERNAL_APPLICATION_
+#endif // _RWUTILS_RWSYSTEM_RWEXTERNAL_APPLICATION_H_

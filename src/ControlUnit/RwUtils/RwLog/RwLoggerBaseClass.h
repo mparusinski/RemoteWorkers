@@ -1,6 +1,6 @@
 /* 
 
-LoggerStrategy.hpp: Set of function that handles the logging (ABSTRACT)
+RwLoggerBaseClass.h: Set of function that handles the logging (ABSTRACT)
 
 As part of the RemoteWorkers program which creates a framework for remote
 management of laptops, desktop and servers. 
@@ -10,8 +10,8 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 16/05/2012.
 
 */
 
-#ifndef _RWLOGGERBASECLASS_HPP_
-#define _RWLOGGERBASECLASS_HPP_
+#ifndef _RWUTILS_RWLOG_RWLOGGERBASECLASS_H_
+#define _RWUTILS_RWLOG_RWLOGGERBASECLASS_H_
 
 #include "RwUtils/RwProgramming/RwClasses.h"
 
@@ -54,4 +54,4 @@ namespace RwUtils
     }
 }
 
-#endif // _LOGGERBASECLASS_HPP_
+#endif // _RWUTILS_RWLOG_RWLOGGERBASECLASS_H_

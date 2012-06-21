@@ -1,6 +1,6 @@
 /* 
 
-Logger.hpp: System to log errors and message smartly
+RwLogger.h: System to log errors and message smartly
 
 As part of the RemoteWorkers program which creates a framework for remote
 management of laptops, desktop and servers. 

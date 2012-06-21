@@ -1,6 +1,6 @@
 /* 
 
-LoggerConsoleStrategy.hpp: Console approach to logging
+RwConsoleLogger.cc: Console approach to logging
 
 As part of the RemoteWorkers program which creates a framework for remote
 management of laptops, desktop and servers. 

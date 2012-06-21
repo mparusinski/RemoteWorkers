@@ -1,6 +1,6 @@
 /* 
 
-RwFileManagement.hpp: Handles file operations
+RwFileManagement.h: Handles file operations
 
 As part of the RemoteWorkers program which creates a framework for remote
 management of laptops, desktop and servers. 
@@ -10,8 +10,8 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 15/05/2012.
 
 */
 
-#ifndef _RWFILEMANAGEMENT_HPP_
-#define _RWFILEMANAGEMENT_HPP_
+#ifndef _RWUTILS_RWSYSTEM_RWFILEMANAGEMENT_H_
+#define _RWUTILS_RWSYSTEM_RWFILEMANAGEMENT_H_
 
 #include <QFileInfo>
 
@@ -64,4 +64,4 @@ namespace RwUtils
     }
 }
 
-#endif //_FILEMANAGEMENT_HPP_
+#endif //_RWUTILS_RWSYSTEM_RWFILEMANAGEMENT_H_

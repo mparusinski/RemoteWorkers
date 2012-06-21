@@ -1,6 +1,6 @@
 /* 
 
-LoggerConsoleStrategy.hpp: Console approach to logging
+RwConsoleLogger.h: Console approach to logging
 
 As part of the RemoteWorkers program which creates a framework for remote
 management of laptops, desktop and servers. 
@@ -10,8 +10,8 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 16/05/2012.
 
 */
 
-#ifndef _RWCONSOLELOGGER_HPP_
-#define _RWCONSOLELOGGER_HPP_
+#ifndef _RWUTILS_RWLOG_RWCONSOLELOGGER_H_
+#define _RWUTILS_RWLOG_RWCONSOLELOGGER_H_
 
 #include "RwUtils/RwProgramming/RwClasses.h"
 
@@ -54,4 +54,4 @@ namespace RwUtils
     }
 }
 
-#endif // _RWCONSOLELOGGER_HPP_
+#endif // _RWUTILS_RWLOG_RWCONSOLELOGGER_H_

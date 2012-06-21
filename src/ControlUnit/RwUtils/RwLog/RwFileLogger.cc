@@ -1,6 +1,6 @@
 /* 
 
-LoggerFileStrategy.hpp: Strategy for logging which output everything to a file
+RwFileLogger.cc: Strategy for logging which output everything to a file
 
 As part of the RemoteWorkers program which creates a framework for remote
 management of laptops, desktop and servers. 

@@ -1,6 +1,6 @@
 /* 
 
-Worker.cpp: Interface to a worker
+RwWorker.ccs: Interface to a worker
 
 As part of the RemoteWorkers program which creates a framework for remote
 management of laptops, desktop and servers.
@@ -29,7 +29,6 @@ namespace RwWorkerInterface
     
     RwWorker::RwWorker()
     {
-        
     }
     
     RwWorker::RwWorker(const QFileInfo& path)

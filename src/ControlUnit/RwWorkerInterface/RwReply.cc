@@ -1,6 +1,6 @@
 /* 
 
-Reply.hpp: Captures the response of a worker
+RwReply.cc: Captures the response of a worker
 
 As part of the RemoteWorkers program which creates a framework for remote
 management of laptops, desktop and servers. 
@@ -33,6 +33,7 @@ namespace RwWorkerInterface
     
     RwReply::RwReply()
     {
+        m_rawData = ByteStreams();
     }
     
     RwReply::~RwReply()
