@@ -23,5 +23,8 @@ SET(RwNetworking_HEADERS
 QT4_WRAP_CPP(RwNetworking_HEADERS_MOC ${RwNetworking_HEADERS})
 
 ADD_LIBRARY(RwNetworking STATIC 
-  ${RwNetworking_SOURCES}  ${RwNetworking_HEADERS})
+  ${RwNetworking_SOURCES}  ${RwNetworking_HEADERS}
+  ${RwNetworking_HEADERS_MOC})
+
+TARGET_LINK_LIBRARIES(RwNetworking ${QT_LIBRARIES})
 
