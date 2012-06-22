@@ -55,12 +55,12 @@ int main(int argc, char *argv[])
 		RwUtils::RwLog::RwLogger::getInstance()->log("Reply is built");
 	}
 
-    RwReply::ByteStreams& rawData = reply.getRawData();
+    RwReply::ByteArrays& rawData = reply.getRawData();
 	const int numberOfByteStreams = rawData.size();
 	for (int i = 0; i < numberOfByteStreams; ++i)
 	{
 		const QString& fileName = rawData[i].first;
-        RwByteStream& byteStream = rawData[i].second;
+        RwByteArray& byteStream = rawData[i].second;
         printf("File: %s\n", fileName.toAscii().data());
 
 		const int lengthOfStream = byteStream.size();

@@ -33,7 +33,7 @@ namespace RwWorkerInterface
     
     RwReply::RwReply()
     {
-        m_rawData = ByteStreams();
+        m_rawData = ByteArrays();
     }
     
     RwReply::~RwReply()
@@ -41,7 +41,7 @@ namespace RwWorkerInterface
         
     }
     
-    RwReply::RwReply(const ByteStreams & rawData)
+    RwReply::RwReply(const ByteArrays & rawData)
     {
         m_rawData = rawData;
     }
@@ -51,17 +51,17 @@ namespace RwWorkerInterface
         return (m_rawData.size() == 0);
     }
     
-    const RwReply::ByteStreams& RwReply::getRawData() const
+    const RwReply::ByteArrays& RwReply::getRawData() const
     {
         return m_rawData;
     }
     
-    RwReply::ByteStreams& RwReply::getRawData()
+    RwReply::ByteArrays& RwReply::getRawData()
     {
         return m_rawData;
     }
     
-    void RwReply::setRawData(RwReply::ByteStreams& rawData)
+    void RwReply::setRawData(RwReply::ByteArrays& rawData)
     {
         m_rawData = rawData;
     }

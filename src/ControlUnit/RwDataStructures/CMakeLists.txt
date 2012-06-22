@@ -1,9 +1,9 @@
 SET(RwDataStructures_SOURCES
-  RwByteStream.cc
+  RwByteArray.cc
 )
 
 SET(RwDataStructures_HEADERS
-  RwByteStream.h
+  RwByteArray.h
 )
 
 ADD_LIBRARY(RwDataStructures STATIC 

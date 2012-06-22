@@ -10,28 +10,28 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 21/06/2012
 
 */
 
-#include "RwByteStream.h"
+#include "RwByteArray.h"
 
 #include <cstring>
 
 namespace  RwDataStructures
 {
-    RwByteStream::RwByteStream()
+    RwByteArray::RwByteArray()
     {
         allocate(0);
     }
     
-    RwByteStream::RwByteStream(const int dataSize)
+    RwByteArray::RwByteArray(const int dataSize)
     {
         allocate(dataSize);
     }
     
-    RwByteStream::RwByteStream(const RwByteStream& other)
+    RwByteArray::RwByteArray(const RwByteArray& other)
     {
         grab(other);
     }
     
-    RwByteStream & RwByteStream::operator=(const RwDataStructures::RwByteStream &other)
+    RwByteArray & RwByteArray::operator=(const RwDataStructures::RwByteArray &other)
     {
         if (this != &other)
         {
@@ -42,18 +42,18 @@ namespace  RwDataStructures
         return *this;
     }
     
-    RwByteStream::~RwByteStream()
+    RwByteArray::~RwByteArray()
     {
         discard();
     }
     
-    void RwByteStream::reallocate(const int dataSize)
+    void RwByteArray::reallocate(const int dataSize)
     {
         discard();
         allocate(dataSize);
     }
     
-    void RwByteStream::free()
+    void RwByteArray::free()
     {
         if (!unique())
         {
@@ -67,7 +67,7 @@ namespace  RwDataStructures
         }
     }
     
-    RwByteStream::RwByteType * RwByteStream::getRawData()
+    RwByteArray::RwByteType * RwByteArray::getRawData()
     {
         if (!unique())
         {
@@ -77,27 +77,27 @@ namespace  RwDataStructures
         return m_rawData;
     }
     
-    int RwByteStream::size() const
+    int RwByteArray::size() const
     {
         return m_sizeOfData;
     }
     
-    bool RwByteStream::allocated() const
+    bool RwByteArray::allocated() const
     {
         return m_rawData != 0;
     }
     
-    bool RwByteStream::held() const
+    bool RwByteArray::held() const
     {
         return (*m_refCounter) != 0;
     }
     
-    bool RwByteStream::unique() const
+    bool RwByteArray::unique() const
     {
         return (*m_refCounter) == 1;
     }
     
-    void RwByteStream::grab(const RwByteStream& other)
+    void RwByteArray::grab(const RwByteArray& other)
     {
         m_sizeOfData = other.m_sizeOfData;
         m_rawData    = other.m_rawData;
@@ -106,7 +106,7 @@ namespace  RwDataStructures
         *m_refCounter = *m_refCounter + 1;
     }
     
-    void RwByteStream::discard()
+    void RwByteArray::discard()
     {
         *m_refCounter = *m_refCounter - 1;
         if (!held())
@@ -117,7 +117,7 @@ namespace  RwDataStructures
         }
     }
     
-    void RwByteStream::allocate(const int dataSize)
+    void RwByteArray::allocate(const int dataSize)
     {
         m_sizeOfData = dataSize;
         m_rawData    = 0;
@@ -131,7 +131,7 @@ namespace  RwDataStructures
         }
     }
     
-    void RwByteStream::detach()
+    void RwByteArray::detach()
     {
         m_refCounter  = new int;
         *m_refCounter = 1;

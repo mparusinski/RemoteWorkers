@@ -1,6 +1,6 @@
 /* 
 
-ByteStream.hpp: Captures a stream of bytes in an efficient way
+RwByteArray.h: Captures a stream of bytes in an efficient way
 
 As part of the Remote Workers project which creates a framework for remote
 management of laptops, desktop and servers. 
@@ -10,8 +10,8 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 16/05/2012.
 
 */
 
-#ifndef _RWBYTESTREAM_HPP_
-#define _RWBYTESTREAM_HPP_
+#ifndef _RWDATASTRUCTURES_RWBYTEARRAY_H_
+#define _RWDATASTRUCTURES_RWBYTEARRAY_H_
 
 namespace RwDataStructures
 {
@@ -21,17 +21,17 @@ namespace RwDataStructures
     ///        used instead of a vector<char> since the latter is harder to be
     ///        written to by a file object. It is also of simple design.
     ////////////////////////////////////////////////////////////////////////////////
-    class RwByteStream
+    class RwByteArray
     {
     public:
         typedef char RwByteType;
         
-        RwByteStream();
-        explicit RwByteStream(const int dataSize);
-        explicit RwByteStream(const RwByteStream& other);
-        virtual ~RwByteStream();
+        RwByteArray();
+        explicit RwByteArray(const int dataSize);
+        explicit RwByteArray(const RwByteArray& other);
+        virtual ~RwByteArray();
         
-        RwByteStream & operator=(const RwByteStream & other);
+        RwByteArray & operator=(const RwByteArray & other);
         
         ////////////////////////////////////////////////////////////////////////////////
         /// \brief     Reallocate memory to hold the given amount of data. It discards
@@ -69,7 +69,7 @@ namespace RwDataStructures
         
         inline bool unique() const;
         
-        inline void grab(const RwByteStream & other);
+        inline void grab(const RwByteArray & other);
         
         inline void discard();
         
@@ -85,4 +85,4 @@ namespace RwDataStructures
     
 }
 
-#endif // _BYTESTREAM_HPP_
+#endif // _RWDATASTRUCTURES_RWBYTEARRAY_H_

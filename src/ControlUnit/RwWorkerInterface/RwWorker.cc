@@ -19,7 +19,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 15/05/2012.
 #include "RwUtils/RwSystem/RwFileManagement.h"
 #include "RwUtils/RwSystem/RwExternalApplication.h"
 #include "RwUtils/RwLog/RwLogger.h"
-#include "RwDataStructures/RwByteStream.h"
+#include "RwDataStructures/RwByteArray.h"
 
 using namespace RwDataStructures;
 using namespace RwUtils::RwSystem;
@@ -107,7 +107,7 @@ namespace RwWorkerInterface
     
     RwReturnType RwWorker::createReply(RwReply& reply) const
     {
-        typedef RwReply::ByteStreams ByteStreams;
+        typedef RwReply::ByteArrays ByteArrays;
         
         QFileInfoList files;
         
@@ -115,7 +115,7 @@ namespace RwWorkerInterface
         
         const int numberOfFiles = files.size();
         
-        ByteStreams& rawData = reply.getRawData();
+        ByteArrays& rawData = reply.getRawData();
         rawData.reserve(numberOfFiles);
         
         for (int i = 0; i < numberOfFiles; ++i)
@@ -135,9 +135,9 @@ namespace RwWorkerInterface
             qint64 length = dataFile.size();
             QDataStream dataFileIn(&dataFile);
             
-            RwByteStream bytes(length);
+            RwByteArray bytes(length);
             dataFileIn.readRawData(bytes.getRawData(), length);
-            rawData.append(QPair<QString, RwByteStream>(filePath.filePath(), bytes));
+            rawData.append(QPair<QString, RwByteArray>(filePath.filePath(), bytes));
             
             dataFile.close();
         }

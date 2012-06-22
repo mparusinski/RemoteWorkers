@@ -29,6 +29,8 @@ namespace RwUtils {
 #define RW_ERROR_EXECUTION_FAIL 0x10
 #define RW_ERROR_FILE_OR_DIR_NOT_FOUND 0x20
 #define RW_ERROR_FILE_NOT_READ 0x40
+#define RW_ERROR_SERVER_NOT_STARTED 0x80
+#define RW_ERROR_SERVER_ALREADY_STARTED 0x100
         
         inline RwReturnType combine(const RwReturnType& ret1, 
                                     const RwReturnType& ret2)

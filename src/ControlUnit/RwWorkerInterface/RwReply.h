@@ -18,9 +18,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 15/05/2012.
 #include <QList>
 
 #include "RwUtils/RwProgramming/RwClasses.h"
-#include "RwDataStructures/RwByteStream.h"
-
-using namespace std;
+#include "RwDataStructures/RwByteArray.h"
 
 using namespace RwDataStructures;
 
@@ -35,10 +33,10 @@ namespace RwWorkerInterface
     class RwReply
     {
     public:
-        typedef QList< QPair<QString, RwByteStream> > ByteStreams;
+        typedef QList< QPair<QString, RwByteArray> > ByteArrays;
         
         RwReply();
-        explicit RwReply(const ByteStreams& rawData);
+        explicit RwReply(const ByteArrays& rawData);
         virtual ~RwReply();
         
         ////////////////////////////////////////////////////////////////////////////////
@@ -52,24 +50,24 @@ namespace RwWorkerInterface
         /// \brief     Returns the raw data representing the reply
         /// \return    Raw data representing the reply
         ////////////////////////////////////////////////////////////////////////////////
-        const ByteStreams& getRawData() const;
+        const ByteArrays& getRawData() const;
         
         ////////////////////////////////////////////////////////////////////////////////
         /// \brief     Returns the raw data representing the reply
         /// \return    Raw data representing the reply
         ////////////////////////////////////////////////////////////////////////////////
-        ByteStreams& getRawData();
+        ByteArrays& getRawData();
         
         ////////////////////////////////////////////////////////////////////////////////
         /// \brief        Returns the raw data representing the reply
         /// \param[in]    rawData Raw data representing the reply
         ////////////////////////////////////////////////////////////////////////////////
-        void setRawData(ByteStreams& rawData);
+        void setRawData(ByteArrays& rawData);
         
     private:
         DISALLOW_COPY_AND_ASSIGN(RwReply);
         
-        ByteStreams m_rawData;
+        ByteArrays m_rawData;
         
     };
     

@@ -17,7 +17,7 @@
 ** DONE Special return statuses (can be sent to remote device)
 * TODO SSL
 ** TODO Set-up protocol
-* TODO Style
+* DONE Style
 ** DONE Use RW in front of names
 ** DONE Follow Google C++ Style Guide
 *** DONE Change GUARDS TO FULL PATHS
