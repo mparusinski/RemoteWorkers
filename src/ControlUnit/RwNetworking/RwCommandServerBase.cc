@@ -14,7 +14,8 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 14/05/2012.
 
 namespace RwNetworking {
 
-    RwCommandServerBase::RwCommandServerBase(const QString& serverName)
+    RwCommandServerBase::RwCommandServerBase(QObject* parent, const QString& serverName) 
+        : QObject(parent)
     {
         m_serverName = serverName;
     }
@@ -22,6 +23,11 @@ namespace RwNetworking {
     RwCommandServerBase::~RwCommandServerBase()
     {
         
+    }
+    
+    QString RwCommandServerBase::getServerName() const
+    {
+        return m_serverName;
     }
     
 }

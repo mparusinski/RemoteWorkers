@@ -29,38 +29,37 @@ namespace RwNetworking {
     ////////////////////////////////////////////////////////////////////////////////
     class RwCommandServerLocal : public RwCommandServerBase
     {
+        Q_OBJECT
         
     public:
-        RwCommandServerLocal(const QString& serverName);
+        RwCommandServerLocal(QObject* parent, const QString& serverName);
         virtual ~RwCommandServerLocal();
         
         ////////////////////////////////////////////////////////////////////////////////
         /// \brief  Starts listening for commands
-        /// \return Return an error message accordingly
         ////////////////////////////////////////////////////////////////////////////////
-        virtual RwReturnType listen();
-        
-        ////////////////////////////////////////////////////////////////////////////////
-        /// \brief  Check if the server is listenting
-        /// \return Return true if listening
-        ////////////////////////////////////////////////////////////////////////////////
-        virtual bool isListening() const;
+        virtual void start();
         
         ////////////////////////////////////////////////////////////////////////////////
         /// \brief  Close the server
-        /// \return Return an error message accordingly
         ////////////////////////////////////////////////////////////////////////////////
-        virtual RwReturnType close();
+        virtual void stop();
+        
+        ////////////////////////////////////////////////////////////////////////////////
+        /// \brief  Checks if the server is running
+        ////////////////////////////////////////////////////////////////////////////////
+        virtual bool isRunning() const;
         
     public slots:
-        void simpleTest() const;
+        void simpleTest();
         
     private:
+        virtual void abstract() {}
         DISALLOW_COPY_AND_ASSIGN(RwCommandServerLocal);
         
         void init();
-        
-        QLocalServer m_localServer;
+
+        QLocalServer* m_localServer;
     };
     
 }

@@ -12,54 +12,83 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 22/06/2012.
 
 #include "RwCommandServerLocal.h"
 
+#include <QLocalSocket>
+
 #include "RwUtils/RwLog/RwLogger.h"
 
 using namespace RwUtils::RwLog;
 
 namespace RwNetworking {
     
-    RwCommandServerLocal::RwCommandServerLocal(const QString& serverName) : 
-        RwCommandServerBase(serverName)
+    RwCommandServerLocal::RwCommandServerLocal(QObject* parent, const QString& serverName) : 
+        RwCommandServerBase(parent, serverName)
     {
-        
+        m_localServer = new QLocalServer(this);
     }
     
     RwCommandServerLocal::~RwCommandServerLocal()
     {
-        
+        delete m_localServer;
     }
     
-    RwReturnType RwCommandServerLocal::listen()
+    void RwCommandServerLocal::start()
     {
-        if ( m_localServer.listen(m_serverName) )
+        RwLogger::getInstance()->debug("Server starting");
+        if ( isRunning() )
         {
-            init();
-            return RW_NO_ERROR;
-        } else {
-            return RW_ERROR_SERVER_ALREADY_STARTED;
+            QString errorMsg = "A local server with name ";
+            errorMsg += getServerName();
+            errorMsg += " has already started";
+            
+            RwLogger::getInstance()->error_msg(errorMsg);
+            return;
+        }
+        
+        QLocalServer::removeServer(m_serverName);
+        
+        if ( !m_localServer->listen(m_serverName) )
+        {
+            QString errorMsg = "Unable to start server: ";
+            errorMsg += m_localServer->errorString();
+            
+            RwLogger::getInstance()->error_msg(errorMsg);
+            return;
+        }
+        
+        init();
+    }
+    
+    void RwCommandServerLocal::stop()
+    {
+        if (m_localServer != 0)
+        {
+            m_localServer->close();
         }
     }
     
-    bool RwCommandServerLocal::isListening() const
+    bool RwCommandServerLocal::isRunning() const
     {
-        return m_localServer.isListening();
+        if (m_localServer != 0)
+        {
+            return m_localServer->isListening();
+        }
+        return false;
     }
     
-    RwReturnType RwCommandServerLocal::close()
+    void RwCommandServerLocal::simpleTest()
     {
-        m_localServer.close();
-        return RW_NO_ERROR;
-    }
-    
-    void RwCommandServerLocal::simpleTest() const
-    {
-        RwLogger::getInstance()->log("Test passed");
+        RwLogger::getInstance()->debug("Caught connection");
+        QLocalSocket* clientSocket = m_localServer->nextPendingConnection();
+        
+        QObject::connect(clientSocket, SIGNAL(disconnected()), 
+                         clientSocket, SLOT(deleteLater()));
     }
  
     void RwCommandServerLocal::init()
     {
-        QObject::connect(m_localServer, SIGNAL(newConnection()), this, SLOT(simpleTest()))
+        RwLogger::getInstance()->debug("Initialising");
+        QObject::connect(m_localServer, SIGNAL(newConnection()), 
+                         this, SLOT(simpleTest()));
     }
-    
 }
 

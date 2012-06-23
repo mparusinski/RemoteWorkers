@@ -13,8 +13,32 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 14/05/2012.
 #ifndef _RWNETWORKING_RWCOMMANDSERVERSSL_H_
 #define _RWNETWORKING_RWCOMMANDSERVERSSL_H_
 
-namespace RwNetworking
-{
+#include "RwCommandServerBase.h"
+
+#include "RwUtils/RwProgramming/RwReturn.h"
+#include "RwUtils/RwProgramming/RwClasses.h"
+
+using namespace RwUtils::RwProgramming;
+
+namespace RwNetworking {
+    
+    ////////////////////////////////////////////////////////////////////////////////
+    /// \brief Command Server which intercepts commands through a TCP Socket
+    ////////////////////////////////////////////////////////////////////////////////
+    class RwCommandServerSSL : public RwCommandServerBase {
+        
+        Q_OBJECT
+        
+    public:
+        
+        RwCommandServerSSL(QObject* parent, const QString& name);
+        virtual ~RwCommandServerSSL();
+        
+    private:
+        virtual void abstract() {}
+        DISALLOW_COPY_AND_ASSIGN(RwCommandServerSSL);
+        
+    };
     
 }
 

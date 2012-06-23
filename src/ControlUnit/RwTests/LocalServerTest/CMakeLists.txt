@@ -10,7 +10,14 @@ SET(LocalServerTestSRC
   LocalServerTest.cc
 )
 
-ADD_EXECUTABLE(LocalServerTest ${LocalServerTestSRC})
+SET(LocalServerTestHEADERS
+  DummyClass.h
+)
 
-TARGET_LINK_LIBRARIES(LocalServerTest RwNetworkInterface)
+QT4_WRAP_CPP(LocalServerTestHEADERS_MOC ${LocalServerTestHEADERS})
+
+ADD_EXECUTABLE(LocalServerTest ${LocalServerTestSRC} ${LocalServerTestHEADERS} 
+  ${LocalServerTestHEADERS_MOC})
+
+TARGET_LINK_LIBRARIES(LocalServerTest RwNetworking RwLog)
 TARGET_LINK_LIBRARIES(LocalServerTest ${QT_LIBRARIES})

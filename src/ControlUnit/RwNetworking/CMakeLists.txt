@@ -11,6 +11,7 @@ SET(RwNetworking_SOURCES
     RwCommandServerTCP.cc
     RwCommandServerSSL.cc
     RwCommandServerLocal.cc
+    RwCommandClientLocal.cc
 )
 
 SET(RwNetworking_HEADERS
@@ -18,6 +19,7 @@ SET(RwNetworking_HEADERS
     RwCommandServerTCP.h
     RwCommandServerSSL.h
     RwCommandServerLocal.h
+    RwCommandClientLocal.h
 )
 
 QT4_WRAP_CPP(RwNetworking_HEADERS_MOC ${RwNetworking_HEADERS})

@@ -14,4 +14,15 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 14/05/2012.
 
 namespace RwNetworking {
     
+    RwCommandServerTCP::RwCommandServerTCP(QObject* parent, const QString& serverName) 
+        : RwCommandServerBase(parent, serverName)
+    {
+        
+    }
+    
+    RwCommandServerTCP::~RwCommandServerTCP()
+    {
+        
+    }
+    
 }

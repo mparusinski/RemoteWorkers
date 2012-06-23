@@ -13,7 +13,32 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 22/06/2012.
 #ifndef _RWNETWORKING_RWCOMMANDSERVERTCP_H_
 #define _RWNETWORKING_RWCOMMANDSERVERTCP_H_
 
+#include "RwCommandServerBase.h"
+
+#include "RwUtils/RwProgramming/RwReturn.h"
+#include "RwUtils/RwProgramming/RwClasses.h"
+
+using namespace RwUtils::RwProgramming;
+
 namespace RwNetworking {
+    
+    ////////////////////////////////////////////////////////////////////////////////
+    /// \brief Command Server which intercepts commands through a TCP Socket
+    ////////////////////////////////////////////////////////////////////////////////
+    class RwCommandServerTCP : public RwCommandServerBase {
+        
+        Q_OBJECT
+        
+    public:
+        
+        RwCommandServerTCP(QObject* parent, const QString& name);
+        virtual ~RwCommandServerTCP();
+        
+    private:
+        virtual void abstract() {}
+        DISALLOW_COPY_AND_ASSIGN(RwCommandServerTCP);
+        
+    };
     
 }
 

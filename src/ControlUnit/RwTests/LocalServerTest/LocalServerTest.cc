@@ -10,15 +10,22 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 22/06/2012
 
 */
 
-#include <QString>
+#include "DummyClass.h"
 
-#include "RwNetworking/RwCommandServerLocal.h"
+#include <QApplication>
 
-using namespace RwNetworking;
+#include "RwUtils/RwLog/RwLogger.h"
+
+using namespace RwUtils::RwLog;
 
 int main(int argc, char* argv[])
 {
-    RwCommandServerLocal localServer("local");
+    QApplication app(argc, argv);
+
+    RwLogger::getInstance()->turnAllOn();
     
-    return 0;
+    DummyClass button;
+    button.show();
+    
+    return app.exec();
 }
