@@ -7,17 +7,18 @@ LINK_DIRECTORIES(
 )
 
 SET(RwLog_SOURCES
-   RwLogger.cc
-   RwLoggerBaseClass.cc
-   RwFileLogger.cc
-   RwConsoleLogger.cc
+   RwMessagingManager.cc
+   RwMessagingDispatcherBase.cc
+   RwMessagingFileDispatcher.cc
+   RwMessagingConsoleDispatcher.cc
 )
 
 SET(RwLog_HEADERS
-   RwLogger.h
-   RwLoggerBaseClass.h
-   RwFileLogger.h
-   RwConsoleLogger.h
+   RwMessagingManager.h
+   RwMessagingDispatcherBase.h
+   RwMessagingFileDispatcher.h
+   RwMessagingConsoleDispatcher.h
+   RwCommon.h
 )
 
 ADD_LIBRARY(RwLog STATIC ${RwLog_SOURCES} ${RwLog_HEADERS})

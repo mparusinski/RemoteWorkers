@@ -1,6 +1,6 @@
 /* 
 
-RwLogger.h: System to log errors and message smartly
+RwMessagingManager.h: System to log errors and message smartly
 
 As part of the RemoteWorkers program which creates a framework for remote
 management of laptops, desktop and servers. 
@@ -10,14 +10,14 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 16/05/2012.
 
 */
 
-#ifndef _RWUTILS_RWLOG_RWLOGGER_H_
-#define _RWUTILS_RWLOG_RWLOGGER_H_
-
-#include "RwUtils/RwProgramming/RwClasses.h"
+#ifndef _RWUTILS_RWLOG_RWMESSAGINGMANAGER_H_
+#define _RWUTILS_RWLOG_RWMESSAGINGMANAGER_H_
 
 #include <QString>
 
-#include "RwLoggerBaseClass.h"
+#include "RwUtils/RwProgramming/RwClasses.h"
+
+#include "RwMessagingDispatcherBase.h"
 
 namespace RwUtils
 {
@@ -25,104 +25,70 @@ namespace RwUtils
     {
         
         ////////////////////////////////////////////////////////////////////////////////
-        /// \brief This class provides an interface to logging, report errors and
-        ///        debugging. It does so using external logging mechanism classes.
-        ///        It also provides the necessary mechanism to easily silence all
-        ///        logging/error messages. It also provide a framework allowing to choose
-        ///        where to send the logs and the errors messages. The logger is a
-        ///        singleton class
+        /// \brief This class provides an interface for reporting, errors, warnings and
+        ///        debug messages. It does so using external message dispatcher.
+        ///        It is a singleton class. Prefer using the specialised classes for
+        ///        each type of error.
         ////////////////////////////////////////////////////////////////////////////////
-        class RwLogger
+        class RwMessagingManager
         {
         public:
-            virtual ~RwLogger();
+            virtual ~RwMessagingManager();
             
             ////////////////////////////////////////////////////////////////////////////////
             /// \brief     Returns an instance of the object (see Singleton pattern).
             ///            Most important function as it is the only way to access the object
             /// \return    The only possible instance of the object
             ////////////////////////////////////////////////////////////////////////////////
-            static RwLogger* getInstance();
+            static RwMessagingManager* getInstance();
             
             ////////////////////////////////////////////////////////////////////////////////
             /// \brief     Tells the logger to use a console logger to perform all logging
             ///            and error reporting.
             ////////////////////////////////////////////////////////////////////////////////
-            void useConsoleLogger();
+            void useConsoleDispatcher();
             
             ////////////////////////////////////////////////////////////////////////////////
             /// \brief     Tells the logger to use a file logger to perform all logging
             ///            and error reporting.
             ////////////////////////////////////////////////////////////////////////////////
-            void useFileLogger();
+            void useFileDispatcher();
             
             ////////////////////////////////////////////////////////////////////////////////
             /// \brief     Function which logs a message (if logging if turned on)
             /// \param[in] message	Message to be logged
             ////////////////////////////////////////////////////////////////////////////////
-            void log(const char* message) const;
+            void reportMessage(const char* message) const;
             
             /////////////////////////////////////////////////////////////////////////////////
-            /// \brief     Function which logs a message (if logging if turned on)
-            /// \param[in] message	Message to be logged
+            /// \brief     Reports an error, do not use this function directly.
             /////////////////////////////////////////////////////////////////////////////////
-            void log(const QString& message) const;
-            
-            ////////////////////////////////////////////////////////////////////////////////
-            /// \def error(message)
-            ///            Reports an error using the Logger class: it calls reportError
-            ///            with appropriate input. The message obtained will display the file
-            ///            in which the error occurred, the function name and the line number.
-            ///            Use this instead of reportError.
-            ////////////////////////////////////////////////////////////////////////////////
-#define error_msg(message) reportError(__FILE__, (__func__), __LINE__, message)
-            
-            ////////////////////////////////////////////////////////////////////////////////
-            /// \def debug(message)
-            ///            Macro expanding to _debugMessage a member function of Logger.
-            ///            This macro reports a debugging message composed of the file name
-            ///            and the debugging message. It will always report message on the
-            ///            console regardless of the configuration of the logger. All
-            ///            debugging messages are discarded in non DEBUG compiles
-            ////////////////////////////////////////////////////////////////////////////////
-#ifndef NDEBUG
-#define debug(message) _debugMessage(__FILE__, message);
-#else
-#define debug(message)
-#endif // NDEBUG
+            void reportError(const char* message) const;
             
             /////////////////////////////////////////////////////////////////////////////////
             /// \brief     Reports an error, do not use this function directly. Use the macro
             ///            error instead which will use the correct inputs
             /////////////////////////////////////////////////////////////////////////////////
-            void reportError(
-                             const char* file,
-                             const char* function,
-                             const int lineNumber,
-                             const char* message) const;
+            void reportWarning(const char* message) const;
             
             /////////////////////////////////////////////////////////////////////////////////
             /// \brief     Reports an error, do not use this function directly. Use the macro
             ///            error instead which will use the correct inputs
             /////////////////////////////////////////////////////////////////////////////////
-            void reportError(
-                             const char* file,
-                             const char* function,
-                             const int lineNumber,
-                             const QString& message) const;
+            void reportBug(const char* message) const;
             
             /////////////////////////////////////////////////////////////////////////////////
-            /// \brief     Switches on logger to log all messages to appropriate logger.
+            /// \brief     Switches on message to log all messages to appropriate dispatcher.
             /////////////////////////////////////////////////////////////////////////////////
-            void turnLoggingOn();
+            void turnMessagingOn();
             
             /////////////////////////////////////////////////////////////////////////////////
-            /// \brief     Switches off logging for normal messages, no message will be logged
+            /// \brief     Switches off message for normal messages, no message will be logged
             /////////////////////////////////////////////////////////////////////////////////
-            void turnLoggingOff();
+            void turnMessagingOff();
             
             /////////////////////////////////////////////////////////////////////////////////
-            /// \brief     Switches on error reporting and uses appropriate logger to
+            /// \brief     Switches on error reporting and uses appropriate dispatcher to
             ///            register errors
             /////////////////////////////////////////////////////////////////////////////////
             void turnErrorReportingOn();
@@ -131,6 +97,26 @@ namespace RwUtils
             /// \brief     Switches off error reporting. No error will be reported.
             /////////////////////////////////////////////////////////////////////////////////
             void turnErrorReportingOff();
+            
+            /////////////////////////////////////////////////////////////////////////////////
+            /// \brief     Switches on warnings.
+            /////////////////////////////////////////////////////////////////////////////////
+            void turnWarningsOn();
+            
+            /////////////////////////////////////////////////////////////////////////////////
+            /// \brief     Switches off warnings.
+            /////////////////////////////////////////////////////////////////////////////////
+            void turnWarningsOff();
+            
+            /////////////////////////////////////////////////////////////////////////////////
+            /// \brief     Switches on warnings.
+            /////////////////////////////////////////////////////////////////////////////////
+            void turnDebuggingOn();
+            
+            /////////////////////////////////////////////////////////////////////////////////
+            /// \brief     Switches on warnings.
+            /////////////////////////////////////////////////////////////////////////////////
+            void turnDebuggingOff();
             
             /////////////////////////////////////////////////////////////////////////////////
             /// \brief     Switches both logging and error reporting error on. All messages
@@ -145,40 +131,42 @@ namespace RwUtils
             void turnAllOff();
             
             /////////////////////////////////////////////////////////////////////////////////
-            /// \brief     Tells whether logging is turned on
-            /// \return    True if logging false otherwise
+            /// \brief     Tells whether reporting messages
+            /// \return    True if message reporting false otherwise
             /////////////////////////////////////////////////////////////////////////////////
-            bool logging();
+            bool isReportingMessages() const;
             
             /////////////////////////////////////////////////////////////////////////////////
-            /// \brief     Tells whether reporting errors is turned on
-            /// \return    True if reporting error false otherwise
+            /// \brief     Tells whether reporting errors
+            /// \return    True if error reporting false otherwise
             /////////////////////////////////////////////////////////////////////////////////
-            bool reportErrors();
+            bool isReportingErrors() const;
             
             /////////////////////////////////////////////////////////////////////////////////
-            /// \brief     Sends a debug message to the console. Do not use this function
-            ///            directly, use the debug macro instead
+            /// \brief     Tells whether reporting warnings
+            /// \return    True if warning reporting false otherwise
             /////////////////////////////////////////////////////////////////////////////////
-            void _debugMessage(const char* file, const char* message) const;
+            bool isReportingWarnings() const;
             
             /////////////////////////////////////////////////////////////////////////////////
-            /// \brief     Sends a debug message to the console. Do not use this function
-            ///            directly, use the debug macro instead
+            /// \brief     Tells whether reporting debug messages
+            /// \return    True if debug messages are reported false otherwise
             /////////////////////////////////////////////////////////////////////////////////
-            void _debugMessage(const char* file, const QString& message) const;
+            bool isReportingDebugMessages() const;
             
         private:
-            DISALLOW_COPY_AND_ASSIGN(RwLogger);
-            RwLogger(); // singleton pattern
+            DISALLOW_COPY_AND_ASSIGN(RwMessagingManager);
+            RwMessagingManager(); // singleton pattern
             
-            bool m_logging;
+            bool m_sendingMessages;
             bool m_reportingErrors;
+            bool m_debugging;
+            bool m_reportingWarning;
             
-            RwLoggerBaseClass* m_strategy;
+            RwMessagingDispatcherBase* m_strategy;
         };
         
     }
 }
 
-#endif // _RWUTILS_RWLOG_RWLOGGER_H_
+#endif // _RWUTILS_RWLOG_RWMESSAGINGMANAGER_H_
