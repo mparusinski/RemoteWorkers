@@ -18,7 +18,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 22/06/2012.
 
 #include "RwNetworking/RwCommandServerLocal.h"
 #include "RwNetworking/RwCommandClientLocal.h"
-#include "RwUtils/RwLog/RwLogger.h"
+#include "RwUtils/RwLog/RwCommon.h"
 
 using namespace RwNetworking;
 using namespace RwUtils::RwLog;
@@ -54,7 +54,7 @@ public:
     
     void run()
     {
-        RwLogger::getInstance()->log("Button pressed");
+        rwMessage() << "Button pressed" << endLine();
         m_client->connectToServer();
     }
     

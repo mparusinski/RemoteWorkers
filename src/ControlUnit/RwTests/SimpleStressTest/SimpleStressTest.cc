@@ -22,15 +22,16 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 15/05/2012.
 #include "RwWorkerInterface/RwWorker.h"
 #include "RwWorkerInterface/RwCommand.h"
 #include "RwWorkerInterface/RwManagement.h"
-#include "RwUtils/RwLog/RwLogger.h"
+#include "RwUtils/RwLog/RwMessagingManager.h"
 #include "RwUtils/RwProfile/RwProfiler.h"
 
+using namespace RwUtils::RwLog;
 using namespace RwWorkerInterface;
 
 int main(int argc, char *argv[])
 {
 	RwUtils::RwProfile::RwProfiler::startProfiler();
-	RwUtils::RwLog::RwLogger::getInstance()->turnAllOn();
+	RwMessagingManager::getInstance()->turnAllOn();
 	RwUtils::RwProfile::RwProfiler::profile("Turning logging on");
 
 	RwUtils::RwProfile::RwProfiler::startProfiler();

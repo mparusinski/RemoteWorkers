@@ -14,7 +14,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 22/06/2012.
 
 #include <QLocalSocket>
 
-#include "RwUtils/RwLog/RwLogger.h"
+#include "RwUtils/RwLog/RwCommon.h"
 
 using namespace RwUtils::RwLog;
 
@@ -33,14 +33,10 @@ namespace RwNetworking {
     
     void RwCommandServerLocal::start()
     {
-        RwLogger::getInstance()->debug("Server starting");
+        rwDebug() << "Server starting" << endLine();
         if ( isRunning() )
         {
-            QString errorMsg = "A local server with name ";
-            errorMsg += getServerName();
-            errorMsg += " has already started";
-            
-            RwLogger::getInstance()->error_msg(errorMsg);
+            rwError() << "A local server with name " << getServerName() << " has already started" << endLine();
             return;
         }
         
@@ -48,10 +44,7 @@ namespace RwNetworking {
         
         if ( !m_localServer->listen(m_serverName) )
         {
-            QString errorMsg = "Unable to start server: ";
-            errorMsg += m_localServer->errorString();
-            
-            RwLogger::getInstance()->error_msg(errorMsg);
+            rwError() << "Unable to start server: " << m_localServer->errorString() << endLine();
             return;
         }
         
@@ -77,7 +70,7 @@ namespace RwNetworking {
     
     void RwCommandServerLocal::simpleTest()
     {
-        RwLogger::getInstance()->debug("Caught connection");
+        rwDebug() << "Caught connection" << endLine();
         QLocalSocket* clientSocket = m_localServer->nextPendingConnection();
         
         QObject::connect(clientSocket, SIGNAL(disconnected()), 
@@ -86,7 +79,7 @@ namespace RwNetworking {
  
     void RwCommandServerLocal::init()
     {
-        RwLogger::getInstance()->debug("Initialising");
+        rwDebug() << "Initialiasing" << endLine();
         QObject::connect(m_localServer, SIGNAL(newConnection()), 
                          this, SLOT(simpleTest()));
     }

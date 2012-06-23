@@ -21,18 +21,18 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 18/05/2012.
 #include "RwWorkerInterface/RwWorker.h"
 #include "RwWorkerInterface/RwCommand.h"
 #include "RwWorkerInterface/RwManagement.h"
-#include "RwUtils/RwLog/RwLogger.h"
+#include "RwUtils/RwLog/RwCommon.h"
+#include "RwUtils/RwLog/RwMessagingManager.h"
 
-using namespace std;
-
+using namespace RwUtils::RwLog;
 using namespace RwWorkerInterface;
 
 int main(int argc, char *argv[])
 {
-	RwUtils::RwLog::RwLogger::getInstance()->turnAllOn();
+	RwMessagingManager::getInstance()->turnAllOn();
 
 	QFileInfoList availableWorkers = RwManagement::getInstance()->listAvailableWorkers();
-    printf("Available workers\n");
+    rwMessage() << "Available workers" << endLine();
 	for (int i = 0; i < availableWorkers.size(); ++i)
 	{
         printf("\t%s\n", availableWorkers[i].filePath().toAscii().data());
@@ -47,12 +47,12 @@ int main(int argc, char *argv[])
 
 	if ( reply.empty() )
 	{
-		RwUtils::RwLog::RwLogger::getInstance()->error_msg("Reply is not built");
+        rwError() << "Reply is not built" << endLine();
 		return -1;
 	}
 	else
 	{
-		RwUtils::RwLog::RwLogger::getInstance()->log("Reply is built");
+        rwMessage() << "Reply is built" << endLine();
 	}
 
     RwReply::ByteArrays& rawData = reply.getRawData();
@@ -67,9 +67,9 @@ int main(int argc, char *argv[])
 		char * rawData = byteStream.getRawData();
 		for (int j = 0; j < lengthOfStream; ++j)
 		{
-            printf("%c", rawData[j]);
+            rwMessage() << rawData[j];
 		}
-        printf("\n\n");
+        rwMessage() << endLine() << endLine();
 	}
 
 	return 1;

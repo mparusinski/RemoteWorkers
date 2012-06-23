@@ -14,7 +14,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 22/06/2012
 
 #include <QApplication>
 
-#include "RwUtils/RwLog/RwLogger.h"
+#include "RwUtils/RwLog/RwMessagingManager.h"
 
 using namespace RwUtils::RwLog;
 
@@ -22,7 +22,7 @@ int main(int argc, char* argv[])
 {
     QApplication app(argc, argv);
 
-    RwLogger::getInstance()->turnAllOn();
+    RwMessagingManager::getInstance()->turnAllOn();
     
     DummyClass button;
     button.show();

@@ -12,12 +12,14 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 15/05/2012.
 
 #include "RwFileManagement.h"
 
-#include "RwUtils/RwLog/RwLogger.h"
+#include "RwUtils/RwLog/RwCommon.h"
 
 #include <QString>
 #include <QDir>
 
 #define PATH_SEPERATOR "/";
+
+using namespace RwUtils::RwLog;
 
 namespace RwUtils
 {
@@ -35,11 +37,8 @@ namespace RwUtils
             }
             else
             {
-                QString errorMessage = "Directory ";
-                errorMessage += directory.filePath();
-                errorMessage += " not found";
-                
-                RwUtils::RwLog::RwLogger::getInstance()->error_msg(errorMessage);
+                rwError() << "Directory " << directory.filePath() 
+                          << " has not been found" << endLine();
                 return RW_ERROR_FILE_OR_DIR_NOT_FOUND;
             }
         }
@@ -55,11 +54,8 @@ namespace RwUtils
             }
             else
             {
-                QString errorMessage = "Directory ";
-                errorMessage += directory.filePath();
-                errorMessage += " not found";
-                RwUtils::RwLog::RwLogger::getInstance()->error_msg(errorMessage);
-                
+                rwError() << "Directory " << directory.filePath() 
+                          << " has not been found" << endLine();
                 return RW_ERROR_FILE_OR_DIR_NOT_FOUND;
             }
         }

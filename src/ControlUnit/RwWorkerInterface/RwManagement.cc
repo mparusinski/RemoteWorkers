@@ -15,7 +15,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 17/05/2012
 #include <cstdio>
 
 #include "RwConfiguration.h"
-#include "RwUtils/RwLog/RwLogger.h"
+#include "RwUtils/RwLog/RwCommon.h"
 #include "RwUtils/RwSystem/RwFileManagement.h"
 
 using namespace RwUtils::RwSystem;
@@ -59,8 +59,7 @@ namespace RwWorkerInterface
             }
         }
         
-        RwUtils::RwLog::RwLogger::getInstance()->error_msg("Worker not available");
-        
+        rwError() << "Worker is not available" << endLine();        
         return RW_ERROR_NO_WORKER;
     }
     
@@ -92,7 +91,7 @@ namespace RwWorkerInterface
         
         if (m_pathToWorkers == QFileInfo())
         {
-            RwLogger::getInstance()->error_msg("Path to workers not read! Closing!");
+            rwError() << "Path to workers not read! File closing" << endLine();
         }
         return RW_NO_ERROR;
     }

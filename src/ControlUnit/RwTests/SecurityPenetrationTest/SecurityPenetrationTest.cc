@@ -19,20 +19,21 @@
 
 #include "RwWorkerInterface/RwWorker.h"
 #include "RwWorkerInterface/RwManagement.h"
-#include "RwUtils/RwLog/RwLogger.h"
+#include "RwUtils/RwLog/RwMessagingManager.h"
+#include "RwUtils/RwLog/RwCommon.h"
 
-using namespace std;
+using namespace RwUtils::RwLog;
 
 #define TEST(condition, msg) do { if (condition) { \
-cout << "PASS: " << (msg) << " (which is bad!)" << endl; \
+rwMessage() << "PASS: " << (msg) << " (which is bad!)" << endLine(); \
 } else { \
-cout << "FAIL: " << (msg) << " (which is good!)" << endl; }  } while(0);
+rwMessage() << "FAIL: " << (msg) << " (which is good!)" << endLine(); }  } while(0);
 
 using namespace RwWorkerInterface;
 
 int main(int argc, char *argv[])
 {
-	RwUtils::RwLog::RwLogger::getInstance()->turnAllOn();
+	RwMessagingManager::getInstance()->turnAllOn();
     
 	bool allTest = true;
     
@@ -160,18 +161,18 @@ int main(int argc, char *argv[])
         
 		// changing the environment
 		char* originalPath = getenv("HOME");
-        const string newPath_str = string("HOME=/usr/bin");
+        const QString newPath_str = QString("HOME=/usr/bin");
 		char* newPath = new char[newPath_str.length()]; 
-        strcpy(newPath, newPath_str.c_str());
+        strcpy(newPath, newPath_str.toAscii().data());
 		putenv(newPath);
         
 		environmentTest = worker.executeCommand(command);
 		allTest = allTest && !environmentTest;
         
-		string restorePath = "HOME=";
+		QString restorePath = "HOME=";
 		restorePath += originalPath;
 		char* restorePathStr = new char[restorePath.length()];
-		strncpy(restorePathStr, restorePath.c_str(), restorePath.length());
+		strncpy(restorePathStr, restorePath.toAscii().data(), restorePath.length());
 		putenv(restorePathStr);
         
 		TEST(environmentTest, "The environment test was passed");

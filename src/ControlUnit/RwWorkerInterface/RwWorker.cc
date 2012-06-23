@@ -18,11 +18,12 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 15/05/2012.
 #include "RwReply.h"
 #include "RwUtils/RwSystem/RwFileManagement.h"
 #include "RwUtils/RwSystem/RwExternalApplication.h"
-#include "RwUtils/RwLog/RwLogger.h"
+#include "RwUtils/RwLog/RwCommon.h"
 #include "RwDataStructures/RwByteArray.h"
 
 using namespace RwDataStructures;
 using namespace RwUtils::RwSystem;
+using namespace RwUtils::RwLog;
 
 namespace RwWorkerInterface
 {
@@ -81,13 +82,8 @@ namespace RwWorkerInterface
         QString commandPath = fullPath.filePath();
         commandPath += PATH_SEPERATOR;
         commandPath += order;
-        
-        if (RwUtils::RwLog::RwLogger::getInstance()->logging())
-        {
-            QString logMessage = commandPath;
-            logMessage += " is been executed";
-            RwUtils::RwLog::RwLogger::getInstance()->log(logMessage);
-        }
+
+        rwMessage() << commandPath << " has been executed" << endLine();
         
         RwExternalApplication application(commandPath, arguments);
         return application.execute();
@@ -125,10 +121,7 @@ namespace RwWorkerInterface
             
             if ( !dataFile.open(QIODevice::ReadOnly) )
             {
-                QString errorMessage = "Failed to open file ";
-                errorMessage += filePath.filePath();
-                RwUtils::RwLog::RwLogger::getInstance()->error_msg(errorMessage);
-                
+                rwError() << "Failed to open file " << filePath.filePath() << endLine();                
                 return RW_ERROR_FILE_NOT_READ;
             }
             

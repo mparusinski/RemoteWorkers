@@ -21,6 +21,9 @@ namespace RwUtils
 {
     namespace RwLog {
         
+        ////////////////////////////////////////////////////////////////////////////////
+        /// \brief DO NOT USE!
+        ////////////////////////////////////////////////////////////////////////////////
         typedef enum {
             RW_WRITER_MESSAGE,
             RW_WRITER_ERROR,
@@ -28,6 +31,9 @@ namespace RwUtils
             RW_WRITER_DEBUG
         } WriterType;
         
+        ////////////////////////////////////////////////////////////////////////////////
+        /// \brief DO NOT USE!
+        ////////////////////////////////////////////////////////////////////////////////
         class RwWriter {
             
         public:
@@ -90,6 +96,9 @@ namespace RwUtils
             WriterType m_writerType;
         };
         
+        //////////////////////////////////////////////////////////////////////////////// 
+        /// \brief Returns a stream to message. Acts like a function.
+        ////////////////////////////////////////////////////////////////////////////////
         inline RwWriter rwMessage()
         {
             return RwWriter(RW_WRITER_MESSAGE);
@@ -104,7 +113,13 @@ namespace RwUtils
             return machine;
         }
         
+        ////////////////////////////////////////////////////////////////////////////////
+        /// \def rwDebug() 
+        /// \brief Returns a stream to debug. Acts like a function.
+        ////////////////////////////////////////////////////////////////////////////////
 #define rwDebug() _rwDebug(__FILE__,(__func__), __LINE__)
+        
+        
         
         inline RwWriter _rwError(const char* fileName, 
                                  const char* funcName, 
@@ -115,6 +130,10 @@ namespace RwUtils
             return machine;
         }
         
+        ////////////////////////////////////////////////////////////////////////////////
+        /// \def rwError() 
+        /// \brief Returns a stream to error. Acts like a function.
+        ////////////////////////////////////////////////////////////////////////////////
 #define rwError() _rwError(__FILE__,(__func__), __LINE__)
         
         inline RwWriter _rwWarning(const char* fileName, 
@@ -126,6 +145,10 @@ namespace RwUtils
             return machine;
         }
         
+        ////////////////////////////////////////////////////////////////////////////////
+        /// \def rwError() 
+        /// \brief Returns a stream to warning. Acts like a function.
+        ////////////////////////////////////////////////////////////////////////////////
 #define rwWarning() _rwWarning(__FILE__,(__func__), __LINE__)
         
         inline char endLine()

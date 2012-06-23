@@ -12,7 +12,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 23/06/2012.
 
 #include "RwCommandClientLocal.h"
 
-#include "RwUtils/RwLog/RwLogger.h"
+#include "RwUtils/RwLog/RwCommon.h"
 
 using namespace RwUtils::RwLog;
 
@@ -43,23 +43,23 @@ namespace RwNetworking {
     
     void RwCommandClientLocal::clientConnected()
     {
-        RwLogger::getInstance()->debug("RwCommandClientLocal has connected to server");
+        rwDebug() << "local client has connected to server " << m_serverName << endLine();
     }
     
     void RwCommandClientLocal::clientDisconnected()
     {
-        RwLogger::getInstance()->debug("RwCommandClientLocal has disconnected from server");
+        rwDebug() << "local client has disconnected from server " << m_serverName << endLine();
     }
     
     void RwCommandClientLocal::readReady()
     {
-        RwLogger::getInstance()->debug("RwCommandClientLocal is ready to read");
+        rwDebug() << "local client is ready to read" << endLine();
     }
     
     void RwCommandClientLocal::connectToServer()
     {
-        RwLogger::getInstance()->debug("Connecting to server");
         m_localSocket->abort();
+        rwDebug() << "Connecting to server " << m_serverName << endLine();
         m_localSocket->connectToServer(m_serverName);
     }
     
@@ -70,10 +70,7 @@ namespace RwNetworking {
     
     void RwCommandClientLocal::clientError(QLocalSocket::LocalSocketError socketError)
     {
-        QString errorMsg = "Client error: ";
-        errorMsg += m_localSocket->errorString();
-        
-        RwLogger::getInstance()->error_msg(errorMsg);
+        rwError() << "Client error: " << m_localSocket->errorString() << endLine();
     }
     
 }

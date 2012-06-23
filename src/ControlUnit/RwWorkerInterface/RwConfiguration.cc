@@ -15,7 +15,9 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 17/05/2012.
 #include <QFile>
 #include <QTextStream>
 
-#include "RwUtils/RwLog/RwLogger.h"
+#include "RwUtils/RwLog/RwCommon.h"
+
+using namespace RwUtils::RwLog;
 
 namespace RwWorkerInterface
 {
@@ -49,7 +51,7 @@ namespace RwWorkerInterface
         {
             if (m_configurationRead)
             {
-                RwUtils::RwLog::RwLogger::getInstance()->log("Configuration already read, rereading it");
+                rwWarning() << "Configuration already read, rereading" << endLine();
             }
             
             QTextStream configurationFileIn(&configurationFile);
@@ -69,7 +71,8 @@ namespace RwWorkerInterface
         }
         else
         {
-            RwUtils::RwLog::RwLogger::getInstance()->error_msg("Unable to read configuration! Configuration file did not open");
+            rwError() << "Unable to read configuration! Configuration file did not open" 
+                      << endLine();
             returnMsg = returnMsg | RW_ERROR_FILE_NOT_READ;
         }
         
@@ -88,7 +91,7 @@ namespace RwWorkerInterface
         
         if (returnMsg != RW_NO_ERROR)
         {
-            RwUtils::RwLog::RwLogger::getInstance()->error_msg("Error occurred when reading configuration file!");
+            rwError() << "Some error happened when reading configuration file" << endLine();
             return returnMsg;
         }
         
@@ -101,9 +104,7 @@ namespace RwWorkerInterface
             }
             else
             {
-                QString errorMessage = "There is no configuration for descriptor ";
-                errorMessage += descriptor;
-                RwUtils::RwLog::RwLogger::getInstance()->error_msg(errorMessage);
+                rwError() << "There is no configuration for descriptor " << descriptor << endLine();
             }
         }
         
