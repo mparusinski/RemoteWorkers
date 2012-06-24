@@ -15,7 +15,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 16/05/2012.
 
 #include <QString>
 
-#include "RwUtils/RwProgramming/RwClasses.h"
+#include "RwUtils/RwGlobal/RwClasses.h"
 
 #include "RwMessagingDispatcherBase.h"
 

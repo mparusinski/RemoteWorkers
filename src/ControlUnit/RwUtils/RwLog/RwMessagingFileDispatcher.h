@@ -18,7 +18,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 16/05/2012.
 #include <cstdio>
 #include <cstdlib>
 
-#include "RwUtils/RwProgramming/RwClasses.h"
+#include "RwUtils/RwGlobal/RwClasses.h"
 
 namespace RwUtils
 {

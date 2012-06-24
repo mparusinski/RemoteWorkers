@@ -15,10 +15,10 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 22/06/2012.
 
 #include "RwCommandServerBase.h"
 
-#include "RwUtils/RwProgramming/RwReturn.h"
-#include "RwUtils/RwProgramming/RwClasses.h"
+#include "RwUtils/RwGlobal/RwReturn.h"
+#include "RwUtils/RwGlobal/RwClasses.h"
 
-using namespace RwUtils::RwProgramming;
+using namespace RwUtils::RwGlobal;
 
 namespace RwNetworking {
     

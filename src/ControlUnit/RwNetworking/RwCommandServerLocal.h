@@ -18,8 +18,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 22/06/2012.
 #include <QString>
 #include <QLocalServer>
 
-#include "RwUtils/RwProgramming/RwClasses.h"
-#include "RwUtils/RwProgramming/RwReturn.h"
+#include "RwUtils/RwGlobal/RwClasses.h"
 
 namespace RwNetworking {
  
@@ -51,7 +50,7 @@ namespace RwNetworking {
         virtual bool isRunning() const;
         
     public slots:
-        void simpleTest();
+        void processConnection();
         
     private:
         virtual void abstract() {}

@@ -16,9 +16,9 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 14/05/2012.
 #include <QString>
 #include <QThread>
 
-#include "RwUtils/RwProgramming/RwClasses.h"
+#include "RwUtils/RwGlobal/RwClasses.h"
 
-using namespace RwUtils::RwProgramming;
+using namespace RwUtils::RwGlobal;
 
 namespace RwNetworking {
     

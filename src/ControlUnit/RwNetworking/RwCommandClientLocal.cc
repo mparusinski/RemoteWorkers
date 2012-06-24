@@ -43,17 +43,17 @@ namespace RwNetworking {
     
     void RwCommandClientLocal::clientConnected()
     {
-        rwDebug() << "local client has connected to server " << m_serverName << endLine();
+        // 
     }
     
     void RwCommandClientLocal::clientDisconnected()
     {
-        rwDebug() << "local client has disconnected from server " << m_serverName << endLine();
+        // rwDebug() << "local client has disconnected from server " << m_serverName << endLine();
     }
     
     void RwCommandClientLocal::readReady()
     {
-        rwDebug() << "local client is ready to read" << endLine();
+        // rwDebug() << "local client is ready to read" << endLine();
     }
     
     void RwCommandClientLocal::connectToServer()

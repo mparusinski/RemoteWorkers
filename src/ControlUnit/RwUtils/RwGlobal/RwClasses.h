@@ -10,11 +10,12 @@
  
  */
 
-#ifndef _RWCLASSES_
-#define _RWCLASSES_
+#ifndef _RWUTILS_RWGLOBAL_RWCLASSES_H_
+#define _RWUTILS_RWGLOBAL_RWCLASSES_H_
 
 namespace RwUtils {
-    namespace RwProgramming {
+    
+    namespace RwGlobal {
         
 #define DISALLOW_COPY_AND_ASSIGN(TypeName) \
         TypeName(const TypeName&);               \
@@ -23,4 +24,4 @@ namespace RwUtils {
     }
 }
 
-#endif // _RWCLASSES_
+#endif // _RWUTILS_RWGLOBAL_RWCLASSES_H_

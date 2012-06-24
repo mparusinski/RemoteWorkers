@@ -48,7 +48,8 @@ namespace RwUtils
             
             inline const RwWriter& operator <<(const QString& qString) const
             {
-                write(qString.toAscii().data());
+                const QByteArray byteArray = qString.toLocal8Bit();
+                write(byteArray.data());
                 return *this;
             }
             

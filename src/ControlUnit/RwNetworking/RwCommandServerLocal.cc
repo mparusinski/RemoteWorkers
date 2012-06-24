@@ -33,7 +33,6 @@ namespace RwNetworking {
     
     void RwCommandServerLocal::start()
     {
-        rwDebug() << "Server starting" << endLine();
         if ( isRunning() )
         {
             rwError() << "A local server with name " << getServerName() << " has already started" << endLine();
@@ -68,9 +67,8 @@ namespace RwNetworking {
         return false;
     }
     
-    void RwCommandServerLocal::simpleTest()
+    void RwCommandServerLocal::processConnection()
     {
-        rwDebug() << "Caught connection" << endLine();
         QLocalSocket* clientSocket = m_localServer->nextPendingConnection();
         
         QObject::connect(clientSocket, SIGNAL(disconnected()), 
@@ -79,9 +77,8 @@ namespace RwNetworking {
  
     void RwCommandServerLocal::init()
     {
-        rwDebug() << "Initialiasing" << endLine();
         QObject::connect(m_localServer, SIGNAL(newConnection()), 
-                         this, SLOT(simpleTest()));
+                         this, SLOT(processConnection()));
     }
 }
 

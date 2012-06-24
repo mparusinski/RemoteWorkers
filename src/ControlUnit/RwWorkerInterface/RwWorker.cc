@@ -19,11 +19,13 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 15/05/2012.
 #include "RwUtils/RwSystem/RwFileManagement.h"
 #include "RwUtils/RwSystem/RwExternalApplication.h"
 #include "RwUtils/RwLog/RwCommon.h"
+#include "RwUtils/RwGlobal/RwReturn.h"
 #include "RwDataStructures/RwByteArray.h"
 
 using namespace RwDataStructures;
 using namespace RwUtils::RwSystem;
 using namespace RwUtils::RwLog;
+using namespace RwUtils::RwGlobal;
 
 namespace RwWorkerInterface
 {

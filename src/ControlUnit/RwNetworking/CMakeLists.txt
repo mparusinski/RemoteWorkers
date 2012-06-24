@@ -12,9 +12,11 @@ SET(RwNetworking_SOURCES
     RwCommandServerSSL.cc
     RwCommandServerLocal.cc
     RwCommandClientLocal.cc
+    RwCommandRequest.cc
+    RwCommandReply.cc
 )
 
-SET(RwNetworking_HEADERS
+SET(RwNetworking_HEADERS_QT
     RwCommandServerBase.h
     RwCommandServerTCP.h
     RwCommandServerSSL.h
@@ -22,11 +24,17 @@ SET(RwNetworking_HEADERS
     RwCommandClientLocal.h
 )
 
-QT4_WRAP_CPP(RwNetworking_HEADERS_MOC ${RwNetworking_HEADERS})
+SET(RwNetworking_HEADERS_PURE
+    RwCommandRequest.h    
+    RwCommandReply.h
+)
+
+QT4_WRAP_CPP(RwNetworking_HEADERS_MOC ${RwNetworking_HEADERS_QT})
 
 ADD_LIBRARY(RwNetworking STATIC 
-  ${RwNetworking_SOURCES}  ${RwNetworking_HEADERS}
+  ${RwNetworking_SOURCES}  ${RwNetworking_HEADERS_QT} ${RwNetworking_HEADERS_PURE}
   ${RwNetworking_HEADERS_MOC})
 
+TARGET_LINK_LIBRARIES(RwNetworking RwWorkerInterface)
 TARGET_LINK_LIBRARIES(RwNetworking ${QT_LIBRARIES})
 

@@ -15,6 +15,11 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 15/05/2012.
 namespace RwWorkerInterface
 {
     
+    RwCommand::RwCommand()
+    {
+        
+    }
+    
     RwCommand::RwCommand(const QString& commandName, const QStringList& arguments)
     {
         m_order     = commandName;

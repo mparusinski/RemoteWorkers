@@ -18,7 +18,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 23/06/2012.
 #include <QString>
 #include <QLocalSocket>
 
-#include "RwUtils/RwProgramming/RwClasses.h"
+#include "RwUtils/RwGlobal/RwClasses.h"
 
 namespace RwNetworking  {
     

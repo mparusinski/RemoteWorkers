@@ -16,13 +16,13 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 15/05/2012.
 #include <QFileInfo>
 #include <QString>
 
-#include "RwUtils/RwProgramming/RwReturn.h"
-#include "RwUtils/RwProgramming/RwClasses.h"
+#include "RwUtils/RwGlobal/RwReturn.h"
+#include "RwUtils/RwGlobal/RwClasses.h"
 
 #include "RwReply.h"
 #include "RwCommand.h"
 
-using namespace RwUtils::RwProgramming;
+using namespace RwUtils::RwGlobal;
 
 namespace RwWorkerInterface
 {

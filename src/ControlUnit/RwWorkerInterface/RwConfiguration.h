@@ -16,10 +16,10 @@
 #include <QString>
 #include <QHash>
 
-#include "RwUtils/RwProgramming/RwClasses.h"
-#include "RwUtils/RwProgramming/RwReturn.h"
+#include "RwUtils/RwGlobal/RwClasses.h"
+#include "RwUtils/RwGlobal/RwReturn.h"
 
-using namespace RwUtils::RwProgramming;
+using namespace RwUtils::RwGlobal;
 
 namespace RwWorkerInterface
 {

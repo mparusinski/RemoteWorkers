@@ -1,5 +1,6 @@
 * TODO Create a secure environment for executing commands
 ** DONE No reliance on shell
+** TODO Check for buffer overflows
 ** TODO Sanitized environment
 ** TODO No extra privileges to the command
 ** TODO Should execute the right command

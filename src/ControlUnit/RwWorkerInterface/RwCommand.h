@@ -16,7 +16,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 15/05/2012.
 #include <QString>
 #include <QStringList>
 
-#include "RwUtils/RwProgramming/RwClasses.h"
+#include "RwUtils/RwGlobal/RwClasses.h"
 
 namespace RwWorkerInterface
 {
@@ -29,7 +29,7 @@ namespace RwWorkerInterface
     {
         
     public:
-        
+        RwCommand();
         RwCommand(const QString& order, const QStringList& arguments);
         virtual ~RwCommand() { }
         
@@ -46,7 +46,7 @@ namespace RwWorkerInterface
         const QStringList& getArguments() const;
         
     private:
-        DISALLOW_COPY_AND_ASSIGN(RwCommand);
+        // DISALLOW_COPY_AND_ASSIGN(RwCommand);
         QString m_order;
         QStringList m_arguments;
     };

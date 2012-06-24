@@ -77,6 +77,18 @@ namespace  RwDataStructures
         return m_rawData;
     }
     
+    const RwByteArray::RwByteType * RwByteArray::getRawData() const
+    {        
+        return m_rawData;
+    }
+    
+    void RwByteArray::setRawData(RwByteType *rawData, const int dataSize)
+    {
+        discard();
+        allocate(dataSize);
+        memcpy(m_rawData, rawData, dataSize);
+    }
+    
     int RwByteArray::size() const
     {
         return m_sizeOfData;

@@ -1,0 +1,5 @@
+Here I present some basic restriction on workers which are assumed:
+1) The character '_' is forbidden
+2) No special character '\n', '\t', ...
+3) Each argument is a word on its own
+4) Commands and the worker name are words on there own

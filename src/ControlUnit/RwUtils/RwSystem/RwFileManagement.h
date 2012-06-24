@@ -15,9 +15,9 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 15/05/2012.
 
 #include <QFileInfo>
 
-#include "RwUtils/RwProgramming/RwReturn.h"
+#include "RwUtils/RwGlobal/RwReturn.h"
 
-using namespace RwUtils::RwProgramming;
+using namespace RwUtils::RwGlobal;
 
 namespace RwUtils
 {

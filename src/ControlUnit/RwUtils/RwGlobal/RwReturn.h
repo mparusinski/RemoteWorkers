@@ -1,6 +1,6 @@
 /* 
 
-RwReturn.hpp: Return error message
+RwReturn.h: Return error message
 
 As part of the RemoteWorkers program which creates a framework for remote
 management of laptops, desktop and servers. 
@@ -10,14 +10,14 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 15/06/2012.
 
 */
 
-#ifndef _RWRETURN_
-#define _RWRETURN_
+#ifndef _RWUTILS_RWGLOBAL_RWRETURN_H_
+#define _RWUTILS_RWGLOBAL_RWRETURN_H_
 
 #include "stdint.h"
 
 namespace RwUtils {
     
-    namespace RwProgramming {
+    namespace RwGlobal {
         
         typedef uint32_t RwReturnType;
         
@@ -31,6 +31,7 @@ namespace RwUtils {
 #define RW_ERROR_FILE_NOT_READ 0x40
 #define RW_ERROR_SERVER_NOT_STARTED 0x80
 #define RW_ERROR_SERVER_ALREADY_STARTED 0x100
+#define RW_ERROR_READING_REQUEST 0x200
         
         inline RwReturnType combine(const RwReturnType& ret1, 
                                     const RwReturnType& ret2)
@@ -42,4 +43,4 @@ namespace RwUtils {
     
 }
 
-#endif // _RWRETURN_
+#endif // _RWUTILS_RWGLOBAL_RWRETURN_H_

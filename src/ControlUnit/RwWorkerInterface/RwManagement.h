@@ -16,8 +16,7 @@
 #include <QFileInfo>
 #include <QFileInfoList>
 
-#include "RwUtils/RwProgramming/RwReturn.h"
-#include "RwUtils/RwProgramming/RwClasses.h"
+#include "RwUtils/RwGlobal/RwClasses.h"
 
 #include "RwWorker.h"
 #include "RwReply.h"
