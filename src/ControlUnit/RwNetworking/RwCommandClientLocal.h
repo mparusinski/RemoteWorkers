@@ -18,6 +18,9 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 23/06/2012.
 #include <QString>
 #include <QLocalSocket>
 
+#include "RwCommandRequest.h"
+#include "RwCommandReply.h"
+#include "RwUtils/RwGlobal/RwReturn.h"
 #include "RwUtils/RwGlobal/RwClasses.h"
 
 namespace RwNetworking  {
@@ -44,6 +47,11 @@ namespace RwNetworking  {
         ////////////////////////////////////////////////////////////////////////////////
         void disconnectFromServer();
         
+        ////////////////////////////////////////////////////////////////////////////////
+        /// \brief Sends a request to server if connected
+        ////////////////////////////////////////////////////////////////////////////////
+        RwReturnType sendRequest(const RwCommandRequest& request);
+        
     public slots:
         void clientConnected();
         void clientDisconnected();
@@ -53,6 +61,11 @@ namespace RwNetworking  {
     private:
         DISALLOW_COPY_AND_ASSIGN(RwCommandClientLocal);
         
+        RwReturnType fromRawData(RwCommandReply& reply, const RwDataStructures::RwByteArray& rawData) const;
+        
+        RwReturnType toRawData(const RwCommandRequest& request, RwDataStructures::RwByteArray& rawData) const;
+        
+        bool m_connected;
         QString m_serverName;
         QLocalSocket* m_localSocket;
     };

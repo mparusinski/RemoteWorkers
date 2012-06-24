@@ -20,6 +20,16 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 22/06/2012.
 #include "RwUtils/RwGlobal/RwReturn.h"
 #include "RwUtils/RwGlobal/RwClasses.h"
 
+#define REQUEST_BEGIN "BEGIN"
+#define REQUEST_END   "END"
+#define REQUEST_RW_VERSION "RW_VERSION"
+#define REQUEST_WORKER  "WORKER"
+#define REQUEST_ORDER   "ORDER"
+#define REQUEST_ARG_NUMBER "ARG_NUMBER"
+#define REQUEST_ARG "ARG"
+#define REQUEST_DEFINE " "
+#define REQUEST_NEW_SECTION "\n";
+
 using namespace RwWorkerInterface;
 using namespace RwUtils::RwGlobal;
 
@@ -38,30 +48,32 @@ namespace RwNetworking {
         ~RwCommandRequest();
         
         ////////////////////////////////////////////////////////////////////////////////
-        /// \brief Convers the request into raw data suitable for transmission
-        /// \param[out] rawData Data that will represent the request
-        /// \return Error message if applicable
-        ////////////////////////////////////////////////////////////////////////////////
-        RwReturnType toRawData(RwDataStructures::RwByteArray& rawData) const;
-        
-        ////////////////////////////////////////////////////////////////////////////////
-        /// \brief Convers the raw data into a request if correctly formed
-        /// \param[in] rawData Data that will represent the request
-        /// \return Error message if applicable
-        ////////////////////////////////////////////////////////////////////////////////
-        RwReturnType fromRawData(const RwDataStructures::RwByteArray& rawData);
-        
-        ////////////////////////////////////////////////////////////////////////////////
         /// \brief Return the name of worker represented by the request
         /// \return The worker name
         ////////////////////////////////////////////////////////////////////////////////
         QString getWorkerName() const;
         
         ////////////////////////////////////////////////////////////////////////////////
+        /// \brief Sets the worker name
+        ////////////////////////////////////////////////////////////////////////////////
+        void setWorkerName(const QString& workerName);
+        
+        ////////////////////////////////////////////////////////////////////////////////
         /// \brief Return the command represented by the command
         /// \return The command
         ////////////////////////////////////////////////////////////////////////////////
         RwCommand getCommand() const;
+        
+        ////////////////////////////////////////////////////////////////////////////////
+        /// \brief Sets the command
+        ////////////////////////////////////////////////////////////////////////////////
+        void setCommand(const RwCommand& command);
+        
+        ////////////////////////////////////////////////////////////////////////////////
+        /// \brief Converts the message into a QString
+        /// \return String representing the request
+        ////////////////////////////////////////////////////////////////////////////////
+        QString toString() const;
         
     private:
         DISALLOW_COPY_AND_ASSIGN(RwCommandRequest);

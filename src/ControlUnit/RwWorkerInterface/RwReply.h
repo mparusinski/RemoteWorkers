@@ -47,26 +47,32 @@ namespace RwWorkerInterface
         bool empty() const;
         
         ////////////////////////////////////////////////////////////////////////////////
-        /// \brief     Returns the raw data representing the reply
-        /// \return    Raw data representing the reply
+        /// \brief     Return the number of files in the reply
         ////////////////////////////////////////////////////////////////////////////////
-        const ByteArrays& getRawData() const;
+        int numberOfFiles() const;
         
         ////////////////////////////////////////////////////////////////////////////////
-        /// \brief     Returns the raw data representing the reply
-        /// \return    Raw data representing the reply
+        /// \brief     Returns an entry of the reply
+        /// \param[in] i Index in the replies
+        /// \return    A pair consisting of the filename and the byte array
         ////////////////////////////////////////////////////////////////////////////////
-        ByteArrays& getRawData();
+        QPair<QString, RwByteArray>& operator[](const int i);
         
         ////////////////////////////////////////////////////////////////////////////////
-        /// \brief        Returns the raw data representing the reply
-        /// \param[in]    rawData Raw data representing the reply
+        /// \brief     Returns an entry of the reply
+        /// \param[in] i Index in the replies
+        /// \return    A pair consisting of the filename and the byte array
         ////////////////////////////////////////////////////////////////////////////////
-        void setRawData(ByteArrays& rawData);
+        const QPair<QString, RwByteArray>& operator[](const int i) const;
         
-    private:
-        DISALLOW_COPY_AND_ASSIGN(RwReply);
-        
+        ////////////////////////////////////////////////////////////////////////////////
+        /// \brief     Add an entry to the reply
+        /// \param[in] element Element to be added at the end
+        /// \return    Nothing
+        ////////////////////////////////////////////////////////////////////////////////
+        void addElement(const QPair<QString, RwByteArray>& element);
+            
+    private:        
         ByteArrays m_rawData;
         
     };

@@ -18,7 +18,15 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 22/06/2012.
 #include <QString>
 #include <QLocalServer>
 
+#include "RwCommandRequest.h"
+#include "RwCommandReply.h"
 #include "RwUtils/RwGlobal/RwClasses.h"
+#include "RwUtils/RwGlobal/RwReturn.h"
+#include "RwDataStructures/RwByteArray.h"
+#include "RwWorkerInterface/RwReply.h"
+
+using namespace RwWorkerInterface;
+using namespace RwUtils::RwGlobal;
 
 namespace RwNetworking {
  
@@ -56,9 +64,19 @@ namespace RwNetworking {
         virtual void abstract() {}
         DISALLOW_COPY_AND_ASSIGN(RwCommandServerLocal);
         
+        RwReturnType fromRawData(const RwDataStructures::RwByteArray& rawData, 
+                                 RwCommandRequest& request) const;
+        
+        RwReturnType toRawData(const RwCommandReply& request, 
+                               RwDataStructures::RwByteArray& rawData) const;
+        
+        RwReturnType executeRequest(const RwCommandRequest& request, RwReply& reply) const;
+        
         void init();
 
+        bool m_pendingConnection;
         QLocalServer* m_localServer;
+        QLocalSocket* m_currentConnection;
     };
     
 }

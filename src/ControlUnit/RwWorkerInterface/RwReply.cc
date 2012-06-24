@@ -51,19 +51,24 @@ namespace RwWorkerInterface
         return (m_rawData.size() == 0);
     }
     
-    const RwReply::ByteArrays& RwReply::getRawData() const
+    int RwReply::numberOfFiles() const
     {
-        return m_rawData;
+        return m_rawData.size();
     }
     
-    RwReply::ByteArrays& RwReply::getRawData()
+    QPair<QString, RwByteArray>& RwReply::operator[](const int i)
     {
-        return m_rawData;
+        return m_rawData[i];
     }
     
-    void RwReply::setRawData(RwReply::ByteArrays& rawData)
+    const QPair<QString, RwByteArray>& RwReply::operator[](const int i) const
     {
-        m_rawData = rawData;
+        return m_rawData[i];
+    }
+    
+    void RwReply::addElement(const QPair<QString, RwDataStructures::RwByteArray> &element)
+    {
+        m_rawData.push_back(element);
     }
     
 }

@@ -62,7 +62,7 @@ namespace RwDataStructures
         /// \brief     Return a pointer to the data allocated by the object
         /// \return    Pointer to the data allocated by the object
         ////////////////////////////////////////////////////////////////////////////////
-        void setRawData(RwByteType * rawData, const int dataSize);
+        void setRawData(const RwByteType * rawData, const int dataSize);
         
         ////////////////////////////////////////////////////////////////////////////////
         /// \brief     Returns the byte-size of the data allocated by the object

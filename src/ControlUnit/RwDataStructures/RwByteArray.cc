@@ -82,7 +82,7 @@ namespace  RwDataStructures
         return m_rawData;
     }
     
-    void RwByteArray::setRawData(RwByteType *rawData, const int dataSize)
+    void RwByteArray::setRawData(const RwByteType *rawData, const int dataSize)
     {
         discard();
         allocate(dataSize);
