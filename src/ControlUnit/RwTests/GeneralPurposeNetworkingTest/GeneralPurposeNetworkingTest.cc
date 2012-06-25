@@ -1,4 +1,4 @@
-cd/* 
+/* 
 
 GeneralPurposeNetworkingTest: Check that networking stuff when I code but don't want to do something complicateds
 
