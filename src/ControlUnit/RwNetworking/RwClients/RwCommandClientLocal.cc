@@ -16,9 +16,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 23/06/2012.
 
 #include "RwUtils/RwGlobal/RwDefines.h"
 #include "RwUtils/RwLog/RwCommon.h"
-#include "RwDataStructures/RwByteArray.h"
 
-using namespace RwDataStructures;
 using namespace RwUtils::RwLog;
 
 namespace RwNetworking {
@@ -91,16 +89,13 @@ namespace RwNetworking {
             }
             
             // SEND REQUEST
-            RwByteArray requestRawData;
+            QByteArray requestRawData;
             const RwReturnType returnMsg = request.toRawData(requestRawData);
-            
-            m_localSocket->write(requestRawData.getRawData(), requestRawData.size());
+            m_localSocket->write(requestRawData);
             
             // READ REPLY
-            RwByteArray replyRawData;
-            QByteArray replyArray = m_localSocket->readAll();
-            replyRawData.setRawData(replyArray.data(), replyArray.size());
-            
+            QByteArray replyRawData = m_localSocket->readAll();
+    
             RwNetDataStructures::RwCommandReply reply;
             reply.fromRawData(replyRawData);
             

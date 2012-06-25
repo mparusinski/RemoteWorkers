@@ -42,14 +42,14 @@ namespace RwNetworking {
             /// \param[in]  rawData The raw data representing the CommandReply
             /// \return An error code representing the error occurred
             ////////////////////////////////////////////////////////////////////////////////
-            virtual RwReturnType fromRawData(const RwDataStructures::RwByteArray &rawData);
+            virtual RwReturnType fromRawData(const QByteArray &rawData);
             
             ////////////////////////////////////////////////////////////////////////////////
             /// \brief Converts the request to raw data
             /// \param[out]  rawData The raw data representing the CommandRequest
             /// \return An error code representing the error occurred
             ////////////////////////////////////////////////////////////////////////////////
-            virtual RwReturnType toRawData(RwDataStructures::RwByteArray& rawData) const;
+            virtual RwReturnType toRawData(QByteArray& rawData) const;
             
             ////////////////////////////////////////////////////////////////////////////////
             /// \brief Get the reply out of this class if applicable
@@ -57,6 +57,19 @@ namespace RwNetworking {
             /// \return Return false if the class represents an error
             ////////////////////////////////////////////////////////////////////////////////
             bool getReply(RwWorkerInterface::RwReply& reply) const;
+            
+            ////////////////////////////////////////////////////////////////////////////////
+            /// \brief FOR TESTING PURPOSES MAINLY
+            ////////////////////////////////////////////////////////////////////////////////
+            bool operator==(const RwCommandReply& other) const;
+            
+            ////////////////////////////////////////////////////////////////////////////////
+            /// \brief FOR TESTING PURPOSES MAINLY
+            ////////////////////////////////////////////////////////////////////////////////
+            inline bool operator!=(const RwCommandReply& other) const
+            {
+                return !(*this == other);
+            }
             
         private:
             // DISALLOW_COPY_AND_ASSIGN(RwCommandReply);

@@ -15,10 +15,10 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 25/06/2012.
 
 #include <QString>
 #include <QDataStream>
+#include <QByteArray>
 
 #include "RwUtils/RwGlobal/RwClasses.h"
 #include "RwUtils/RwGlobal/RwReturn.h"
-#include "RwDataStructures/RwByteArray.h"
 
 using namespace RwUtils::RwGlobal;
 
@@ -40,14 +40,14 @@ namespace RwNetworking {
             /// \param[in]  rawData The raw data representing the CommandReply
             /// \return An error code representing the error occurred
             ////////////////////////////////////////////////////////////////////////////////
-            virtual RwReturnType fromRawData(const RwDataStructures::RwByteArray &rawData) = 0;
+            virtual RwReturnType fromRawData(const QByteArray &rawData) = 0;
             
             ////////////////////////////////////////////////////////////////////////////////
             /// \brief Converts the request to raw data
             /// \param[out]  rawData The raw data representing the CommandRequest
             /// \return An error code representing the error occurred
             ////////////////////////////////////////////////////////////////////////////////
-            virtual RwReturnType toRawData(RwDataStructures::RwByteArray& rawData) const = 0;
+            virtual RwReturnType toRawData(QByteArray& rawData) const = 0;
             
             
         private:

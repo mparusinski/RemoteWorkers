@@ -16,7 +16,6 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 22/06/2012.
 #include "RwNetDataStructureBase.h"
 
 #include "RwWorkerInterface/RwCommand.h"
-#include "RwDataStructures/RwByteArray.h"
 #include "RwUtils/RwGlobal/RwReturn.h"
 #include "RwUtils/RwGlobal/RwClasses.h"
 
@@ -66,14 +65,28 @@ namespace RwNetworking {
             /// \param[int] rawData rawData representing the request
             /// \return Error code
             ////////////////////////////////////////////////////////////////////////////////
-            virtual RwReturnType fromRawData(const RwDataStructures::RwByteArray& rawData);
+            virtual RwReturnType fromRawData(const QByteArray& rawData);
             
             ////////////////////////////////////////////////////////////////////////////////
             /// \brief Converts the request into rawData
             /// \param[out] rawData rawData representing the request
             /// \return Error code
             ////////////////////////////////////////////////////////////////////////////////
-            virtual RwReturnType toRawData(RwDataStructures::RwByteArray& rawData) const;
+            virtual RwReturnType toRawData(QByteArray& rawData) const;
+            
+            ////////////////////////////////////////////////////////////////////////////////
+            /// \brief FOR TESTING PURPOSES MAINLY
+            ////////////////////////////////////////////////////////////////////////////////
+            bool operator==(const RwCommandRequest& other) const;
+            
+            ////////////////////////////////////////////////////////////////////////////////
+            /// \brief FOR TESTING PURPOSES MAINLY
+            ////////////////////////////////////////////////////////////////////////////////
+            inline bool operator!=(const RwCommandRequest& other) const
+            {
+                return !(*this == other);
+            }
+
             
         private:
             DISALLOW_COPY_AND_ASSIGN(RwCommandRequest);

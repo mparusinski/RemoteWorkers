@@ -32,6 +32,5 @@ ADD_SUBDIRECTORY(RwTests)
 ADD_SUBDIRECTORY(RwNetworking)
 ADD_SUBDIRECTORY(RwWorkerInterface)
 ADD_SUBDIRECTORY(RwUtils)
-ADD_SUBDIRECTORY(RwDataStructures)
 
 FILE( COPY conf.txt DESTINATION ${RemoteWorkers_ControlUnit_BINARY_DIR} )

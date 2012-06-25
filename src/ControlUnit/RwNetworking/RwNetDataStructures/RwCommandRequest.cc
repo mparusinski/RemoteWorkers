@@ -72,10 +72,9 @@ namespace RwNetworking {
             m_command = command;
         }
         
-        RwReturnType RwCommandRequest::toRawData(RwDataStructures::RwByteArray& rawData) const
+        RwReturnType RwCommandRequest::toRawData(QByteArray& rawData) const
         {
-            QByteArray qRawData;
-            QDataStream dataStream(&qRawData, QIODevice::WriteOnly);
+            QDataStream dataStream(&rawData, QIODevice::WriteOnly);
             dataStream.setVersion(QDataStream::Qt_4_8);
             
             dataStream << REQUEST_BEGIN;
@@ -103,19 +102,14 @@ namespace RwNetworking {
             }
             
             dataStream << REQUEST_END;
-            //        rwDebug() << qRawData << endLine();
-            
-            const int totalLength = qRawData.size();
-            rawData.setRawData(qRawData.data(), totalLength);
             
             return RW_NO_ERROR;
         }
         
-        RwReturnType RwCommandRequest::fromRawData(const RwDataStructures::RwByteArray &rawData)
+        RwReturnType RwCommandRequest::fromRawData(const QByteArray &rawData)
         {
             // CONVERTING RAW DATA INTO TEXT STREAM
-            QByteArray byteArray(rawData.getRawData(), rawData.size());
-            QDataStream dataStream(&byteArray, QIODevice::ReadOnly);
+            QDataStream dataStream(rawData);
             
             char* beginRequest = 0;
             dataStream >> beginRequest;
@@ -213,6 +207,11 @@ namespace RwNetworking {
             
             m_command = RwCommand(order, argumentsList);
             return RW_NO_ERROR;
+        }
+        
+        bool RwCommandRequest::operator==(const RwNetworking::RwNetDataStructures::RwCommandRequest &other) const
+        {
+            return (m_workerName == other.m_workerName) && (m_command.getOrder() == other.m_command.getOrder()) && (m_command.getArguments() == other.m_command.getArguments());
         }
         
     }

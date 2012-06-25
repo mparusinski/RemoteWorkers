@@ -42,7 +42,7 @@ namespace RwNetworking {
             return m_serverName;
         }
         
-        RwReturnType RwCommandServerBase::processData(const RwDataStructures::RwByteArray &in, RwDataStructures::RwByteArray &out) const
+        RwReturnType RwCommandServerBase::processData(const QByteArray &in, QByteArray &out) const
         {        
             // READING REQUEST
             RwNetDataStructures::RwCommandRequest request;

@@ -16,11 +16,9 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 15/05/2012.
 #include <QString>
 #include <QPair>
 #include <QList>
+#include <QByteArray>
 
 #include "RwUtils/RwGlobal/RwClasses.h"
-#include "RwDataStructures/RwByteArray.h"
-
-using namespace RwDataStructures;
 
 namespace RwWorkerInterface
 {
@@ -33,7 +31,7 @@ namespace RwWorkerInterface
     class RwReply
     {
     public:
-        typedef QList< QPair<QString, RwByteArray> > ByteArrays;
+        typedef QList< QPair<QString, QByteArray> > ByteArrays;
         
         RwReply();
         explicit RwReply(const ByteArrays& rawData);
@@ -47,11 +45,6 @@ namespace RwWorkerInterface
         bool empty() const;
         
         ////////////////////////////////////////////////////////////////////////////////
-        /// \brief     Return the number of files in the reply
-        ////////////////////////////////////////////////////////////////////////////////
-        int numberOfFiles() const;
-        
-        ////////////////////////////////////////////////////////////////////////////////
         /// \brief     Return the raw data in the byte arrays
         ////////////////////////////////////////////////////////////////////////////////
         ByteArrays& getRawData();
@@ -60,27 +53,6 @@ namespace RwWorkerInterface
         /// \brief     Return the raw data in the byte arrays
         ////////////////////////////////////////////////////////////////////////////////
         const ByteArrays& getRawData() const;
-        
-        ////////////////////////////////////////////////////////////////////////////////
-        /// \brief     Returns an entry of the reply
-        /// \param[in] i Index in the replies
-        /// \return    A pair consisting of the filename and the byte array
-        ////////////////////////////////////////////////////////////////////////////////
-        QPair<QString, RwByteArray>& operator[](const int i);
-        
-        ////////////////////////////////////////////////////////////////////////////////
-        /// \brief     Returns an entry of the reply
-        /// \param[in] i Index in the replies
-        /// \return    A pair consisting of the filename and the byte array
-        ////////////////////////////////////////////////////////////////////////////////
-        const QPair<QString, RwByteArray>& operator[](const int i) const;
-        
-        ////////////////////////////////////////////////////////////////////////////////
-        /// \brief     Add an entry to the reply
-        /// \param[in] element Element to be added at the end
-        /// \return    Nothing
-        ////////////////////////////////////////////////////////////////////////////////
-        void addElement(const QPair<QString, RwByteArray>& element);
             
     private:        
         ByteArrays m_rawData;

@@ -16,11 +16,9 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 22/06/2012.
 
 #include "RwUtils/RwGlobal/RwDefines.h"
 #include "RwUtils/RwLog/RwCommon.h"
-#include "RwDataStructures/RwByteArray.h"
 #include "RwWorkerInterface/RwManagement.h"
 
 using namespace RwUtils::RwLog;
-using namespace RwDataStructures;
 
 namespace RwNetworking {
     
@@ -85,15 +83,8 @@ namespace RwNetworking {
             
             // RECEIVING DATA
             QByteArray receivedData = m_currentConnection->readAll(); // This may be dangerous
-            const char* rawData  = receivedData.data();
-            const int sizeOfData = receivedData.size();
-            
-            // COPYING DATA
-            RwByteArray byteArray;
-            byteArray.setRawData(rawData, sizeOfData); // implicit copy. Should it be optimised?
-            
-            RwByteArray responseRawData;
-            RwReturnType errorCode = processData(byteArray, responseRawData);
+            QByteArray responseRawData;
+            RwReturnType errorCode = processData(receivedData, responseRawData);
             
             if (errorCode != RW_NO_ERROR)
             {
@@ -101,7 +92,7 @@ namespace RwNetworking {
             }
             
             // SENDING RAW DATA
-            m_currentConnection->write(responseRawData.getRawData(), responseRawData.size());
+            m_currentConnection->write(responseRawData);
             
             m_pendingConnection = false;
         }

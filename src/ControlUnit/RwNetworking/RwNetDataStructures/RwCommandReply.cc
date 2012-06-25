@@ -68,10 +68,9 @@ namespace RwNetworking {
             }
         }
         
-        RwReturnType RwCommandReply::fromRawData(const RwDataStructures::RwByteArray &rawData)
+        RwReturnType RwCommandReply::fromRawData(const QByteArray &rawData)
         {
-            QByteArray qRawData(rawData.getRawData(), rawData.size());
-            QDataStream dataStream(&qRawData, QIODevice::ReadOnly);
+            QDataStream dataStream(rawData);
             
             char * begin = 0;
             dataStream >> begin;
@@ -111,7 +110,7 @@ namespace RwNetworking {
                 int numberOfFiles = -1;
                 dataStream >> numberOfFiles;
                 
-                if (numberOfFiles <= 0) {
+                if (numberOfFiles < 0) {
                     rwError() << "Error when reading reply from raw data! Did not read the number of files properly" << endLine();
                     return RW_ERROR_READING_NETWORK_MESSAGE;
                 }
@@ -128,7 +127,7 @@ namespace RwNetworking {
                     }
                     delete[] fileString;
                     
-                    QPair<QString, RwByteArray> pair;
+                    QPair<QString, QByteArray> pair;
                     
                     char * fileName = 0;
                     dataStream >> fileName;
@@ -146,11 +145,10 @@ namespace RwNetworking {
                     
                     char * fileRawData = new char[fileSize];
                     dataStream.readRawData(fileRawData, fileSize);
-                    
                     pair.second.setRawData(fileRawData, fileSize);
-                    delete[] fileRawData;
-                    
                     arrays.push_back(pair);
+                    
+                    delete[] fileRawData;
                 }
                 
                 m_reply = RwWorkerInterface::RwReply(arrays);
@@ -168,10 +166,9 @@ namespace RwNetworking {
             return RW_NO_ERROR;
         }
         
-        RwReturnType RwCommandReply::toRawData(RwDataStructures::RwByteArray &rawData) const
+        RwReturnType RwCommandReply::toRawData(QByteArray &rawData) const
         {
-            QByteArray qRawData;
-            QDataStream dataStream(&qRawData, QIODevice::WriteOnly);
+            QDataStream dataStream(&rawData, QIODevice::WriteOnly);
             
             dataStream << REPLY_BEGIN;
             
@@ -181,28 +178,40 @@ namespace RwNetworking {
             if (m_isError) {
                 dataStream << m_errorCode;
             } else {
-                const int numberOfFiles = m_reply.numberOfFiles();
+                RwWorkerInterface::RwReply::ByteArrays replies = m_reply.getRawData();
+                const int numberOfFiles = replies.length();
                 dataStream << REPLY_FILES_NUMBER;
                 dataStream << numberOfFiles;
                 
                 for (int i = 0;i < numberOfFiles; ++i) {
-                    const QPair<QString, RwByteArray>& element = m_reply[i];
+                    const QPair<QString, QByteArray>& element = replies[i];
                     
                     dataStream << REPLY_FILE;
                     dataStream << element.first;
                     
-                    const RwByteArray& fileRawData = element.second;
+                    const QByteArray& fileRawData = element.second;
                     const int fileDataSize = fileRawData.size();
                     dataStream << fileDataSize;
-                    dataStream.writeRawData(fileRawData.getRawData(), fileDataSize);
+                    dataStream.writeRawData(fileRawData.data(), fileDataSize);
                 }
             }
             
             dataStream << REPLY_END;
             
-            rawData.setRawData(qRawData.data(), qRawData.size());
-            
             return RW_NO_ERROR;
+        }
+        
+        bool RwCommandReply::operator==(const RwNetworking::RwNetDataStructures::RwCommandReply &other) const
+        {
+            if (m_isError && other.m_isError) {
+                return m_errorCode == other.m_errorCode;
+            } else if (!m_isError && !other.m_isError) {
+                return m_reply.getRawData() != other.m_reply.getRawData();
+            } else {
+                return false;
+            }
+            
+            return true;
         }
         
     }

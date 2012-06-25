@@ -20,9 +20,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 15/05/2012.
 #include "RwUtils/RwSystem/RwExternalApplication.h"
 #include "RwUtils/RwLog/RwCommon.h"
 #include "RwUtils/RwGlobal/RwReturn.h"
-#include "RwDataStructures/RwByteArray.h"
 
-using namespace RwDataStructures;
 using namespace RwUtils::RwSystem;
 using namespace RwUtils::RwLog;
 using namespace RwUtils::RwGlobal;
@@ -130,9 +128,12 @@ namespace RwWorkerInterface
             qint64 length = dataFile.size();
             QDataStream dataFileIn(&dataFile);
             
-            RwByteArray bytes(length);
-            dataFileIn.readRawData(bytes.getRawData(), length);
-            rawData.append(QPair<QString, RwByteArray>(filePath.filePath(), bytes));
+            char * bytes = new char[length];
+            dataFileIn.readRawData(bytes, length);
+            
+            
+            rawData.append(QPair<QString, QByteArray>(filePath.filePath(), QByteArray(bytes, length)));
+            delete[] bytes;
             
             dataFile.close();
         }

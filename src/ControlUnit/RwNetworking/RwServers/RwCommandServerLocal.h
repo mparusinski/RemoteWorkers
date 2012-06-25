@@ -20,7 +20,6 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 22/06/2012.
 
 #include "RwUtils/RwGlobal/RwClasses.h"
 #include "RwUtils/RwGlobal/RwReturn.h"
-#include "RwDataStructures/RwByteArray.h"
 #include "RwWorkerInterface/RwReply.h"
 
 using namespace RwWorkerInterface;

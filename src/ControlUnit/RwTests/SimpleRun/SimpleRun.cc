@@ -60,16 +60,9 @@ int main(int argc, char *argv[])
 	for (int i = 0; i < numberOfByteStreams; ++i)
 	{
 		const QString& fileName = rawData[i].first;
-        RwByteArray& byteStream = rawData[i].second;
+        QByteArray& byteStream = rawData[i].second;
         printf("File: %s\n", fileName.toAscii().data());
-
-		const int lengthOfStream = byteStream.size();
-		char * rawData = byteStream.getRawData();
-		for (int j = 0; j < lengthOfStream; ++j)
-		{
-            rwMessage() << rawData[j];
-		}
-        rwMessage() << endLine() << endLine();
+        rwMessage() << byteStream << endLine() << endLine();
 	}
 
 	return 1;

@@ -17,7 +17,6 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 14/05/2012.
 #include <QThread>
 
 #include "RwUtils/RwGlobal/RwClasses.h"
-#include "RwDataStructures/RwByteArray.h"
 
 #include "../RwNetDataStructures/RwCommandRequest.h"
 #include "../RwNetDataStructures/RwCommandReply.h"
@@ -65,7 +64,7 @@ namespace RwNetworking {
         protected:
             QString m_serverName;
             
-            RwReturnType processData(const RwDataStructures::RwByteArray& in, RwDataStructures::RwByteArray& out) const;
+            RwReturnType processData(const QByteArray& in, QByteArray& out) const;
             RwReturnType executeRequest(const RwNetDataStructures::RwCommandRequest& request, RwNetDataStructures::RwCommandReply& reply) const;
             
         private:

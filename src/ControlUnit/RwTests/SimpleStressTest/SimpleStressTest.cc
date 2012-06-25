@@ -58,7 +58,7 @@ int main(int argc, char *argv[])
 	RwUtils::RwProfile::RwProfiler::profile("Creating the reply");
 
 	RwUtils::RwProfile::RwProfiler::startProfiler();
-	QList< QPair< QString, RwByteArray > > rawData = reply.getRawData();
+	QList< QPair< QString, QByteArray > > rawData = reply.getRawData();
 	const size_t numberOfByteStreams = rawData.size();
 	for (size_t i = 0; i < numberOfByteStreams; ++i)
 	{
