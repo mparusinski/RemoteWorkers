@@ -12,5 +12,5 @@ SET(GeneralPurposeNetworkingTestSRC
 
 ADD_EXECUTABLE(GeneralPurposeNetworkingTest ${GeneralPurposeNetworkingTestSRC})
 
-TARGET_LINK_LIBRARIES(GeneralPurposeNetworkingTest RwNetworking)
+TARGET_LINK_LIBRARIES(GeneralPurposeNetworkingTest RwNetDataStructures)
 TARGET_LINK_LIBRARIES(GeneralPurposeNetworkingTest ${QT_LIBRARIES})

@@ -14,14 +14,18 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 14/05/2012.
 
 namespace RwNetworking {
     
-    RwCommandServerSSL::RwCommandServerSSL(QObject* parent, const QString& serverName) 
-        : RwCommandServerBase(parent, serverName)
-    {
+    namespace RwServers {
         
-    }
-    
-    RwCommandServerSSL::~RwCommandServerSSL()
-    {
+        RwCommandServerSSL::RwCommandServerSSL(QObject* parent, const QString& serverName) 
+        : RwCommandServerBase(parent, serverName)
+        {
+            
+        }
+        
+        RwCommandServerSSL::~RwCommandServerSSL()
+        {
+            
+        }
         
     }
     

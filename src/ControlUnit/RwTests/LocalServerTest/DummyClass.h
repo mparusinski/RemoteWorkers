@@ -16,8 +16,8 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 22/06/2012.
 #include <QString>
 #include <QPushButton>
 
-#include "RwNetworking/RwCommandServerLocal.h"
-#include "RwNetworking/RwCommandClientLocal.h"
+#include "RwNetworking/RwServers/RwCommandServerLocal.h"
+#include "RwNetworking/RwClients/RwCommandClientLocal.h"
 #include "RwUtils/RwLog/RwCommon.h"
 
 using namespace RwNetworking;
@@ -31,10 +31,10 @@ public:
     
     explicit DummyClass(QWidget* parent = 0) : QWidget(parent) 
     { 
-        m_server = new RwCommandServerLocal(this, "localServer");
+        m_server = new RwServers::RwCommandServerLocal(this, "localServer");
         m_server->start();
         
-        m_client = new RwCommandClientLocal(this, "localServer");
+        m_client = new RwClients::RwCommandClientLocal(this, "localServer");
         m_button = new QPushButton(this);
         
         m_button->setText("Push button to connect");
@@ -59,8 +59,8 @@ public:
     }
     
 private:
-    RwCommandServerLocal* m_server;
-    RwCommandClientLocal* m_client;
+    RwServers::RwCommandServerLocal* m_server;
+    RwClients::RwCommandClientLocal* m_client;
     
     QPushButton* m_button;
     

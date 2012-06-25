@@ -52,38 +52,38 @@ namespace RwUtils {
             return ret1 | ret2;
         }
         
-        inline char* returnTypetoString(const RwReturnType errorCode)
-        {
-            switch (errorCode)
-            {
-                case RW_NO_ERROR:
-                    return "NO ERROR";
-                case RW_ERROR_GENERIC:
-                    return "UNKNOWN ERROR";
-                case RW_ERROR_NO_WORKER:
-                    return "NO SUCH WORKER";
-                case RW_ERROR_NO_REPLY:
-                    return "NO REPLY";
-                case RW_ERROR_NO_EXECUTION:
-                    return "COMMAND DID NOT EXECUTE";
-                case RW_ERROR_EXECUTION_FAIL:
-                    return "COMMAND DID NOT EXECUTE PROPERLY";
-                case RW_ERROR_FILE_OR_DIR_NOT_FOUND:
-                    return "FILE OR DIRECTORY WAS NOT FOUND";
-                case RW_ERROR_FILE_NOT_READ:
-                    return "FILE WAS NOT READ";
-                case RW_ERROR_SERVER_NOT_STARTED:
-                    return "SERVER DID NOT START";
-                case RW_ERROR_SERVER_ALREADY_STARTED:
-                    return "SERVER ALREADY STARTED";
-                case RW_ERROR_READING_NETWORK_MESSAGE:
-                    return "ERROR WHEN READING MESSAGE FROM NETWORK";
-                case RW_ERROR_NO_CONNECTION:
-                    return "NO CONNECTION ESTABLISHED";
-                default:
-                    return "FUNCTION TO STRING DOES NOT COVER ALL CASES. CONTACT DEVELOPPERS";
-            }
-        }
+//        inline char* returnTypetoString(const RwReturnType errorCode)
+//        {
+//            switch (errorCode)
+//            {
+//                case RW_NO_ERROR:
+//                    return "NO ERROR";
+//                case RW_ERROR_GENERIC:
+//                    return "UNKNOWN ERROR";
+//                case RW_ERROR_NO_WORKER:
+//                    return "NO SUCH WORKER";
+//                case RW_ERROR_NO_REPLY:
+//                    return "NO REPLY";
+//                case RW_ERROR_NO_EXECUTION:
+//                    return "COMMAND DID NOT EXECUTE";
+//                case RW_ERROR_EXECUTION_FAIL:
+//                    return "COMMAND DID NOT EXECUTE PROPERLY";
+//                case RW_ERROR_FILE_OR_DIR_NOT_FOUND:
+//                    return "FILE OR DIRECTORY WAS NOT FOUND";
+//                case RW_ERROR_FILE_NOT_READ:
+//                    return "FILE WAS NOT READ";
+//                case RW_ERROR_SERVER_NOT_STARTED:
+//                    return "SERVER DID NOT START";
+//                case RW_ERROR_SERVER_ALREADY_STARTED:
+//                    return "SERVER ALREADY STARTED";
+//                case RW_ERROR_READING_NETWORK_MESSAGE:
+//                    return "ERROR WHEN READING MESSAGE FROM NETWORK";
+//                case RW_ERROR_NO_CONNECTION:
+//                    return "NO CONNECTION ESTABLISHED";
+//                default:
+//                    return "FUNCTION TO STRING DOES NOT COVER ALL CASES. CONTACT DEVELOPPERS";
+//            }
+//        }
         
     }
     

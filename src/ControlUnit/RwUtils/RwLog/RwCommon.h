@@ -13,7 +13,10 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 22/06/2012.
 #ifndef _RWUTILS_RWLOG_RWCOMMON_H_
 #define _RWUTILS_RWLOG_RWCOMMON_H_
 
+#include <cstring>
+
 #include <QString>
+#include <QByteArray>
 
 #include "RwMessagingManager.h"
 
@@ -65,6 +68,11 @@ namespace RwUtils
                 return operator<<(QString::number(number));
             }
             
+            inline const RwWriter& operator <<(const QByteArray& array) const
+            {
+                return operator<<(array.data());
+            }
+            
         private:
             inline void write(const char * messageToWrite) const
             {
@@ -74,9 +82,9 @@ namespace RwUtils
                         RwMessagingManager::getInstance()->reportMessage(messageToWrite);
                         break;
                     case RW_WRITER_ERROR:
-#ifndef RW_NO_ERROR
+#ifndef RW_NO_ERROR_REPORTING
                         RwMessagingManager::getInstance()->reportError(messageToWrite);
-#endif // RW_NO_ERROR
+#endif // RW_NO_ERROR_REPORTING
                         break;
                     case RW_WRITER_DEBUG:
 #ifndef NDEBUG
