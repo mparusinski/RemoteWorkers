@@ -97,11 +97,7 @@ namespace RwNetworking {
             const RwReturnType returnMsg = request.toRawData(requestRawData);
             m_localSocket->write(requestRawData);
             m_localSocket->flush();
-            
-//            // READ REPLY
-//            QByteArray replyRawData = m_localSocket->readAll();
-//            reply.fromRawData(replyRawData);
-//            
+                    
             return returnMsg;
         }
         

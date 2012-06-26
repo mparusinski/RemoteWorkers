@@ -58,9 +58,9 @@ bool test(const QString& commandName, const QString& order, const QStringList& a
     
     RwCommandReply simpleReply;
     if (errorCode != RW_NO_ERROR) {
-        simpleReply = RwCommandReply(errorCode);
+        simpleReply.setErrorCode(errorCode);
     } else {
-        simpleReply = RwCommandReply(reply);
+        simpleReply.setReply(reply);
     }
     QByteArray replyData;
     simpleReply.toRawData(replyData);
