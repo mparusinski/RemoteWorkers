@@ -38,10 +38,11 @@ namespace RwNetworking {
         
         RwCommandReply::RwCommandReply()
         {
-            
+            m_isError = true;
+            m_errorCode = RW_NO_ERROR;
         }
         
-        RwCommandReply::RwCommandReply(RwReturnType errorCode)
+        RwCommandReply::RwCommandReply(const RwReturnType errorCode)
         {
             m_isError = true;
             m_errorCode = errorCode;
@@ -50,7 +51,7 @@ namespace RwNetworking {
         RwCommandReply::RwCommandReply(const RwWorkerInterface::RwReply& reply)
         {
             m_isError = false;
-            m_reply = reply;
+            m_reply.copyFrom(reply);
         }
         
         RwCommandReply::~RwCommandReply()
@@ -58,14 +59,47 @@ namespace RwNetworking {
             
         }
         
-        bool RwCommandReply::getReply(RwWorkerInterface::RwReply& reply) const
+        void RwCommandReply::setErrorCode(const RwReturnType errorCode)
         {
-            if ( !m_isError ) {
-                reply = m_reply;
-                return true; 
+            m_isError = true;
+            m_errorCode = errorCode;
+        }
+        
+        void RwCommandReply::setReply(const RwWorkerInterface::RwReply &reply)
+        {
+            m_isError = false;
+            m_reply.copyFrom(reply);
+        }
+        
+        void RwCommandReply::copyFrom(const RwCommandReply &other)
+        {
+            if (other.m_isError) {
+                m_isError = true;
+                m_errorCode = other.m_errorCode;
             } else {
-                return false;
+                m_isError = false;
+                m_reply.copyFrom(other.m_reply);
             }
+        }
+        
+        bool RwCommandReply::isError() const
+        {
+            return m_isError;
+        }
+        
+        RwReturnType RwCommandReply::getErrorCode() const
+        {
+            return m_errorCode;
+        }
+        
+        RwWorkerInterface::RwReply& RwCommandReply::getReply()
+        {
+            return m_reply;
+        }
+        
+        const RwWorkerInterface::RwReply& RwCommandReply::getReply() const
+        {
+            return m_reply;
         }
         
         RwReturnType RwCommandReply::fromRawData(const QByteArray &rawData)
@@ -145,13 +179,14 @@ namespace RwNetworking {
                     
                     char * fileRawData = new char[fileSize];
                     dataStream.readRawData(fileRawData, fileSize);
-                    pair.second.setRawData(fileRawData, fileSize);
+                    pair.second = QByteArray(fileRawData, fileSize);
                     arrays.push_back(pair);
                     
                     delete[] fileRawData;
                 }
                 
-                m_reply = RwWorkerInterface::RwReply(arrays);
+                RwWorkerInterface::RwReply::ByteArrays& actualArrays = m_reply.getRawData();
+                actualArrays = arrays;
             }
             
             char * end = 0;

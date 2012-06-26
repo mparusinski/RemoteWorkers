@@ -53,8 +53,15 @@ namespace RwWorkerInterface
         /// \brief     Return the raw data in the byte arrays
         ////////////////////////////////////////////////////////////////////////////////
         const ByteArrays& getRawData() const;
+        
+        ////////////////////////////////////////////////////////////////////////////////
+        /// \brief     Copies from another reply
+        /// \param[in] other Other Reply
+        ////////////////////////////////////////////////////////////////////////////////
+        void copyFrom(const RwReply& other);
             
-    private:        
+    private: 
+        DISALLOW_COPY_AND_ASSIGN(RwReply);
         ByteArrays m_rawData;
         
     };

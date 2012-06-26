@@ -55,18 +55,11 @@ namespace RwNetworking {
         void RwCommandClientLocal::clientDisconnected()
         {
             m_connected = false;
-            // rwDebug() << "local client has disconnected from server " << m_serverName << endLine();
-        }
-        
-        void RwCommandClientLocal::readReady()
-        {
-            // rwDebug() << "local client is ready to read" << endLine();
         }
         
         void RwCommandClientLocal::connectToServer()
         {
             m_localSocket->abort();
-            //        rwDebug() << "Connecting to server " << m_serverName << endLine();
             m_localSocket->connectToServer(m_serverName);
         }
         
@@ -80,7 +73,18 @@ namespace RwNetworking {
             rwError() << "Client error: " << m_localSocket->errorString() << endLine();
         }
         
-        RwReturnType RwCommandClientLocal::sendRequest(const RwNetDataStructures::RwCommandRequest &request)
+        void RwCommandClientLocal::readReady()
+        {
+            while (m_localSocket->bytesAvailable() < (int)sizeof(quint32))
+                m_localSocket->waitForReadyRead();
+            
+            QByteArray replyRawData = m_localSocket->readAll();
+            m_reply.fromRawData(replyRawData);
+            
+            emit replyReady();
+        }
+        
+        RwReturnType RwCommandClientLocal::sendRequest(const RwNetDataStructures::RwCommandRequest& request)
         {
             if ( !m_connected )
             {
@@ -92,14 +96,19 @@ namespace RwNetworking {
             QByteArray requestRawData;
             const RwReturnType returnMsg = request.toRawData(requestRawData);
             m_localSocket->write(requestRawData);
+            m_localSocket->flush();
             
-            // READ REPLY
-            QByteArray replyRawData = m_localSocket->readAll();
-    
-            RwNetDataStructures::RwCommandReply reply;
-            reply.fromRawData(replyRawData);
-            
+//            // READ REPLY
+//            QByteArray replyRawData = m_localSocket->readAll();
+//            reply.fromRawData(replyRawData);
+//            
             return returnMsg;
+        }
+        
+        RwReturnType RwCommandClientLocal::getReply(RwNetDataStructures::RwCommandReply &reply)
+        {
+            reply.copyFrom(m_reply);
+            return RW_NO_ERROR;
         }
         
     }

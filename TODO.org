@@ -36,11 +36,12 @@
 
 ** TODO Remove GetByteArray from RwReply
 ** TODO Move functionality in RwCommandServerAbstract whenever applicable
-** TODO Join RwCommandRequest and RwCommandReply using a base abstract class
-*** TODO Move the toRawData and fromRawData to abstract base class
+** DONE Join RwCommandRequest and RwCommandReply using a base abstract class
+*** DONE Move the toRawData and fromRawData to abstract base class
 ** TODO Clean the RwNetworking file mess 
 ** TODO Document the code
-* DONE Bugs: 
+* TODO Bugs: 
 ** DONE Logging with numbers
+** TODO Fix copy constructors problem ...
 * TODO Documentation
 ** TODO Document the protocols in details and how message are supposed to be structured

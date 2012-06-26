@@ -51,8 +51,17 @@ namespace RwNetworking  {
             
             ////////////////////////////////////////////////////////////////////////////////
             /// \brief Sends a request to server if connected
+            /// \param[in]  request Request to be procesed by remote server
+            /// \return error code corresponding to success or not
             ////////////////////////////////////////////////////////////////////////////////
             RwReturnType sendRequest(const RwNetDataStructures::RwCommandRequest& request);
+            
+            ////////////////////////////////////////////////////////////////////////////////
+            /// \brief Gets the reply back when available. (BLOCKING)
+            /// \param[out] reply   Reply obtained from request
+            /// \return error code corresponding to success or not
+            ////////////////////////////////////////////////////////////////////////////////
+            RwReturnType getReply(RwNetDataStructures::RwCommandReply& reply);
             
             public slots:
             void clientConnected();
@@ -60,12 +69,16 @@ namespace RwNetworking  {
             void readReady();
             void clientError(QLocalSocket::LocalSocketError socketError);
             
+        signals:
+            void replyReady();
+            
         private:
             DISALLOW_COPY_AND_ASSIGN(RwCommandClientLocal);
             
             bool m_connected;
             QString m_serverName;
             QLocalSocket* m_localSocket;
+            RwNetDataStructures::RwCommandReply m_reply;
         };
         
     }

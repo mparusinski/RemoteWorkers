@@ -24,6 +24,9 @@ int main(int argc, char* argv[])
 
     RwMessagingManager::getInstance()->turnAllOn();
     
+    ServerThread server;
+    server.start();
+    
     DummyClass button;
     button.show();
     

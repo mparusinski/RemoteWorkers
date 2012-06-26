@@ -81,10 +81,13 @@ namespace RwNetworking {
             QObject::connect(m_currentConnection, SIGNAL(disconnected()), 
                              m_currentConnection, SLOT(deleteLater()));
             
+            while (m_currentConnection->bytesAvailable() < (int)sizeof(quint32))
+                   m_currentConnection->waitForReadyRead();
+            
             // RECEIVING DATA
             QByteArray receivedData = m_currentConnection->readAll(); // This may be dangerous
-            QByteArray responseRawData;
-            RwReturnType errorCode = processData(receivedData, responseRawData);
+            QByteArray responseData;
+            RwReturnType errorCode = processData(receivedData, responseData);
             
             if (errorCode != RW_NO_ERROR)
             {
@@ -92,8 +95,7 @@ namespace RwNetworking {
             }
             
             // SENDING RAW DATA
-            m_currentConnection->write(responseRawData);
-            
+            m_currentConnection->write(responseData);
             m_pendingConnection = false;
         }
         
@@ -101,8 +103,6 @@ namespace RwNetworking {
         {
             QObject::connect(m_localServer, SIGNAL(newConnection()), 
                              this, SLOT(processConnection()));
-            QObject::connect(this, SIGNAL(errorAtProcessing(RwReturnType)),
-                             this, SLOT(captureError(RwReturnType)));
         }
         
     }

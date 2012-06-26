@@ -69,7 +69,7 @@ namespace RwNetworking {
             if (errorCode != RW_NO_ERROR) {
                 rwError() << "The worker " << request.getWorkerName() << " did not execute order " << request.getCommand().getOrder() << " properly" << RwUtils::RwLog::endLine();
                 
-                reply = RwNetDataStructures::RwCommandReply(errorCode);
+                reply.setErrorCode(errorCode);
                 return errorCode;
             }
             
@@ -78,9 +78,9 @@ namespace RwNetworking {
             
             if ( errorCode != RW_NO_ERROR ) {
                 rwError() << "The worker did not produce a good reply" << RwUtils::RwLog::endLine();
-                reply = RwNetDataStructures::RwCommandReply(errorCode);
+                reply.setErrorCode(errorCode);
             } else {
-                reply = RwNetDataStructures::RwCommandReply(reply);
+                reply.setReply(realReply);
             }
             
             return errorCode;

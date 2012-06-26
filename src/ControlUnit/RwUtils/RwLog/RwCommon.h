@@ -19,6 +19,9 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 22/06/2012.
 #include <QByteArray>
 
 #include "RwMessagingManager.h"
+#include "RwUtils/RwGlobal/RwReturn.h"
+
+using namespace RwUtils::RwGlobal;
 
 namespace RwUtils
 {
@@ -71,6 +74,16 @@ namespace RwUtils
             inline const RwWriter& operator <<(const QByteArray& array) const
             {
                 return operator<<(array.data());
+            }
+            
+            inline const RwWriter& operator <<(const bool boolVar)  const
+            {
+                return operator<<(static_cast<int>(boolVar));
+            }
+            
+            inline const RwWriter& operator <<(const RwReturnType errorCode) const
+            {
+                return operator<<(static_cast<int>(errorCode));
             }
             
         private:

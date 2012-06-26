@@ -46,6 +46,11 @@ namespace RwWorkerInterface
         m_rawData = rawData;
     }
     
+    void RwReply::copyFrom(const RwWorkerInterface::RwReply &other)
+    {
+        m_rawData = other.m_rawData;
+    }
+    
     RwReply::ByteArrays& RwReply::getRawData()
     {
         return m_rawData;

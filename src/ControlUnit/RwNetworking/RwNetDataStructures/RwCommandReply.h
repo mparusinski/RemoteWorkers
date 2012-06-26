@@ -33,9 +33,26 @@ namespace RwNetworking {
             
         public:
             RwCommandReply();
-            RwCommandReply(RwReturnType errorCode);
+            RwCommandReply(const RwReturnType errorCode);
             RwCommandReply(const RwWorkerInterface::RwReply& reply);
             virtual ~RwCommandReply();
+            
+            ////////////////////////////////////////////////////////////////////////////////
+            /// \brief Turns the reply structure into an error code.
+            /// \param[in]  errorCode Error code
+            ////////////////////////////////////////////////////////////////////////////////
+            void setErrorCode(const RwReturnType errorCode);
+            
+            ////////////////////////////////////////////////////////////////////////////////
+            /// \brief Turns the reply structure into a reply.
+            /// \param[in]  errorCode Error code
+            ////////////////////////////////////////////////////////////////////////////////
+            void setReply(const RwWorkerInterface::RwReply& reply);
+            
+            ////////////////////////////////////////////////////////////////////////////////
+            /// \brief Copies the object from another command reply
+            ////////////////////////////////////////////////////////////////////////////////
+            void copyFrom(const RwCommandReply& other);
             
             ////////////////////////////////////////////////////////////////////////////////
             /// \brief Reads a reply from raw data
@@ -52,11 +69,27 @@ namespace RwNetworking {
             virtual RwReturnType toRawData(QByteArray& rawData) const;
             
             ////////////////////////////////////////////////////////////////////////////////
-            /// \brief Get the reply out of this class if applicable
-            /// \param[out]  reply The reply represented by this class if the class doesn't represent an error
-            /// \return Return false if the class represents an error
+            /// \brief Returns the error code. Always check first with isError()
+            /// \return Returns the error code regardless of the state.
             ////////////////////////////////////////////////////////////////////////////////
-            bool getReply(RwWorkerInterface::RwReply& reply) const;
+            RwReturnType getErrorCode() const;
+            
+            ////////////////////////////////////////////////////////////////////////////////
+            /// \brief Tells is the reply represents an error
+            ////////////////////////////////////////////////////////////////////////////////
+            bool isError() const;
+            
+            ////////////////////////////////////////////////////////////////////////////////
+            /// \brief Get the reply out. Always check first with isError()
+            /// \return Return the replies regardless of the state
+            ////////////////////////////////////////////////////////////////////////////////
+            RwWorkerInterface::RwReply& getReply();
+            
+            ////////////////////////////////////////////////////////////////////////////////
+            /// \brief Get the reply out. Always check first with isError()
+            /// \return Return the replies regardless of the state
+            ////////////////////////////////////////////////////////////////////////////////
+            const RwWorkerInterface::RwReply& getReply() const;
             
             ////////////////////////////////////////////////////////////////////////////////
             /// \brief FOR TESTING PURPOSES MAINLY
@@ -72,7 +105,7 @@ namespace RwNetworking {
             }
             
         private:
-            // DISALLOW_COPY_AND_ASSIGN(RwCommandReply);
+            DISALLOW_COPY_AND_ASSIGN(RwCommandReply);
             
             bool m_isError;
             RwReturnType m_errorCode;
