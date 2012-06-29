@@ -15,9 +15,16 @@
 ** TODO Win XP
 
 * DONE Features
+
 ** DONE Special return statuses (can be sent to remote device)
 ** TODO Local server for remote Workers
-** TODO Remove server for remote Workers
+** TODO Remove server for remote Worker
+* TODO Workers
+** TODO Enforce contraints more properly:
+   -> Check worker exists
+   -> Check order exists
+   -> Sanitize arguments
+** TODO Sanitise requests before executing them
 * TODO SSL
 ** TODO Set-up protocol
 * DONE Style

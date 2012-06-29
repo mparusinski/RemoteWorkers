@@ -1,5 +1,29 @@
-Here I present some basic restriction on workers which are assumed:
+==== DETAILS OF WHAT WORKERS DO ====
+
+1) Remote client (e.g. Mobile Phone) creates a request and sends it to
+the computer
+2) The control unit on the computer reads the request
+3) The computer executes the request (using Workers)
+4) The worker generates an output folder in which he places several
+html/css type files. The files acts as the reply from the worker
+5) The control unit reads the reply and deletes the files
+6) The control unit sends the reply back to the Remote client
+
+==== CONVENTION ABOUT WORKERS ====
+
+1) A worker is a folder containing several executable. One for each
+command
+2) Each command can receive a list of arguments
+3) Upon execution on any command with any list of arguments, the
+worker produces an output
+
+==== CONVENTION ABOUT NAMING ====
+
+All strings used in workers should follow these conventions
 1) The character '_' is forbidden
 2) No special character '\n', '\t', ...
-3) Each argument is a word on its own
-4) Commands and the worker name are words on there own
+
+Naming:
+1) Each argument is a word on its own
+2) No arguments is allowed
+2) Commands and the worker name are words on there own
