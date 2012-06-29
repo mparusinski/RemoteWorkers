@@ -17,11 +17,13 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 22/06/2012.
 #include <QVBoxLayout>
 #include <QString>
 #include <QLabel>
+#include <QComboBox>
 #include <QPushButton>
 #include <QLineEdit>
 #include <QListWidget>
-#include <QTextEdit>
+#include <QPlainTextEdit>
 #include <QThread>
+#include <QInputDialog>
 
 #include "RwNetworking/RwServers/RwCommandServerLocal.h"
 #include "RwNetworking/RwClients/RwCommandClientLocal.h"
@@ -76,7 +78,12 @@ public:
         
         m_replyDialog      = new QHBoxLayout(this);
         m_replyFileList    = new QListWidget(this);
-        m_replyTextView    = new QTextEdit(this);
+        m_replyTextView    = new QPlainTextEdit(this);
+        
+        m_argumentListDialog    = new QHBoxLayout(this);
+        m_argumentsDropDownList = new QComboBox(this);
+        m_argumentsAdd          = new QPushButton(this);
+        m_argumentsRemove       = new QPushButton(this);
         
         m_button = new QPushButton(this);
         
@@ -86,16 +93,24 @@ public:
         m_orderNameDialog->addWidget(m_orderNameLabel);
         m_orderNameDialog->addWidget(m_orderNameEdit);
         
-        m_replyDialog->addWidget(m_replyFileList);
-        m_replyDialog->addWidget(m_replyTextView);
+        m_replyDialog->addWidget(m_replyFileList, 10);
+        m_replyDialog->addWidget(m_replyTextView, 30);
+        
+        m_argumentListDialog->addWidget(m_argumentsDropDownList);
+        m_argumentListDialog->addWidget(m_argumentsAdd);
+        m_argumentListDialog->addWidget(m_argumentsRemove);
         
         m_mainLayout->addLayout(m_workerNameDialog);
         m_mainLayout->addLayout(m_orderNameDialog);
+        m_mainLayout->addLayout(m_argumentListDialog);
         m_mainLayout->addWidget(m_button);
         m_mainLayout->addLayout(m_replyDialog);
         
         m_workerNameLabel->setText("Worker name");
         m_orderNameLabel->setText("Order name");
+        
+        m_argumentsAdd->setText("Add argument");
+        m_argumentsRemove->setText("Remove argument");
         
         m_button->setText("Send request");
         setWindowTitle("Dummy window");
@@ -105,6 +120,8 @@ public:
         QObject::connect(m_button, SIGNAL(pressed()), this, SLOT(run()));
         QObject::connect(m_localClient, SIGNAL(replyReady()), this, SLOT(obtainedReply()));
         QObject::connect(m_replyFileList, SIGNAL(clicked(QModelIndex)), this, SLOT(changeReply(QModelIndex)));
+        QObject::connect(m_argumentsAdd, SIGNAL(pressed()), this, SLOT(addArgument()));
+        QObject::connect(m_argumentsRemove, SIGNAL(pressed()), this, SLOT(removeArgument()));
     }
     
     virtual ~DummyClass()
@@ -121,8 +138,8 @@ public:
         
         QString workerName = m_workerNameEdit->text();
         QString order      = m_orderNameEdit->text();
-        QStringList arguments;
-        RwNetDataStructures::RwCommandRequest request(workerName, RwWorkerInterface::RwCommand(order, arguments));
+        
+        RwNetDataStructures::RwCommandRequest request(workerName, RwWorkerInterface::RwCommand(order, m_argumentsList));
         m_localClient->sendRequest(request);
     }
     
@@ -135,7 +152,7 @@ public:
         
         if (m_currentReply->isError()) {
             rwError() << "An error has occurred when processing request" << endLine();
-            m_replyTextView->setText("An error has occurred when processing request");
+            m_replyTextView->insertPlainText("An error has occurred when processing request");
         } else {
             const RwWorkerInterface::RwReply& actualReply =  m_currentReply->getReply();
             const RwWorkerInterface::RwReply::ByteArrays& arrays = actualReply.getRawData();
@@ -157,7 +174,22 @@ public:
         const QByteArray& rawData = arrays[i].second;
         const QString& text(rawData.data());
         
-        m_replyTextView->setText(text);
+        m_replyTextView->clear();
+        m_replyTextView->insertPlainText(text);
+    }
+    
+    void addArgument()
+    {
+        QString argument = QInputDialog::getText(this, "Add argument dialog", "Write the argument you wish to add", QLineEdit::Normal);
+        m_argumentsDropDownList->addItem(argument);
+        m_argumentsList.push_back(argument);
+    }
+    
+    void removeArgument()
+    {
+        const int currentIndex = m_argumentsDropDownList->currentIndex();
+        m_argumentsDropDownList->removeItem(currentIndex);
+        m_argumentsList.removeAt(currentIndex);
     }
     
 private:
@@ -172,9 +204,15 @@ private:
     QLabel* m_orderNameLabel;
     QLineEdit* m_orderNameEdit;
     
+    QHBoxLayout* m_argumentListDialog;
+    QComboBox* m_argumentsDropDownList;
+    QPushButton* m_argumentsRemove;
+    QPushButton* m_argumentsAdd;
+    QStringList m_argumentsList;
+    
     QHBoxLayout *m_replyDialog;
     QListWidget *m_replyFileList;
-    QTextEdit *m_replyTextView;
+    QPlainTextEdit *m_replyTextView;
     
     RwNetDataStructures::RwCommandReply* m_currentReply;
     

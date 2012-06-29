@@ -30,15 +30,15 @@ namespace RwWorkerInterface
     
     RwWorker::RwWorker()
     {
+        m_outputPathComputed = false; 
     }
     
     RwWorker::RwWorker(const QFileInfo& path)
     {
         m_path = path;
-        getOutputPath();
-    }
+        m_outputPathComputed = false;     }
     
-    RwReturnType RwWorker::getReply(RwReply& reply) const
+    RwReturnType RwWorker::getReply(RwReply& reply)
     {
         RwReturnType returnMsg = RW_NO_ERROR;
         returnMsg = returnMsg | createReply(reply);
@@ -50,26 +50,14 @@ namespace RwWorkerInterface
         return returnMsg;
     }
     
-    RwWorker::RwWorker(const RwWorker& otherWorker)
-    {
-        m_path       = otherWorker.m_path;
-        m_outputPath = otherWorker.m_outputPath;
-    }
-    
-    RwWorker& RwWorker::operator=(const RwWorker &otherWorker)
-    {
-        if (this != &otherWorker)
-        {
-            m_path = otherWorker.m_path;
-            m_outputPath = otherWorker.m_outputPath;
-        }
-        
-        return *this;
-    }
-    
     const QFileInfo& RwWorker::getPath() const
     {
         return m_path;
+    }
+    
+    void RwWorker::setPath(const QFileInfo &path)
+    {
+        m_path = path;
     }
     
     RwReturnType RwWorker::executeCommand(const RwCommand& command) const
@@ -101,11 +89,14 @@ namespace RwWorkerInterface
         return commandName;
     }
     
-    RwReturnType RwWorker::createReply(RwReply& reply) const
+    RwReturnType RwWorker::createReply(RwReply& reply)
     {
         typedef RwReply::ByteArrays ByteArrays;
         
         QFileInfoList files;
+        
+        if (!m_outputPathComputed)
+            getOutputPath();
         
         RwFileManagement::getListOfFilesInDir(m_outputPath, files);
         
@@ -132,7 +123,7 @@ namespace RwWorkerInterface
             dataFileIn.readRawData(bytes, length);
             
             
-            rawData.append(QPair<QString, QByteArray>(filePath.filePath(), QByteArray(bytes, length)));
+            rawData.append(QPair<QString, QByteArray>(filePath.fileName(), QByteArray(bytes, length)));
             delete[] bytes;
             
             dataFile.close();
@@ -149,11 +140,16 @@ namespace RwWorkerInterface
         fullPathString += PATH_SEPERATOR;
         
         m_outputPath = QFileInfo(fullPathString);
+        m_outputPathComputed = true;
     }
     
-    void RwWorker::cleanOutput() const
+    void RwWorker::cleanOutput()
     {
         QFileInfoList files;
+        
+        if (!m_outputPathComputed)
+            getOutputPath();
+        
         RwFileManagement::getListOfFilesInDir(m_outputPath, files);
         RwFileManagement::deleteFiles(files);
     }

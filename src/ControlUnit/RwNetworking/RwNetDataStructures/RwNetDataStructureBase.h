@@ -51,6 +51,7 @@ namespace RwNetworking {
             
             
         private:
+            DISALLOW_COPY_AND_ASSIGN(RwNetDataStructureBase);
             // NOTHING
             
         };

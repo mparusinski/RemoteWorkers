@@ -46,7 +46,7 @@ namespace RwNetworking {
         RwCommandRequest::RwCommandRequest(const QString& workerName, const RwCommand& command)
         {
             m_workerName = workerName;
-            m_command    = command;
+            m_command.copyFrom(command);
         }
         
         RwCommandRequest::~RwCommandRequest()
@@ -58,7 +58,7 @@ namespace RwNetworking {
             return m_workerName;
         }
         
-        RwCommand RwCommandRequest::getCommand() const {
+        const RwCommand& RwCommandRequest::getCommand() const {
             return m_command;
         }
         
@@ -69,7 +69,7 @@ namespace RwNetworking {
         
         void RwCommandRequest::setCommand(const RwWorkerInterface::RwCommand &command)
         {
-            m_command = command;
+            m_command.copyFrom(command);
         }
         
         RwReturnType RwCommandRequest::toRawData(QByteArray& rawData) const
@@ -205,7 +205,9 @@ namespace RwNetworking {
                 return RW_ERROR_READING_NETWORK_MESSAGE;
             }
             
-            m_command = RwCommand(order, argumentsList);
+            m_command.setOrder(order);
+            m_command.setArguments(argumentsList);
+
             return RW_NO_ERROR;
         }
         

@@ -31,9 +31,25 @@ namespace RwWorkerInterface
         return m_order;
     }
     
+    void RwCommand::setOrder(const QString &order)
+    {
+        m_order = order;
+    }
+    
     const QStringList& RwCommand::getArguments() const
     {
         return m_arguments;
+    }
+    
+    void RwCommand::setArguments(const QStringList &arguments)
+    {
+        m_arguments = arguments;
+    }
+    
+    void RwCommand::copyFrom(const RwWorkerInterface::RwCommand &other)
+    {
+        m_order     = other.m_order;
+        m_arguments = other.m_arguments;
     }
     
 }

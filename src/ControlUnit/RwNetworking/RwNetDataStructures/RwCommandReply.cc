@@ -185,8 +185,7 @@ namespace RwNetworking {
                     delete[] fileRawData;
                 }
                 
-                RwWorkerInterface::RwReply::ByteArrays& actualArrays = m_reply.getRawData();
-                actualArrays = arrays;
+                m_reply.setRawData(arrays);
             }
             
             char * end = 0;
@@ -241,12 +240,10 @@ namespace RwNetworking {
             if (m_isError && other.m_isError) {
                 return m_errorCode == other.m_errorCode;
             } else if (!m_isError && !other.m_isError) {
-                return m_reply.getRawData() != other.m_reply.getRawData();
+                return m_reply.getRawData() == other.m_reply.getRawData();
             } else {
                 return false;
             }
-            
-            return true;
         }
         
     }

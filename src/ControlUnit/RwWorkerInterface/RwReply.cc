@@ -61,6 +61,11 @@ namespace RwWorkerInterface
         return m_rawData;
     }
     
+    void RwReply::setRawData(const ByteArrays &rawData)
+    {
+        m_rawData = rawData;
+    }
+    
     bool RwReply::empty() const
     {
         return (m_rawData.size() == 0);

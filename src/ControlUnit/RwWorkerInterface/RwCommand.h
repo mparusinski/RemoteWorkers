@@ -40,13 +40,31 @@ namespace RwWorkerInterface
         const QString& getOrder() const;
         
         /////////////////////////////////////////////////////////////////////////////////
+        /// \brief     Sets the order of the command
+        /// \param[in] order A string representing the order
+        /////////////////////////////////////////////////////////////////////////////////
+        void setOrder(const QString& order);
+        
+        /////////////////////////////////////////////////////////////////////////////////
         /// \brief     Returns the list of arguments the real command needs to receive
         /// \return    A list of arguments
         /////////////////////////////////////////////////////////////////////////////////
         const QStringList& getArguments() const;
         
+        /////////////////////////////////////////////////////////////////////////////////
+        /// \brief     Sets the arguments of the command
+        /// \param[in] arguments List of arguments
+        /////////////////////////////////////////////////////////////////////////////////
+        void setArguments(const QStringList& arguments);
+        
+        /////////////////////////////////////////////////////////////////////////////////
+        /// \brief     Copies the command from another
+        /// \param[in] other Object to copy from
+        /////////////////////////////////////////////////////////////////////////////////
+        void copyFrom(const RwCommand& other);
+        
     private:
-        // DISALLOW_COPY_AND_ASSIGN(RwCommand);
+        DISALLOW_COPY_AND_ASSIGN(RwCommand);
         QString m_order;
         QStringList m_arguments;
     };

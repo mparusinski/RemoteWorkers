@@ -54,7 +54,7 @@ namespace RwWorkerInterface
             {
                 QString fullPath = m_pathToWorkers.filePath();
                 fullPath += currentWorkerName;
-                worker = RwWorker(QFileInfo(fullPath));
+                worker.setPath(fullPath);
                 return RW_NO_ERROR;
             }
         }

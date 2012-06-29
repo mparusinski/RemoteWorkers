@@ -38,9 +38,6 @@ namespace RwWorkerInterface
         explicit RwWorker(const QFileInfo& path);
         virtual ~RwWorker() { }
         
-        RwWorker(const RwWorker& otherWorker);
-        RwWorker& operator=(const RwWorker& otherWorker);
-        
         ////////////////////////////////////////////////////////////////////////////////
         /// \brief       Get the reply from worker (which is present of the disk). Reply
         ///              will be empty if the worker has not executed a command. After
@@ -48,7 +45,7 @@ namespace RwWorkerInterface
         ///              corresponding to the reply. So this can be called only once.
         /// \param[out]  reply Reply corresponding to output of the worker.
         ////////////////////////////////////////////////////////////////////////////////
-        RwReturnType getReply(RwReply& reply) const;
+        RwReturnType getReply(RwReply& reply);
         
         ////////////////////////////////////////////////////////////////////////////////
         /// \brief     Worker will execute the command represented by the input and
@@ -64,12 +61,20 @@ namespace RwWorkerInterface
         ////////////////////////////////////////////////////////////////////////////////
         const QFileInfo& getPath() const;
         
+        ////////////////////////////////////////////////////////////////////////////////
+        /// \brief     Set the worker path (and automatically the output path)
+        ////////////////////////////////////////////////////////////////////////////////
+        void setPath(const QFileInfo& path);
+        
     private:
+        DISALLOW_COPY_AND_ASSIGN(RwWorker);
         
         QString commandToString(const RwCommand& command) const;
-        RwReturnType createReply(RwReply& reply) const;
+        RwReturnType createReply(RwReply& reply);
         void getOutputPath();
-        void cleanOutput() const;
+        void cleanOutput();
+        
+        bool m_outputPathComputed;
         
         QFileInfo m_path;
         QFileInfo m_outputPath;

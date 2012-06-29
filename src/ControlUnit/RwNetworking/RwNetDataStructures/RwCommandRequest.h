@@ -53,7 +53,7 @@ namespace RwNetworking {
             /// \brief Return the command represented by the command
             /// \return The command
             ////////////////////////////////////////////////////////////////////////////////
-            RwCommand getCommand() const;
+            const RwCommand& getCommand() const;
             
             ////////////////////////////////////////////////////////////////////////////////
             /// \brief Sets the command
