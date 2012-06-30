@@ -1,6 +1,6 @@
 /* 
 
-RwCommandClientLocal.h: Client for RwCommandServerLocal
+RwCommandClientLocal.h: Client for RwCommandServerLocal.
 
 As part of the RemoteWorkers program which creates a framework for remote
 management of laptops, desktop and servers. 
@@ -28,8 +28,8 @@ namespace RwNetworking  {
     namespace RwClients {
         
         ////////////////////////////////////////////////////////////////////////////////
-        /// \brief This class represents a local client. This allows to interact with 
-        ///        the server even outside the network. Use it with RwCommandServerLocal
+        /// \brief This class represents a local socket to a local Command Server.
+        ///        Use only in conjunction with RwCommandServerLocal
         ////////////////////////////////////////////////////////////////////////////////
         class RwCommandClientLocal : public QObject {
             
@@ -40,36 +40,56 @@ namespace RwNetworking  {
             ~RwCommandClientLocal();
             
             ////////////////////////////////////////////////////////////////////////////////
-            /// \brief Connects to server
+            /// \brief Connects to local server at server name (given at construction).
             ////////////////////////////////////////////////////////////////////////////////
             void connectToServer();
             
             ////////////////////////////////////////////////////////////////////////////////
-            /// \brief Disconnects from server
+            /// \brief Disconnects from local server.
             ////////////////////////////////////////////////////////////////////////////////
             void disconnectFromServer();
             
             ////////////////////////////////////////////////////////////////////////////////
-            /// \brief Sends a request to server if connected
+            /// \brief Sends a request to the local server if connected
             /// \param[in]  request Request to be procesed by remote server
-            /// \return error code corresponding to success or not
+            /// \return An error code corresponding to success or not
             ////////////////////////////////////////////////////////////////////////////////
             RwReturnType sendRequest(const RwNetDataStructures::RwCommandRequest& request);
             
             ////////////////////////////////////////////////////////////////////////////////
-            /// \brief Gets the reply back when available. (BLOCKING)
-            /// \param[out] reply   Reply obtained from request
-            /// \return error code corresponding to success or not
+            /// \brief Gets the reply back when available. Should be called after sendRequest
+            ///        and only when the read signal was emitted.
+            /// \param[out] reply  Reply obtained from request
+            /// \return An error code corresponding to success or not
             ////////////////////////////////////////////////////////////////////////////////
             RwReturnType getReply(RwNetDataStructures::RwCommandReply& reply);
             
             public slots:
+            
+            ////////////////////////////////////////////////////////////////////////////////
+            /// \brief Slot for when the client successfully connects
+            ////////////////////////////////////////////////////////////////////////////////
             void clientConnected();
+            
+            ////////////////////////////////////////////////////////////////////////////////
+            /// \brief Slot for when the client disconnects from server
+            ////////////////////////////////////////////////////////////////////////////////
             void clientDisconnected();
+            
+            ////////////////////////////////////////////////////////////////////////////////
+            /// \brief Slot for when something is available from the server
+            ////////////////////////////////////////////////////////////////////////////////
             void readReady();
+            
+            ////////////////////////////////////////////////////////////////////////////////
+            /// \brief Slot for when something goes wrong with the connection
+            ////////////////////////////////////////////////////////////////////////////////
             void clientError(QLocalSocket::LocalSocketError socketError);
             
         signals:
+            ////////////////////////////////////////////////////////////////////////////////
+            /// \brief Signal representing a reply 
+            ////////////////////////////////////////////////////////////////////////////////
             void replyReady();
             
         private:

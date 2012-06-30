@@ -138,8 +138,10 @@ public:
         
         QString workerName = m_workerNameEdit->text();
         QString order      = m_orderNameEdit->text();
+    
+        RwWorkerInterface::RwCommand command(order, m_argumentsList);
+        RwNetDataStructures::RwCommandRequest request(workerName, command);
         
-        RwNetDataStructures::RwCommandRequest request(workerName, RwWorkerInterface::RwCommand(order, m_argumentsList));
         m_localClient->sendRequest(request);
     }
     

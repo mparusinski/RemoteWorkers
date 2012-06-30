@@ -1,6 +1,6 @@
 /* 
 
-RwCommandServerLocal.h: Emulates a local command server
+RwCommandServerLocal.h: Command Server over Local pipes. The command server handles requests and sends back replies
 
 As part of the RemoteWorkers program which creates a framework for remote
 management of laptops, desktop and servers. 
@@ -30,8 +30,10 @@ namespace RwNetworking {
     namespace RwServers {
         
         ////////////////////////////////////////////////////////////////////////////////
-        /// \brief This class represents a local server. This allows to interact with 
-        ///        the software even outside the network
+        /// \brief This class implements a Command Server using Local pipes.
+        ///        Command Servers handles requests and sends back responses.
+        ///        The server should run in a seperate thread.
+        ///        Can not be used over the network. Useful for testing.
         ////////////////////////////////////////////////////////////////////////////////
         class RwCommandServerLocal : public RwCommandServerBase
         {
@@ -42,21 +44,25 @@ namespace RwNetworking {
             virtual ~RwCommandServerLocal();
             
             ////////////////////////////////////////////////////////////////////////////////
-            /// \brief  Starts listening for commands
+            /// \brief Starts the server which listens for requests.
             ////////////////////////////////////////////////////////////////////////////////
             virtual void start();
             
             ////////////////////////////////////////////////////////////////////////////////
-            /// \brief  Close the server
+            /// \brief Stops the server which listens no more for requests
             ////////////////////////////////////////////////////////////////////////////////
             virtual void stop();
             
             ////////////////////////////////////////////////////////////////////////////////
-            /// \brief  Checks if the server is running
+            /// \brief Checks if the server is currently running.
             ////////////////////////////////////////////////////////////////////////////////
             virtual bool isRunning() const;
             
             public slots:
+            
+            ////////////////////////////////////////////////////////////////////////////////
+            /// \brief Slot dedicated to process the connection when received from server.
+            ////////////////////////////////////////////////////////////////////////////////
             void processConnection();
             
         private:

@@ -1,6 +1,7 @@
 /* 
 
-RwCommandServerBase.h: Interface to the network socket
+RwCommandServerBase.h: Abstract base class for the functionality of the command server
+                       The command server handles requests and sends back replies
 
 As part of the RemoteWorkers program which creates a ramework for remote
 management of laptops,desktop and servers. 
@@ -28,9 +29,9 @@ namespace RwNetworking {
     namespace RwServers {
         
         ////////////////////////////////////////////////////////////////////////////////
-        /// \brief This abstract class is an interface for basic server functionality
-        ///        required for the Command Server (listening for commands)
-        ///        Should not be instantiated
+        /// \brief This abstract class is a base class for all Command Server.
+        ///        Command Servers handles requests and sends back responses.
+        ///        The server should run in a seperate thread.
         ////////////////////////////////////////////////////////////////////////////////
         class RwCommandServerBase : public QObject {
             
@@ -41,30 +42,43 @@ namespace RwNetworking {
             virtual ~RwCommandServerBase();
             
             ////////////////////////////////////////////////////////////////////////////////
-            /// \brief  Starts listening for commands
+            /// \brief  Starts the server which listens for requests.
             ////////////////////////////////////////////////////////////////////////////////
             virtual void start() = 0;
             
             ////////////////////////////////////////////////////////////////////////////////
-            /// \brief  Close the server
+            /// \brief  Stops the server which listens no more for requests
             ////////////////////////////////////////////////////////////////////////////////
             virtual void stop() = 0;
             
             ////////////////////////////////////////////////////////////////////////////////
-            /// \brief  Checks if the server is running
+            /// \brief  Checks if the server is currently running.
             ////////////////////////////////////////////////////////////////////////////////
             virtual bool isRunning() const = 0;
             
             ////////////////////////////////////////////////////////////////////////////////
             /// \brief  Returns the name of the server
-            /// \return Return the name of the server
             ////////////////////////////////////////////////////////////////////////////////
             QString getServerName() const;
             
         protected:
             QString m_serverName;
             
+            ////////////////////////////////////////////////////////////////////////////////
+            /// \brief  Process the data, the data coming in represents the request,
+            ///         the data coming represents the response. Each in raw format.
+            /// \param[in]  in  Represents the request in raw format
+            /// \param[out] out Represents the response in raw format
+            /// \return Returns an error code telling if any error did occur
+            ////////////////////////////////////////////////////////////////////////////////
             RwReturnType processData(const QByteArray& in, QByteArray& out) const;
+            
+            ////////////////////////////////////////////////////////////////////////////////
+            /// \brief  Executes the request and return the response
+            /// \param[in]  request  Represents the request
+            /// \param[out] reply    Represents the response
+            /// \return Returns an error code telling if any error did occur
+            ////////////////////////////////////////////////////////////////////////////////
             RwReturnType executeRequest(const RwNetDataStructures::RwCommandRequest& request, RwNetDataStructures::RwCommandReply& reply) const;
             
         private:

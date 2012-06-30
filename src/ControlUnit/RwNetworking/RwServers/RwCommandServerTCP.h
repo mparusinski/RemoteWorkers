@@ -1,6 +1,6 @@
 /* 
 
-RwCommandSeverTCP.h: Listens for command over TCP
+RwCommandSeverTCP.h: Command Server over TCP. The command server handles requests and sends back replies
 
 As part of the RemoteWorkers program which creates a framework for remote
 management of laptops, desktop and servers. 
@@ -25,7 +25,9 @@ namespace RwNetworking {
     namespace RwServers {
         
         ////////////////////////////////////////////////////////////////////////////////
-        /// \brief Command Server which intercepts commands through a TCP Socket
+        /// \brief This class implements a Command Server using TCP.
+        ///        Command Servers handles requests and sends back responses.
+        ///        The server should run in a seperate thread.
         ////////////////////////////////////////////////////////////////////////////////
         class RwCommandServerTCP : public RwCommandServerBase {
             

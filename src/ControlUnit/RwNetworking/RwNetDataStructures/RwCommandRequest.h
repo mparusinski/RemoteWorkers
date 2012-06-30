@@ -27,9 +27,9 @@ namespace RwNetworking {
     namespace RwNetDataStructures {
         
         ////////////////////////////////////////////////////////////////////////////////
-        /// \brief RwCommandRequest represents command a remote worker needs to execute
+        /// \brief RwCommandRequest represents a command to a remote worker.
         ///        The main purpose of this object is to convert the request into
-        ///        a suitable byte array.
+        ///        a suitable byte array, which can be sent over the network.
         ////////////////////////////////////////////////////////////////////////////////
         class RwCommandRequest : public RwNetDataStructureBase {
             
@@ -45,12 +45,12 @@ namespace RwNetworking {
             QString getWorkerName() const;
             
             ////////////////////////////////////////////////////////////////////////////////
-            /// \brief Sets the worker name
+            /// \brief Sets the worker name in the request
             ////////////////////////////////////////////////////////////////////////////////
             void setWorkerName(const QString& workerName);
             
             ////////////////////////////////////////////////////////////////////////////////
-            /// \brief Return the command represented by the command
+            /// \brief Return the command represented by the request
             /// \return The command
             ////////////////////////////////////////////////////////////////////////////////
             const RwCommand& getCommand() const;
@@ -62,7 +62,7 @@ namespace RwNetworking {
             
             ////////////////////////////////////////////////////////////////////////////////
             /// \brief Converts the request from raw data
-            /// \param[int] rawData rawData representing the request
+            /// \param[in] rawData rawData representing the request
             /// \return Error code
             ////////////////////////////////////////////////////////////////////////////////
             virtual RwReturnType fromRawData(const QByteArray& rawData);

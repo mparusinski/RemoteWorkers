@@ -1,6 +1,7 @@
 /* 
 
-RwCommandServerSSL.h: Ssl version of the network socket
+ RwCommandServerSSL.h: Command Server over SSL/TLS. The command server handles requests and sends back replies
+
 
 As part of the RemoteWorkers program which creates a ramework for remote
 management of laptops,desktop and servers. 
@@ -25,7 +26,9 @@ namespace RwNetworking {
     namespace RwServers {
         
         ////////////////////////////////////////////////////////////////////////////////
-        /// \brief Command Server which intercepts commands through a TCP Socket
+        /// \brief This class implements a Command Server using SSL/TLS.
+        ///        Command Servers handles requests and sends back responses.
+        ///        The server should run in a seperate thread.
         ////////////////////////////////////////////////////////////////////////////////
         class RwCommandServerSSL : public RwCommandServerBase {
             

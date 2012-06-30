@@ -1,6 +1,6 @@
 /* 
 
-RwCommandReply.h: Represents a reply from server after a worker executes a command
+RwCommandReply.h: Represents a reply from server after a worker executed a command
 
 As part of the RemoteWorkers program which creates a framework for remote
 management of laptops, desktop and servers. 
@@ -27,7 +27,7 @@ namespace RwNetworking {
     namespace RwNetDataStructures {
         
         ////////////////////////////////////////////////////////////////////////////////
-        /// \brief RwCommandReply represents the reply after executing a worker
+        /// \brief Class representing a reply from the main server
         ////////////////////////////////////////////////////////////////////////////////
         class RwCommandReply : public RwNetDataStructureBase {
             
@@ -45,7 +45,7 @@ namespace RwNetworking {
             
             ////////////////////////////////////////////////////////////////////////////////
             /// \brief Turns the reply structure into a reply.
-            /// \param[in]  errorCode Error code
+            /// \param[in] errorCode Error code
             ////////////////////////////////////////////////////////////////////////////////
             void setReply(const RwWorkerInterface::RwReply& reply);
             

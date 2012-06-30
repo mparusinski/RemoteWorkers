@@ -1,6 +1,6 @@
 /* 
 
-RwNetDataStructureBase.h: Defines a common interface to basic data structures
+RwNetDataStructureBase.h: Defines a common interface to basic data structures used in networking
 
 As part of the RemoteWorkers program which creates a framework for remote
 management of laptops, desktop and servers. 
@@ -27,7 +27,7 @@ namespace RwNetworking {
     namespace RwNetDataStructures {
         
         ////////////////////////////////////////////////////////////////////////////////
-        /// \brief This class is an interface to net data structures. This class is abstract
+        /// \brief This is an abstract interface to data structures used in networking.
         ////////////////////////////////////////////////////////////////////////////////
         class RwNetDataStructureBase {
           
@@ -36,16 +36,16 @@ namespace RwNetworking {
             virtual ~RwNetDataStructureBase();
             
             ////////////////////////////////////////////////////////////////////////////////
-            /// \brief Reads a reply from raw data
-            /// \param[in]  rawData The raw data representing the CommandReply
-            /// \return An error code representing the error occurred
+            /// \brief Creates the data structure from an array of bytes (raw data)
+            /// \param[in] rawData The raw data representing the data structure
+            /// \return An error code if an error occurred
             ////////////////////////////////////////////////////////////////////////////////
             virtual RwReturnType fromRawData(const QByteArray &rawData) = 0;
             
             ////////////////////////////////////////////////////////////////////////////////
-            /// \brief Converts the request to raw data
-            /// \param[out]  rawData The raw data representing the CommandRequest
-            /// \return An error code representing the error occurred
+            /// \brief Converts the data structure from an array of bytes (raw data)
+            /// \param[out] rawData The raw data representing the data structure
+            /// \return An error code if an error occurred
             ////////////////////////////////////////////////////////////////////////////////
             virtual RwReturnType toRawData(QByteArray& rawData) const = 0;
             
