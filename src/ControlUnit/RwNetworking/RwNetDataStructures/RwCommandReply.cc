@@ -19,9 +19,8 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 22/06/2012.
 
 #define REPLY_BEGIN "REPLY_BEGIN"
 #define REPLY_TYPE "REPLY_TYPE"
-#define REPLY_FILES_NUMBER "NUMBER_OF_FILES"
-#define REPLY_FILE "FILE"
-#define REPLY_CONTENT_SIZE "CONTENT_SIZE"
+#define REPLY_FILES_NUMBER "REPLY_FILES_NUMBER"
+#define REPLY_FILE "REPLY_FILE"
 #define REPLY_END "REPLY_END"
 
 using namespace RwUtils::RwLog;

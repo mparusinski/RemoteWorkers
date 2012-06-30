@@ -62,7 +62,12 @@ namespace RwNetworking {
             RwReturnType errorCode = RW_NO_ERROR;
             
             RwWorker worker;
-            RwManagement::getInstance()->createWorker(request.getWorkerName(), worker);
+            errorCode = RwManagement::getInstance()->createWorker(request.getWorkerName(), worker);
+            
+            if (errorCode != RW_NO_ERROR) {
+                rwError() << "The worker " << request.getWorkerName() << " was not found" << endLine();
+                return errorCode;
+            }
             
             errorCode = worker.executeCommand(request.getCommand());
             
