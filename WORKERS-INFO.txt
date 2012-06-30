@@ -27,3 +27,25 @@ Naming:
 1) Each argument is a word on its own
 2) No arguments is allowed
 2) Commands and the worker name are words on there own
+
+==== REQUEST FORMAT ====
+
+1) Starts with REQUEST_BEGIN
+2) Parameter REQUEST_RW_VERSION followed by the version expected in 64 double bit format
+3) Parameter REQUEST_WORKER followed by the worker name (a string)
+4) Parameter REQUEST_ORDER followed by the order name
+5) Parameter REQUEST_ARG_NUMBER followed by the number of arguments
+6) For each argument the argument number (int) and the argument name (string)
+7) Ends with REQUEST_END
+
+=== REPLY FORMAT ====
+
+1) Starts with REPLY_BEGIN
+2) Continues with REPLY_TYPE following an int
+-> If value is 1 then it is ERROR_TYPE
+   a) Continues with value of the error (qint32)
+-> If value is 0 then it is a proper reply
+   a) Starts with REPLY_FILES_NUMBER followed by the number of reply files (int)
+   b) Continues with REPLY_FILE followed by the file name (string) then the file size (int) then the file raw byte content
+     -- Done for each file
+3) Ends with REPLY_END
