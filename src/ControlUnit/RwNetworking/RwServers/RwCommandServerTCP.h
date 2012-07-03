@@ -38,6 +38,21 @@ namespace RwNetworking {
             RwCommandServerTCP(QObject* parent, const QString& name);
             virtual ~RwCommandServerTCP();
             
+            ////////////////////////////////////////////////////////////////////////////////
+            /// \brief  Starts the server which listens for requests.
+            ////////////////////////////////////////////////////////////////////////////////
+            virtual void start();
+            
+            ////////////////////////////////////////////////////////////////////////////////
+            /// \brief  Stops the server which listens no more for requests
+            ////////////////////////////////////////////////////////////////////////////////
+            virtual void stop();
+            
+            ////////////////////////////////////////////////////////////////////////////////
+            /// \brief  Checks if the server is currently running.
+            ////////////////////////////////////////////////////////////////////////////////
+            virtual bool isRunning() const;
+            
         private:
             virtual void abstract() {}
             DISALLOW_COPY_AND_ASSIGN(RwCommandServerTCP);

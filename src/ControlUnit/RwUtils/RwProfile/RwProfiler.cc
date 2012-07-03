@@ -12,6 +12,9 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 19/05/2012.
 
 #include "RwProfiler.h"
 
+#include <cstdlib>
+#include <cstdio>
+
 namespace RwUtils
 {
     namespace RwProfile
