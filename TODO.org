@@ -8,11 +8,8 @@
 
 * TODO Test on other platforms
 ** DONE MacOSX
-** DONE Ubuntu 12.04
-** TODO Mint Cinnamon
-** TODO Mint KDE
+** DONE Mint Cinnamon
 ** TODO Win 7
-** TODO Win XP
 
 * DONE Features
 
