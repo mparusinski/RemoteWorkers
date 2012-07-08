@@ -22,7 +22,7 @@ SET(RwWorkerInterface_SOURCES
   RwManagement.cc
 )
 
-ADD_LIBRARY(RwWorkerInterface
+ADD_LIBRARY(RwWorkerInterface STATIC 
   ${RwWorkerInterface_SOURCES} ${RwWorkerInterface_HEADERS})
 
 TARGET_LINK_LIBRARIES(RwWorkerInterface RwLog)
