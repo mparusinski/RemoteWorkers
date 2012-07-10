@@ -19,6 +19,7 @@ ENDIF(NOT APPLE AND UNIX)
 
 IF(WIN32)
   MESSAGE("Windows system detected")
+  LINK_DIRECTORIES(C:/QtSDK/Desktop/Qt/4.8.1/mingw/lib/) #Quick fix
 ENDIF(WIN32)
 
 MESSAGE("Setting up QT4")
