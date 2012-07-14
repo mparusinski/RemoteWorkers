@@ -10,7 +10,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 14/05/2012.
 
 */
 
-#include "RwCommandServerSsl.h"
+#include "RwCommandServerSSL.h"
 
 namespace RwNetworking {
     
