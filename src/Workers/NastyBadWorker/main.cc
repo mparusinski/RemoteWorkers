@@ -108,10 +108,12 @@ int main(int argc, char* argv[])
 {
     srand(time(NULL)); // init random
     
-    QDir currentDir;
+    QFileInfo executableFile(argv[0]);
+    QDir currentDir(executableFile.dir());
+    
     if (!currentDir.cd("output"))
     {
-        fprintf(stderr, "No output folder");
+        fprintf(stderr, "No output folder\n");
         return -1;
     }
     
