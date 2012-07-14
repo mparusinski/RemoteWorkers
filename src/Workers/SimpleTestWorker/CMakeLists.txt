@@ -9,9 +9,9 @@ LINK_DIRECTORIES(
 FILE( MAKE_DIRECTORY ${RemoteWorkers_Workers_BINARY_DIR}/SimpleTestWorker/output )
 
 SET(SimpleTestWorkerSRC
-  SimpleTestWorker.hpp
-  SimpleTestWorker.cpp
-  main.cpp
+  SimpleTestWorker.h
+  SimpleTestWorker.cc
+  main.cc
 )
 
 ADD_EXECUTABLE(SimpleTestWorker

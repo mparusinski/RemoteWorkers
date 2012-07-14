@@ -1,6 +1,6 @@
 /* 
 
-SimpleTestWorker.hpp: Class file for simple test worker that generates a generic output
+SimpleTestWorker.h: Class file for simple test worker that generates a generic output
 
 As part of the RemoteWorkers program which creates a framework for remote
 management of laptops, desktop and servers. 
@@ -10,8 +10,8 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 17/05/2012.
 
 */
 
-#ifndef _SIMPLETESTWORKER_HPP_
-#define _SIMPLETESTWORKER_HPP_
+#ifndef _SIMPLETESTWORKER_H_
+#define _SIMPLETESTWORKER_H_
 
 #include <string>
 
@@ -29,4 +29,4 @@ public:
 private:
 };
 
-#endif // _SIMPLETESTWORKER_HPP_
+#endif // _SIMPLETESTWORKER_H_

@@ -10,7 +10,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 17/05/2012.
 
 */
 
-#include "SimpleTestWorker.hpp"
+#include "SimpleTestWorker.h"
 
 #include <iostream>
 #include <fstream>

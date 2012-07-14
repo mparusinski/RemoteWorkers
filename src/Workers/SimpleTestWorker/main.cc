@@ -16,7 +16,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 17/05/2012.
 #include <QFileInfo>
 #include <QDir>
 
-#include "SimpleTestWorker.hpp"
+#include "SimpleTestWorker.h"
 
 #if defined(__APPLE__) || defined(__unix__)
 	#define PATH_SEPARATOR "/"
