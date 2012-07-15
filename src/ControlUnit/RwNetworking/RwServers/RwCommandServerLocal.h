@@ -58,7 +58,7 @@ namespace RwNetworking {
             ////////////////////////////////////////////////////////////////////////////////
             virtual bool isRunning() const;
             
-            public slots:
+        public slots:
             
             ////////////////////////////////////////////////////////////////////////////////
             /// \brief Slot dedicated to process the connection when received from server.
@@ -71,7 +71,7 @@ namespace RwNetworking {
             
             void init();
             
-            bool m_pendingConnection;
+            QString m_serverName;
             QLocalServer* m_localServer;
             QLocalSocket* m_currentConnection;
         };

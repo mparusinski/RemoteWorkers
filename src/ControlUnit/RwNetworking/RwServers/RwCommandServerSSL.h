@@ -36,7 +36,7 @@ namespace RwNetworking {
             
         public:
             
-            RwCommandServerSSL(QObject* parent, const QString& name);
+            RwCommandServerSSL(QObject* parent);
             virtual ~RwCommandServerSSL();
             
         private:

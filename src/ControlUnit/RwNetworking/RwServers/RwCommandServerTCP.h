@@ -18,6 +18,9 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 22/06/2012.
 #include "RwUtils/RwGlobal/RwReturn.h"
 #include "RwUtils/RwGlobal/RwClasses.h"
 
+#include <QTcpServer>
+#include <QTcpSocket>
+
 using namespace RwUtils::RwGlobal;
 
 namespace RwNetworking {
@@ -35,7 +38,7 @@ namespace RwNetworking {
             
         public:
             
-            RwCommandServerTCP(QObject* parent, const QString& name);
+            RwCommandServerTCP(QObject* parent, const int portNumber);
             virtual ~RwCommandServerTCP();
             
             ////////////////////////////////////////////////////////////////////////////////
@@ -53,10 +56,18 @@ namespace RwNetworking {
             ////////////////////////////////////////////////////////////////////////////////
             virtual bool isRunning() const;
             
+        public slots:
+            void processConnection(void);
+            
         private:
             virtual void abstract() {}
             DISALLOW_COPY_AND_ASSIGN(RwCommandServerTCP);
             
+            void init();
+            
+            int m_portNumber;
+            QTcpServer* m_tcpServer;
+            QTcpSocket* m_currentConnection;
         };
         
     }

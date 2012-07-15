@@ -15,7 +15,8 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 14/05/2012.
 #define _RWNETWORKING_RWSERVERS_RWCOMMANDSERVERBASE_H_
 
 #include <QString>
-#include <QThread>
+#include <QAbstractSocket>
+#include <QLocalSocket>
 
 #include "RwUtils/RwGlobal/RwClasses.h"
 
@@ -38,7 +39,7 @@ namespace RwNetworking {
             Q_OBJECT
             
         public:
-            RwCommandServerBase(QObject* parent, const QString& name);
+            RwCommandServerBase(QObject* parent);
             virtual ~RwCommandServerBase();
             
             ////////////////////////////////////////////////////////////////////////////////
@@ -56,13 +57,8 @@ namespace RwNetworking {
             ////////////////////////////////////////////////////////////////////////////////
             virtual bool isRunning() const = 0;
             
-            ////////////////////////////////////////////////////////////////////////////////
-            /// \brief  Returns the name of the server
-            ////////////////////////////////////////////////////////////////////////////////
-            QString getServerName() const;
-            
         protected:
-            QString m_serverName;
+            bool m_pendingConnection;
             
             ////////////////////////////////////////////////////////////////////////////////
             /// \brief  Process the data, the data coming in represents the request,
@@ -81,9 +77,17 @@ namespace RwNetworking {
             ////////////////////////////////////////////////////////////////////////////////
             RwReturnType executeRequest(const RwNetDataStructures::RwCommandRequest& request, RwNetDataStructures::RwCommandReply& reply) const;
             
+            ////////////////////////////////////////////////////////////////////////////////
+            /// \brief  Processes the connection regardless of the type of socket
+            /// \param[in] abstractSocket Represents the socket to be handled
+            ////////////////////////////////////////////////////////////////////////////////
+            template <typename SocketType>
+            void abstractProcessConnection(SocketType* abstractSocket) const;
+            
         private:
             virtual void abstract() = 0;
             DISALLOW_COPY_AND_ASSIGN(RwCommandServerBase);
+            
         };
         
     }

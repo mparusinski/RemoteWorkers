@@ -1,6 +1,6 @@
 /* 
 
-RwCommandServerSsl.cc: Ssl version of the network socket
+RwCommandServerSSL.cc: Ssl version of the network socket
 
 As part of the RemoteWorkers program which creates a ramework for remote
 management of laptops,desktop and servers. 
@@ -16,8 +16,8 @@ namespace RwNetworking {
     
     namespace RwServers {
         
-        RwCommandServerSSL::RwCommandServerSSL(QObject* parent, const QString& serverName) 
-        : RwCommandServerBase(parent, serverName)
+        RwCommandServerSSL::RwCommandServerSSL(QObject* parent) 
+        : RwCommandServerBase(parent)
         {
             
         }

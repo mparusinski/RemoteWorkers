@@ -26,20 +26,15 @@ namespace RwNetworking {
     
     namespace RwServers {
         
-        RwCommandServerBase::RwCommandServerBase(QObject* parent, const QString& serverName) 
+        RwCommandServerBase::RwCommandServerBase(QObject* parent) 
         : QObject(parent)
         {
-            m_serverName = serverName;
+
         }
         
         RwCommandServerBase::~RwCommandServerBase()
         {
             
-        }
-        
-        QString RwCommandServerBase::getServerName() const
-        {
-            return m_serverName;
         }
         
         RwReturnType RwCommandServerBase::processData(const QByteArray &in, QByteArray &out) const
@@ -89,6 +84,32 @@ namespace RwNetworking {
             }
             
             return errorCode;
+        }
+        
+        template <typename SocketType>
+        void RwCommandServerBase::abstractProcessConnection(SocketType *abstractSocket) const
+        {
+            QObject::connect(abstractSocket, SIGNAL(disconnected()), 
+                             abstractSocket, SLOT(deleteLater()));
+            
+            while (abstractSocket->bytesAvailable() < (int)sizeof(quint32)) // waiting for at least 32 bits of data
+                abstractSocket->waitForReadyRead();
+            
+            // RECEIVING DATA
+            QByteArray receivedData = abstractSocket->readAll(); // This may be dangerous
+            QByteArray responseData;
+            RwReturnType errorCode = processData(receivedData, responseData);
+            
+            if (errorCode != RW_NO_ERROR)
+            {   
+                // ERROR WILL ALREADY BEEN REPORTED
+                return;
+            }
+            
+            // SENDING RAW DATA
+            abstractSocket->write(responseData);
+            
+            delete abstractSocket;
         }
         
     }

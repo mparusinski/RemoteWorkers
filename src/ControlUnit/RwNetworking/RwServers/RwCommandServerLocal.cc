@@ -25,10 +25,10 @@ namespace RwNetworking {
     namespace RwServers {
         
         RwCommandServerLocal::RwCommandServerLocal(QObject* parent, const QString& serverName) : 
-        RwCommandServerBase(parent, serverName)
+        RwCommandServerBase(parent)
         {
+            m_serverName = serverName;
             m_localServer = new QLocalServer(this);
-            m_pendingConnection = false;
         }
         
         RwCommandServerLocal::~RwCommandServerLocal()
@@ -40,8 +40,7 @@ namespace RwNetworking {
         {
             if ( isRunning() )
             {
-                rwError() << "A local server with name " << getServerName() << " has already started" << endLine();
-                return;
+                rwWarning() << "Server already running -> closing" << endLine();
             }
             
             QLocalServer::removeServer(m_serverName);
@@ -57,46 +56,19 @@ namespace RwNetworking {
         
         void RwCommandServerLocal::stop()
         {
-            if (m_localServer != 0)
-            {
-                m_localServer->close();
-            }
+            m_localServer->close();
         }
         
         bool RwCommandServerLocal::isRunning() const
         {
-            if (m_localServer != 0)
-            {
-                return m_localServer->isListening();
-            }
-            return false;
+            return m_localServer->isListening();
         }
         
         void RwCommandServerLocal::processConnection()
         {
-            m_pendingConnection = true;
-            
             // ESTABLISHING CONNECTION
             m_currentConnection = m_localServer->nextPendingConnection();
-            QObject::connect(m_currentConnection, SIGNAL(disconnected()), 
-                             m_currentConnection, SLOT(deleteLater()));
-            
-            while (m_currentConnection->bytesAvailable() < (int)sizeof(quint32))
-                   m_currentConnection->waitForReadyRead();
-            
-            // RECEIVING DATA
-            QByteArray receivedData = m_currentConnection->readAll(); // This may be dangerous
-            QByteArray responseData;
-            RwReturnType errorCode = processData(receivedData, responseData);
-            
-            if (errorCode != RW_NO_ERROR)
-            {
-                rwError() << "Some error happened sending upwards" << endLine();
-            }
-            
-            // SENDING RAW DATA
-            m_currentConnection->write(responseData);
-            m_pendingConnection = false;
+            abstractProcessConnection<QLocalSocket>(m_currentConnection);
         }
         
         void RwCommandServerLocal::init()
