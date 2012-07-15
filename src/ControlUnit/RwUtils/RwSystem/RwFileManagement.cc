@@ -31,7 +31,7 @@ namespace RwUtils
         {
             if (directory.exists() && directory.isDir())
             {
-                const QDir directoryReal(directory.absolutePath());
+                const QDir directoryReal(directory.filePath());
                 files = directoryReal.entryInfoList(QDir::Files);
                 return RW_NO_ERROR;
             }
@@ -48,7 +48,7 @@ namespace RwUtils
         {
             if (directory.exists() && directory.isDir())
             {
-                const QDir directoryReal(directory.absolutePath());
+                const QDir directoryReal(directory.filePath());
                 directories = directoryReal.entryInfoList(QDir::Dirs);
                 return RW_NO_ERROR;
             }
