@@ -12,10 +12,11 @@
 ** TODO Win 7
 
 * DONE Features
-
 ** DONE Special return statuses (can be sent to remote device)
-** TODO Local server for remote Workers
-** TODO Remove server for remote Worker
+** TODO Interface
+*** TODO Plan the rudimentary interface
+** DONE Local server for remote Workers
+** TODO Remote server for remote Worker
 * TODO Workers
 ** TODO Enforce contraints more properly:
    -> Check worker exists
