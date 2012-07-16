@@ -1,0 +1,8 @@
+* Modularity
+  The core idea behing Remote Workers is that interactions between a mobile device and a dekstop/laptop/server should be seperated into two seperate parts:
+  -> The communication part
+  -> The functionality part
+  Remote workers implements a communication layer between the mobile device and the remote computer and allows the remote device to send commands to remote Workers which are responsible for the functionality part.
+
+* Simplicity
+  The Remote Worker software shouldn't do any magic. All functionality should be handled by Remote Workers.

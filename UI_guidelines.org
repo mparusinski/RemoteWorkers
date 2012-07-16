@@ -1,0 +1,138 @@
+This document is in two parts. The first part gives the guidelines
+from different organisations. The second part gives guidelines for
+this software in particular. The second part is based on the first part.
+
+==== VARIOUS GUIDELINES ====
+
+Find here a collection of guidelines from different organisations. All
+the guidelines concern this software, and should be taken literaly and
+not as advice
+
+* OS Independent Guidelines
+** QT Guidelines
+*** Text guidelines
+**** Always use grammatically correct English
+**** Never use a dialect of English or a slang term
+**** Prefer concise text
+**** Never address the user in the second person (You/Thou, ...)
+**** Avoid the word please
+**** Avoid abbreviations and contractions (cannot not can't)
+*** Punctuation
+**** Use full stops in messages
+**** Never use full stop at the end of menu items names
+**** Place three stops at a menu item requiring user action through a dialog
+**** Only use exclamation mark (!) if item carries special weight
+**** Use quotation marks around variable values
+**** Do not align text (translation tools might not work well)
+*** UI Tooltips
+**** Always try to use a tooltip for buttons and other action items
+**** You may use full sentences but prefer short concise ones
+*** Capitalisation
+**** Use Book Style Capitalisation for titles, functions and selectable items
+**** Use Sentence Style Capitalisation for labels, tooltips, descriptive text, non-heading text
+*** Localization
+     Messaging functions are for development purposes only
+     UI messages should always be translated
+**** Use the tr() QT function to mark text for translation
+**** Do not use run-time concatenation unless you use the messaging functions
+     (Word order changes from a language to another)
+**** Take particular care for single/dual/plural forms. Use the tr() QT function for that purpose.
+**** Do not reuse text. Gender issues may arise.
+
+* Apple Mac OS X Guidelines
+** Fundamental principles
+*** The software functionality should reflect real world concept. They should be metaphors
+*** Users have mental models based on real-world experience, other already existing software and computer experience in general
+**** Familiarity: Software should be based on experience
+**** Simplicity: Core functionality should be easy to use and should not compete for user's attention.
+**** Availability: Functionality should be easily available even when not use often.
+**** Discoverability: Encourage users to discover the software
+*** Choose whether an action should be explicity or implicity:
+    -> Explicit means that the user precisely tells what to do: e.g. menus
+    -> Implicit means that the user implies the action from the context: e.g. drap and drop to trash
+*** All manipulations of objects should be direct and the users should always see the object while it is manipulated and the users should immediately the results of the manipulations.
+*** Do not let the computer control the software. Instead restrict the functionality to the audience.
+*** Avoid displaying alerts/errors when things go wrong. Instead prefer continous feedback
+*** Consistency with standards (NOT LIKE ECLIPSE)
+*** Forgiveness: all actions should be easily reversible
+*** Stability: Only allow a finite set of actions that 
+
+** User Experience
+*** Whenever possible prefer auto save with version browsing. Avoid the save dialog
+*** Push notifications whenever there is information the user cares about
+*** If possible support the Mission Control full screen mode
+    It is important that shortcuts don't conflit with Mission Control
+*** Make the dock interaction with useful commands
+*** Ensure application interacts well with Finder but avoid using it
+    Take particular care at new type of files the application creates
+*** Support fully drag and drop
+**** Support the trash icon perfectly
+**** Choice between move and copy should always be wise
+**** Check for the Option key
+**** Three point feedback
+     Translucent image of element being dragged at beginning
+     After beginning item should still be draggable and visible
+     When drops a confirmation should be visible
+**** Change image dragged when applicable (e.g. TextEdit)
+**** Give pointers on what will happen when item dropped
+*** Accessibility
+**** Don't override Mac OS X accessibility features
+**** Focus on ease of use
+**** Don't override keyboard navigation system
+*** Internationalisation (SEE QT GUIDELINES)
+**** All UI elements to be localized
+**** Use user's locale preference
+**** Make text easy to translate
+*** If using color or fond choosing dialog, use the standard Mac OS X one
+*** Consider support Automator. Should represent discrete commands the app provides
+*** Consider support of Address Book
+*** Consider support of Printing
+*** Security
+**** Factor out privileged access code to seperate process
+**** Do not store passwords/secrets in plain text files
+**** Use tested authorisation schemes. Do not invent your own
+**** Make no assumptions
+**** Use Keychain Services to store sensitive information
+*** Preferences
+**** Be careful about which features should have preferences
+**** Don't change system wide preferences
+**** Always make app-wide preferences settings
+*** Consider supporting Bonjour
+*** Consider supporting Speech Recognition
+*** Consider supporting Spotlight
+*** Consider supporting Apple's Help feature
+*** Prefer using User-Centric terms
+
+** UI Guidelines
+*** Menus
+**** Recall there are 3 menus: Main menu bar, Dock menu, and contextual menus
+**** Menu items corresponds to some action
+**** Uses submenus, seperators when appropriate
+**** Don't forget about keyboard shortcuts
+**** Make titles as short as possible without sacrificing clarity
+**** All menu items should be visible even if they are unavailable
+**** Never use icons
+**** Never use definite or indefinite articles
+**** Use title-style capitalisation
+**** Dim unavaible items
+**** Group most frequently used items at the top
+**** Group related items
+**** Avoid creating really long menus
+**** Follow the specific menus guidelines (File, Edit, ...)
+*** Windows
+**** There are 5 types of Windows: Application window, Dialog, Panel, Alert, Document window
+**** Main windows have the following sections: Window frame (title and toolbar), window body and the content area
+**** Toolbar should only contain frequently used items
+**** Always show an About <software> window
+**** Read Mac OS X guidelines in detail
+
+* Windows 7 Guidelines
+
+* Linux Guidelines
+** Gnome Guidelines
+*** Seems similar to Mac OS X except more focus on simplicity
+     * There are strong requirements about size for some
+       windows. Please read them if one is to create a window of a
+       certain type.
+
+
