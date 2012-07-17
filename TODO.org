@@ -1,63 +1,59 @@
-* TODO Create a secure environment for executing commands
-** DONE No reliance on shell
-** TODO Check for buffer overflows
-** TODO Sanitized environment
-** TODO No extra privileges to the command
-** TODO Should execute the right command
-** TODO Set the right file permissions
-   
-* DONE Test on other platforms
-** DONE MacOSX
-** DONE Mint Cinnamon
-** DONE Win 7
-
-* DONE Special return statuses (can be sent to remote device)
-
-* TODO Workers
-** TODO Enforce contraints more properly:
-   -> Check worker exists
-   -> Check order exists
-   -> Sanitize arguments
-** TODO Sanitise requests before executing them
-
-* TODO Interface
-** TODO Plan the rudimentary interface
-   [REQUIREMENTS: 
-   -- Be able to see installed workers
-   -- Be able to see if server is running
-   -- Be able to configure server
-   -- Be able to see log in Human readable interface
-   ]
-** TODO Check guidelines for different platforms
-*** TODO Guidelines for Ubuntu/Gnome
-*** TODO Guidelines for Mac OS X
-*** TODO Guidelines for Win 7
-** TODO Check advice about creating interface
-
-* DONE Local server for remote Workers
-* TODO Remote server for remote Worker
-
-* TODO SSL
-** TODO Set-up protocol
-
-* DONE Style
-** DONE Use RW in front of names
-** DONE Follow Google C++ Style Guide
-
-*** DONE Change GUARDS TO FULL PATHS
-*** DONE Change .hpp -> .h and .cpp -> .c
-*** DONE Check for inputs then outputs in every function
-*** DONE Remove Static function unless necessary
-*** DONE Check for constructors and move complex initialisation to an explicit Init() method
-*** DONE Check every constructor and modify so it gives a consistent behavior
-*** DONE Use explicit constructors for each single argument constructor
-*** DONE Disable copy and assignment constructors when not necessary
-*** DONE Check the logging mechanism. Prefer printf/fprintf whenever suitable.
-
-* DONE Bugs: 
-** DONE Logging with numbers
-** DONE Fix copy constructors problem ...
-
-* TODO Documentation
+* DEVELOPMENT
+** TODO Create a secure environment for executing commands
+*** DONE No reliance on shell
+*** TODO Check for buffer overflows
+*** TODO Sanitized environment
+*** TODO No extra privileges to the command
+*** TODO Should execute the right command
+*** TODO Set the right file permissions   
+** TODO Workers
+*** TODO Enforce contraints more properly:
+    -> Check worker exists
+    -> Check order exists
+    -> Sanitize arguments
+*** TODO Sanitise requests before executing them
+** TODO Interface
+*** DONE Plan the rudimentary interface
+    [REQUIREMENTS: 
+    -- Be able to see installed workers
+    -- Be able to see if server is running
+    -- Be able to configure server
+    -- Be able to see log in Human readable interface
+    ]
+*** TODO Check guidelines for different platforms
+**** DONE Guidelines for Ubuntu/Gnome
+**** DONE Guidelines for Mac OS X
+**** TODO Guidelines for Win 7
+*** TODO Check advice about creating interface
+** DONE Local server for remote Workers
+** TODO Remote server for remote Worker
+** TODO SSL
+*** TODO Set-up protocol
+** DONE Style
+*** DONE Use RW in front of names
+*** DONE Follow Google C++ Style Guide
+**** DONE Change GUARDS TO FULL PATHS
+**** DONE Change .hpp -> .h and .cpp -> .cc
+**** DONE Check for inputs then outputs in every function
+**** DONE Remove Static function unless necessary
+**** DONE Check for constructors and move complex initialisation to an explicit Init() method
+**** DONE Check every constructor and modify so it gives a consistent behavior
+**** DONE Use explicit constructors for each single argument constructor
+**** DONE Disable copy and assignment constructors when not necessary
+**** DONE Check the logging mechanism.
+     
+** TODO UI
+*** TODO Refactor RwLog into development purpose only
+*** TODO Create RwHistory Module keeping track of Workers History
+* TESTING
+** DONE Bugs: 
+*** DONE Logging with numbers
+*** DONE Fix copy constructors problem 
+** DONE Test on other platforms
+*** DONE MacOSX
+*** DONE Mint Cinnamon
+*** DONE Win 7
+* DOCUMENTATION
+** TODO Documentation
 ** TODO Document the protocols in details and how message are supposed to be structured
-** TODO Document messaging system
+*** TODO Document messaging system
