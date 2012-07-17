@@ -65,7 +65,7 @@ namespace RwNetworking {
         void RwCommandServerTCP::processConnection()
         {
             m_currentConnection = m_tcpServer->nextPendingConnection();
-            abstractProcessConnection<QTcpSocket>(m_currentConnection);
+            abstractProcessConnection();
         }
         
         void RwCommandServerTCP::init()

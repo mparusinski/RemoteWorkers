@@ -13,8 +13,11 @@ SET(RwServers_SOURCES
     RwCommandServerLocal.cc
 )
 
-SET(RwServers_HEADERS_QT
+SET(RwServers_HEADERS
     RwCommandServerBase.h
+)
+
+SET(RwServers_HEADERS_QT
     RwCommandServerTCP.h
     RwCommandServerSSL.h
     RwCommandServerLocal.h
@@ -23,7 +26,7 @@ SET(RwServers_HEADERS_QT
 QT4_WRAP_CPP(RwServers_HEADERS_MOC ${RwServers_HEADERS_QT})
 
 ADD_LIBRARY(RwServers STATIC 
-  ${RwServers_SOURCES}  ${RwServers_HEADERS_QT}
+  ${RwServers_SOURCES}  ${RwServers_HEADERS_QT} ${RwServers_HEADERS}
   ${RwServers_HEADERS_MOC})
 
 TARGET_LINK_LIBRARIES(RwServers RwWorkerInterface RwLog RwNetDataStructures)

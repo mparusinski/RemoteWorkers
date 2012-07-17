@@ -68,7 +68,7 @@ namespace RwNetworking {
         {
             // ESTABLISHING CONNECTION
             m_currentConnection = m_localServer->nextPendingConnection();
-            abstractProcessConnection<QLocalSocket>(m_currentConnection);
+            abstractProcessConnection();
         }
         
         void RwCommandServerLocal::init()

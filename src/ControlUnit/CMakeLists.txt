@@ -6,8 +6,8 @@ MESSAGE("-- Checking operating system:")
 
 IF(APPLE)
   MESSAGE("Apple system detected")
-  SET(CMAKE_CXX_COMPILER /usr/bin/clang++)
-  SET(CMAKE_C_COMPILER /usr/bin/clang)
+  SET(CMAKE_CXX_COMPILER /usr/bin/g++)
+  SET(CMAKE_C_COMPILER /usr/bin/gcc)
   SET(CMAKE_OSX_ARCHITECTURES x86_64)
 ENDIF(APPLE)
 
@@ -36,6 +36,7 @@ INCLUDE_DIRECTORIES(../../lib/lzma920/C/)
 ADD_SUBDIRECTORY(RwTests)
 ADD_SUBDIRECTORY(RwNetworking)
 ADD_SUBDIRECTORY(RwWorkerInterface)
+ADD_SUBDIRECTORY(RwHistory)
 ADD_SUBDIRECTORY(RwUtils)
 
 FILE( COPY conf.txt DESTINATION ${RemoteWorkers_ControlUnit_BINARY_DIR} )

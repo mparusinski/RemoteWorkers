@@ -10,7 +10,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 14/05/2012.
 
 */
 
-#include "RwCommandServerBase.h"
+//#include "RwCommandServerBase.h"
 
 #include "RwWorkerInterface/RwWorker.h"
 #include "RwWorkerInterface/RwManagement.h"
@@ -26,18 +26,21 @@ namespace RwNetworking {
     
     namespace RwServers {
         
-        RwCommandServerBase::RwCommandServerBase(QObject* parent) 
+        template <typename SocketType>
+        RwCommandServerBase<SocketType>::RwCommandServerBase(QObject* parent) 
         : QObject(parent)
         {
 
         }
         
-        RwCommandServerBase::~RwCommandServerBase()
+        template <typename SocketType>
+        RwCommandServerBase<SocketType>::~RwCommandServerBase()
         {
             
         }
         
-        RwReturnType RwCommandServerBase::processData(const QByteArray &in, QByteArray &out) const
+        template <typename SocketType>
+        RwReturnType RwCommandServerBase<SocketType>::processData(const QByteArray &in, QByteArray &out) const
         {        
             // READING REQUEST
             RwNetDataStructures::RwCommandRequest request;
@@ -52,7 +55,8 @@ namespace RwNetworking {
             return errorCode;
         }
         
-        RwReturnType RwCommandServerBase::executeRequest(const RwNetDataStructures::RwCommandRequest &request, RwNetDataStructures::RwCommandReply &reply) const
+        template <typename SocketType>
+        RwReturnType RwCommandServerBase<SocketType>::executeRequest(const RwNetDataStructures::RwCommandRequest &request, RwNetDataStructures::RwCommandReply &reply) const
         {
             RwReturnType errorCode = RW_NO_ERROR;
             
@@ -87,16 +91,16 @@ namespace RwNetworking {
         }
         
         template <typename SocketType>
-        void RwCommandServerBase::abstractProcessConnection(SocketType *abstractSocket) const
+        void RwCommandServerBase<SocketType>::abstractProcessConnection() const
         {
-            QObject::connect(abstractSocket, SIGNAL(disconnected()), 
-                             abstractSocket, SLOT(deleteLater()));
+            QObject::connect(m_currentConnection, SIGNAL(disconnected()), 
+                             m_currentConnection, SLOT(deleteLater()));
             
-            while (abstractSocket->bytesAvailable() < (int)sizeof(quint32)) // waiting for at least 32 bits of data
-                abstractSocket->waitForReadyRead();
+            while (m_currentConnection->bytesAvailable() < (int)sizeof(quint32)) // waiting for at least 32 bits of data
+                m_currentConnection->waitForReadyRead();
             
             // RECEIVING DATA
-            QByteArray receivedData = abstractSocket->readAll(); // This may be dangerous
+            QByteArray receivedData = m_currentConnection->readAll(); // This may be dangerous
             QByteArray responseData;
             RwReturnType errorCode = processData(receivedData, responseData);
             
@@ -107,9 +111,9 @@ namespace RwNetworking {
             }
             
             // SENDING RAW DATA
-            abstractSocket->write(responseData);
+            m_currentConnection->write(responseData);
             
-            delete abstractSocket;
+            delete m_currentConnection;
         }
         
     }

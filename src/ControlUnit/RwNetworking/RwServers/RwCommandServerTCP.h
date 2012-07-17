@@ -32,7 +32,7 @@ namespace RwNetworking {
         ///        Command Servers handles requests and sends back responses.
         ///        The server should run in a seperate thread.
         ////////////////////////////////////////////////////////////////////////////////
-        class RwCommandServerTCP : public RwCommandServerBase {
+        class RwCommandServerTCP : public RwCommandServerBase<QTcpSocket> {
             
             Q_OBJECT
             
@@ -67,7 +67,6 @@ namespace RwNetworking {
             
             int m_portNumber;
             QTcpServer* m_tcpServer;
-            QTcpSocket* m_currentConnection;
         };
         
     }

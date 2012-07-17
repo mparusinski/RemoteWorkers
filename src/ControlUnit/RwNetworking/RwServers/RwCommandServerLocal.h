@@ -35,7 +35,7 @@ namespace RwNetworking {
         ///        The server should run in a seperate thread.
         ///        Can not be used over the network. Useful for testing.
         ////////////////////////////////////////////////////////////////////////////////
-        class RwCommandServerLocal : public RwCommandServerBase
+        class RwCommandServerLocal : public RwCommandServerBase<QLocalSocket>
         {
             Q_OBJECT
             

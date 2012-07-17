@@ -34,9 +34,8 @@ namespace RwNetworking {
         ///        Command Servers handles requests and sends back responses.
         ///        The server should run in a seperate thread.
         ////////////////////////////////////////////////////////////////////////////////
+        template <typename SocketType>
         class RwCommandServerBase : public QObject {
-            
-            Q_OBJECT
             
         public:
             RwCommandServerBase(QObject* parent);
@@ -59,6 +58,7 @@ namespace RwNetworking {
             
         protected:
             bool m_pendingConnection;
+            SocketType* m_currentConnection;
             
             ////////////////////////////////////////////////////////////////////////////////
             /// \brief  Process the data, the data coming in represents the request,
@@ -79,10 +79,8 @@ namespace RwNetworking {
             
             ////////////////////////////////////////////////////////////////////////////////
             /// \brief  Processes the connection regardless of the type of socket
-            /// \param[in] abstractSocket Represents the socket to be handled
             ////////////////////////////////////////////////////////////////////////////////
-            template <typename SocketType>
-            void abstractProcessConnection(SocketType* abstractSocket) const;
+            void abstractProcessConnection() const;
             
         private:
             virtual void abstract() = 0;
@@ -94,4 +92,7 @@ namespace RwNetworking {
     
 }
 
+#include "RwCommandServerBase.cc"
+
 #endif // _RWNETWORKING_RWSERVERS_RWCOMMANDSERVERBASE_H_
+
