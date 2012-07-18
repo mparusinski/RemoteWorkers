@@ -15,6 +15,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 15/05/2012.
 
 #include <QString>
 #include <QStringList>
+#include <QSharedPointer>
 
 #include "RwUtils/RwGlobal/RwClasses.h"
 
@@ -29,6 +30,8 @@ namespace RwWorkerInterface
     {
         
     public:
+    	typedef QSharedPointer<RwCommand> RwCommandPtr;
+
         RwCommand();
         RwCommand(const QString& order, const QStringList& arguments);
         virtual ~RwCommand() { }

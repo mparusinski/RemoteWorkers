@@ -7,11 +7,25 @@ LINK_DIRECTORIES(
 )
 
 SET(RwHistory_HEADERS
-  RwEvent.h
+  RwEvent.h 
+  RwEventList.h
+  RwEventType.h
+  RwWorkerAddedEvent.h
+  RwWorkerRemovedEvent.h
+  RwWorkerExecutionEvent.h
+  RwServerStartedEvent.h
+  RwServerStoppedEvent.h
 )
 
 SET(RwHistory_SOURCES 
   RwEvent.cc
+  RwEventList.cc
+  RwEventType.cc
+  RwWorkerAddedEvent.cc
+  RwWorkerRemovedEvent.cc
+  RwWorkerExecutionEvent.cc
+  RwServerStartedEvent.cc
+  RwServerStoppedEvent.cc
 )
 
 ADD_LIBRARY(RwHistory STATIC 
