@@ -14,4 +14,35 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 17/08/2012.
 
 namespace RwHistory {
 
+RwEvent::RwEvent(const RwEventType::RwEventTypeHandle& handleToEvent)
+{
+	m_eventTypeVar = handleToEvent;
+}
+
+RwEvent::~RwEvent()
+{
+
+}
+
+bool RwEvent::operator <(const RwEvent& other) const
+{
+	return (m_eventTypeVar->date()) < (other.m_eventTypeVar->date());
+}
+
+bool RwEvent::operator >(const RwEvent& other) const
+{
+	return (m_eventTypeVar->date()) > (other.m_eventTypeVar->date());
+}
+
+QDate RwEvent::eventDate() const
+{
+	return m_eventTypeVar->date();
+}
+
+void RwEvent::generateEvent()
+{
+	if (!m_eventTypeVar->hasBeenGenerated())
+		m_eventTypeVar = m_eventTypeVar->generate();
+}
+
 }

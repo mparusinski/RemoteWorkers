@@ -14,18 +14,32 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 17/08/2012.
 #define _RWHISTORY_RWEVENT_H_
 
 #include <QSharedPointer>
-#include <QDate>
+
+#include "RwUtils/RwGlobal/RwClasses.h"
+
+#include "RwEventType.h"
 
 namespace RwHistory {
 
 	class RwEvent {
 
 	public:
-		RwEvent();
+		RwEvent(const RwEventType::RwEventTypeHandle& handleToEvent);
 		virtual ~RwEvent();
 
-	private:
+		bool operator <(const RwEvent& other) const;
 
+		bool operator >(const RwEvent& other) const;
+
+		QDate eventDate() const;
+
+		void generateEvent();
+
+	private:
+		// Copying this object should be easy
+		// DISALLOW_COPY_AND_ASSIGN(RwEvent);
+
+		RwEventType::RwEventTypeHandle m_eventTypeVar;
 	};
 
 }

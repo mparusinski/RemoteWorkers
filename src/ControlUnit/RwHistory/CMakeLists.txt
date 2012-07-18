@@ -8,7 +8,7 @@ LINK_DIRECTORIES(
 
 SET(RwHistory_HEADERS
   RwEvent.h 
-  RwEventList.h
+  RwEventLog.h
   RwEventType.h
   RwWorkerAddedEvent.h
   RwWorkerRemovedEvent.h
@@ -19,7 +19,7 @@ SET(RwHistory_HEADERS
 
 SET(RwHistory_SOURCES 
   RwEvent.cc
-  RwEventList.cc
+  RwEventLog.cc
   RwEventType.cc
   RwWorkerAddedEvent.cc
   RwWorkerRemovedEvent.cc

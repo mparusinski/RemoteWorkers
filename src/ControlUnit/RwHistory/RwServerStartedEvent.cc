@@ -14,4 +14,22 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 18/07/2012.
 
 namespace RwHistory {
 
+RwEventType::RwEventTypeHandle RwServerStartedEvent::create()
+{
+	RwServerStartedEvent* ptrToObject = new RwServerStartedEvent;
+	ptrToObject->m_subClassType = RW_SERVER_STARTED_EVENT;
+	ptrToObject->m_eventDate = QDate::currentDate();
+	RwEventType::RwEventTypeHandle handle(ptrToObject);
+	return handle;
+}
+
+RwEventType::RwEventTypeHandle RwServerStartedEvent::generate()
+{
+	RwEventType* ptrToCompressed = new RwEventType;
+	ptrToCompressed->copyEssentials(this);
+	ptrToCompressed->m_eventDescription = "RemoteWorkers server has started";
+	RwEventType::RwEventTypeHandle handle(ptrToCompressed);
+	return handle;
+}
+
 }

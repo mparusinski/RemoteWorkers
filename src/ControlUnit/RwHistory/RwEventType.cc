@@ -14,4 +14,26 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 18/07/2012
 
 namespace RwHistory {
 
+RwEventType::~RwEventType()
+{
+
+}
+
+RwEventType::RwEventTypeSubClassType RwEventType::getSubClassType() const
+{
+	return m_subClassType;
+}
+
+RwEventType::RwEventTypeHandle RwEventType::generate()
+{
+	// RwEventType and its subclass will always be dynamically allocated, so this should work
+	return RwEventType::RwEventTypeHandle(this);
+}
+
+void RwEventType::copyEssentials(const RwEventType* other)
+{
+	m_eventDate = other->m_eventDate;
+	m_subClassType = other->m_subClassType;
+}
+
 }

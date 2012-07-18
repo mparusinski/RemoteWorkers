@@ -15,14 +15,23 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 18/07/2012.
 
 #include "RwEventType.h"
 
+#include "RwUtils/RwGlobal/RwClasses.h"
+
 namespace RwHistory {
 
 class RwServerStoppedEvent : public RwEventType {
 
 public:
+	RwServerStoppedEvent() { m_generated = false; }
+
+	virtual ~RwServerStoppedEvent() { }
+
+	virtual RwEventTypeHandle generate();
+
+	static RwEventTypeHandle create();
 
 private:
-
+	DISALLOW_COPY_AND_ASSIGN(RwServerStoppedEvent);
 };
 
 }
