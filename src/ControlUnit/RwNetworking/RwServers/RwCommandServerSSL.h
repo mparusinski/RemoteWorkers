@@ -42,7 +42,6 @@ namespace RwNetworking {
             virtual ~RwCommandServerSSL();
             
         private:
-            virtual void abstract() {}
             DISALLOW_COPY_AND_ASSIGN(RwCommandServerSSL);
             
         };

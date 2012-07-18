@@ -22,7 +22,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 15/05/2012.
 #include "RwWorkerInterface/RwWorker.h"
 #include "RwWorkerInterface/RwCommand.h"
 #include "RwWorkerInterface/RwManagement.h"
-#include "RwUtils/RwLog/RwMessagingManager.h"
+#include "RwUtils/RwLog/RwCommon.h"
 #include "RwUtils/RwProfile/RwProfiler.h"
 
 using namespace RwUtils::RwLog;
@@ -35,26 +35,26 @@ int main(int argc, char *argv[])
 	RwUtils::RwProfile::RwProfiler::profile("Turning logging on");
 
 	RwUtils::RwProfile::RwProfiler::startProfiler();
-	QFileInfoList availableWorkers = RwManagement::getInstance()->listAvailableWorkers();
+	QStringList availableWorkers = RwManagement::getInstance()->scanAvailableWorkers();
 	for (size_t i = 0; i < availableWorkers.size(); ++i)
 	{
-		printf("%s\n", availableWorkers[i].filePath().toAscii().data());
+		rwMessage() << availableWorkers[i] << endLine();
 	}
 	RwUtils::RwProfile::RwProfiler::profile("Reading workers");
 
 	RwUtils::RwProfile::RwProfiler::startProfiler();
-	RwWorker worker;
+	RwWorker::RwWorkerPtr worker;
 	RwManagement::getInstance()->createWorker("NastyBadWorker", worker);
 	RwUtils::RwProfile::RwProfiler::profile("Creating worker");
 
 	RwUtils::RwProfile::RwProfiler::startProfiler();
 	RwCommand command("NastyBadWorker", QStringList());
-	worker.executeCommand(command);
+	worker->executeCommand(command);
 	RwUtils::RwProfile::RwProfiler::profile("Executing a command");
 
 	RwUtils::RwProfile::RwProfiler::startProfiler();
 	RwReply reply;
-	worker.getReply(reply);
+	worker->getReply(reply);
 	RwUtils::RwProfile::RwProfiler::profile("Creating the reply");
 
 	RwUtils::RwProfile::RwProfiler::startProfiler();
@@ -63,7 +63,7 @@ int main(int argc, char *argv[])
 	for (size_t i = 0; i < numberOfByteStreams; ++i)
 	{
 		const QString& fileName = rawData[i].first;
-		printf("File: %s\n", fileName.toAscii().data());
+		rwMessage() << "File: " << fileName << endLine();
 	}
 	RwUtils::RwProfile::RwProfiler::profile("Listing files");
 

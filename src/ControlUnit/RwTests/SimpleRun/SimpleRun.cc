@@ -31,19 +31,19 @@ int main(int argc, char *argv[])
 {
 	RwMessagingManager::getInstance()->turnAllOn();
 
-	QFileInfoList availableWorkers = RwManagement::getInstance()->listAvailableWorkers();
+	QStringList availableWorkers = RwManagement::getInstance()->scanAvailableWorkers();
     rwMessage() << "Available workers" << endLine();
 	for (int i = 0; i < availableWorkers.size(); ++i)
 	{
-        printf("\t%s\n", availableWorkers[i].filePath().toAscii().data());
+        rwMessage() << availableWorkers[i] << endLine();
 	}
 
-	RwWorker worker;
+	RwWorker::RwWorkerPtr worker;
 	RwManagement::getInstance()->createWorker("SimpleTestWorker", worker);
 	RwCommand command("SimpleTestWorker", QStringList());
-	worker.executeCommand(command);
+	worker->executeCommand(command);
 	RwReply reply;
-    worker.getReply(reply);
+    worker->getReply(reply);
 
 	if ( reply.empty() )
 	{

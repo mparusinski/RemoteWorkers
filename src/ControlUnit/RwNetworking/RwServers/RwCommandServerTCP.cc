@@ -23,7 +23,7 @@ namespace RwNetworking {
     namespace RwServers {
         
         RwCommandServerTCP::RwCommandServerTCP(QObject* parent, const int portNumber) 
-        : RwCommandServerBase(parent)
+        : RwCommandServerBase<QTcpSocket>(parent)
         {
             m_portNumber = portNumber;
             m_tcpServer = new QTcpServer(this);

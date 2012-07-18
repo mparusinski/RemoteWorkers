@@ -15,6 +15,7 @@
 
 #include <QFileInfo>
 #include <QFileInfoList>
+#include <QMap>
 
 #include "RwUtils/RwGlobal/RwClasses.h"
 
@@ -32,6 +33,8 @@ namespace RwWorkerInterface
     class RwManagement
     {
     public:
+    	typedef QMap<QString, RwWorker::RwWorkerPtr> SetOfWorkersType;
+
         virtual ~RwManagement();
         static RwManagement* getInstance();
         
@@ -42,14 +45,22 @@ namespace RwWorkerInterface
         /// \param[out] worker      The worker we wish to create
         /// \return     returns true if successfully created worker
         /////////////////////////////////////////////////////////////////////////////////
-        RwReturnType createWorker(const QString& workerName, RwWorker& worker);
+        RwReturnType createWorker(const QString& workerName, RwWorker::RwWorkerPtr& worker);
         
         /////////////////////////////////////////////////////////////////////////////////
-        /// \brief     List all available workers in default path
-        /// \return    List of worker names (not a list of workers)
+        /// \brief     List all available workers in default path. This will not reread the
+        /// 		   list of available workers.
+        /// \return    List of worker names (not a list of workers).
         /////////////////////////////////////////////////////////////////////////////////
-        const QFileInfoList& listAvailableWorkers();
+        const QStringList& availableWorkers() const;
         
+        /////////////////////////////////////////////////////////////////////////////////
+        /// \brief     List all available workers in default path. This will reread the
+        /// 		   list of available workers.
+        /// \return    List of worker names (not a list of workers).
+        /////////////////////////////////////////////////////////////////////////////////
+        const QStringList& scanAvailableWorkers();
+
     private:
         DISALLOW_COPY_AND_ASSIGN(RwManagement);
         RwManagement();
@@ -59,7 +70,9 @@ namespace RwWorkerInterface
         inline RwReturnType getListOfWorkers();
         
         QFileInfo m_pathToWorkers;
-        QFileInfoList m_availableWorkers;
+        QFileInfoList m_workersDirs;
+        QStringList m_availableWorkers;
+        SetOfWorkersType m_allWorkers;
     };
     
 }

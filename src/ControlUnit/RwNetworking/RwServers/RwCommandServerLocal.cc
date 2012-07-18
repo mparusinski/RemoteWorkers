@@ -25,7 +25,7 @@ namespace RwNetworking {
     namespace RwServers {
         
         RwCommandServerLocal::RwCommandServerLocal(QObject* parent, const QString& serverName) : 
-        RwCommandServerBase(parent)
+        RwCommandServerBase<QLocalSocket>(parent)
         {
             m_serverName = serverName;
             m_localServer = new QLocalServer(this);

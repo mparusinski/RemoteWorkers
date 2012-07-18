@@ -36,7 +36,9 @@ namespace RwWorkerInterface
     RwWorker::RwWorker(const QFileInfo& path)
     {
         m_path = path;
-        m_outputPathComputed = false;     }
+        m_workerName = m_path.fileName();
+        m_outputPathComputed = false;
+    }
     
     RwReturnType RwWorker::getReply(RwReply& reply)
     {
@@ -55,9 +57,9 @@ namespace RwWorkerInterface
         return m_path;
     }
     
-    void RwWorker::setPath(const QFileInfo &path)
+    const QString& RwWorker::getWorkerName() const
     {
-        m_path = path;
+    	return m_workerName;
     }
     
     RwReturnType RwWorker::executeCommand(const RwCommand& command) const

@@ -60,7 +60,6 @@ namespace RwNetworking {
             void processConnection(void);
             
         private:
-            virtual void abstract() {}
             DISALLOW_COPY_AND_ASSIGN(RwCommandServerTCP);
             
             void init();

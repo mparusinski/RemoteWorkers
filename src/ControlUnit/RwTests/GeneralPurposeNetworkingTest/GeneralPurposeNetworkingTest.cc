@@ -50,11 +50,15 @@ bool test(const QString& commandName, const QString& order, const QStringList& a
         return false;
     }
     
-    RwWorker worker;
-    RwManagement::getInstance()->createWorker(commandName, worker);
-    worker.executeCommand(command);
+    RwWorker::RwWorkerPtr worker;
+    RwReturnType errorCode = RwManagement::getInstance()->createWorker(commandName, worker);
+
 	RwReply reply;
-    RwReturnType errorCode = worker.getReply(reply);
+    if (errorCode == RW_NO_ERROR)
+    {
+    	worker->executeCommand(command);
+    	errorCode = errorCode | worker->getReply(reply);
+    }
     
     RwCommandReply simpleReply;
     if (errorCode != RW_NO_ERROR) {

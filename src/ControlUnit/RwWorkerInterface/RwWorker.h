@@ -15,6 +15,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 15/05/2012.
 
 #include <QFileInfo>
 #include <QString>
+#include <QSharedPointer>
 
 #include "RwUtils/RwGlobal/RwReturn.h"
 #include "RwUtils/RwGlobal/RwClasses.h"
@@ -34,6 +35,8 @@ namespace RwWorkerInterface
     class RwWorker {
         
     public:
+    	typedef QSharedPointer<RwWorker> RwWorkerPtr;
+
         RwWorker();
         explicit RwWorker(const QFileInfo& path);
         virtual ~RwWorker() { }
@@ -61,10 +64,7 @@ namespace RwWorkerInterface
         ////////////////////////////////////////////////////////////////////////////////
         const QFileInfo& getPath() const;
         
-        ////////////////////////////////////////////////////////////////////////////////
-        /// \brief     Set the worker path (and automatically the output path)
-        ////////////////////////////////////////////////////////////////////////////////
-        void setPath(const QFileInfo& path);
+        const QString& getWorkerName() const;
         
     private:
         DISALLOW_COPY_AND_ASSIGN(RwWorker);
@@ -76,6 +76,7 @@ namespace RwWorkerInterface
         
         bool m_outputPathComputed;
         
+        QString   m_workerName;
         QFileInfo m_path;
         QFileInfo m_outputPath;
     };

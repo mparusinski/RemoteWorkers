@@ -43,18 +43,29 @@ namespace RwWorkerInterface
         return instance;
     }
     
-    RwReturnType RwManagement::createWorker(const QString& workerName, RwWorker& worker)
+    RwReturnType RwManagement::createWorker(const QString& workerName, RwWorker::RwWorkerPtr& worker)
     {
-        getListOfWorkers();
+    	const SetOfWorkersType::iterator iter = m_allWorkers.find(workerName);
+
+    	if (iter != m_allWorkers.end()) // cut through if already initialized
+    	{
+    		worker = *iter;
+    		return RW_NO_ERROR;
+    	}
+
+    	if (m_availableWorkers.empty())
+    		getListOfWorkers();
+
+    	// otherwise create worker
+
         const int numberOfWorkers = m_availableWorkers.size();
         for (int i = 0; i < numberOfWorkers; ++i)
         {
-            const QString& currentWorkerName = m_availableWorkers[i].fileName();;
-            if (currentWorkerName == workerName)
+            if (m_availableWorkers[i] == workerName)
             {
-                QString fullPath = m_pathToWorkers.filePath();
-                fullPath += currentWorkerName;
-                worker.setPath(fullPath);
+                QFileInfo fullPath = m_workersDirs[i]; // cutting through
+                worker = RwWorker::RwWorkerPtr(new RwWorker(fullPath));
+                m_allWorkers[workerName] = worker; // Memorizing for later
                 return RW_NO_ERROR;
             }
         }
@@ -63,21 +74,30 @@ namespace RwWorkerInterface
         return RW_ERROR_NO_WORKER;
     }
     
-    const QFileInfoList& RwManagement::listAvailableWorkers()
+    const QStringList& RwManagement::availableWorkers() const
     {
-        getListOfWorkers();
         return m_availableWorkers;
     }
-    
+
+    const QStringList& RwManagement::scanAvailableWorkers()
+    {
+    	getListOfWorkers();
+    	return m_availableWorkers;
+    }
+
     RwReturnType RwManagement::getListOfWorkers()
     {
         RwReturnType returnMsg = RW_NO_ERROR;
-        if (m_availableWorkers.empty())
+        m_availableWorkers.clear();
+
+        returnMsg = init();
+        returnMsg = returnMsg | RwFileManagement::getListOfDirsInDir(m_pathToWorkers, m_workersDirs);
+        // m_availableWorkers.clear();
+        for (int i = 0; i < m_workersDirs.length(); ++i)
         {
-            returnMsg = init();
-            returnMsg = returnMsg | 
-                RwFileManagement::getListOfDirsInDir(m_pathToWorkers, m_availableWorkers);
+        	m_availableWorkers.append(m_workersDirs[i].fileName());
         }
+
         return returnMsg;
     }
     

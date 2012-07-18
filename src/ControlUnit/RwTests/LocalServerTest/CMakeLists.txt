@@ -19,5 +19,5 @@ QT4_WRAP_CPP(LocalServerTestHEADERS_MOC ${LocalServerTestHEADERS})
 ADD_EXECUTABLE(LocalServerTest ${LocalServerTestSRC} ${LocalServerTestHEADERS} 
   ${LocalServerTestHEADERS_MOC})
 
-TARGET_LINK_LIBRARIES(LocalServerTest RwServers RwClients RwLog)
+TARGET_LINK_LIBRARIES(LocalServerTest RwServers RwClients RwLog RwProfile)
 TARGET_LINK_LIBRARIES(LocalServerTest ${QT_LIBRARIES})

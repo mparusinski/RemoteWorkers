@@ -66,14 +66,12 @@ namespace RwNetworking {
             void processConnection();
             
         private:
-            virtual void abstract() {}
             DISALLOW_COPY_AND_ASSIGN(RwCommandServerLocal);
             
             void init();
             
             QString m_serverName;
             QLocalServer* m_localServer;
-            QLocalSocket* m_currentConnection;
         };
         
     }

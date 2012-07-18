@@ -96,11 +96,11 @@ int main(int argc, char *argv[])
 	bool theGreatEscapeTest1;
 	{
 		QString workerName = "; echo \"The great escape test succeeded (not good)\" ";
-		RwWorker worker;
+		RwWorker::RwWorkerPtr worker;
 		RwManagement::getInstance()->createWorker(workerName, worker);
 		QStringList arguments;
 		RwCommand command("", arguments);
-		theGreatEscapeTest1 = worker.executeCommand(command);
+		theGreatEscapeTest1 = worker->executeCommand(command);
 		allTest = allTest && !theGreatEscapeTest1;
         
 		TEST(theGreatEscapeTest1, "The great escape test");
@@ -109,12 +109,12 @@ int main(int argc, char *argv[])
 	bool theGreatEscapeTest2;
 	{
 		QString workerName = "";
-		RwWorker worker;
+		RwWorker::RwWorkerPtr worker;
 		RwManagement::getInstance()->createWorker(workerName, worker);
 		QStringList arguments;
 		QString theGreatEscape = "; echo \"The great escape test succeeded (not good)\" ";
 		RwCommand command("", arguments);
-		theGreatEscapeTest2 = worker.executeCommand(command);
+		theGreatEscapeTest2 = worker->executeCommand(command);
 		allTest = allTest && !theGreatEscapeTest2;
         
 		TEST(theGreatEscapeTest2, "The great escape test 2");
@@ -123,13 +123,13 @@ int main(int argc, char *argv[])
 	bool theGreatEscapeTest3;
 	{
 		QString workerName = "SimpleTestWorker";
-		RwWorker worker;
+		RwWorker::RwWorkerPtr worker;
 		RwManagement::getInstance()->createWorker(workerName, worker);
 		QString theGreatEscape = "; echo \"The great escape test succeeded (not good)\" ";
 		QStringList arguments;
 		arguments.push_back(theGreatEscape);
 		RwCommand command(workerName, arguments);
-		theGreatEscapeTest3 = worker.executeCommand(command);
+		theGreatEscapeTest3 = worker->executeCommand(command);
 		allTest = allTest && !theGreatEscapeTest3;
         
 		TEST(theGreatEscapeTest3, "The great escape test 3");
@@ -138,13 +138,13 @@ int main(int argc, char *argv[])
 	bool theGreatEscapeTest4;
 	{
 		QString workerName = "SimpleTestWorker";
-		RwWorker worker;
+		RwWorker::RwWorkerPtr worker;
 		RwManagement::getInstance()->createWorker(workerName, worker);
 		QString theGreatEscape
         = "`VAR=\"The great escape test succeeded (not good)\"; echo SimpleTestWorker`";
 		QStringList arguments;
 		RwCommand command(theGreatEscape, arguments);
-		theGreatEscapeTest4 = worker.executeCommand(command);
+		theGreatEscapeTest4 = worker->executeCommand(command);
 		allTest = allTest && !theGreatEscapeTest4;
         
 		TEST(theGreatEscapeTest4, "The great escape test 4");
@@ -153,7 +153,7 @@ int main(int argc, char *argv[])
 	bool environmentTest;
 	{
 		QString workerName = "SecurityPenetrationTestWorker";
-		RwWorker worker;
+		RwWorker::RwWorkerPtr worker;
 		RwManagement::getInstance()->createWorker(workerName, worker);
 		QString commandName = "SanitizedEnvironment";
 		QStringList arguments;
@@ -166,7 +166,7 @@ int main(int argc, char *argv[])
         strcpy(newPath, newPath_str.toAscii().data());
 		putenv(newPath);
         
-		environmentTest = worker.executeCommand(command);
+		environmentTest = worker->executeCommand(command);
 		allTest = allTest && !environmentTest;
         
 		QString restorePath = "HOME=";

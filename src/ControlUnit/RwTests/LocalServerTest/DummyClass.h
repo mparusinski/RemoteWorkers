@@ -28,6 +28,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 22/06/2012.
 #include "RwNetworking/RwServers/RwCommandServerLocal.h"
 #include "RwNetworking/RwClients/RwCommandClientLocal.h"
 #include "RwUtils/RwLog/RwCommon.h"
+#include "RwUtils/RwProfile/RwProfiler.h"
 
 using namespace RwNetworking;
 using namespace RwUtils::RwLog;
@@ -85,6 +86,8 @@ public:
         m_argumentsAdd          = new QPushButton(this);
         m_argumentsRemove       = new QPushButton(this);
         
+        m_timeLabel = new QLabel(this);
+
         m_button = new QPushButton(this);
         
         m_workerNameDialog->addWidget(m_workerNameLabel);
@@ -106,12 +109,16 @@ public:
         m_mainLayout->addWidget(m_button);
         m_mainLayout->addLayout(m_replyDialog);
         
+        m_mainLayout->addWidget(m_timeLabel);
+
         m_workerNameLabel->setText("Worker name");
         m_orderNameLabel->setText("Order name");
         
         m_argumentsAdd->setText("Add argument");
         m_argumentsRemove->setText("Remove argument");
         
+        m_timeLabel->setText(QString::number(0.0) += " ms");
+
         m_button->setText("Send request");
         setWindowTitle("Dummy window");
         
@@ -134,6 +141,7 @@ public:
     
     void run()
     {
+    	RwUtils::RwProfile::RwProfiler::startProfiler();
         m_localClient->connectToServer();
         
         QString workerName = m_workerNameEdit->text();
@@ -164,6 +172,8 @@ public:
                 m_replyFileList->addItem(arrays[i].first);
             }
         }
+        double time = RwUtils::RwProfile::RwProfiler::stopProfiler();
+        m_timeLabel->setText(QString::number(time) + " ms");
     }
     
     void changeReply(const QModelIndex& index)
@@ -216,6 +226,8 @@ private:
     QListWidget *m_replyFileList;
     QPlainTextEdit *m_replyTextView;
     
+    QLabel *m_timeLabel;
+
     RwNetDataStructures::RwCommandReply* m_currentReply;
     
     QPushButton* m_button;
