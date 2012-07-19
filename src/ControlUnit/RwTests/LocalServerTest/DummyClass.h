@@ -147,7 +147,7 @@ public:
         QString workerName = m_workerNameEdit->text();
         QString order      = m_orderNameEdit->text();
     
-        RwWorkerInterface::RwCommand command(order, m_argumentsList);
+        RwWorkerInterface::RwCommand::RwCommandPtr command(new RwCommand(order, m_argumentsList));
         RwNetDataStructures::RwCommandRequest request(workerName, command);
         
         m_localClient->sendRequest(request);

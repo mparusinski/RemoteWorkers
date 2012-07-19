@@ -48,7 +48,7 @@ int main(int argc, char *argv[])
 	RwUtils::RwProfile::RwProfiler::profile("Creating worker");
 
 	RwUtils::RwProfile::RwProfiler::startProfiler();
-	RwCommand command("NastyBadWorker", QStringList());
+	RwCommand::RwCommandPtr command(new RwCommand("NastyBadWorker", QStringList()));
 	worker->executeCommand(command);
 	RwUtils::RwProfile::RwProfiler::profile("Executing a command");
 

@@ -35,7 +35,7 @@ namespace RwNetworking {
             
         public:
             RwCommandRequest();
-            RwCommandRequest(const QString& workerName, const RwCommand& command);
+            RwCommandRequest(const QString& workerName, const RwCommand::RwCommandPtr& command);
             virtual ~RwCommandRequest();
             
             ////////////////////////////////////////////////////////////////////////////////
@@ -53,12 +53,12 @@ namespace RwNetworking {
             /// \brief Return the command represented by the request
             /// \return The command
             ////////////////////////////////////////////////////////////////////////////////
-            const RwCommand& getCommand() const;
+            const RwCommand::RwCommandPtr& getCommand() const;
             
             ////////////////////////////////////////////////////////////////////////////////
             /// \brief Sets the command
             ////////////////////////////////////////////////////////////////////////////////
-            void setCommand(const RwCommand& command);
+            void setCommand(const RwCommand::RwCommandPtr& command);
             
             ////////////////////////////////////////////////////////////////////////////////
             /// \brief Converts the request from raw data
@@ -92,7 +92,7 @@ namespace RwNetworking {
             DISALLOW_COPY_AND_ASSIGN(RwCommandRequest);
             
             QString m_workerName; // Not an actual worker
-            RwCommand m_command;
+            RwCommand::RwCommandPtr m_command;
         };
         
     }

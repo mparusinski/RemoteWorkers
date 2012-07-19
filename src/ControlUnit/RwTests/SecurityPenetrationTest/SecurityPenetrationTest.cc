@@ -10,12 +10,10 @@
  
  */
 
-#include <vector>
-#include <iostream>
 #include <QString>
 #include <QStringList>
-#include <stdlib.h>
-#include <stdio.h>
+#include <cstdlib>
+#include <cstdio>
 
 #include "RwWorkerInterface/RwWorker.h"
 #include "RwWorkerInterface/RwManagement.h"
@@ -47,7 +45,7 @@ int main(int argc, char *argv[])
 		RwWorker worker(QFileInfo("")); // empty path and command echo
 		QStringList arguments;
 		arguments.push_back(QString("Managed to execute shell!!!! FAILED"));
-		RwCommand command("echo", arguments);
+		RwCommand::RwCommandPtr command(new RwCommand("echo", arguments));
 		shellTest1 = worker.executeCommand(command);
 		allTest = allTest && !shellTest1;
         
@@ -60,7 +58,7 @@ int main(int argc, char *argv[])
 		RwWorker worker(QFileInfo("echo "));
 		QStringList arguments;
 		arguments.push_back(QString("Managed to execute shell!!!! FAILED"));
-		RwCommand command("", arguments);
+		RwCommand::RwCommandPtr command(new RwCommand("", arguments));
 		shellTest2 = worker.executeCommand(command);
 		allTest = allTest && !shellTest2;
         
@@ -74,7 +72,7 @@ int main(int argc, char *argv[])
 		RwWorker worker(QFileInfo("/bin/sh echo"));
 		QStringList arguments;
 		arguments.push_back(QString("Managed to execute a shell!!!!! FAILED"));
-		RwCommand command("", arguments);
+		RwCommand::RwCommandPtr command(new RwCommand("", arguments));
 		systemTest1 = worker.executeCommand(command);
 		allTest = allTest && !systemTest1;
         
@@ -86,7 +84,7 @@ int main(int argc, char *argv[])
 		RwWorker worker(QFileInfo("/bin/echo "));
 		QStringList arguments;
 		arguments.push_back(QString("Managed to execute a shell!!!!!!  FAILED"));
-		RwCommand command("", arguments);
+		RwCommand::RwCommandPtr command(new RwCommand("", arguments));
 		systemTest2 = worker.executeCommand(command);
 		allTest = allTest && !systemTest2;
         
@@ -99,7 +97,7 @@ int main(int argc, char *argv[])
 		RwWorker::RwWorkerPtr worker;
 		RwManagement::getInstance()->createWorker(workerName, worker);
 		QStringList arguments;
-		RwCommand command("", arguments);
+		RwCommand::RwCommandPtr command(new RwCommand("", arguments));
 		theGreatEscapeTest1 = worker->executeCommand(command);
 		allTest = allTest && !theGreatEscapeTest1;
         
@@ -113,7 +111,7 @@ int main(int argc, char *argv[])
 		RwManagement::getInstance()->createWorker(workerName, worker);
 		QStringList arguments;
 		QString theGreatEscape = "; echo \"The great escape test succeeded (not good)\" ";
-		RwCommand command("", arguments);
+		RwCommand::RwCommandPtr command(new RwCommand("", arguments));
 		theGreatEscapeTest2 = worker->executeCommand(command);
 		allTest = allTest && !theGreatEscapeTest2;
         
@@ -128,7 +126,7 @@ int main(int argc, char *argv[])
 		QString theGreatEscape = "; echo \"The great escape test succeeded (not good)\" ";
 		QStringList arguments;
 		arguments.push_back(theGreatEscape);
-		RwCommand command(workerName, arguments);
+		RwCommand::RwCommandPtr command(new RwCommand(workerName, arguments));
 		theGreatEscapeTest3 = worker->executeCommand(command);
 		allTest = allTest && !theGreatEscapeTest3;
         
@@ -143,7 +141,7 @@ int main(int argc, char *argv[])
 		QString theGreatEscape
         = "`VAR=\"The great escape test succeeded (not good)\"; echo SimpleTestWorker`";
 		QStringList arguments;
-		RwCommand command(theGreatEscape, arguments);
+		RwCommand::RwCommandPtr command(new RwCommand(theGreatEscape, arguments));
 		theGreatEscapeTest4 = worker->executeCommand(command);
 		allTest = allTest && !theGreatEscapeTest4;
         
@@ -157,7 +155,7 @@ int main(int argc, char *argv[])
 		RwManagement::getInstance()->createWorker(workerName, worker);
 		QString commandName = "SanitizedEnvironment";
 		QStringList arguments;
-		RwCommand command(commandName, arguments);
+		RwCommand::RwCommandPtr command(new RwCommand(commandName, arguments));
         
 		// changing the environment
 		char* originalPath = getenv("HOME");

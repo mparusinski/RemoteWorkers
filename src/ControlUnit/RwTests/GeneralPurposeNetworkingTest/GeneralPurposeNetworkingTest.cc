@@ -36,7 +36,7 @@ void assess(const QString& testName, const bool test)
 
 bool test(const QString& commandName, const QString& order, const QStringList& arguments)
 {
-    RwCommand command(order, arguments);
+    RwCommand::RwCommandPtr command(new RwCommand(order, arguments));
     RwCommandRequest simpleRequest(commandName, command);
     QByteArray requestData;
     simpleRequest.toRawData(requestData);

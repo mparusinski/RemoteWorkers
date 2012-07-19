@@ -42,11 +42,11 @@ public:
 
 	void serverStopped();
 
-	void workerAdded(RwWorker::RwWorkerPtr& worker);
+	void workerAdded(const RwWorker::RwWorkerPtr& worker);
 
-	void workerRemoved(RwWorker::RwWorkerPtr& worker);
+	void workerRemoved(const RwWorker::RwWorkerPtr& worker);
 
-	void workerExecutedCommand(RwWorker::RwWorkerPtr& worker, RwCommand::RwCommandPtr& command);
+	void workerExecutedCommand(const RwWorker::RwWorkerPtr& worker, const RwCommand::RwCommandPtr& command);
 
 	void generateAll();
 

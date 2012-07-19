@@ -56,7 +56,7 @@ namespace RwWorkerInterface
         /// \param[in] command
         /// \return    Returns the appropriate error code
         ////////////////////////////////////////////////////////////////////////////////
-        RwReturnType executeCommand(const RwCommand& command) const;
+        RwReturnType executeCommand(const RwCommand::RwCommandPtr& command) const;
         
         ////////////////////////////////////////////////////////////////////////////////
         /// \brief     Returns the path to the worker (not the worker name)

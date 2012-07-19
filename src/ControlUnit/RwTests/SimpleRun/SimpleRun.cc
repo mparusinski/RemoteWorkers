@@ -40,7 +40,7 @@ int main(int argc, char *argv[])
 
 	RwWorker::RwWorkerPtr worker;
 	RwManagement::getInstance()->createWorker("SimpleTestWorker", worker);
-	RwCommand command("SimpleTestWorker", QStringList());
+	RwCommand::RwCommandPtr command(new RwCommand("SimpleTestWorker", QStringList()));
 	worker->executeCommand(command);
 	RwReply reply;
     worker->getReply(reply);

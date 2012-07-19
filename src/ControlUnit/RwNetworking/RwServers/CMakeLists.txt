@@ -29,6 +29,6 @@ ADD_LIBRARY(RwServers STATIC
   ${RwServers_SOURCES}  ${RwServers_HEADERS_QT} ${RwServers_HEADERS}
   ${RwServers_HEADERS_MOC})
 
-TARGET_LINK_LIBRARIES(RwServers RwWorkerInterface RwLog RwNetDataStructures)
+TARGET_LINK_LIBRARIES(RwServers RwWorkerInterface RwLog RwNetDataStructures RwHistory)
 TARGET_LINK_LIBRARIES(RwServers ${QT_LIBRARIES})
 

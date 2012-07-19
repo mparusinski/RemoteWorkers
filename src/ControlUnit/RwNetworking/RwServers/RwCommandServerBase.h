@@ -24,6 +24,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 14/05/2012.
 #include "RwUtils/RwLog/RwCommon.h"
 #include "RwWorkerInterface/RwWorker.h"
 #include "RwWorkerInterface/RwManagement.h"
+#include "RwHistory/RwEventLog.h"
 
 #include "../RwNetDataStructures/RwCommandRequest.h"
 #include "../RwNetDataStructures/RwCommandReply.h"
@@ -106,6 +107,8 @@ namespace RwNetworking {
             		goto cut_through;
 
             	errorCode = worker->executeCommand(request.getCommand());
+
+            	RwHistory::RwEventLog::getInstance()->workerExecutedCommand(worker, request.getCommand());
 
             	if (errorCode != RW_NO_ERROR)
             		goto cut_through;

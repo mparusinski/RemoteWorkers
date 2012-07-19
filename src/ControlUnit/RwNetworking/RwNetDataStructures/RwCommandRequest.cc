@@ -43,10 +43,10 @@ namespace RwNetworking {
             
         }
         
-        RwCommandRequest::RwCommandRequest(const QString& workerName, const RwCommand& command)
+        RwCommandRequest::RwCommandRequest(const QString& workerName, const RwCommand::RwCommandPtr& command)
         {
             m_workerName = workerName;
-            m_command.copyFrom(command);
+            m_command = command;
         }
         
         RwCommandRequest::~RwCommandRequest()
@@ -58,7 +58,7 @@ namespace RwNetworking {
             return m_workerName;
         }
         
-        const RwCommand& RwCommandRequest::getCommand() const {
+        const RwCommand::RwCommandPtr& RwCommandRequest::getCommand() const {
             return m_command;
         }
         
@@ -67,9 +67,9 @@ namespace RwNetworking {
             m_workerName = workerName;
         }
         
-        void RwCommandRequest::setCommand(const RwWorkerInterface::RwCommand &command)
+        void RwCommandRequest::setCommand(const RwCommand::RwCommandPtr &command)
         {
-            m_command.copyFrom(command);
+            m_command = command;
         }
         
         RwReturnType RwCommandRequest::toRawData(QByteArray& rawData) const
@@ -86,9 +86,9 @@ namespace RwNetworking {
             dataStream << m_workerName;
             
             dataStream << REQUEST_ORDER;
-            dataStream << m_command.getOrder();
+            dataStream << m_command->getOrder();
             
-            const QStringList& args = m_command.getArguments();
+            const QStringList& args = m_command->getArguments();
             const int numberOfArguments = args.size();
             
             dataStream << REQUEST_ARG_NUMBER;
@@ -205,15 +205,16 @@ namespace RwNetworking {
                 return RW_ERROR_READING_NETWORK_MESSAGE;
             }
             
-            m_command.setOrder(order);
-            m_command.setArguments(argumentsList);
+            m_command = RwCommand::RwCommandPtr(new RwCommand(order, argumentsList));
 
             return RW_NO_ERROR;
         }
         
         bool RwCommandRequest::operator==(const RwNetworking::RwNetDataStructures::RwCommandRequest &other) const
         {
-            return (m_workerName == other.m_workerName) && (m_command.getOrder() == other.m_command.getOrder()) && (m_command.getArguments() == other.m_command.getArguments());
+            return (m_workerName == other.m_workerName)
+            		&& (m_command->getOrder() == other.m_command->getOrder())
+            		&& (m_command->getArguments() == other.m_command->getArguments());
         }
         
     }

@@ -62,10 +62,10 @@ namespace RwWorkerInterface
     	return m_workerName;
     }
     
-    RwReturnType RwWorker::executeCommand(const RwCommand& command) const
+    RwReturnType RwWorker::executeCommand(const RwCommand::RwCommandPtr& command) const
     {
-        const QString& order = command.getOrder();
-        const QStringList& arguments = command.getArguments();
+        const QString& order = command->getOrder();
+        const QStringList& arguments = command->getArguments();
         
         QFileInfo fullPath = m_path;
         
@@ -74,7 +74,7 @@ namespace RwWorkerInterface
         commandPath += order;
 
         rwMessage() << commandPath << " has been executed" << endLine();
-        
+
         RwExternalApplication application(commandPath, arguments);
         return application.execute();
     }

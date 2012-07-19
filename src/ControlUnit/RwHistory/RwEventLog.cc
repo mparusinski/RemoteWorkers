@@ -44,7 +44,7 @@ RwEventLog* RwEventLog::getInstance()
 
 void RwEventLog::registerEvent(const RwEvent& event)
 {
-	if (event > m_eventList.last())
+	if (m_eventList.empty() || event > m_eventList.last()) // cut through for more performance
 	{
 		m_eventList.push_back(event);
 	}
@@ -67,19 +67,19 @@ void RwEventLog::serverStopped()
 	registerEvent(event);
 }
 
-void RwEventLog::workerAdded(RwWorker::RwWorkerPtr& worker)
+void RwEventLog::workerAdded(const RwWorker::RwWorkerPtr& worker)
 {
 	RwEvent event(RwWorkerAddedEvent::create(worker));
 	registerEvent(event);
 }
 
-void RwEventLog::workerRemoved(RwWorker::RwWorkerPtr& worker)
+void RwEventLog::workerRemoved(const RwWorker::RwWorkerPtr& worker)
 {
 	RwEvent event(RwWorkerRemovedEvent::create(worker));
 	registerEvent(event);
 }
 
-void RwEventLog::workerExecutedCommand(RwWorker::RwWorkerPtr& worker, RwCommand::RwCommandPtr& command)
+void RwEventLog::workerExecutedCommand(const RwWorker::RwWorkerPtr& worker, const RwCommand::RwCommandPtr& command)
 {
 	RwEvent event(RwWorkerExecutionEvent::create(worker, command));
 	registerEvent(event);
