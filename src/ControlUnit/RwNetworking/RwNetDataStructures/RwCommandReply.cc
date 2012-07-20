@@ -47,10 +47,10 @@ namespace RwNetworking {
             m_errorCode = errorCode;
         }
         
-        RwCommandReply::RwCommandReply(const RwWorkerInterface::RwReply& reply)
+        RwCommandReply::RwCommandReply(const RwWorkerInterface::RwReply::RwReplyPtr& reply)
         {
             m_isError = false;
-            m_reply.copyFrom(reply);
+            m_reply = reply;
         }
         
         RwCommandReply::~RwCommandReply()
@@ -64,10 +64,10 @@ namespace RwNetworking {
             m_errorCode = errorCode;
         }
         
-        void RwCommandReply::setReply(const RwWorkerInterface::RwReply &reply)
+        void RwCommandReply::setReply(const RwWorkerInterface::RwReply::RwReplyPtr &reply)
         {
             m_isError = false;
-            m_reply.copyFrom(reply);
+            m_reply = reply;
         }
         
         void RwCommandReply::copyFrom(const RwCommandReply &other)
@@ -77,7 +77,7 @@ namespace RwNetworking {
                 m_errorCode = other.m_errorCode;
             } else {
                 m_isError = false;
-                m_reply.copyFrom(other.m_reply);
+                m_reply = other.m_reply;
             }
         }
         
@@ -91,12 +91,12 @@ namespace RwNetworking {
             return m_errorCode;
         }
         
-        RwWorkerInterface::RwReply& RwCommandReply::getReply()
+        RwWorkerInterface::RwReply::RwReplyPtr& RwCommandReply::getReply()
         {
             return m_reply;
         }
         
-        const RwWorkerInterface::RwReply& RwCommandReply::getReply() const
+        const RwWorkerInterface::RwReply::RwReplyPtr& RwCommandReply::getReply() const
         {
             return m_reply;
         }
@@ -186,7 +186,7 @@ namespace RwNetworking {
                     delete[] fileRawData;
                 }
                 
-                m_reply.setRawData(arrays);
+                m_reply = RwWorkerInterface::RwReply::RwReplyPtr(new RwWorkerInterface::RwReply(arrays));
             }
             
             char * end = 0;
@@ -215,7 +215,7 @@ namespace RwNetworking {
             if (m_isError) {
                 dataStream << m_errorCode;
             } else {
-                RwWorkerInterface::RwReply::ByteArrays replies = m_reply.getRawData();
+                const RwWorkerInterface::RwReply::ByteArrays& replies = m_reply->getRawData();
                 const int numberOfFiles = replies.length();
                 dataStream << REPLY_FILES_NUMBER;
                 dataStream << numberOfFiles;
@@ -254,7 +254,7 @@ namespace RwNetworking {
             if (m_isError && other.m_isError) {
                 return m_errorCode == other.m_errorCode;
             } else if (!m_isError && !other.m_isError) {
-                return m_reply.getRawData() == other.m_reply.getRawData();
+                return m_reply->getRawData() == other.m_reply->getRawData();
             } else {
                 return false;
             }

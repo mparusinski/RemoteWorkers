@@ -42,10 +42,10 @@ int main(int argc, char *argv[])
 	RwManagement::getInstance()->createWorker("SimpleTestWorker", worker);
 	RwCommand::RwCommandPtr command(new RwCommand("SimpleTestWorker", QStringList()));
 	worker->executeCommand(command);
-	RwReply reply;
+	RwReply::RwReplyPtr reply;
     worker->getReply(reply);
 
-	if ( reply.empty() )
+	if ( reply->empty() )
 	{
         rwError() << "Reply is not built" << endLine();
 		return -1;
@@ -55,7 +55,7 @@ int main(int argc, char *argv[])
         rwMessage() << "Reply is built" << endLine();
 	}
 
-    RwReply::ByteArrays& rawData = reply.getRawData();
+    RwReply::ByteArrays& rawData = reply->getRawData();
 	const int numberOfByteStreams = rawData.size();
 	for (int i = 0; i < numberOfByteStreams; ++i)
 	{

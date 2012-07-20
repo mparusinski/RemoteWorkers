@@ -164,8 +164,8 @@ public:
             rwError() << "An error has occurred when executing request and/or reading reply" << endLine();
             m_replyTextView->insertPlainText("An error has occurred when processing request");
         } else {
-            const RwWorkerInterface::RwReply& actualReply =  m_currentReply->getReply();
-            const RwWorkerInterface::RwReply::ByteArrays& arrays = actualReply.getRawData();
+            const RwWorkerInterface::RwReply::RwReplyPtr& actualReply =  m_currentReply->getReply();
+            const RwWorkerInterface::RwReply::ByteArrays& arrays = actualReply->getRawData();
             const int numberOfReplies = arrays.length();
             for (int i = 0; i < numberOfReplies; ++i)
             {
@@ -180,8 +180,8 @@ public:
     {
         const int i = index.row();
         
-        const RwWorkerInterface::RwReply& actualReply =  m_currentReply->getReply();
-        const RwWorkerInterface::RwReply::ByteArrays& arrays = actualReply.getRawData();
+        const RwWorkerInterface::RwReply::RwReplyPtr& actualReply =  m_currentReply->getReply();
+        const RwWorkerInterface::RwReply::ByteArrays& arrays = actualReply->getRawData();
         
         const QByteArray& rawData = arrays[i].second;
         const QString& text(rawData.data());

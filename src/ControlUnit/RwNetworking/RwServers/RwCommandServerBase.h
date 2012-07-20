@@ -98,7 +98,7 @@ namespace RwNetworking {
             RwReturnType executeRequest(const RwNetDataStructures::RwCommandRequest& request, RwNetDataStructures::RwCommandReply& reply) const
             {
             	RwReturnType errorCode = RW_NO_ERROR;
-            	RwReply realReply;
+            	RwReply::RwReplyPtr realReply;
             	RwWorker::RwWorkerPtr worker;
 
             	errorCode = RwManagement::getInstance()->createWorker(request.getWorkerName(), worker);

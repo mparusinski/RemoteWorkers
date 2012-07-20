@@ -40,13 +40,13 @@ namespace RwWorkerInterface
         m_outputPathComputed = false;
     }
     
-    RwReturnType RwWorker::getReply(RwReply& reply)
+    RwReturnType RwWorker::getReply(RwReply::RwReplyPtr& reply)
     {
         RwReturnType returnMsg = RW_NO_ERROR;
         returnMsg = returnMsg | createReply(reply);
         cleanOutput();
         
-        if (reply.empty())
+        if (reply->empty())
             returnMsg = returnMsg | RW_ERROR_NO_REPLY;
 
         return returnMsg;
@@ -91,7 +91,7 @@ namespace RwWorkerInterface
         return commandName;
     }
     
-    RwReturnType RwWorker::createReply(RwReply& reply)
+    RwReturnType RwWorker::createReply(RwReply::RwReplyPtr& reply)
     {
         typedef RwReply::ByteArrays ByteArrays;
         
@@ -104,7 +104,8 @@ namespace RwWorkerInterface
         
         const int numberOfFiles = files.size();
         
-        ByteArrays& rawData = reply.getRawData();
+        reply = RwReply::RwReplyPtr(new RwReply);
+        ByteArrays& rawData = reply->getRawData();
         rawData.reserve(numberOfFiles);
         
         for (int i = 0; i < numberOfFiles; ++i)

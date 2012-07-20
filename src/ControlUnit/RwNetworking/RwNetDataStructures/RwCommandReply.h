@@ -34,7 +34,7 @@ namespace RwNetworking {
         public:
             RwCommandReply();
             RwCommandReply(const RwReturnType errorCode);
-            RwCommandReply(const RwWorkerInterface::RwReply& reply);
+            RwCommandReply(const RwWorkerInterface::RwReply::RwReplyPtr& reply);
             virtual ~RwCommandReply();
             
             ////////////////////////////////////////////////////////////////////////////////
@@ -47,7 +47,7 @@ namespace RwNetworking {
             /// \brief Turns the reply structure into a reply.
             /// \param[in] errorCode Error code
             ////////////////////////////////////////////////////////////////////////////////
-            void setReply(const RwWorkerInterface::RwReply& reply);
+            void setReply(const RwWorkerInterface::RwReply::RwReplyPtr& reply);
             
             ////////////////////////////////////////////////////////////////////////////////
             /// \brief Copies the object from another command reply
@@ -83,13 +83,13 @@ namespace RwNetworking {
             /// \brief Get the reply out. Always check first with isError()
             /// \return Return the replies regardless of the state
             ////////////////////////////////////////////////////////////////////////////////
-            RwWorkerInterface::RwReply& getReply();
+            RwWorkerInterface::RwReply::RwReplyPtr& getReply();
             
             ////////////////////////////////////////////////////////////////////////////////
             /// \brief Get the reply out. Always check first with isError()
             /// \return Return the replies regardless of the state
             ////////////////////////////////////////////////////////////////////////////////
-            const RwWorkerInterface::RwReply& getReply() const;
+            const RwWorkerInterface::RwReply::RwReplyPtr& getReply() const;
             
             ////////////////////////////////////////////////////////////////////////////////
             /// \brief FOR TESTING PURPOSES MAINLY
@@ -109,7 +109,7 @@ namespace RwNetworking {
             
             bool m_isError;
             RwReturnType m_errorCode;
-            RwWorkerInterface::RwReply m_reply;
+            RwWorkerInterface::RwReply::RwReplyPtr m_reply;
         };
         
     }

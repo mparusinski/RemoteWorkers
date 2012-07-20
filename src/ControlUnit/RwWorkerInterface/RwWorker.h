@@ -48,7 +48,7 @@ namespace RwWorkerInterface
         ///              corresponding to the reply. So this can be called only once.
         /// \param[out]  reply Reply corresponding to output of the worker.
         ////////////////////////////////////////////////////////////////////////////////
-        RwReturnType getReply(RwReply& reply);
+        RwReturnType getReply(RwReply::RwReplyPtr& reply);
         
         ////////////////////////////////////////////////////////////////////////////////
         /// \brief     Worker will execute the command represented by the input and
@@ -70,7 +70,7 @@ namespace RwWorkerInterface
         DISALLOW_COPY_AND_ASSIGN(RwWorker);
         
         QString commandToString(const RwCommand& command) const;
-        RwReturnType createReply(RwReply& reply);
+        RwReturnType createReply(RwReply::RwReplyPtr& reply);
         void getOutputPath();
         void cleanOutput();
         

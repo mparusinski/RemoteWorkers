@@ -53,7 +53,7 @@ bool test(const QString& commandName, const QString& order, const QStringList& a
     RwWorker::RwWorkerPtr worker;
     RwReturnType errorCode = RwManagement::getInstance()->createWorker(commandName, worker);
 
-	RwReply reply;
+	RwReply::RwReplyPtr reply;
     if (errorCode == RW_NO_ERROR)
     {
     	worker->executeCommand(command);
