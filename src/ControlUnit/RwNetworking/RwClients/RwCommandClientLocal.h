@@ -98,6 +98,8 @@ namespace RwNetworking  {
             bool m_connected;
             QString m_serverName;
             QLocalSocket* m_localSocket;
+            int m_blockSize;
+            QByteArray m_buffer;
             RwNetDataStructures::RwCommandReply m_reply;
         };
         

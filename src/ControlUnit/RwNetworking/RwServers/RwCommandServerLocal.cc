@@ -68,7 +68,10 @@ namespace RwNetworking {
         {
             // ESTABLISHING CONNECTION
             m_currentConnection = m_localServer->nextPendingConnection();
+            QObject::connect(m_currentConnection, SIGNAL(error(QLocalSocket::LocalSocketError)),
+                        	this, SLOT(caughtError(QLocalSocket::LocalSocketError)));
             abstractProcessConnection();
+
         }
         
         void RwCommandServerLocal::init()
@@ -77,6 +80,11 @@ namespace RwNetworking {
                              this, SLOT(processConnection()));
         }
         
+        void RwCommandServerLocal::caughtError(QLocalSocket::LocalSocketError error)
+        {
+        	rwError() << "Server error: " << m_currentConnection->errorString() << endLine();
+        }
+
     }
 }
 

@@ -68,7 +68,7 @@ namespace RwUtils
             {
                 const QFileInfo& filePath = files[i];
                 QDir fileDirectory = filePath.absoluteDir();
-                fileDirectory.remove(filePath.filePath());
+                fileDirectory.remove(filePath.fileName());
             }
             
             return RW_NO_ERROR;

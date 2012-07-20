@@ -62,7 +62,7 @@ namespace RwNetworking {
             /// \brief  Checks if the server is currently running.
             ////////////////////////////////////////////////////////////////////////////////
             virtual bool isRunning() const = 0;
-            
+
         protected:
             bool m_pendingConnection;
             SocketType* m_currentConnection;
@@ -143,12 +143,15 @@ namespace RwNetworking {
             	RwReturnType errorCode = processData(receivedData, responseData);
 
             	// SENDING RAW DATA
-            	m_currentConnection->write(responseData);
-            	m_currentConnection->waitForBytesWritten();
+            	QByteArray responseContainerData;
+            	QDataStream out(&responseContainerData, QIODevice::WriteOnly);
+            	out << responseData.size();
+            	out << responseData;
 
-            	delete m_currentConnection;
+            	m_currentConnection->write(responseContainerData);
             }
-            
+
+
         private:
             DISALLOW_COPY_AND_ASSIGN(RwCommandServerBase);
             

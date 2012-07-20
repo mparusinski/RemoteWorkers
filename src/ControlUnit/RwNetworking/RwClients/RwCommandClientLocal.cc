@@ -28,6 +28,7 @@ namespace RwNetworking {
         {
             m_connected = false;
             m_serverName = serverName;
+            m_blockSize = 0;
             m_localSocket = new QLocalSocket(this);
             
             QObject::connect(m_localSocket, SIGNAL(connected()), 
@@ -75,13 +76,34 @@ namespace RwNetworking {
         
         void RwCommandClientLocal::readReady()
         {
-            while (m_localSocket->bytesAvailable() < (int)sizeof(quint32))
-                m_localSocket->waitForReadyRead();
-            
-            QByteArray replyRawData = m_localSocket->readAll();
-            m_reply.fromRawData(replyRawData);
-            
-            emit replyReady();
+        	while (m_localSocket->bytesAvailable() < (int) sizeof(quint32))
+        		m_localSocket->waitForBytesWritten();
+
+        	QByteArray block = m_localSocket->readAll();
+
+        	if (m_blockSize <= 0)
+        	{
+        		QDataStream in(block);
+        		in >> m_blockSize;
+        		// rwDebug() << "Bytes to read " << m_blockSize << endLine();
+        		// rwDebug() << "Bytes added " << block.size() << endLine();
+        	}
+
+        	m_buffer += block;
+
+        	if (m_buffer.size() >= m_blockSize) // finished reading
+        	{
+        		QDataStream in(m_buffer);
+        		in >> m_blockSize; // dummy action
+
+        		QByteArray actualData;
+        		in >> actualData;
+        		rwDebug() << "Finished reading reply" << endLine();
+        		m_reply.fromRawData(actualData);
+        		m_blockSize = 0;
+        		m_buffer.clear();
+        		emit replyReady();
+        	}
         }
         
         RwReturnType RwCommandClientLocal::sendRequest(const RwNetDataStructures::RwCommandRequest& request)

@@ -65,6 +65,8 @@ namespace RwNetworking {
             ////////////////////////////////////////////////////////////////////////////////
             void processConnection();
             
+            void caughtError(QLocalSocket::LocalSocketError error);
+
         private:
             DISALLOW_COPY_AND_ASSIGN(RwCommandServerLocal);
             

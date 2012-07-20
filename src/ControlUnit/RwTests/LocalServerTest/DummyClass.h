@@ -161,7 +161,7 @@ public:
         m_replyTextView->clear();
         
         if (m_currentReply->isError()) {
-            rwError() << "An error has occurred when processing request" << endLine();
+            rwError() << "An error has occurred when executing request and/or reading reply" << endLine();
             m_replyTextView->insertPlainText("An error has occurred when processing request");
         } else {
             const RwWorkerInterface::RwReply& actualReply =  m_currentReply->getReply();
