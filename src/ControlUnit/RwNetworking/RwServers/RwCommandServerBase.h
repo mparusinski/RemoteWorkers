@@ -143,12 +143,12 @@ namespace RwNetworking {
             	RwReturnType errorCode = processData(receivedData, responseData);
 
             	// SENDING RAW DATA
-            	QByteArray responseContainerData;
-            	QDataStream out(&responseContainerData, QIODevice::WriteOnly);
-            	out << responseData.size();
-            	out << responseData;
+            	//QByteArray responseContainerData;
+            	//QDataStream out(&responseContainerData, QIODevice::WriteOnly);
+            	//out << responseData.size();
+            	//out << responseData;
 
-            	m_currentConnection->write(responseContainerData);
+            	m_currentConnection->write(responseData);
             }
 
 

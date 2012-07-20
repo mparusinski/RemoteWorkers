@@ -17,6 +17,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 15/05/2012.
 #include <QPair>
 #include <QList>
 #include <QByteArray>
+#include <QSharedPointer>
 
 #include "RwUtils/RwGlobal/RwClasses.h"
 
@@ -31,6 +32,7 @@ namespace RwWorkerInterface
     class RwReply
     {
     public:
+    	typedef QSharedPointer<RwReply> RwReplyPtr;
         typedef QList< QPair<QString, QByteArray> > ByteArrays;
         
         RwReply();

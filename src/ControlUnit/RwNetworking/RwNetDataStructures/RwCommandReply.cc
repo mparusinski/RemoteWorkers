@@ -105,6 +105,8 @@ namespace RwNetworking {
         {
             QDataStream dataStream(rawData);
             
+            int sizeDummy;
+            dataStream >> sizeDummy;
             char * begin = 0;
             dataStream >> begin;
             
@@ -203,6 +205,8 @@ namespace RwNetworking {
         {
             QDataStream dataStream(&rawData, QIODevice::WriteOnly);
             
+            int size = -1;
+            dataStream << size; // will me modified later
             dataStream << REPLY_BEGIN;
             
             dataStream << REPLY_TYPE;
@@ -231,6 +235,17 @@ namespace RwNetworking {
             
             dataStream << REPLY_END;
             
+            size = rawData.size();
+
+            QByteArray tmpArray;
+            QDataStream tmpData(&tmpArray, QIODevice::WriteOnly);
+            tmpData << size;
+
+            for (int i = 0; i < tmpArray.size(); ++i)
+            {
+            	rawData[i] = tmpArray[i]; // copying in place
+            }
+
             return RW_NO_ERROR;
         }
         

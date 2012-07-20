@@ -93,15 +93,10 @@ namespace RwNetworking {
 
         	if (m_buffer.size() >= m_blockSize) // finished reading
         	{
-        		QDataStream in(m_buffer);
-        		in >> m_blockSize; // dummy action
-
-        		QByteArray actualData;
-        		in >> actualData;
-        		rwDebug() << "Finished reading reply" << endLine();
-        		m_reply.fromRawData(actualData);
+        		m_reply.fromRawData(m_buffer);
         		m_blockSize = 0;
         		m_buffer.clear();
+        		m_localSocket->close();
         		emit replyReady();
         	}
         }
