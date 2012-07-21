@@ -17,7 +17,7 @@ namespace RwUtils {
     
     namespace RwGlobal {
         
-#define RW_VERSION 0.2
+#define RW_VERSION 0.3
         
     }
     
