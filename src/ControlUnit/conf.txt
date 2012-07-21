@@ -1,2 +1,2 @@
 WorkersPath ../Workers/
-
+WorkersList WorkersList.txt
