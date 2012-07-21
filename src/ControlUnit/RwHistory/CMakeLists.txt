@@ -31,5 +31,6 @@ SET(RwHistory_SOURCES
 ADD_LIBRARY(RwHistory STATIC 
   ${RwHistory_SOURCES} ${RwHistory_HEADERS})
 
+TARGET_LINK_LIBRARIES(RwHistory RwWorkerInterface)
 TARGET_LINK_LIBRARIES(RwHistory ${QT_LIBRAIRES})
 

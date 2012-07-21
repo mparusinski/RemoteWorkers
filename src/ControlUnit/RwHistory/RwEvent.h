@@ -31,7 +31,11 @@ namespace RwHistory {
 
 		bool operator >(const RwEvent& other) const;
 
-		QDate eventDate() const;
+		const QDate& eventDate() const;
+
+		QDate& eventDate();
+
+		const QString& description();
 
 		void generateEvent();
 

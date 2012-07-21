@@ -49,7 +49,7 @@ namespace RwUtils
             if (directory.exists() && directory.isDir())
             {
                 const QDir directoryReal(directory.filePath());
-                directories = directoryReal.entryInfoList(QDir::Dirs);
+                directories = directoryReal.entryInfoList(QDir::Dirs | QDir::NoDotAndDotDot);
                 return RW_NO_ERROR;
             }
             else

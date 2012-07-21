@@ -23,6 +23,8 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 18/07/2012.
 #include "RwWorkerInterface/RwWorker.h"
 #include "RwWorkerInterface/RwCommand.h"
 
+#define DEFAULT_EVENTS_ROTATE 100
+
 using namespace RwWorkerInterface;
 
 namespace RwHistory {
@@ -36,7 +38,11 @@ public:
 
 	static RwEventLog* getInstance();
 
-	void registerEvent(const RwEvent& event);
+	EventListType& getEventList();
+
+	const EventListType& getEventList() const;
+
+	void addEvent(const RwEvent& event);
 
 	void serverStarted();
 
@@ -49,6 +55,8 @@ public:
 	void workerExecutedCommand(const RwWorker::RwWorkerPtr& worker, const RwCommand::RwCommandPtr& command);
 
 	void generateAll();
+
+	void logRotate(int eventsToKeep = DEFAULT_EVENTS_ROTATE);
 
 private:
 	RwEventLog();

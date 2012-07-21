@@ -29,7 +29,7 @@ RwEventType::RwEventTypeHandle RwWorkerAddedEvent::generate()
 {
 	RwEventType* ptrToObject = new RwEventType;
 	ptrToObject->copyEssentials(this);
-	ptrToObject->m_eventDescription = "Worker " + m_worker->getWorkerName() + " has been added\n";
+	ptrToObject->m_eventDescription = "Worker " + m_worker->getWorkerName() + " has been added";
 
 	RwEventTypeHandle handle(ptrToObject);
 	return handle;

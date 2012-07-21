@@ -30,7 +30,7 @@ RwEventType::RwEventTypeHandle RwWorkerExecutionEvent::generate()
 	RwEventType* ptrToObject = new RwEventType;
 	ptrToObject->copyEssentials(this);
 	ptrToObject->m_eventDescription = "Worker " + m_worker->getWorkerName() + " executed the following command: "
-			+ m_command->getOrder() + " with arguments " + m_command->getArguments().join(" ") + "\n";
+			+ m_command->getOrder() + " with arguments " + m_command->getArguments().join(" ");
 	RwEventTypeHandle handle(ptrToObject);
 	return handle;
 }

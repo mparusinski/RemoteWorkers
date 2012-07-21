@@ -34,15 +34,26 @@ bool RwEvent::operator >(const RwEvent& other) const
 	return (m_eventTypeVar->date()) > (other.m_eventTypeVar->date());
 }
 
-QDate RwEvent::eventDate() const
+const QDate& RwEvent::eventDate() const
+{
+	return m_eventTypeVar->date();
+}
+
+QDate& RwEvent::eventDate()
 {
 	return m_eventTypeVar->date();
 }
 
 void RwEvent::generateEvent()
 {
-	if (!m_eventTypeVar->hasBeenGenerated())
+	if ( !m_eventTypeVar->hasBeenGenerated() )
 		m_eventTypeVar = m_eventTypeVar->generate();
+}
+
+const QString& RwEvent::description()
+{
+	generateEvent();
+	return m_eventTypeVar->m_eventDescription;
 }
 
 }

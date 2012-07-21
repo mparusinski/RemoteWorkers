@@ -43,11 +43,13 @@ public:
 
 	inline const QDate& date() const { return m_eventDate; }
 
+	inline QDate& date() { return m_eventDate; }
+
 	virtual RwEventTypeHandle generate();
 
 	void copyEssentials(const RwEventType* other);
 
-	QString m_eventDescription; // string version of event
+	mutable QString m_eventDescription; // string version of event
 
 protected:
 	RwEventTypeSubClassType m_subClassType;

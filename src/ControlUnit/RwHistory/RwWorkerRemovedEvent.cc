@@ -29,7 +29,7 @@ RwEventType::RwEventTypeHandle RwWorkerRemovedEvent::generate()
 {
 	RwEventType* ptrToObject = new RwEventType;
 	ptrToObject->copyEssentials(this);
-	ptrToObject->m_eventDescription = "Worker " + m_worker->getWorkerName() + " has been removed\n";
+	ptrToObject->m_eventDescription = "Worker " + m_worker->getWorkerName() + " has been removed";
 
 	RwEventTypeHandle handle(ptrToObject);
 	return handle;

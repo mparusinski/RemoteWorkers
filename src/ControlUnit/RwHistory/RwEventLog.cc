@@ -42,7 +42,17 @@ RwEventLog* RwEventLog::getInstance()
 	return instance;
 }
 
-void RwEventLog::registerEvent(const RwEvent& event)
+RwEventLog::EventListType& RwEventLog::getEventList()
+{
+	return m_eventList;
+}
+
+const RwEventLog::EventListType& RwEventLog::getEventList() const
+{
+	return m_eventList;
+}
+
+void RwEventLog::addEvent(const RwEvent& event)
 {
 	if (m_eventList.empty() || event > m_eventList.last()) // cut through for more performance
 	{
@@ -58,31 +68,31 @@ void RwEventLog::registerEvent(const RwEvent& event)
 void RwEventLog::serverStarted()
 {
 	RwEvent event(RwServerStartedEvent::create());
-	registerEvent(event);
+	addEvent(event);
 }
 
 void RwEventLog::serverStopped()
 {
 	RwEvent event(RwServerStoppedEvent::create());
-	registerEvent(event);
+	addEvent(event);
 }
 
 void RwEventLog::workerAdded(const RwWorker::RwWorkerPtr& worker)
 {
 	RwEvent event(RwWorkerAddedEvent::create(worker));
-	registerEvent(event);
+	addEvent(event);
 }
 
 void RwEventLog::workerRemoved(const RwWorker::RwWorkerPtr& worker)
 {
 	RwEvent event(RwWorkerRemovedEvent::create(worker));
-	registerEvent(event);
+	addEvent(event);
 }
 
 void RwEventLog::workerExecutedCommand(const RwWorker::RwWorkerPtr& worker, const RwCommand::RwCommandPtr& command)
 {
 	RwEvent event(RwWorkerExecutionEvent::create(worker, command));
-	registerEvent(event);
+	addEvent(event);
 }
 
 void RwEventLog::generateAll()
@@ -91,6 +101,19 @@ void RwEventLog::generateAll()
 	for (iter = m_eventList.begin(); iter != m_eventList.end(); ++iter)
 	{
 		iter->generateEvent();
+	}
+}
+
+void RwEventLog::logRotate(int eventsToKeep)
+{
+	const int currentSize   = m_eventList.size();
+	const int elemsToDelete = currentSize - eventsToKeep;
+	if (elemsToDelete > 0)
+	{
+		for (int i = 0; i < elemsToDelete; ++i)
+		{
+			m_eventList.removeFirst();
+		}
 	}
 }
 

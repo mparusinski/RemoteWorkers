@@ -12,6 +12,10 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 18/07/2012
 
 #include "RwEventType.h"
 
+#include "RwUtils/RwLog/RwCommon.h"
+
+using namespace RwUtils::RwLog;
+
 namespace RwHistory {
 
 RwEventType::~RwEventType()
@@ -26,8 +30,8 @@ RwEventType::RwEventTypeSubClassType RwEventType::getSubClassType() const
 
 RwEventType::RwEventTypeHandle RwEventType::generate()
 {
-	// RwEventType and its subclass will always be dynamically allocated, so this should work
-	return RwEventType::RwEventTypeHandle(this);
+	rwError() << "Can't generate an already generated event" << endLine();
+	return RwEventType::RwEventTypeHandle(new RwEventType);
 }
 
 void RwEventType::copyEssentials(const RwEventType* other)
