@@ -22,11 +22,14 @@ using namespace RwWorkerInterface;
 
 namespace RwHistory {
 
+////////////////////////////////////////////////////////////////////////////////
+/// \brief This class represents an removed worker event
+///        Do not use, internal purpose only
+///        Prefer using RwEventLog
+////////////////////////////////////////////////////////////////////////////////
 class RwWorkerRemovedEvent : public RwEventType {
 
 public:
-	RwWorkerRemovedEvent() { m_generated = false; }
-
 	virtual ~RwWorkerRemovedEvent() { }
 
 	static RwEventTypeHandle create(const RwWorker::RwWorkerPtr& worker);
@@ -35,6 +38,7 @@ public:
 
 private:
 	DISALLOW_COPY_AND_ASSIGN(RwWorkerRemovedEvent);
+	RwWorkerRemovedEvent(const RwWorker::RwWorkerPtr& worker);
 
 	RwWorker::RwWorkerPtr m_worker;
 

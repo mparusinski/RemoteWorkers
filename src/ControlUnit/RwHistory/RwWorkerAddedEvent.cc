@@ -14,13 +14,17 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 18/07/2012.
 
 namespace RwHistory {
 
+RwWorkerAddedEvent::RwWorkerAddedEvent(const RwWorker::RwWorkerPtr& worker)
+{
+	m_generated = false;
+	m_subClassType = RW_WORKER_ADDED_EVENT;
+	m_eventDate = QDate::currentDate();
+	m_worker = worker;
+}
+
 RwEventType::RwEventTypeHandle RwWorkerAddedEvent::create(const RwWorker::RwWorkerPtr& worker)
 {
-	RwWorkerAddedEvent* ptrToObject = new RwWorkerAddedEvent;
-	ptrToObject->m_worker = worker;
-	ptrToObject->m_subClassType = RW_WORKER_ADDED_EVENT;
-	ptrToObject->m_eventDate = QDate::currentDate();
-
+	RwWorkerAddedEvent* ptrToObject = new RwWorkerAddedEvent(worker);
 	RwEventTypeHandle handle(ptrToObject);
 	return handle;
 }
@@ -29,7 +33,8 @@ RwEventType::RwEventTypeHandle RwWorkerAddedEvent::generate()
 {
 	RwEventType* ptrToObject = new RwEventType;
 	ptrToObject->copyEssentials(this);
-	ptrToObject->m_eventDescription = "Worker " + m_worker->getWorkerName() + " has been added";
+	QString eventDescription = "Worker " + m_worker->getWorkerName() + " has been added";
+	ptrToObject->setEventDescription(eventDescription);
 
 	RwEventTypeHandle handle(ptrToObject);
 	return handle;

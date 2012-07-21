@@ -53,7 +53,7 @@ void RwEvent::generateEvent()
 const QString& RwEvent::description()
 {
 	generateEvent();
-	return m_eventTypeVar->m_eventDescription;
+	return m_eventTypeVar->getEventDescription();
 }
 
 }

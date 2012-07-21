@@ -15,36 +15,68 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 17/08/2012.
 
 #include <QSharedPointer>
 
-#include "RwUtils/RwGlobal/RwClasses.h"
-
 #include "RwEventType.h"
 
 namespace RwHistory {
 
-	class RwEvent {
+////////////////////////////////////////////////////////////////////////////////
+/// \brief This class represents a server event. Event may be in non computed state.
+///        In non computed state, the event only holds the smallest amount of data
+///        possible. When access is needed to useful data, the event will compute
+///        all the relevant data. To compute directly call generateEvent().
+///        Use RwEventLog to register events.
+////////////////////////////////////////////////////////////////////////////////
+class RwEvent {
 
-	public:
-		RwEvent(const RwEventType::RwEventTypeHandle& handleToEvent);
-		virtual ~RwEvent();
+public:
+	RwEvent(const RwEventType::RwEventTypeHandle& handleToEvent);
+	virtual ~RwEvent();
 
-		bool operator <(const RwEvent& other) const;
+	////////////////////////////////////////////////////////////////////////////////
+	/// \brief Compare the date of two events. An event A is smaller than an event B
+	///        if A occurred in B's past. Checking if A < B.
+	/// \param[in] other The other event
+	/// \return Returns true if A is in the past of B.
+	////////////////////////////////////////////////////////////////////////////////
+	bool operator <(const RwEvent& other) const;
 
-		bool operator >(const RwEvent& other) const;
+	////////////////////////////////////////////////////////////////////////////////
+	/// \brief Compare the date of two events. An event A is bigger than an event B
+	///        if A occurred in B's future. Checking if A > B.
+	/// \param[in] other The other event
+	/// \return Returns true if A is in the future of B.
+	////////////////////////////////////////////////////////////////////////////////
+	bool operator >(const RwEvent& other) const;
 
-		const QDate& eventDate() const;
+	////////////////////////////////////////////////////////////////////////////////
+	/// \brief Return the date of the event.
+	/// \return Date of the event.
+	////////////////////////////////////////////////////////////////////////////////
+	const QDate& eventDate() const;
 
-		QDate& eventDate();
+	////////////////////////////////////////////////////////////////////////////////
+	/// \brief Return the date of the event.
+	/// \return Date of the event.
+	////////////////////////////////////////////////////////////////////////////////
+	QDate& eventDate();
 
-		const QString& description();
+	////////////////////////////////////////////////////////////////////////////////
+	/// \brief Return a string describing the event. Note that this function
+	///        will change the internal state of the event as it may have
+	///        to generate the string.
+	/// \return Description of the event
+	////////////////////////////////////////////////////////////////////////////////
+	const QString& description();
 
-		void generateEvent();
+	////////////////////////////////////////////////////////////////////////////////
+	/// \brief Generates all the data describing the event.
+	/// \return Description of the event
+	////////////////////////////////////////////////////////////////////////////////
+	void generateEvent();
 
-	private:
-		// Copying this object should be easy
-		// DISALLOW_COPY_AND_ASSIGN(RwEvent);
-
-		RwEventType::RwEventTypeHandle m_eventTypeVar;
-	};
+private:
+	RwEventType::RwEventTypeHandle m_eventTypeVar;
+};
 
 }
 

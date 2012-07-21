@@ -19,11 +19,14 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 18/07/2012.
 
 namespace RwHistory {
 
+////////////////////////////////////////////////////////////////////////////////
+/// \brief This class represents a server stopped event.
+///        Do not use, internal purpose only
+///        Prefer using RwEventLog
+////////////////////////////////////////////////////////////////////////////////
 class RwServerStoppedEvent : public RwEventType {
 
 public:
-	RwServerStoppedEvent() { m_generated = false; }
-
 	virtual ~RwServerStoppedEvent() { }
 
 	virtual RwEventTypeHandle generate();
@@ -32,6 +35,7 @@ public:
 
 private:
 	DISALLOW_COPY_AND_ASSIGN(RwServerStoppedEvent);
+	RwServerStoppedEvent();
 };
 
 }

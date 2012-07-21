@@ -14,13 +14,18 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 18/07/2012.
 
 namespace RwHistory {
 
+RwWorkerExecutionEvent::RwWorkerExecutionEvent(const RwWorker::RwWorkerPtr& worker, const RwCommand::RwCommandPtr& command)
+{
+	m_generated = false;
+	m_subClassType = RW_WORKER_EXECUTION_EVENT;
+	m_eventDate = QDate::currentDate();
+	m_worker = worker;
+	m_command = command;
+}
+
 RwEventType::RwEventTypeHandle RwWorkerExecutionEvent::create(const RwWorker::RwWorkerPtr& worker, const RwCommand::RwCommandPtr& command)
 {
-	RwWorkerExecutionEvent* ptrToObject = new RwWorkerExecutionEvent;
-	ptrToObject->m_worker = worker;
-	ptrToObject->m_command = command;
-	ptrToObject->m_subClassType = RW_WORKER_EXECUTION_EVENT;
-	ptrToObject->m_eventDate = QDate::currentDate();
+	RwWorkerExecutionEvent* ptrToObject = new RwWorkerExecutionEvent(worker, command);
 	RwEventTypeHandle handle(ptrToObject);
 	return handle;
 }
@@ -29,8 +34,9 @@ RwEventType::RwEventTypeHandle RwWorkerExecutionEvent::generate()
 {
 	RwEventType* ptrToObject = new RwEventType;
 	ptrToObject->copyEssentials(this);
-	ptrToObject->m_eventDescription = "Worker " + m_worker->getWorkerName() + " executed the following command: "
+	QString description = "Worker " + m_worker->getWorkerName() + " executed the following command: "
 			+ m_command->getOrder() + " with arguments " + m_command->getArguments().join(" ");
+	ptrToObject->setEventDescription(description);
 	RwEventTypeHandle handle(ptrToObject);
 	return handle;
 }

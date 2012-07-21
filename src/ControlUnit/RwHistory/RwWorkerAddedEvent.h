@@ -22,11 +22,14 @@ using namespace RwWorkerInterface;
 
 namespace RwHistory {
 
+////////////////////////////////////////////////////////////////////////////////
+/// \brief This class represents an added worker event.
+///        Do not use, internal purpose only
+///        Prefer using RwEventLog
+////////////////////////////////////////////////////////////////////////////////
 class RwWorkerAddedEvent : public RwEventType {
 
 public:
-	RwWorkerAddedEvent() { m_generated = false; }
-
 	virtual ~RwWorkerAddedEvent() { }
 
 	static RwEventTypeHandle create(const RwWorker::RwWorkerPtr& worker);
@@ -35,6 +38,7 @@ public:
 
 private:
 	DISALLOW_COPY_AND_ASSIGN(RwWorkerAddedEvent);
+	RwWorkerAddedEvent(const RwWorker::RwWorkerPtr& worker);
 
 	RwWorker::RwWorkerPtr m_worker;
 

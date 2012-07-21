@@ -18,12 +18,17 @@ using namespace RwUtils::RwLog;
 
 namespace RwHistory {
 
+RwEventType::RwEventType()
+{
+	m_generated = true;
+}
+
 RwEventType::~RwEventType()
 {
 
 }
 
-RwEventType::RwEventTypeSubClassType RwEventType::getSubClassType() const
+RwEventType::RwEventTypeSubClassType RwEventType::getEventType() const
 {
 	return m_subClassType;
 }
@@ -38,6 +43,16 @@ void RwEventType::copyEssentials(const RwEventType* other)
 {
 	m_eventDate = other->m_eventDate;
 	m_subClassType = other->m_subClassType;
+}
+
+const QString& RwEventType::getEventDescription() const
+{
+	return m_eventDescription;
+}
+
+void RwEventType::setEventDescription(QString& eventDescription)
+{
+	m_eventDescription = eventDescription;
 }
 
 }

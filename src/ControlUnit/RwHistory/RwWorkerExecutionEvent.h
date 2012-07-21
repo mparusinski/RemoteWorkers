@@ -23,6 +23,11 @@ using namespace RwWorkerInterface;
 
 namespace RwHistory {
 
+////////////////////////////////////////////////////////////////////////////////
+/// \brief This class represents an worker command execution event.
+///        Do not use, internal purpose only
+///        Prefer using RwEventLog
+////////////////////////////////////////////////////////////////////////////////
 class RwWorkerExecutionEvent : public RwEventType {
 
 public:
@@ -33,7 +38,7 @@ public:
 	virtual RwEventTypeHandle generate();
 
 private:
-	RwWorkerExecutionEvent() { m_generated = false; }
+	RwWorkerExecutionEvent(const RwWorker::RwWorkerPtr& worker, const RwCommand::RwCommandPtr& command);
 	DISALLOW_COPY_AND_ASSIGN(RwWorkerExecutionEvent);
 
 	RwWorker::RwWorkerPtr m_worker;
