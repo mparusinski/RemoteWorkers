@@ -29,9 +29,9 @@ using namespace RwUtils::RwLog;
 void assess(const QString& testName, const bool test)
 {
     if (test)
-        rwMessage() << "Test succeeded " << testName << endLine();
+    	rwInfo() << "Test succeeded " << testName << endLine();
     else 
-        rwMessage() << "Test failed " << testName << endLine();
+    	rwInfo() << "Test failed " << testName << endLine();
 }
 
 bool test(const QString& commandName, const QString& order, const QStringList& arguments)

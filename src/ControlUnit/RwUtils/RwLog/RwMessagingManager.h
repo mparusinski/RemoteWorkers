@@ -33,6 +33,14 @@ namespace RwUtils
         class RwMessagingManager
         {
         public:
+
+        	typedef int MessagesLevelType;
+#define RW_NO_MESSAGE 0
+#define RW_DEBUG_MESSAGE 1
+#define RW_INFO_MESSAGE 2
+#define RW_WARNING_MESSAGE 4
+#define RW_ERROR_MESSAGE 8
+
             virtual ~RwMessagingManager();
             
             ////////////////////////////////////////////////////////////////////////////////
@@ -55,10 +63,10 @@ namespace RwUtils
             void useFileDispatcher();
             
             ////////////////////////////////////////////////////////////////////////////////
-            /// \brief     Function which logs a message (if logging if turned on)
+            /// \brief     Function which logs an info message (if logging if turned on)
             /// \param[in] message	Message to be logged
             ////////////////////////////////////////////////////////////////////////////////
-            void reportMessage(const char* message) const;
+            void reportInfo(const char* message) const;
             
             /////////////////////////////////////////////////////////////////////////////////
             /// \brief     Reports an error, do not use this function directly.
@@ -80,23 +88,23 @@ namespace RwUtils
             /////////////////////////////////////////////////////////////////////////////////
             /// \brief     Switches on message to log all messages to appropriate dispatcher.
             /////////////////////////////////////////////////////////////////////////////////
-            void turnMessagingOn();
+            void turnInfosOn();
             
             /////////////////////////////////////////////////////////////////////////////////
             /// \brief     Switches off message for normal messages, no message will be logged
             /////////////////////////////////////////////////////////////////////////////////
-            void turnMessagingOff();
+            void turnInfosOff();
             
             /////////////////////////////////////////////////////////////////////////////////
             /// \brief     Switches on error reporting and uses appropriate dispatcher to
             ///            register errors
             /////////////////////////////////////////////////////////////////////////////////
-            void turnErrorReportingOn();
+            void turnErrorsOn();
             
             /////////////////////////////////////////////////////////////////////////////////
             /// \brief     Switches off error reporting. No error will be reported.
             /////////////////////////////////////////////////////////////////////////////////
-            void turnErrorReportingOff();
+            void turnErrorsOff();
             
             /////////////////////////////////////////////////////////////////////////////////
             /// \brief     Switches on warnings.
@@ -134,7 +142,7 @@ namespace RwUtils
             /// \brief     Tells whether reporting messages
             /// \return    True if message reporting false otherwise
             /////////////////////////////////////////////////////////////////////////////////
-            bool isReportingMessages() const;
+            bool isReportingInfos() const;
             
             /////////////////////////////////////////////////////////////////////////////////
             /// \brief     Tells whether reporting errors
@@ -158,10 +166,7 @@ namespace RwUtils
             DISALLOW_COPY_AND_ASSIGN(RwMessagingManager);
             RwMessagingManager(); // singleton pattern
             
-            bool m_sendingMessages;
-            bool m_reportingErrors;
-            bool m_debugging;
-            bool m_reportingWarning;
+            MessagesLevelType m_reportingLevels;
             
             RwMessagingDispatcherBase* m_strategy;
         };

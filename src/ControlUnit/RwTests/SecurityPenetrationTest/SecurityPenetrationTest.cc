@@ -23,9 +23,9 @@
 using namespace RwUtils::RwLog;
 
 #define TEST(condition, msg) do { if (condition) { \
-rwMessage() << "PASS: " << (msg) << " (which is bad!)" << endLine(); \
+		rwInfo() << "PASS: " << (msg) << " (which is bad!)" << endLine(); \
 } else { \
-rwMessage() << "FAIL: " << (msg) << " (which is good!)" << endLine(); }  } while(0);
+	rwInfo() << "FAIL: " << (msg) << " (which is good!)" << endLine(); }  } while(0);
 
 using namespace RwWorkerInterface;
 

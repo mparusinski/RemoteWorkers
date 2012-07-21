@@ -58,83 +58,77 @@ namespace RwUtils
         
         void RwMessagingManager::turnAllOn()
         {
-            m_sendingMessages  = true;
-            m_reportingWarning = true;
-            m_reportingErrors  = true;
-            m_debugging        = true;
+        	m_reportingLevels = RW_INFO_MESSAGE | RW_DEBUG_MESSAGE | RW_WARNING_MESSAGE | RW_ERROR_MESSAGE;
         }
         
         void RwMessagingManager::turnAllOff()
         {
-            m_sendingMessages  = false;
-            m_reportingWarning = false;
-            m_reportingErrors  = false;
-            m_debugging        = false;
+        	m_reportingLevels = RW_NO_MESSAGE;
         }
         
-        void RwMessagingManager::turnMessagingOn()
+        void RwMessagingManager::turnInfosOn()
         {
-            m_sendingMessages = true;
+        	m_reportingLevels = m_reportingLevels | RW_INFO_MESSAGE;
         }
         
-        void RwMessagingManager::turnMessagingOff()
+        void RwMessagingManager::turnInfosOff()
         {
-            m_sendingMessages = false;
+        	m_reportingLevels = m_reportingLevels & ~RW_INFO_MESSAGE;
         }
         
-        void RwMessagingManager::turnErrorReportingOn()
+        void RwMessagingManager::turnErrorsOn()
         {
-            m_reportingErrors = true;
+        	m_reportingLevels = m_reportingLevels | RW_ERROR_MESSAGE;
         }
         
-        void RwMessagingManager::turnErrorReportingOff()
+        void RwMessagingManager::turnErrorsOff()
         {
-            m_reportingErrors = false;
+        	m_reportingLevels = m_reportingLevels & ~RW_ERROR_MESSAGE;
         }
         
         void RwMessagingManager::turnWarningsOn()
         {
-            m_reportingWarning = true;
+        	m_reportingLevels = m_reportingLevels | RW_WARNING_MESSAGE;
         }
         
         void RwMessagingManager::turnWarningsOff()
         {
-            m_reportingWarning = false;
+        	m_reportingLevels = m_reportingLevels & ~RW_WARNING_MESSAGE;
         }
         
         void RwMessagingManager::turnDebuggingOn()
         {
-            m_debugging = true;
+        	m_reportingLevels = m_reportingLevels | RW_DEBUG_MESSAGE;
         }
         
         void RwMessagingManager::turnDebuggingOff()
         {
-            m_debugging = false;
+        	m_reportingLevels = m_reportingLevels & ~RW_DEBUG_MESSAGE;
         }
         
-        bool RwMessagingManager::isReportingMessages() const
+        bool RwMessagingManager::isReportingInfos() const
         {
-            return m_sendingMessages;
+        	return (m_reportingLevels & RW_INFO_MESSAGE) > 0;
         }
          
         bool RwMessagingManager::isReportingErrors() const
         {
-            return m_reportingErrors;
+        	return (m_reportingLevels & RW_ERROR_MESSAGE) > 0;
         }
         
         bool RwMessagingManager::isReportingWarnings() const
         {
-            return m_reportingWarning;
+        	return (m_reportingLevels & RW_WARNING_MESSAGE) > 0;
         }
         
         bool RwMessagingManager::isReportingDebugMessages() const
         {
-            return m_debugging;
+        	return (m_reportingLevels & RW_DEBUG_MESSAGE) > 0;
         }
         
-        void RwMessagingManager::reportMessage(const char *message) const
+        void RwMessagingManager::reportInfo(const char *message) const
         {
-            if (m_sendingMessages)
+            if (isReportingInfos())
             {
                 m_strategy->writeMessage(message);
             }
@@ -142,7 +136,7 @@ namespace RwUtils
         
         void RwMessagingManager::reportError(const char *message) const
         {
-            if (m_reportingErrors)
+            if (isReportingErrors())
             {
                 m_strategy->writeError(message);
             }
@@ -150,7 +144,7 @@ namespace RwUtils
         
         void RwMessagingManager::reportWarning(const char *message) const
         {
-            if (m_reportingWarning)
+            if (isReportingWarnings())
             {
                 m_strategy->writeWarning(message);
             }
@@ -158,7 +152,7 @@ namespace RwUtils
         
         void RwMessagingManager::reportBug(const char* message) const
         {
-            if (m_debugging)
+            if (isReportingDebugMessages())
             {
                 m_strategy->writeDebug(message);
             }

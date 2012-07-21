@@ -31,7 +31,7 @@ namespace RwUtils
         /// \brief DO NOT USE!
         ////////////////////////////////////////////////////////////////////////////////
         typedef enum {
-            RW_WRITER_MESSAGE,
+            RW_WRITER_INFO,
             RW_WRITER_ERROR,
             RW_WRITER_WARNING,
             RW_WRITER_DEBUG
@@ -91,8 +91,10 @@ namespace RwUtils
             {
                 switch (m_writerType)
                 {
-                    case RW_WRITER_MESSAGE:
-                        RwMessagingManager::getInstance()->reportMessage(messageToWrite);
+                    case RW_WRITER_INFO:
+#ifndef RW_NO_INFO_REPORTING
+                        RwMessagingManager::getInstance()->reportInfo(messageToWrite);
+#endif // RW_NO_INFO_REPORTING
                         break;
                     case RW_WRITER_ERROR:
 #ifndef RW_NO_ERROR_REPORTING
@@ -110,7 +112,6 @@ namespace RwUtils
 #endif // RW_NO_WARNING
                         break;
                     default:
-                        RwMessagingManager::getInstance()->reportMessage(messageToWrite);
                         break;
                 }
             }
@@ -121,9 +122,9 @@ namespace RwUtils
         //////////////////////////////////////////////////////////////////////////////// 
         /// \brief Returns a stream to message. Acts like a function.
         ////////////////////////////////////////////////////////////////////////////////
-        inline RwWriter rwMessage()
+        inline RwWriter rwInfo()
         {
-            return RwWriter(RW_WRITER_MESSAGE);
+            return RwWriter(RW_WRITER_INFO);
         }
         
         inline RwWriter _rwDebug(const char* fileName, 

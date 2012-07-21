@@ -72,7 +72,7 @@ void displayEvents()
 		RwEvent& event = events[i];
 		const QString description = event.description();
 		const QDate& date = event.eventDate();
-		rwMessage() << date.toString() << " " << description << endLine();
+		rwInfo() << date.toString() << " " << description << endLine();
 	}
 }
 

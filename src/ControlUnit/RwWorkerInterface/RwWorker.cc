@@ -73,7 +73,7 @@ namespace RwWorkerInterface
         commandPath += PATH_SEPERATOR;
         commandPath += order;
 
-        rwMessage() << commandPath << " has been executed" << endLine();
+        rwInfo() << commandPath << " has been executed" << endLine();
 
         RwExternalApplication application(commandPath, arguments);
         return application.execute();

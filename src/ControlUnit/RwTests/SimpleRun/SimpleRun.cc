@@ -32,10 +32,10 @@ int main(int argc, char *argv[])
 	RwMessagingManager::getInstance()->turnAllOn();
 
 	QStringList availableWorkers = RwManagement::getInstance()->scanAvailableWorkers();
-    rwMessage() << "Available workers" << endLine();
+    rwInfo() << "Available workers" << endLine();
 	for (int i = 0; i < availableWorkers.size(); ++i)
 	{
-        rwMessage() << availableWorkers[i] << endLine();
+		rwInfo() << availableWorkers[i] << endLine();
 	}
 
 	RwWorker::RwWorkerPtr worker;
@@ -52,7 +52,7 @@ int main(int argc, char *argv[])
 	}
 	else
 	{
-        rwMessage() << "Reply is built" << endLine();
+		rwInfo() << "Reply is built" << endLine();
 	}
 
     RwReply::ByteArrays& rawData = reply->getRawData();
@@ -61,8 +61,8 @@ int main(int argc, char *argv[])
 	{
 		const QString& fileName = rawData[i].first;
         QByteArray& byteStream = rawData[i].second;
-        printf("File: %s\n", fileName.toAscii().data());
-        rwMessage() << byteStream << endLine() << endLine();
+        rwInfo() << "File " << fileName << endLine();
+        rwInfo() << byteStream << endLine() << endLine();
 	}
 
 	return 1;

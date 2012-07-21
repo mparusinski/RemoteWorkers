@@ -38,7 +38,7 @@ int main(int argc, char *argv[])
 	QStringList availableWorkers = RwManagement::getInstance()->scanAvailableWorkers();
 	for (size_t i = 0; i < availableWorkers.size(); ++i)
 	{
-		rwMessage() << availableWorkers[i] << endLine();
+		rwInfo() << availableWorkers[i] << endLine();
 	}
 	RwUtils::RwProfile::RwProfiler::profile("Reading workers");
 
@@ -63,7 +63,7 @@ int main(int argc, char *argv[])
 	for (size_t i = 0; i < numberOfByteStreams; ++i)
 	{
 		const QString& fileName = rawData[i].first;
-		rwMessage() << "File: " << fileName << endLine();
+		rwInfo() << "File: " << fileName << endLine();
 	}
 	RwUtils::RwProfile::RwProfiler::profile("Listing files");
 
