@@ -18,7 +18,6 @@ RwServerStartedEvent::RwServerStartedEvent()
 {
 	m_generated = false;
 	m_subClassType = RW_SERVER_STARTED_EVENT;
-	m_eventDate = QDate::currentDate();
 }
 
 RwEventType::RwEventTypeHandle RwServerStartedEvent::create()

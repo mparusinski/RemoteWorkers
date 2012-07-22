@@ -14,7 +14,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 18/07/2012.
 #define _RWHISTORY_RWEVENTTYPE_H_
 
 #include <QString>
-#include <QDate>
+#include <QDateTime>
 
 #include "RwUtils/RwGlobal/RwClasses.h"
 
@@ -63,13 +63,13 @@ public:
 	/// \brief Function to get the date at which the event occurred.
 	/// \return The date of the event
 	////////////////////////////////////////////////////////////////////////////////
-	inline const QDate& date() const { return m_eventDate; }
+	inline const QDateTime& date() const { return m_eventDate; }
 
 	////////////////////////////////////////////////////////////////////////////////
 	/// \brief Function to get the date at which the event occurred.
 	/// \return The date of the event
 	////////////////////////////////////////////////////////////////////////////////
-	inline QDate& date() { return m_eventDate; }
+	inline QDateTime  & date() { return m_eventDate; }
 
 	////////////////////////////////////////////////////////////////////////////////
 	/// \brief Generates the event data
@@ -98,7 +98,7 @@ public:
 
 protected:
 	bool m_generated;
-	QDate m_eventDate;
+	QDateTime m_eventDate;
 	RwEventTypeSubClassType m_subClassType;
 
 private:

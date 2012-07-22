@@ -12,6 +12,7 @@ SET(RwWorkerInterface_HEADERS
   RwReply.h
   RwConfiguration.h
   RwManagement.h
+  RwWorkerList.h
 )
 
 SET(RwWorkerInterface_SOURCES 
@@ -20,6 +21,7 @@ SET(RwWorkerInterface_SOURCES
   RwReply.cc
   RwConfiguration.cc
   RwManagement.cc
+  RwWorkerList.cc
 )
 
 ADD_LIBRARY(RwWorkerInterface STATIC 

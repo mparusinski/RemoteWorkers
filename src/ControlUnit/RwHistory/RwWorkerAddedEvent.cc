@@ -18,7 +18,6 @@ RwWorkerAddedEvent::RwWorkerAddedEvent(const RwWorker::RwWorkerPtr& worker)
 {
 	m_generated = false;
 	m_subClassType = RW_WORKER_ADDED_EVENT;
-	m_eventDate = QDate::currentDate();
 	m_worker = worker;
 }
 

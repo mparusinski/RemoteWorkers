@@ -15,7 +15,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 20/07/2012
 #include <ctime>
 
 #include <QString>
-#include <QDate>
+#include <QDateTime>
 
 #include "RwHistory/RwEventLog.h"
 #include "RwWorkerInterface/RwWorker.h"
@@ -71,7 +71,7 @@ void displayEvents()
 	{
 		RwEvent& event = events[i];
 		const QString description = event.description();
-		const QDate& date = event.eventDate();
+		const QDateTime& date = event.eventDate();
 		rwInfo() << date.toString() << " " << description << endLine();
 	}
 }

@@ -18,7 +18,6 @@ RwServerStoppedEvent::RwServerStoppedEvent()
 {
 	m_generated = false;
 	m_subClassType = RW_SERVER_STOPPED_EVENT;
-	m_eventDate = QDate::currentDate();
 }
 
 RwEventType::RwEventTypeHandle RwServerStoppedEvent::create()

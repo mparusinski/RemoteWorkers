@@ -45,10 +45,17 @@ namespace RwWorkerInterface
         /////////////////////////////////////////////////////////////////////////////////
         /// \brief      Returns the path to the directory containing the workers
         /// \param[out] workerPath path to the workers
-        /// \return     A string representing a file path
+        /// \return     An error code
         /////////////////////////////////////////////////////////////////////////////////
         RwReturnType getWorkersPath(QString& workerPath);
-        
+
+        /////////////////////////////////////////////////////////////////////////////////
+        /// \brief      Returns the path to the directory containing the workers
+        /// \param[out] workerListPath path to the workers list file
+        /// \return     An error code
+        /////////////////////////////////////////////////////////////////////////////////
+        RwReturnType getWorkersListPath(QString& workerListPath);
+
         /////////////////////////////////////////////////////////////////////////////////
         /// \brief      Returns the value of corresponding to the descriptor
         /// \param[in]  descriptor    Name of the configuration

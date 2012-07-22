@@ -34,12 +34,12 @@ bool RwEvent::operator >(const RwEvent& other) const
 	return (m_eventTypeVar->date()) > (other.m_eventTypeVar->date());
 }
 
-const QDate& RwEvent::eventDate() const
+const QDateTime& RwEvent::eventDate() const
 {
 	return m_eventTypeVar->date();
 }
 
-QDate& RwEvent::eventDate()
+QDateTime& RwEvent::eventDate()
 {
 	return m_eventTypeVar->date();
 }

@@ -18,7 +18,6 @@ RwWorkerExecutionEvent::RwWorkerExecutionEvent(const RwWorker::RwWorkerPtr& work
 {
 	m_generated = false;
 	m_subClassType = RW_WORKER_EXECUTION_EVENT;
-	m_eventDate = QDate::currentDate();
 	m_worker = worker;
 	m_command = command;
 }

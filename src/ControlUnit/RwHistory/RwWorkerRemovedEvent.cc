@@ -18,7 +18,6 @@ RwWorkerRemovedEvent::RwWorkerRemovedEvent(const RwWorker::RwWorkerPtr& worker)
 {
 	m_generated = false;
 	m_subClassType = RW_WORKER_REMOVED_EVENT;
-	m_eventDate = QDate::currentDate();
 	m_worker = worker;
 }
 

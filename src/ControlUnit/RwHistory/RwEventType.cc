@@ -20,6 +20,7 @@ namespace RwHistory {
 
 RwEventType::RwEventType()
 {
+	m_eventDate = QDateTime::currentDateTimeUtc();
 	m_generated = true;
 }
 
