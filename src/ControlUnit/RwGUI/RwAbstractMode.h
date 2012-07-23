@@ -13,16 +13,35 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 23/07/2012.
 #ifndef _RWGUI_RWABSTRACTMODE_H_
 #define _RWGUI_RWABSTRACTMODE_H_
 
+#include <QMainWindow>
+#include <QWidget>
+#include <QToolBar>
+#include <QAction>
+
+#include "RwUtils/RwGlobal/RwClasses.h"
+
 namespace RwGUI {
 
-class RwAbstractMode {
+class RwAbstractMode : public QWidget {
+
+	Q_OBJECT;
 
 public :
+	RwAbstractMode(QWidget* parent, QToolBar* toolBar);
+
+	virtual ~RwAbstractMode();
+
+public slots:
+	void focus();
 
 protected:
+	QAction* m_action;
+	QToolBar* m_toolBar;
+
+	void attach();
 
 private:
-
+	virtual void abstract() = 0;
 };
 
 }

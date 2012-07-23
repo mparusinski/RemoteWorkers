@@ -15,14 +15,21 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 23/07/2012.
 
 #include "RwAbstractMode.h"
 
+#include "RwUtils/RwGlobal/RwClasses.h"
+
 namespace RwGUI {
 
-class RweventMode : public RwAbstractMode {
+class RwEventsMode : public RwAbstractMode {
+
+	Q_OBJECT
 
 public:
+	RwEventsMode(QWidget* parent, QToolBar* toolBar);
+
+	virtual ~RwEventsMode();
 
 private:
-
+	virtual void abstract() { }
 };
 
 }

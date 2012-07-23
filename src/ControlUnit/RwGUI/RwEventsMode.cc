@@ -14,4 +14,17 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 23/07/2012.
 
 namespace RwGUI {
 
+RwEventsMode::RwEventsMode(QWidget * parent, QToolBar * toolBar) : RwAbstractMode(parent, toolBar)
+{
+	m_action = new QAction(tr("Events"), this); // TODO ADD ICON
+	m_action->setToolTip(tr("View all Remote Workers events on this computer"));
+	// TODO: cConnect eventsButton to a slot
+	attach();
+}
+
+RwEventsMode::~RwEventsMode()
+{
+
+}
+
 }

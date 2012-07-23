@@ -13,13 +13,37 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 23/07/2012.
 #ifndef _RWGUI_RWMAINWINDOW_H_
 #define _RWGUI_RWMAINWINDOW_H_
 
+#include <QMainWindow>
+#include <QToolBar>
+#include <QAction>
+#include <QStatusBar>
+
+#include "RwModeWidget.h"
+
+#include "RwUtils/RwGlobal/RwClasses.h"
+
 namespace RwGUI {
 
-class RwMainWindow {
+class RwMainWindow : public QMainWindow {
+
+	Q_OBJECT
 
 public:
 
+	RwMainWindow();
+
+	virtual ~RwMainWindow();
+
 private:
+	DISALLOW_COPY_AND_ASSIGN(RwMainWindow);
+
+	void createModes();
+	void setWindowAttributes();
+	void createStatusBar();
+
+	QToolBar* m_tools;
+	QStatusBar* m_status;
+	RwModeWidget* m_mode;
 
 };
 

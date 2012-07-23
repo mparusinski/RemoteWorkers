@@ -39,6 +39,8 @@ ADD_SUBDIRECTORY(RwWorkerInterface)
 ADD_SUBDIRECTORY(RwHistory)
 ADD_SUBDIRECTORY(RwUtils)
 ADD_SUBDIRECTORY(RwGUI)
+ADD_SUBDIRECTORY(RwExecutables)
 
 FILE( COPY conf.txt DESTINATION ${RemoteWorkers_ControlUnit_BINARY_DIR} )
 FILE( COPY WorkersList.txt DESTINATION ${RemoteWorkers_ControlUnit_BINARY_DIR} )
+
