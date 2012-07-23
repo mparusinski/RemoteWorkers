@@ -13,11 +13,16 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 21/07/2012.
 #ifndef _RWHISTORY_RWWORKERLIST_H_
 #define _RWHISTORY_RWWORKERLIST_H_
 
-#include <QSet>
+#include <QList>
+#include <QMap>
 #include <QString>
 #include <QDate>
+#include <QPair>
 
 #include "RwUtils/RwGlobal/RwClasses.h"
+#include "RwUtils/RwGlobal/RwReturn.h"
+
+using namespace RwUtils::RwGlobal;
 
 namespace RwWorkerInterface {
 
@@ -28,11 +33,7 @@ public:
 		RW_WORKER_NO_TYPE = 0,
 	} WorkerType;
 
-	typedef struct {
-		QString m_workerName;
-		WorkerType m_type; // default for now
-		QDate m_date;
-	} WorkerDescriptionType;
+	typedef QPair<WorkerType, QDate>  WorkerDescriptionType;
 
 	virtual ~RwWorkerList();
 
@@ -44,12 +45,17 @@ public:
 
 	void removeWorker(const QString& workerName);
 
+	RwReturnType readWorkers();
+
+	QList<QString> getListOfWorkers();
+
+	const QList<QString> getListOfWorkers() const;
+
 private:
 	DISALLOW_COPY_AND_ASSIGN(RwWorkerList);
 	RwWorkerList(); // Singleton Pattern
 
-	QSet<WorkerDescriptionType> m_listOfWorkers;
-
+	QMap<QString, WorkerDescriptionType> m_listOfWorkers;
 };
 
 }

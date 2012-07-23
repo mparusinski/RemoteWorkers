@@ -15,6 +15,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 17/05/2012
 #include <cstdio>
 
 #include "RwConfiguration.h"
+#include "RwWorkerList.h"
 #include "RwUtils/RwLog/RwCommon.h"
 #include "RwUtils/RwSystem/RwFileManagement.h"
 
@@ -63,14 +64,14 @@ namespace RwWorkerInterface
         {
             if (m_availableWorkers[i] == workerName)
             {
-                QFileInfo fullPath = m_workersDirs[i]; // cutting through
+                QFileInfo fullPath = m_pathToWorkers.filePath() + workerName;
                 worker = RwWorker::RwWorkerPtr(new RwWorker(fullPath));
                 m_allWorkers[workerName] = worker; // Memorizing for later
                 return RW_NO_ERROR;
             }
         }
         
-        rwError() << "Worker is not available" << endLine();        
+        rwError() << "Worker " << workerName << " is not available" << endLine();
         return RW_ERROR_NO_WORKER;
     }
     
@@ -91,12 +92,9 @@ namespace RwWorkerInterface
         m_availableWorkers.clear();
 
         returnMsg = init();
-        returnMsg = returnMsg | RwFileManagement::getListOfDirsInDir(m_pathToWorkers, m_workersDirs);
-        // m_availableWorkers.clear();
-        for (int i = 0; i < m_workersDirs.length(); ++i)
-        {
-        	m_availableWorkers.append(m_workersDirs[i].fileName());
-        }
+
+        returnMsg = returnMsg | RwWorkerList::getInstance()->readWorkers();
+        m_availableWorkers = RwWorkerList::getInstance()->getListOfWorkers();
 
         return returnMsg;
     }
@@ -111,7 +109,8 @@ namespace RwWorkerInterface
         
         if (m_pathToWorkers == QFileInfo())
         {
-            rwError() << "Path to workers not read! File closing" << endLine();
+            rwError() << "Path to workers not read!" << endLine();
+            return RW_ERROR_FILE_NOT_READ;
         }
         return RW_NO_ERROR;
     }

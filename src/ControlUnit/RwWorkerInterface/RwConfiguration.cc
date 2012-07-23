@@ -116,4 +116,9 @@ namespace RwWorkerInterface
         return getConfiguration("WorkersPath", workersPath);
     }
     
+    RwReturnType RwConfiguration::getWorkersListPath(QString& workersListPath)
+    {
+    	return getConfiguration("WorkersList", workersListPath);
+    }
+
 }

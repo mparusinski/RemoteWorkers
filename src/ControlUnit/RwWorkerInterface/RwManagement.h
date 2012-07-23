@@ -65,12 +65,11 @@ namespace RwWorkerInterface
         DISALLOW_COPY_AND_ASSIGN(RwManagement);
         RwManagement();
         
-        inline RwReturnType init();
+        RwReturnType init();
         
-        inline RwReturnType getListOfWorkers();
+        RwReturnType getListOfWorkers();
         
         QFileInfo m_pathToWorkers;
-        QFileInfoList m_workersDirs;
         QStringList m_availableWorkers;
         SetOfWorkersType m_allWorkers;
     };
