@@ -13,5 +13,5 @@ SET(RwGraphical_SRC
 ADD_EXECUTABLE(RemoteWorkers_GUI ${RwGraphical_SRC})
 
 TARGET_LINK_LIBRARIES(RemoteWorkers_GUI ${QT_LIBRARIES})
-TARGET_LINK_LIBRARIES(RemoteWorkers_GUI RwGUI)
+TARGET_LINK_LIBRARIES(RemoteWorkers_GUI RwGUI RwHistory)
 

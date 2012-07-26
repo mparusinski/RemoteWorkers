@@ -15,6 +15,8 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 23/07/2012.
 
 #include "RwAbstractMode.h"
 
+#include <QListWidget>
+
 #include "RwUtils/RwGlobal/RwClasses.h"
 
 namespace RwGUI {
@@ -24,12 +26,22 @@ class RwEventsMode : public RwAbstractMode {
 	Q_OBJECT
 
 public:
-	RwEventsMode(QWidget* parent, QToolBar* toolBar);
+	RwEventsMode(QWidget* parent, QToolBar* toolBar, int index);
 
 	virtual ~RwEventsMode();
 
+public slots:
+
+	void displayEvents();
+
 private:
 	virtual void abstract() { }
+
+	void setAction();
+
+	void setEventsWidget();
+
+	QListWidget* m_eventsWidget;
 };
 
 }

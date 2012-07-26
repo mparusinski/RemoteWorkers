@@ -14,8 +14,10 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 23/07/2012.
 
 namespace RwGUI {
 
-RwWorkersCenterMode::RwWorkersCenterMode(QWidget * parent, QToolBar * toolBar) : RwAbstractMode(parent, toolBar)
+RwWorkersCenterMode::RwWorkersCenterMode(QWidget * parent, QToolBar * toolBar, int index) : RwAbstractMode(parent, toolBar, index)
 {
+	m_modeName = "Workers Center Mode";
+
 	m_action = new QAction(tr("Workers Center"), this); // TODO ADD ICON
 	m_action->setToolTip(tr("View and manage available and installed workers"));
 	// TODO: Connect button to a slot

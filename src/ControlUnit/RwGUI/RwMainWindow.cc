@@ -37,6 +37,7 @@ void RwMainWindow::createModes()
 	m_tools = addToolBar(tr("Tools"));
 	m_mode = new RwModeWidget(parentWidget(), m_tools);
 	setCentralWidget(m_mode);
+	m_mode->setVisible(true);
 }
 
 void RwMainWindow::createStatusBar()

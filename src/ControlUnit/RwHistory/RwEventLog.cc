@@ -63,6 +63,8 @@ void RwEventLog::addEvent(const RwEvent& event)
 		EventListType::iterator position = qLowerBound(m_eventList.begin(), m_eventList.end(), event);
 		m_eventList.insert(position, event); // ensures the list is always in order
 	}
+
+	emit eventAdded();
 }
 
 void RwEventLog::serverStarted()

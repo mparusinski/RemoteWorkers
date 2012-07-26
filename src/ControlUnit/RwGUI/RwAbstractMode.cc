@@ -12,13 +12,18 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 23/07/2012.
 
 #include "RwAbstractMode.h"
 
+#include "RwUtils/RwLog/RwCommon.h"
+
 #include "RwMainWindow.h"
+
+using namespace RwUtils::RwLog;
 
 namespace RwGUI {
 
-RwAbstractMode::RwAbstractMode(QWidget* parent, QToolBar* toolBar) : QWidget(parent)
+RwAbstractMode::RwAbstractMode(QWidget* parent, QToolBar* toolBar, int index) : QWidget(parent)
 {
 	m_toolBar = toolBar;
+	m_index = index;
 }
 
 RwAbstractMode::~RwAbstractMode()
@@ -34,8 +39,8 @@ void RwAbstractMode::attach()
 
 void RwAbstractMode::focus()
 {
-	RwModeWidget* mainWindow = dynamic_cast<RwModeWidget*>(parentWidget());
-	mainWindow->focus(this);
+	RwModeWidget* parent = dynamic_cast<RwModeWidget*>(parentWidget());
+	parent->setCurrentIndex(m_index);
 }
 
 }

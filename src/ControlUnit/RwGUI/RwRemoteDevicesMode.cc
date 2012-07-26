@@ -14,8 +14,10 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 23/07/2012.
 
 namespace RwGUI {
 
-RwRemoteDevicesMode::RwRemoteDevicesMode(QWidget* parent, QToolBar* toolBar) : RwAbstractMode(parent, toolBar)
+RwRemoteDevicesMode::RwRemoteDevicesMode(QWidget* parent, QToolBar* toolBar, int index) : RwAbstractMode(parent, toolBar, index)
 {
+	m_modeName = "Remote Devices Mode";
+
 	m_action = new QAction(tr("Remote Devices"), this); // TODO ADD ICON
 	m_action->setToolTip(tr("Interact with remote devices"));
 	// TODO: Connect remoteDevicesButton to a slot

@@ -14,32 +14,20 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 23/07/2012.
 
 namespace RwGUI {
 
-RwModeWidget::RwModeWidget(QWidget* parent, QToolBar* toolBar) : QWidget(parent)
+RwModeWidget::RwModeWidget(QWidget* parent, QToolBar* toolBar) : QStackedWidget(parent)
 {
-	m_workersCenter = new RwWorkersCenterMode(this, toolBar);
-	m_remoteDevices = new RwRemoteDevicesMode(this, toolBar);
-	m_events = new RwEventsMode(this, toolBar);
-	m_currentMode = m_workersCenter;
+	m_workersCenter = new RwWorkersCenterMode(this, toolBar, 0);
+	m_remoteDevices = new RwRemoteDevicesMode(this, toolBar, 1);
+	m_events = new RwEventsMode(this, toolBar, 2);
+
+	insertWidget(0, m_workersCenter);
+	insertWidget(1, m_remoteDevices);
+	insertWidget(2, m_events);
 }
 
 RwModeWidget::~RwModeWidget()
 {
 
-}
-
-void RwModeWidget::setVisible(bool visible)
-{
-	if (visible)
-		m_currentMode->show();
-	else
-		m_currentMode->hide();
-}
-
-void RwModeWidget::focus(RwAbstractMode* mode)
-{
-	m_currentMode->hide();
-	m_currentMode = mode;
-	m_currentMode->show();
 }
 
 }

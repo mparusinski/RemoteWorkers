@@ -33,8 +33,11 @@ namespace RwHistory {
 /// \brief This class holds the information about all events that occurred.
 ///        This class is a singleton class and should be access by getInstance.
 ////////////////////////////////////////////////////////////////////////////////
-class RwEventLog
+class RwEventLog : public QObject
 {
+
+	Q_OBJECT
+
 public:
 	typedef QList<RwEvent> EventListType;
 
@@ -106,6 +109,9 @@ public:
 	/// \param[in] eventsToKeep Number of events to keep
 	////////////////////////////////////////////////////////////////////////////////
 	void logRotate(int eventsToKeep = DEFAULT_EVENTS_ROTATE);
+
+signals:
+	void eventAdded();
 
 private:
 	RwEventLog();

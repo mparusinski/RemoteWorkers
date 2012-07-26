@@ -24,7 +24,7 @@ class RwWorkersCenterMode : public RwAbstractMode {
 	Q_OBJECT
 
 public:
-	RwWorkersCenterMode(QWidget* parent, QToolBar* toolBar);
+	RwWorkersCenterMode(QWidget* parent, QToolBar* toolBar, int index);
 
 	virtual ~RwWorkersCenterMode();
 

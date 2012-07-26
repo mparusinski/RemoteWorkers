@@ -17,6 +17,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 23/07/2012.
 #include <QWidget>
 #include <QToolBar>
 #include <QAction>
+#include <QString>
 
 #include "RwUtils/RwGlobal/RwClasses.h"
 
@@ -27,7 +28,7 @@ class RwAbstractMode : public QWidget {
 	Q_OBJECT;
 
 public :
-	RwAbstractMode(QWidget* parent, QToolBar* toolBar);
+	RwAbstractMode(QWidget* parent, QToolBar* toolBar, int index);
 
 	virtual ~RwAbstractMode();
 
@@ -37,6 +38,8 @@ public slots:
 protected:
 	QAction* m_action;
 	QToolBar* m_toolBar;
+	QString m_modeName; // useful for debugging
+	int m_index;
 
 	void attach();
 

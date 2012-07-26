@@ -24,7 +24,7 @@ class RwRemoteDevicesMode : public RwAbstractMode {
 	Q_OBJECT
 
 public:
-	RwRemoteDevicesMode(QWidget* parent, QToolBar* toolBar);
+	RwRemoteDevicesMode(QWidget* parent, QToolBar* toolBar, int index);
 
 	virtual ~RwRemoteDevicesMode();
 

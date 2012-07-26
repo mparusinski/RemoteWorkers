@@ -13,7 +13,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 23/07/2012.
 #ifndef _RWGUI_RWMODEWIDGET_H_
 #define _RWGUI_RWMODEWIDGET_H_
 
-#include <QWidget>
+#include <QStackedWidget>
 
 #include "RwUtils/RwGlobal/RwClasses.h"
 
@@ -23,7 +23,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 23/07/2012.
 
 namespace RwGUI {
 
-class RwModeWidget : public QWidget {
+class RwModeWidget : public QStackedWidget {
 
 	Q_OBJECT
 
@@ -32,14 +32,7 @@ public:
 
 	virtual ~RwModeWidget();
 
-public slots:
-
-	virtual void setVisible(bool visible);
-
-	virtual void focus(RwAbstractMode* mode);
-
 private:
-	RwAbstractMode* m_currentMode;
 	RwWorkersCenterMode* m_workersCenter;
 	RwRemoteDevicesMode* m_remoteDevices;
 	RwEventsMode* m_events;
