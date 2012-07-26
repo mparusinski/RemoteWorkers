@@ -14,6 +14,7 @@ SET(RwGUI_HEADERS_QT
     RwWorkersCenterMode.h
     RwRemoteDevicesMode.h
     RwEventsMode.h
+    RwWorkerWidget.h
 )
 
 SET(RwGUI_SOURCES 
@@ -24,6 +25,7 @@ SET(RwGUI_SOURCES
     RwWorkersCenterMode.cc
     RwRemoteDevicesMode.cc
     RwEventsMode.cc
+    RwWorkerWidget.cc
 )
 
 QT4_WRAP_CPP(RwGUI_HEADERS_MOC ${RwGUI_HEADERS_QT})

@@ -40,6 +40,8 @@ private:
 
 	void setLayout();
 
+	void readWorkers();
+
 	QHBoxLayout* m_mainLayout;
 	QVBoxLayout* m_workersLayout;
 	QWidget* m_workersWidget;
