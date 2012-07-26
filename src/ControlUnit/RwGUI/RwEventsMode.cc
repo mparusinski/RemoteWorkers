@@ -45,10 +45,15 @@ void RwEventsMode::setAction()
 
 void RwEventsMode::setEventsWidget()
 {
+	m_mainLayout = new QVBoxLayout(this);
+
 	m_eventsWidget = new QListWidget(this);
 	m_eventsWidget->setAcceptDrops(false);
 	m_eventsWidget->setDragEnabled(false);
 	// possibly other stuff to put here
+
+	m_mainLayout->addWidget(m_eventsWidget);
+
 	displayEvents();
 }
 

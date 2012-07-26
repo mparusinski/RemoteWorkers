@@ -18,14 +18,41 @@ RwWorkersCenterMode::RwWorkersCenterMode(QWidget * parent, QToolBar * toolBar, i
 {
 	m_modeName = "Workers Center Mode";
 
-	m_action = new QAction(tr("Workers Center"), this); // TODO ADD ICON
-	m_action->setToolTip(tr("View and manage available and installed workers"));
-	// TODO: Connect button to a slot
+	setAction();
+	setLayout();
+
 	attach();
 }
 
 RwWorkersCenterMode::~RwWorkersCenterMode()
 {
+
+}
+
+void RwWorkersCenterMode::setAction()
+{
+	m_action = new QAction(tr("Workers Center"), this); // TODO ADD ICON
+	m_action->setToolTip(tr("View and manage available and installed workers"));
+}
+
+void RwWorkersCenterMode::setLayout()
+{
+	m_mainLayout = new QHBoxLayout(this);
+
+	m_optionsList = new QListWidget(this);
+	m_workersWidget = new QWidget(this);
+
+	m_workersLayout = new QVBoxLayout(m_workersWidget);
+
+	m_mainLayout->addWidget(m_optionsList, 3);
+	m_mainLayout->addWidget(m_workersWidget, 7);
+
+	m_installedWorkers = new QListWidget(this);
+	m_availableWorkers = new QListWidget(this);
+
+	m_workersLayout->addWidget(m_installedWorkers);
+	m_workersLayout->addWidget(m_availableWorkers);
+
 
 }
 

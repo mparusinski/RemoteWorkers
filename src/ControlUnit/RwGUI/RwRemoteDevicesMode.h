@@ -15,6 +15,9 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 23/07/2012.
 
 #include "RwAbstractMode.h"
 
+#include <QHBoxLayout>
+#include <QListWidget>
+
 #include "RwUtils/RwGlobal/RwClasses.h"
 
 namespace RwGUI {
@@ -30,6 +33,15 @@ public:
 
 private:
 	virtual void abstract() { }
+
+	void setLayout();
+
+	void setAction();
+
+	QHBoxLayout* m_mainLayout;
+	QListWidget* m_devices;
+	QListWidget* m_remoteWorkers;
+
 };
 
 }

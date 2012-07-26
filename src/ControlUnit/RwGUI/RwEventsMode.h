@@ -16,6 +16,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 23/07/2012.
 #include "RwAbstractMode.h"
 
 #include <QListWidget>
+#include <QVBoxLayout>
 
 #include "RwUtils/RwGlobal/RwClasses.h"
 
@@ -41,6 +42,7 @@ private:
 
 	void setEventsWidget();
 
+	QVBoxLayout* m_mainLayout;
 	QListWidget* m_eventsWidget;
 };
 

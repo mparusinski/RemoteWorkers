@@ -18,15 +18,33 @@ RwRemoteDevicesMode::RwRemoteDevicesMode(QWidget* parent, QToolBar* toolBar, int
 {
 	m_modeName = "Remote Devices Mode";
 
-	m_action = new QAction(tr("Remote Devices"), this); // TODO ADD ICON
-	m_action->setToolTip(tr("Interact with remote devices"));
-	// TODO: Connect remoteDevicesButton to a slot
+	setAction();
+	setLayout();
+
 	attach();
 }
 
 RwRemoteDevicesMode::~RwRemoteDevicesMode()
 {
 
+}
+
+void RwRemoteDevicesMode::setAction()
+{
+	m_action = new QAction(tr("Remote Devices"), this); // TODO ADD ICON
+	m_action->setToolTip(tr("Interact with remote devices"));
+}
+
+void RwRemoteDevicesMode::setLayout()
+{
+	m_mainLayout = new QHBoxLayout(this);
+
+	m_devices = new QListWidget(this);
+	m_mainLayout->addWidget(m_devices, 3);
+
+	m_remoteWorkers = new QListWidget(this);
+	m_remoteWorkers->setViewMode(QListView::IconMode);
+	m_mainLayout->addWidget(m_remoteWorkers, 7);
 }
 
 }
