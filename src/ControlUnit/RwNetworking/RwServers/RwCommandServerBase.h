@@ -71,20 +71,7 @@ namespace RwNetworking {
             /// \param[out] out Represents the response in raw format
             /// \return Returns an error code telling if any error did occur
             ////////////////////////////////////////////////////////////////////////////////
-            RwReturnType processData(const QByteArray& in, QByteArray& out) const
-            {
-            	// READING REQUEST
-            	RwNetDataStructures::RwCommandRequest request;
-            	RwReturnType errorCode = request.fromRawData(in);
-
-            	// CREATING REPLY
-            	RwNetDataStructures::RwCommandReply commandReply;
-            	errorCode = errorCode | executeRequest(request, commandReply);
-
-            	commandReply.toRawData(out);
-
-            	return errorCode;
-            }
+            RwReturnType processData(const QByteArray& in, QByteArray& out) const;
             
             ////////////////////////////////////////////////////////////////////////////////
             /// \brief  Executes the request and return the response
@@ -92,56 +79,12 @@ namespace RwNetworking {
             /// \param[out] reply    Represents the response
             /// \return Returns an error code telling if any error did occur
             ////////////////////////////////////////////////////////////////////////////////
-            RwReturnType executeRequest(const RwNetDataStructures::RwCommandRequest& request, RwNetDataStructures::RwCommandReply& reply) const
-            {
-            	RwReturnType errorCode = RW_NO_ERROR;
-            	RwReply::RwReplyPtr realReply;
-            	RwWorker::RwWorkerPtr worker;
-
-            	errorCode = RwManagement::getInstance()->createWorker(request.getWorkerName(), worker);
-
-            	if (errorCode != RW_NO_ERROR)
-            		goto cut_through;
-
-            	errorCode = worker->executeCommand(request.getCommand());
-
-            	RwHistory::RwEventLog::getInstance()->workerExecutedCommand(worker, request.getCommand());
-
-            	if (errorCode != RW_NO_ERROR)
-            		goto cut_through;
-
-            	errorCode = worker->getReply(realReply);
-
-            	cut_through:
-
-            	if ( errorCode != RW_NO_ERROR ) {
-            		reply.setErrorCode(errorCode);
-            	} else {
-            		reply.setReply(realReply);
-            	}
-
-            	return errorCode;
-            }
+            RwReturnType executeRequest(const RwNetDataStructures::RwCommandRequest& request, RwNetDataStructures::RwCommandReply& reply) const;
             
             ////////////////////////////////////////////////////////////////////////////////
             /// \brief  Processes the connection regardless of the type of socket
             ////////////////////////////////////////////////////////////////////////////////
-            void abstractProcessConnection() const
-            {
-            	QObject::connect(m_currentConnection, SIGNAL(disconnected()),
-            			         m_currentConnection, SLOT(deleteLater()));
-
-            	while (m_currentConnection->bytesAvailable() < (int)sizeof(quint32)) // waiting for at least 32 bits of data
-            		m_currentConnection->waitForReadyRead();
-
-            	// RECEIVING DATA
-            	QByteArray receivedData = m_currentConnection->readAll(); // This may be dangerous
-            	QByteArray responseData;
-            	RwReturnType errorCode = processData(receivedData, responseData);
-
-            	// SENDING RAW DATA
-            	m_currentConnection->write(responseData);
-            }
+            void abstractProcessConnection() const;
 
 
         private:

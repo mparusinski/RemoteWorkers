@@ -21,6 +21,10 @@ namespace RwNetworking {
 
 namespace RwClients {
 
+////////////////////////////////////////////////////////////////////////////////
+/// \brief This class represents a SSL socket to a SSL Command Server.
+///        Use only in conjunction with RwCommandServerSSL
+////////////////////////////////////////////////////////////////////////////////
 class RwCommandClientSSL : public RwCommandClientBase {
 
 	Q_OBJECT

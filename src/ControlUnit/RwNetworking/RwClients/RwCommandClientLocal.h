@@ -36,6 +36,7 @@ namespace RwNetworking  {
             
         public:
             RwCommandClientLocal(QObject* parent, const QString& serverName);
+
             virtual ~RwCommandClientLocal();
             
             ////////////////////////////////////////////////////////////////////////////////

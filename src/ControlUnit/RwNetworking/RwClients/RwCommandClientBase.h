@@ -30,6 +30,11 @@ namespace RwNetworking {
 
 namespace RwClients {
 
+////////////////////////////////////////////////////////////////////////////////
+/// \brief Abstract base class for command clients (see RwCommandServer).
+///        Handles communication between localhost and a remote device
+///        running remote workers.
+////////////////////////////////////////////////////////////////////////////////
 class RwCommandClientBase : public QObject {
 
 	Q_OBJECT
@@ -93,6 +98,9 @@ protected:
 	QByteArray m_buffer;
 	RwNetDataStructures::RwCommandReply m_reply;
 
+	////////////////////////////////////////////////////////////////////////////////
+	/// \brief Common function for subclass. It connects all common signals and slots.
+	////////////////////////////////////////////////////////////////////////////////
 	void connectSignalAndSlots();
 
 private:

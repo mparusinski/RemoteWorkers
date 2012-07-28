@@ -23,6 +23,10 @@ namespace RwNetworking {
 
 namespace RwClients {
 
+////////////////////////////////////////////////////////////////////////////////
+/// \brief This class represents a TCP socket to a TCP Command Server.
+///        Use only in conjunction with RwCommandServerTCP
+////////////////////////////////////////////////////////////////////////////////
 class RwCommandClientTCP : public RwCommandClientBase {
 
 	Q_OBJECT
