@@ -23,6 +23,23 @@ namespace RwSocket {
 RwTCPSocket::RwTCPSocket(QObject* parent) : RwAbstractSocket(parent)
 {
 	m_tcpSocket = new QTcpSocket(this);
+	init();
+}
+
+RwTCPSocket::RwTCPSocket(QTcpSocket* socket) : RwAbstractSocket(socket->parent())
+{
+	m_tcpSocket = socket; // takes ownership
+	init();
+}
+
+RwTCPSocket::~RwTCPSocket()
+{
+	m_tcpSocket->abort();
+	delete m_tcpSocket;
+}
+
+void RwTCPSocket::init()
+{
 	connect(m_tcpSocket, SIGNAL(readyRead()),
 			this, SLOT(readReady()));
 	connect(m_tcpSocket, SIGNAL(connected()),
@@ -31,12 +48,6 @@ RwTCPSocket::RwTCPSocket(QObject* parent) : RwAbstractSocket(parent)
 			this, SLOT(disconnectedSlot()));
 	connect(m_tcpSocket, SIGNAL(error(QAbstractSocket::SocketError)),
 			this, SLOT(socketError(QAbstractSocket::SocketError)));
-}
-
-RwTCPSocket::~RwTCPSocket()
-{
-	m_tcpSocket->abort();
-	delete m_tcpSocket;
 }
 
 qint64 RwTCPSocket::bytesAvailable()
@@ -72,6 +83,11 @@ void RwTCPSocket::flush()
 bool RwTCPSocket::waitForBytesWritten()
 {
 	return m_tcpSocket->waitForBytesWritten();
+}
+
+bool RwTCPSocket::waitForReadyRead()
+{
+	return m_tcpSocket->waitForReadyRead();
 }
 
 void RwTCPSocket::readReady()

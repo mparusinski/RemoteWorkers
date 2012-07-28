@@ -12,11 +12,11 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 22/06/2012.
 
 #include "RwCommandServerLocal.h"
 
-#include <QLocalSocket>
-
 #include "RwUtils/RwGlobal/RwDefines.h"
 #include "RwUtils/RwLog/RwCommon.h"
 #include "RwWorkerInterface/RwManagement.h"
+
+#include "../RwSocket/RwLocalSocket.h"
 
 using namespace RwUtils::RwLog;
 
@@ -25,7 +25,7 @@ namespace RwNetworking {
     namespace RwServers {
         
         RwCommandServerLocal::RwCommandServerLocal(QObject* parent, const QString& serverName) : 
-        RwCommandServerBase<QLocalSocket>(parent)
+        RwCommandServerBase(parent)
         {
             m_serverName = serverName;
             m_localServer = new QLocalServer(this);
@@ -67,9 +67,7 @@ namespace RwNetworking {
         void RwCommandServerLocal::processConnection()
         {
             // ESTABLISHING CONNECTION
-            m_currentConnection = m_localServer->nextPendingConnection();
-            QObject::connect(m_currentConnection, SIGNAL(error(QLocalSocket::LocalSocketError)),
-                        	this, SLOT(caughtError(QLocalSocket::LocalSocketError)));
+            m_currentConnection = new RwSocket::RwLocalSocket(m_localServer->nextPendingConnection());
             abstractProcessConnection();
 
         }
@@ -78,11 +76,6 @@ namespace RwNetworking {
         {
             QObject::connect(m_localServer, SIGNAL(newConnection()), 
                              this, SLOT(processConnection()));
-        }
-        
-        void RwCommandServerLocal::caughtError(QLocalSocket::LocalSocketError error)
-        {
-        	rwError() << "Server error: " << m_currentConnection->errorString() << endLine();
         }
 
     }

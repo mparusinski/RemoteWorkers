@@ -23,6 +23,23 @@ namespace RwSocket {
 RwLocalSocket::RwLocalSocket(QObject* parent) : RwAbstractSocket(parent)
 {
 	m_localSocket = new QLocalSocket(this);
+	init();
+}
+
+RwLocalSocket::RwLocalSocket(QLocalSocket* socket) : RwAbstractSocket(socket->parent())
+{
+	m_localSocket = socket; // takes ownership
+	init();
+}
+
+RwLocalSocket::~RwLocalSocket()
+{
+	m_localSocket->abort();
+	delete m_localSocket;
+}
+
+void RwLocalSocket::init()
+{
 	connect(m_localSocket, SIGNAL(readyRead()),
 	        this, SLOT(readReady()));
 	connect(m_localSocket, SIGNAL(connected()),
@@ -31,12 +48,6 @@ RwLocalSocket::RwLocalSocket(QObject* parent) : RwAbstractSocket(parent)
 			this, SLOT(disconnectedSlot()));
 	connect(m_localSocket, SIGNAL(error(QLocalSocket::LocalSocketError)),
 	        this, SLOT(socketError(QLocalSocket::LocalSocketError)));
-}
-
-RwLocalSocket::~RwLocalSocket()
-{
-	m_localSocket->abort();
-	delete m_localSocket;
 }
 
 qint64 RwLocalSocket::bytesAvailable()
@@ -72,6 +83,11 @@ void RwLocalSocket::flush()
 bool RwLocalSocket::waitForBytesWritten()
 {
 	return m_localSocket->waitForBytesWritten();
+}
+
+bool RwLocalSocket::waitForReadyRead()
+{
+	return m_localSocket->waitForReadyRead();
 }
 
 void RwLocalSocket::readReady()

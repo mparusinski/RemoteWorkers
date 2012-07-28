@@ -45,6 +45,8 @@ public:
 
 	virtual bool waitForBytesWritten() = 0;
 
+	virtual bool waitForReadyRead() = 0;
+
 signals:
 	void dataReady();
 

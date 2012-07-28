@@ -15,11 +15,10 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 22/06/2012.
 
 #include "RwCommandServerBase.h"
 
+#include <QTcpServer>
+
 #include "RwUtils/RwGlobal/RwReturn.h"
 #include "RwUtils/RwGlobal/RwClasses.h"
-
-#include <QTcpServer>
-#include <QTcpSocket>
 
 using namespace RwUtils::RwGlobal;
 
@@ -32,7 +31,7 @@ namespace RwNetworking {
         ///        Command Servers handles requests and sends back responses.
         ///        The server should run in a seperate thread.
         ////////////////////////////////////////////////////////////////////////////////
-        class RwCommandServerTCP : public RwCommandServerBase<QTcpSocket> {
+        class RwCommandServerTCP : public RwCommandServerBase {
             
             Q_OBJECT
             

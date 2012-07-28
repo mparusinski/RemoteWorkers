@@ -16,10 +16,6 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 14/05/2012.
 
 #include <QString>
 
-#include <QLocalSocket>
-#include <QTcpSocket>
-#include <QSslSocket>
-
 #include "RwUtils/RwGlobal/RwClasses.h"
 #include "RwUtils/RwLog/RwCommon.h"
 #include "RwWorkerInterface/RwWorker.h"
@@ -28,6 +24,8 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 14/05/2012.
 
 #include "../RwNetDataStructures/RwCommandRequest.h"
 #include "../RwNetDataStructures/RwCommandReply.h"
+
+#include "../RwSocket/RwAbstractSocket.h"
 
 using namespace RwUtils::RwGlobal;
 using namespace RwUtils::RwLog;
@@ -41,7 +39,6 @@ namespace RwNetworking {
         ///        Command Servers handles requests and sends back responses.
         ///        The server should run in a separate thread.
         ////////////////////////////////////////////////////////////////////////////////
-        template <typename SocketType>
         class RwCommandServerBase : public QObject {
             
         public:
@@ -65,7 +62,7 @@ namespace RwNetworking {
 
         protected:
             bool m_pendingConnection;
-            SocketType* m_currentConnection;
+            RwSocket::RwAbstractSocket* m_currentConnection;
             
             ////////////////////////////////////////////////////////////////////////////////
             /// \brief  Process the data, the data coming in represents the request,
@@ -143,11 +140,6 @@ namespace RwNetworking {
             	RwReturnType errorCode = processData(receivedData, responseData);
 
             	// SENDING RAW DATA
-            	//QByteArray responseContainerData;
-            	//QDataStream out(&responseContainerData, QIODevice::WriteOnly);
-            	//out << responseData.size();
-            	//out << responseData;
-
             	m_currentConnection->write(responseData);
             }
 

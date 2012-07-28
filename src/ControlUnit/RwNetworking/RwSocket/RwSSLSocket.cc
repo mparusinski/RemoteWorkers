@@ -23,6 +23,23 @@ namespace RwSocket {
 RwSSLSocket::RwSSLSocket(QObject * parent) : RwAbstractSocket(parent)
 {
 	m_sslSocket = new QSslSocket(this);
+	init();
+}
+
+RwSSLSocket::RwSSLSocket(QSslSocket* socket) : RwAbstractSocket(socket->parent())
+{
+	m_sslSocket = socket; // takes ownership
+	init();
+}
+
+RwSSLSocket::~RwSSLSocket()
+{
+	m_sslSocket->abort();
+	delete m_sslSocket;
+}
+
+void RwSSLSocket::init()
+{
 	connect(m_sslSocket, SIGNAL(readyRead()),
 			this, SLOT(readReady()));
 	connect(m_sslSocket, SIGNAL(connected()),
@@ -31,12 +48,6 @@ RwSSLSocket::RwSSLSocket(QObject * parent) : RwAbstractSocket(parent)
 			this, SLOT(disconnectedSlot()));
 	connect(m_sslSocket, SIGNAL(error(QAbstractSocket::SocketError)),
 			this, SLOT(socketError(QAbstractSocket::SocketError)));
-}
-
-RwSSLSocket::~RwSSLSocket()
-{
-	m_sslSocket->abort();
-	delete m_sslSocket;
 }
 
 qint64 RwSSLSocket::bytesAvailable()
@@ -72,6 +83,11 @@ void RwSSLSocket::flush()
 bool RwSSLSocket::waitForBytesWritten()
 {
 	return m_sslSocket->waitForBytesWritten();
+}
+
+bool RwSSLSocket::waitForReadyRead()
+{
+	return m_sslSocket->waitForReadyRead();
 }
 
 void RwSSLSocket::readReady()

@@ -17,7 +17,7 @@ namespace RwNetworking {
     namespace RwServers {
         
         RwCommandServerSSL::RwCommandServerSSL(QObject* parent) 
-        : RwCommandServerBase<QSslSocket>(parent)
+        : RwCommandServerBase(parent)
         {
             
         }

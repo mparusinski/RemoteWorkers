@@ -31,6 +31,8 @@ class RwLocalSocket : public RwAbstractSocket {
 public:
 	RwLocalSocket(QObject* parent);
 
+	RwLocalSocket(QLocalSocket* socket);
+
 	virtual ~RwLocalSocket();
 
 	virtual qint64 bytesAvailable();
@@ -46,6 +48,8 @@ public:
 	virtual void flush();
 
 	virtual bool waitForBytesWritten();
+
+	virtual bool waitForReadyRead();
 
 	void connectToServer(const QString& serverName);
 
@@ -63,6 +67,8 @@ public slots:
 
 private:
 	DISALLOW_COPY_AND_ASSIGN(RwLocalSocket);
+
+	void init();
 
 	QLocalSocket* m_localSocket;
 

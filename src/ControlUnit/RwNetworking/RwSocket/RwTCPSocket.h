@@ -31,6 +31,8 @@ class RwTCPSocket : public RwAbstractSocket {
 public :
 	RwTCPSocket(QObject* parent);
 
+	RwTCPSocket(QTcpSocket* socket);
+
 	virtual ~RwTCPSocket();
 
 	virtual qint64 bytesAvailable();
@@ -46,6 +48,8 @@ public :
 	virtual void flush();
 
 	virtual bool waitForBytesWritten();
+
+	virtual bool waitForReadyRead();
 
 	void connectToHost(QString& hostName, int port);
 
@@ -63,6 +67,8 @@ public slots:
 
 private:
 	DISALLOW_COPY_AND_ASSIGN(RwTCPSocket);
+
+	void init();
 
 	QTcpSocket* m_tcpSocket;
 

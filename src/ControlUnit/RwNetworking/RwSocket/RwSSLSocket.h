@@ -31,6 +31,8 @@ class RwSSLSocket : public RwAbstractSocket {
 public:
 	RwSSLSocket(QObject* parent);
 
+	RwSSLSocket(QSslSocket* socket);
+
 	virtual ~RwSSLSocket();
 
 	virtual qint64 bytesAvailable();
@@ -46,6 +48,8 @@ public:
 	virtual void flush();
 
 	virtual bool waitForBytesWritten();
+
+	virtual bool waitForReadyRead();
 
 	void connectToHost(QString& host, int port);
 
@@ -63,6 +67,8 @@ public slots:
 
 private:
 	DISALLOW_COPY_AND_ASSIGN(RwSSLSocket);
+
+	void init();
 
 	QSslSocket* m_sslSocket;
 

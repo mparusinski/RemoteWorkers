@@ -32,7 +32,7 @@ namespace RwNetworking {
         ///        Command Servers handles requests and sends back responses.
         ///        The server should run in a seperate thread.
         ////////////////////////////////////////////////////////////////////////////////
-        class RwCommandServerSSL : public RwCommandServerBase<QSslSocket> {
+        class RwCommandServerSSL : public RwCommandServerBase {
             
             Q_OBJECT
             

@@ -14,6 +14,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 14/05/2012.
 
 #include "RwUtils/RwLog/RwCommon.h"
 #include "RwUtils/RwGlobal/RwReturn.h"
+#include "../RwSocket/RwTCPSocket.h"
 
 using namespace RwUtils::RwLog;
 using namespace RwUtils::RwGlobal;
@@ -23,7 +24,7 @@ namespace RwNetworking {
     namespace RwServers {
         
         RwCommandServerTCP::RwCommandServerTCP(QObject* parent, const int portNumber) 
-        : RwCommandServerBase<QTcpSocket>(parent)
+        : RwCommandServerBase(parent)
         {
             m_portNumber = portNumber;
             m_tcpServer = new QTcpServer(this);
@@ -64,7 +65,7 @@ namespace RwNetworking {
         
         void RwCommandServerTCP::processConnection()
         {
-            m_currentConnection = m_tcpServer->nextPendingConnection();
+            m_currentConnection = new RwSocket::RwTCPSocket(m_tcpServer->nextPendingConnection());
             abstractProcessConnection();
         }
         
