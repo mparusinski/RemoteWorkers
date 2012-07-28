@@ -17,10 +17,6 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 14/05/2012.
 #include <QString>
 
 #include "RwUtils/RwGlobal/RwClasses.h"
-#include "RwUtils/RwLog/RwCommon.h"
-#include "RwWorkerInterface/RwWorker.h"
-#include "RwWorkerInterface/RwManagement.h"
-#include "RwHistory/RwEventLog.h"
 
 #include "../RwNetDataStructures/RwCommandRequest.h"
 #include "../RwNetDataStructures/RwCommandReply.h"
@@ -28,7 +24,6 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 14/05/2012.
 #include "../RwSocket/RwAbstractSocket.h"
 
 using namespace RwUtils::RwGlobal;
-using namespace RwUtils::RwLog;
 
 namespace RwNetworking {
     

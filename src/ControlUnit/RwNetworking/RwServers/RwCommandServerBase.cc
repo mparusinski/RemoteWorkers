@@ -12,6 +12,13 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 14/05/2012.
 
 #include "RwCommandServerBase.h"
 
+#include "RwUtils/RwLog/RwCommon.h"
+#include "RwWorkerInterface/RwWorker.h"
+#include "RwWorkerInterface/RwManagement.h"
+#include "RwHistory/RwEventLog.h"
+
+using namespace RwUtils::RwLog;
+
 namespace RwNetworking {
 
 namespace RwServers {
