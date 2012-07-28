@@ -14,11 +14,12 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 17/05/2012
 
 #include <cstdio>
 
-#include "RwConfiguration.h"
 #include "RwWorkerList.h"
+#include "RwUtils/RwGlobal/RwConfiguration.h"
 #include "RwUtils/RwLog/RwCommon.h"
 #include "RwUtils/RwSystem/RwFileManagement.h"
 
+using namespace RwUtils::RwGlobal;
 using namespace RwUtils::RwSystem;
 using namespace RwUtils::RwLog;
 

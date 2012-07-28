@@ -10,7 +10,6 @@ SET(RwWorkerInterface_HEADERS
   RwWorker.h
   RwCommand.h
   RwReply.h
-  RwConfiguration.h
   RwManagement.h
   RwWorkerList.h
 )
@@ -19,7 +18,6 @@ SET(RwWorkerInterface_SOURCES
   RwWorker.cc
   RwCommand.cc
   RwReply.cc
-  RwConfiguration.cc
   RwManagement.cc
   RwWorkerList.cc
 )
@@ -27,7 +25,6 @@ SET(RwWorkerInterface_SOURCES
 ADD_LIBRARY(RwWorkerInterface STATIC 
   ${RwWorkerInterface_SOURCES} ${RwWorkerInterface_HEADERS})
 
-TARGET_LINK_LIBRARIES(RwWorkerInterface RwLog)
-TARGET_LINK_LIBRARIES(RwWorkerInterface RwSystem)
+TARGET_LINK_LIBRARIES(RwWorkerInterface RwLog RwSystem RwGlobal)
 TARGET_LINK_LIBRARIES(RwWorkerInterface ${QT_LIBRAIRES})
 

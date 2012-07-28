@@ -17,6 +17,8 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 23/06/2012.
 #include "RwUtils/RwGlobal/RwDefines.h"
 #include "RwUtils/RwLog/RwCommon.h"
 
+#include "../RwSocket/RwLocalSocket.h"
+
 using namespace RwUtils::RwLog;
 
 namespace RwNetworking {
@@ -24,104 +26,29 @@ namespace RwNetworking {
     namespace RwClients {
         
         RwCommandClientLocal::RwCommandClientLocal(QObject* parent, const QString& serverName)
-        : QObject(parent) 
+        : RwCommandClientBase(parent)
         {
-            m_connected = false;
             m_serverName = serverName;
-            m_blockSize = 0;
-            m_localSocket = new QLocalSocket(this);
+            m_socket = new RwSocket::RwLocalSocket(this);
             
-            QObject::connect(m_localSocket, SIGNAL(connected()), 
-                             this, SLOT(clientConnected()));
-            QObject::connect(m_localSocket, SIGNAL(disconnected()), 
-                             this, SLOT(clientDisconnected()));
-            
-            QObject::connect(m_localSocket, SIGNAL(readyRead()), 
-                             this, SLOT(readReady()));
-            QObject::connect(m_localSocket, SIGNAL(error(QLocalSocket::LocalSocketError)),
-                             this, SLOT(clientError(QLocalSocket::LocalSocketError)));
+            connectSignalAndSlots();
         }
         
         RwCommandClientLocal::~RwCommandClientLocal() 
         {
-            m_localSocket->abort();
-            delete m_localSocket;
-        }
-        
-        void RwCommandClientLocal::clientConnected()
-        {
-            m_connected = true;
-        }
-        
-        void RwCommandClientLocal::clientDisconnected()
-        {
-            m_connected = false;
+        	m_socket->abort();
+            delete m_socket;
         }
         
         void RwCommandClientLocal::connectToServer()
         {
-            m_localSocket->abort();
-            m_localSocket->connectToServer(m_serverName);
+        	m_socket->abort();
+        	dynamic_cast<RwSocket::RwLocalSocket*>(m_socket)->connectToServer(m_serverName);
         }
         
         void RwCommandClientLocal::disconnectFromServer()
         {
-            m_localSocket->disconnectFromServer();
-        }
-        
-        void RwCommandClientLocal::clientError(QLocalSocket::LocalSocketError socketError)
-        {
-            rwError() << "Client error: " << m_localSocket->errorString() << endLine();
-        }
-        
-        void RwCommandClientLocal::readReady()
-        {
-        	while (m_localSocket->bytesAvailable() < (int) sizeof(quint32))
-        		m_localSocket->waitForBytesWritten();
-
-        	QByteArray block = m_localSocket->readAll();
-
-        	if (m_blockSize <= 0)
-        	{
-        		QDataStream in(block);
-        		in >> m_blockSize;
-        		// rwDebug() << "Bytes to read " << m_blockSize << endLine();
-        		// rwDebug() << "Bytes added " << block.size() << endLine();
-        	}
-
-        	m_buffer += block;
-
-        	if (m_buffer.size() >= m_blockSize) // finished reading
-        	{
-        		m_reply.fromRawData(m_buffer);
-        		m_blockSize = 0;
-        		m_buffer.clear();
-        		m_localSocket->close();
-        		emit replyReady();
-        	}
-        }
-        
-        RwReturnType RwCommandClientLocal::sendRequest(const RwNetDataStructures::RwCommandRequest& request)
-        {
-            if ( !m_connected )
-            {
-                rwError() << "The local client is not connected! Please connect to local server." << endLine();
-                return RW_ERROR_NO_CONNECTION;
-            }
-            
-            // SEND REQUEST
-            QByteArray requestRawData;
-            const RwReturnType returnMsg = request.toRawData(requestRawData);
-            m_localSocket->write(requestRawData);
-            m_localSocket->flush();
-                    
-            return returnMsg;
-        }
-        
-        RwReturnType RwCommandClientLocal::getReply(RwNetDataStructures::RwCommandReply &reply)
-        {
-            reply.copyFrom(m_reply);
-            return RW_NO_ERROR;
+        	dynamic_cast<RwSocket::RwLocalSocket*>(m_socket)->disconnectFromServer();
         }
         
     }

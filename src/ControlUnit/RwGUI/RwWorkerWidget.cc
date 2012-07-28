@@ -12,9 +12,9 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 26/07/2012.
 
 #include "RwWorkerWidget.h"
 
-#include "RwWorkerInterface/RwConfiguration.h"
+#include "RwUtils/RwGlobal/RwConfiguration.h"
 
-using namespace RwWorkerInterface;
+using namespace RwUtils::RwGlobal;
 
 namespace RwGUI {
 
@@ -51,13 +51,13 @@ void RwWorkerWidget::setType(OptionsType type)
 	switch (m_options)
 	{
 	case RW_WORKER_WIDGET_INSTALLABLE:
-		setToolTip("Install " + m_workerName);
+		setToolTip("Right-click to install " + m_workerName);
 		break;
 	case RW_WORKER_WIDGET_DELETABLE:
-		setToolTip("Delete " + m_workerName);
+		setToolTip("Right-click to delete " + m_workerName);
 		break;
 	case RW_WORKER_WIDGET_EXECUTABLE:
-		setToolTip("Execute " + m_workerName);
+		setToolTip("Right-click to execute " + m_workerName);
 		break;
 	}
 }

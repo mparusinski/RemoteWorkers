@@ -10,20 +10,21 @@
  
  */
 
-#ifndef _RWWORKERINTERFACE_RWCONFIGURATION_H_
-#define _RWWORKERINTERFACE_RWCONFIGURATION_H_
+#ifndef _RWUTILS_RWGLOBAL_RWCONFIGURATION_H_
+#define _RWUTILS_RWGLOBAL_RWCONFIGURATION_H_
 
 #include <QString>
 #include <QHash>
 
-#include "RwUtils/RwGlobal/RwClasses.h"
-#include "RwUtils/RwGlobal/RwReturn.h"
+#include "RwClasses.h"
+#include "RwReturn.h"
 
-using namespace RwUtils::RwGlobal;
-
-namespace RwWorkerInterface
+namespace RwUtils
 {
     
+namespace RwGlobal
+{
+
     ////////////////////////////////////////////////////////////////////////////////
     /// \brief This class is a singleton class which purpose is to retrieve
     ///        configuration data from the configuration file
@@ -50,11 +51,18 @@ namespace RwWorkerInterface
         RwReturnType getWorkersPath(QString& workerPath);
 
         /////////////////////////////////////////////////////////////////////////////////
-        /// \brief      Returns the path to the directory containing the workers
+        /// \brief      Returns the path to the file containing the workers
         /// \param[out] workerListPath path to the workers list file
         /// \return     An error code
         /////////////////////////////////////////////////////////////////////////////////
         RwReturnType getWorkersListPath(QString& workerListPath);
+
+        /////////////////////////////////////////////////////////////////////////////////
+        /// \brief      Returns the path to the file containing the list of devices
+        /// \param[out] deviceListPath path to device list file
+        /// \return     An error code
+        /////////////////////////////////////////////////////////////////////////////////
+        RwReturnType getDeviceListPath(QString& deviceListPath);
 
         /////////////////////////////////////////////////////////////////////////////////
         /// \brief      Returns the value of corresponding to the descriptor
@@ -76,7 +84,9 @@ namespace RwWorkerInterface
         bool m_configurationRead;
         ConfigurationsType m_configurations;
     };
-    
+
 }
 
-#endif // _RWWORKERINTERFACE_RWCONFIGURATION_H_
+}
+
+#endif // _RWUTILS_RWGLOBAL_RWCONFIGURATION_H_

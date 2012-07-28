@@ -1,2 +1,3 @@
 WorkersPath ../Workers/
 WorkersList WorkersList.txt
+DeviceList Devices.txt

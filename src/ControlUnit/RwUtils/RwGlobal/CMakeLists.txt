@@ -7,12 +7,14 @@ LINK_DIRECTORIES(
 )
 
 SET(RwGlobal_SOURCES
+  RwConfiguration.cc
   RwDefines.cc
   RwClasses.cc
   RwReturn.cc
 )
 
 SET(RwGlobal_HEADERS
+  RwConfiguration.h
   RwDefines.h
   RwClasses.h
   RwReturn.h

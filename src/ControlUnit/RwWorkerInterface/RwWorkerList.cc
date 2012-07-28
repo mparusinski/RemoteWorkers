@@ -18,9 +18,10 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 21/07/2012.
 
 #include "RwUtils/RwLog/RwCommon.h"
 
-#include "RwConfiguration.h"
+#include "RwUtils/RwGlobal/RwConfiguration.h"
 
 using namespace RwUtils::RwLog;
+using namespace RwUtils::RwGlobal;
 
 namespace RwWorkerInterface {
 

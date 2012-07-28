@@ -15,11 +15,14 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 17/05/2012.
 #include <QFile>
 #include <QTextStream>
 
-#include "RwUtils/RwLog/RwCommon.h"
+#include "../RwLog/RwCommon.h"
 
 using namespace RwUtils::RwLog;
 
-namespace RwWorkerInterface
+namespace RwUtils
+{
+
+namespace RwGlobal
 {
     
     RwConfiguration::RwConfiguration()
@@ -120,5 +123,12 @@ namespace RwWorkerInterface
     {
     	return getConfiguration("WorkersList", workersListPath);
     }
+
+    RwReturnType RwConfiguration::getDeviceListPath(QString& deviceListPath)
+    {
+    	return getConfiguration("DeviceList", deviceListPath);
+    }
+
+}
 
 }
