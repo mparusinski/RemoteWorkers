@@ -12,7 +12,7 @@ SET(RwClients_SOURCES
     RwCommandClientSSL.cc
     RwCommandClientBase.cc
     RwRemoteDevice.cc
-    RwClientList.cc
+    RwRemoteDeviceList.cc
 )
 
 SET(RwClients_HEADERS_QT
@@ -21,7 +21,7 @@ SET(RwClients_HEADERS_QT
     RwCommandClientSSL.h
     RwCommandClientBase.h
     RwRemoteDevice.h
-    RwClientList.h
+    RwRemoteDeviceList.h
 )
 
 QT4_WRAP_CPP(RwClients_HEADERS_MOC ${RwClients_HEADERS_QT})

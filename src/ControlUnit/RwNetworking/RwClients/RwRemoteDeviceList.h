@@ -1,6 +1,6 @@
 /* 
 
-RwClientList.h: Handles the list of available clients
+RwRemoteDeviceList.h: Handles the list of available clients
 
 As part of the RemoteWorkers program which creates a framework for remote
 management of laptops, desktop and servers. 
@@ -10,8 +10,8 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 27/07/2012.
 
 */
 
-#ifndef _RWNETWORKING_RWCLIENTS_RWCLIENTLIST_H_
-#define _RWNETWORKING_RWCLIENTS_RWCLIENTLIST_H_
+#ifndef _RWNETWORKING_RWCLIENTS_RWREMOTEDEVICELIST_H_
+#define _RWNETWORKING_RWCLIENTS_RWREMOTEDEVICELIST_H_
 
 #include <QObject>
 
@@ -21,18 +21,23 @@ namespace RwNetworking {
 
 namespace RwClients {
 
-class RwClientList : public QObject {
+////////////////////////////////////////////////////////////////////////////////
+/// \brief Represents the list of devices that are available.
+///        The list of devices is read from a file but the user can add or remove
+///        remote devices.
+////////////////////////////////////////////////////////////////////////////////
+class RwRemoteDeviceList : public QObject {
 
 	Q_OBJECT
 
 public:
 
-	RwClientList(QObject* parent);
+	RwRemoteDeviceList(QObject* parent);
 
-	virtual ~RwClientList();
+	virtual ~RwRemoteDeviceList();
 
 private:
-	DISALLOW_COPY_AND_ASSIGN(RwClientList);
+	DISALLOW_COPY_AND_ASSIGN(RwRemoteDeviceList);
 
 };
 
@@ -40,4 +45,4 @@ private:
 
 }
 
-#endif // _RWNETWORKING_RWCLIENTS_RWCLIENTLIST_H_
+#endif // _RWNETWORKING_RWCLIENTS_RWREMOTEDEVICELIST_H_

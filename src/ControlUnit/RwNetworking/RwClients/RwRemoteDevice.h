@@ -23,18 +23,32 @@ namespace RwNetworking {
 
 namespace RwClients {
 
+////////////////////////////////////////////////////////////////////////////////
+/// \brief Encapsulates a remote device accessible through a suitable client.
+///        This class hides the actual implementation of the client.
+///        Use this class to communicate with a remote device.
+////////////////////////////////////////////////////////////////////////////////
 class RwRemoteDevice : public QObject {
 
 	Q_OBJECT
 
 public:
-
 	RwRemoteDevice(QObject* parent, const QString& deviceName);
 
 	virtual ~RwRemoteDevice();
 
+	////////////////////////////////////////////////////////////////////////////////
+	/// \brief Returns the name or address of the device (depending whether it a
+	///        local or remote client).
+	/// \return Name or address of the remote device
+	////////////////////////////////////////////////////////////////////////////////
 	QString& getDeviceName();
 
+	////////////////////////////////////////////////////////////////////////////////
+	/// \brief Returns the name or address of the device (depending whether it a
+	///        local or remote client).
+	/// \return Name or address of the remote device
+	////////////////////////////////////////////////////////////////////////////////
 	const QString& getDeviceName() const;
 
 private:
