@@ -32,6 +32,8 @@ public :
 	RwTCPSocket(QObject* parent);
 
 	RwTCPSocket(QTcpSocket* socket);
+    
+    virtual ~RwTCPSocket();
 
 	////////////////////////////////////////////////////////////////////////////////
 	/// \brief Proxy to bytesAvailable() from QT

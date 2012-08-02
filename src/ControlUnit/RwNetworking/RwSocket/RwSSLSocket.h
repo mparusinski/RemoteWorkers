@@ -32,6 +32,8 @@ public:
 	RwSSLSocket(QObject* parent);
 
 	RwSSLSocket(QSslSocket* socket);
+    
+    virtual ~RwSSLSocket();
 
 	////////////////////////////////////////////////////////////////////////////////
 	/// \brief Proxy to bytesAvailable() from QT

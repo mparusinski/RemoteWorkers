@@ -14,4 +14,14 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 23/07/2012.
 
 namespace RwGUI {
 
+    RwPrefWindow::RwPrefWindow(QWidget* parent) : QWidget(parent)
+    {
+        
+    }
+    
+    RwPrefWindow::~RwPrefWindow()
+    {
+        
+    }
+    
 }

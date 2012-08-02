@@ -80,7 +80,7 @@ void RwCommandServerBase::abstractProcessConnection() const
 	// RECEIVING DATA
 	QByteArray receivedData = m_currentConnection->readAll(); // This may be dangerous
 	QByteArray responseData;
-	RwReturnType errorCode = processData(receivedData, responseData);
+	processData(receivedData, responseData);
 
 	// SENDING RAW DATA
 	m_currentConnection->write(responseData);

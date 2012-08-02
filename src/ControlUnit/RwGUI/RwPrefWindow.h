@@ -13,13 +13,23 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 23/07/2012.
 #ifndef _RWGUI_RWPREFWINDOW_H_
 #define _RWGUI_RWPREFWINDOW_H_
 
+#include <QWidget>
+
+#include "RwUtils/RwGlobal/RwClasses.h"
+
 namespace RwGUI {
 
-class RwPrefWindow {
+    class RwPrefWindow : public QWidget {
 
+    Q_OBJECT
+    
 public :
+    RwPrefWindow(QWidget* parent);
+    
+    virtual ~RwPrefWindow();
 
 private:
+    DISALLOW_COPY_AND_ASSIGN(RwPrefWindow);
 
 };
 
