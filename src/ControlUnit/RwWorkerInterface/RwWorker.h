@@ -37,7 +37,6 @@ namespace RwWorkerInterface
     public:
     	typedef QSharedPointer<RwWorker> RwWorkerPtr;
 
-        RwWorker();
         explicit RwWorker(const QFileInfo& path);
         virtual ~RwWorker() { }
         

@@ -75,6 +75,7 @@ RwReturnType RwWorkerList::readWorkers()
 	QString workerListPath;
 	RwConfiguration::getInstance()->getWorkersListPath(workerListPath);
 	QFile workerListFile(workerListPath);
+    
 	if ( !workerListFile.open(QIODevice::ReadOnly | QIODevice::Text) ){
 		rwError() << "Unable to read worker list file" << endLine();
 		return RW_ERROR_FILE_NOT_READ;

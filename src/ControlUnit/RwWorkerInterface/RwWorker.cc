@@ -28,11 +28,6 @@ using namespace RwUtils::RwGlobal;
 namespace RwWorkerInterface
 {
     
-    RwWorker::RwWorker()
-    {
-        m_outputPathComputed = false; 
-    }
-    
     RwWorker::RwWorker(const QFileInfo& path)
     {
         m_path = path;
@@ -63,13 +58,11 @@ namespace RwWorkerInterface
     }
     
     RwReturnType RwWorker::executeCommand(const RwCommand::RwCommandPtr& command) const
-    {
+    {        
         const QString& order = command->getOrder();
         const QStringList& arguments = command->getArguments();
         
-        QFileInfo fullPath = m_path;
-        
-        QString commandPath = fullPath.filePath();
+        QString commandPath = m_path.filePath();
         commandPath += PATH_SEPERATOR;
         commandPath += order;
 

@@ -29,6 +29,7 @@ using namespace RwWorkerInterface;
 
 int main(int argc, char *argv[])
 {
+    RwUtils::RwGlobal::RwReturnType returnMsg;
 	RwMessagingManager::getInstance()->turnAllOn();
 
 	QStringList availableWorkers = RwManagement::getInstance()->scanAvailableWorkers();
@@ -39,9 +40,17 @@ int main(int argc, char *argv[])
 	}
 
 	RwWorker::RwWorkerPtr worker;
-	RwManagement::getInstance()->createWorker("SimpleTestWorker", worker);
+	returnMsg = RwManagement::getInstance()->createWorker("SimpleTestWorker", worker);
+    
+    if (returnMsg != RW_NO_ERROR)
+    {
+        rwError() << "Failed to create worker" << endLine();
+        return -1;
+    }
+    
 	RwCommand::RwCommandPtr command(new RwCommand("SimpleTestWorker", QStringList()));
 	worker->executeCommand(command);
+    
 	RwReply::RwReplyPtr reply;
     worker->getReply(reply);
 

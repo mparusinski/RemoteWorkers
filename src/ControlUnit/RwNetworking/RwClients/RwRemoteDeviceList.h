@@ -14,34 +14,49 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 27/07/2012.
 #define _RWNETWORKING_RWCLIENTS_RWREMOTEDEVICELIST_H_
 
 #include <QObject>
+#include <QString>
+#include <QMap>
 
 #include "RwUtils/RwGlobal/RwClasses.h"
 
+#include "RwRemoteDevice.h"
+
 namespace RwNetworking {
-
-namespace RwClients {
-
-////////////////////////////////////////////////////////////////////////////////
-/// \brief Represents the list of devices that are available.
-///        The list of devices is read from a file but the user can add or remove
-///        remote devices.
-////////////////////////////////////////////////////////////////////////////////
-class RwRemoteDeviceList : public QObject {
-
-	Q_OBJECT
-
-public:
-
-	RwRemoteDeviceList(QObject* parent);
-
-	virtual ~RwRemoteDeviceList();
-
-private:
-	DISALLOW_COPY_AND_ASSIGN(RwRemoteDeviceList);
-
-};
-
-}
+    
+    namespace RwClients {
+        
+        ////////////////////////////////////////////////////////////////////////////////
+        /// \brief Represents the list of devices that are available.
+        ///        The list of devices is read from a file but the user can add or remove
+        ///        remote devices.
+        ////////////////////////////////////////////////////////////////////////////////
+        class RwRemoteDeviceList : public QObject {
+            
+            Q_OBJECT
+            
+        public:
+            typedef QString RemoteDeviceNameType;
+            
+            typedef QMap<RemoteDeviceNameType, RwRemoteDevice::RwRemoteDevicePtr> RemoteDevicesListType;
+            
+            RwRemoteDeviceList(QObject* parent);
+            
+            virtual ~RwRemoteDeviceList();
+            
+            QStringList getListOfAvailableDevices();
+            
+            RwRemoteDevice::RwRemoteDevicePtr getDevice(const RemoteDeviceNameType& deviceName);
+            
+            void addDevice(const QString& deviceName, RwRemoteDevice::RwRemoteDevicePtr& device);
+            
+        private:
+            DISALLOW_COPY_AND_ASSIGN(RwRemoteDeviceList);
+            
+            RemoteDevicesListType m_allDevices;
+            
+        };
+        
+    }
 
 }
 

@@ -18,6 +18,7 @@ namespace RwUtils {
     namespace RwGlobal {
         
 #define RW_VERSION 0.3
+#define RW_COMMUNICATION_PORT 51234 // for now
         
     }
     

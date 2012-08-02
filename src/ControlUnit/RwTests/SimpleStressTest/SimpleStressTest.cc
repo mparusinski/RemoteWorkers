@@ -44,7 +44,11 @@ int main(int argc, char *argv[])
 
 	RwUtils::RwProfile::RwProfiler::startProfiler();
 	RwWorker::RwWorkerPtr worker;
-	RwManagement::getInstance()->createWorker("NastyBadWorker", worker);
+	if (RwManagement::getInstance()->createWorker("NastyBadWorker", worker) != RW_NO_ERROR)
+    {
+        rwError() << "Worker not created" << endLine();
+        return -1;
+    }
 	RwUtils::RwProfile::RwProfiler::profile("Creating worker");
 
 	RwUtils::RwProfile::RwProfiler::startProfiler();

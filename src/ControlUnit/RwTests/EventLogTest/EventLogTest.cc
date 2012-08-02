@@ -84,7 +84,14 @@ int main(int argc, char* argv[])
 
 	RwWorker::RwWorkerPtr worker;
 	const QStringList& availableWorkers = RwManagement::getInstance()->scanAvailableWorkers();
-	RwManagement::getInstance()->createWorker(availableWorkers[0], worker);
+    
+    Q_ASSERT(availableWorkers.size() > 0);
+    
+	if (RwManagement::getInstance()->createWorker(availableWorkers[0], worker) != RW_NO_ERROR)
+    {
+        rwError() << "Worker not available" << endLine();
+        return -1;
+    }
 
 	RwCommand::RwCommandPtr command(new RwCommand("GenericCommand", QStringList()));
 
