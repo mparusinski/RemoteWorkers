@@ -13,11 +13,11 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 27/07/2012.
 #ifndef _RWNETWORKING_RWCLIENTS_RWREMOTEDEVICELIST_H_
 #define _RWNETWORKING_RWCLIENTS_RWREMOTEDEVICELIST_H_
 
-#include <QObject>
 #include <QString>
 #include <QMap>
 
 #include "RwUtils/RwGlobal/RwClasses.h"
+#include "RwUtils/RwGlobal/RwReturn.h"
 
 #include "RwRemoteDevice.h"
 
@@ -30,18 +30,14 @@ namespace RwNetworking {
         ///        The list of devices is read from a file but the user can add or remove
         ///        remote devices.
         ////////////////////////////////////////////////////////////////////////////////
-        class RwRemoteDeviceList : public QObject {
-            
-            Q_OBJECT
+        class RwRemoteDeviceList{
             
         public:
             typedef QString RemoteDeviceNameType;
             
             typedef QMap<RemoteDeviceNameType, RwRemoteDevice::RwRemoteDevicePtr> RemoteDevicesListType;
             
-            RwRemoteDeviceList(QObject* parent);
-            
-            virtual ~RwRemoteDeviceList();
+            static RwRemoteDeviceList* getInstance();
             
             QStringList getListOfAvailableDevices();
             
@@ -49,8 +45,16 @@ namespace RwNetworking {
             
             void addDevice(const QString& deviceName, RwRemoteDevice::RwRemoteDevicePtr& device);
             
+            RwReturnType readDeviceListFromFile();
+            
+            RwReturnType saveDeviceListToFile();
+            
         private:
             DISALLOW_COPY_AND_ASSIGN(RwRemoteDeviceList);
+            
+            RwRemoteDeviceList();
+            
+            virtual ~RwRemoteDeviceList();
             
             RemoteDevicesListType m_allDevices;
             

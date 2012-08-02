@@ -1,2 +1,2 @@
-# Name Type (0 -> local, 1 -> TCP, 2 -> SSL) Address
+# Name Type (1 -> local, 2 -> TCP, 3 -> SSL) Address
 This 0 localhost

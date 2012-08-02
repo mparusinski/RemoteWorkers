@@ -34,6 +34,8 @@ public:
 private:
 	virtual void abstract() { }
 
+    void initRemoteDevices();
+    
 	void setLayout();
 
 	void setAction();

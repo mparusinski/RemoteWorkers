@@ -49,11 +49,10 @@ namespace RwNetworking {
         public:
             typedef QSharedPointer<RwRemoteDevice> RwRemoteDevicePtr;
             
-            typedef enum {
-                RW_DEVICE_LOCAL_PIPE = 1,
-                RW_DEVICE_REMOTE_TCP = 2,
-                RW_DEVICE_REMOTE_SSL = 3
-            } DeviceConnectionType;
+#define RW_DEVICE_LOCAL_PIPE 1
+#define RW_DEVICE_REMOTE_TCP 2
+#define RW_DEVICE_REMOTE_SSL 3
+            typedef quint16 DeviceConnectionType;
             
             RwRemoteDevice(QObject* parent, const QString& address, const DeviceConnectionType deviceConnection, quint16 m_portNumber = RW_COMMUNICATION_PORT);
             
@@ -70,6 +69,12 @@ namespace RwNetworking {
             /// \return Address
             ////////////////////////////////////////////////////////////////////////////////
             const QString& getAddress() const;
+            
+            ////////////////////////////////////////////////////////////////////////////////
+            /// \brief Returns the type of the device. Do not rely on this
+            /// \return Type of remote device
+            ////////////////////////////////////////////////////////////////////////////////
+            DeviceConnectionType getType();
             
             ////////////////////////////////////////////////////////////////////////////////
             /// \brief Connects to remote device. Function was named connectToDevice() and

@@ -47,6 +47,11 @@ namespace RwNetworking {
             return m_address;
         }
         
+        RwRemoteDevice::DeviceConnectionType RwRemoteDevice::getType()
+        {
+            return m_deviceConnection;
+        }
+        
         void RwRemoteDevice::init()
         {
             if (m_client != 0)
