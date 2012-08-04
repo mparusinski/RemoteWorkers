@@ -17,6 +17,10 @@ SET(RwGUI_HEADERS_QT
     RwWorkerWidget.h
 )
 
+SET(RwGUI_HEADERS
+    RwRemoteDeviceItem.h
+)
+
 SET(RwGUI_SOURCES 
     RwMainWindow.cc
     RwPrefWindow.cc
@@ -26,13 +30,14 @@ SET(RwGUI_SOURCES
     RwRemoteDevicesMode.cc
     RwEventsMode.cc
     RwWorkerWidget.cc
+    RwRemoteDeviceItem.cc
 )
 
 QT4_WRAP_CPP(RwGUI_HEADERS_MOC ${RwGUI_HEADERS_QT})
 
-ADD_LIBRARY(RwGUI STATIC 
+ADD_LIBRARY(RwGUI STATIC ${RwGUI_HEADERS} 
   ${RwGUI_SOURCES} ${RwGUI_HEADERS_QT} ${RwGUI_HEADERS_MOC})
 
-TARGET_LINK_LIBRARIES(RwGUI RwLog RwClients)
+TARGET_LINK_LIBRARIES(RwGUI RwLog RwClients RwServers RwNetDataStructures)
 TARGET_LINK_LIBRARIES(RwGUI ${QT_LIBRAIRES})
 

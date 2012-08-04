@@ -13,38 +13,38 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 23/07/2012.
 #include "RwMainWindow.h"
 
 namespace RwGUI {
-
-RwMainWindow::RwMainWindow()
-{
-	setWindowAttributes();
-	createModes();
-	createStatusBar();
-}
-
-RwMainWindow::~RwMainWindow()
-{
-
-}
-
-void RwMainWindow::setWindowAttributes()
-{
-	setWindowTitle(tr("Remote Workers Control Unit"));
-	setUnifiedTitleAndToolBarOnMac(true);
-}
-
-void RwMainWindow::createModes()
-{
-	m_tools = addToolBar(tr("Tools"));
-	m_mode = new RwModeWidget(parentWidget(), m_tools);
-	setCentralWidget(m_mode);
-	m_mode->setVisible(true);
-}
-
-void RwMainWindow::createStatusBar()
-{
-	m_status = new QStatusBar(this);
-	m_status->showMessage(tr("Remote Workers server is off"));
-	setStatusBar(m_status);
-}
-
+    
+    RwMainWindow::RwMainWindow()
+    {
+        setWindowAttributes();
+        createModes();
+        createStatusBar();
+    }
+    
+    RwMainWindow::~RwMainWindow()
+    {
+    }
+    
+    void RwMainWindow::setWindowAttributes()
+    {
+        setWindowTitle(tr("Remote Workers Control Unit"));
+        setUnifiedTitleAndToolBarOnMac(true);
+    }
+    
+    void RwMainWindow::createModes()
+    {
+        m_tools = addToolBar(tr("Tools"));
+        m_mode = new RwModeWidget(parentWidget(), m_tools);
+        setCentralWidget(m_mode);
+        m_mode->setVisible(true);
+    }
+    
+    void RwMainWindow::createStatusBar()
+    {
+        m_status = new QStatusBar(this);
+        // m_status->showMessage(tr("Remote Workers server is on"));
+        
+        setStatusBar(m_status);
+    }
+    
 }

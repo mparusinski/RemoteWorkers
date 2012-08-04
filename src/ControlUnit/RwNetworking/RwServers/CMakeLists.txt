@@ -11,10 +11,12 @@ SET(RwServers_SOURCES
     RwCommandServerTCP.cc
     RwCommandServerSSL.cc
     RwCommandServerLocal.cc
+    RwCommandServerThread.cc
 )
 
 SET(RwServers_HEADERS
     RwCommandServerBase.h
+    RwCommandServerThread.h
 )
 
 SET(RwServers_HEADERS_QT

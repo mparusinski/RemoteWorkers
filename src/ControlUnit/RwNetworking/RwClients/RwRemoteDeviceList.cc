@@ -123,7 +123,7 @@ namespace RwNetworking {
             
             QTextStream out(&deviceListFile);
             
-            out << "# Name Type (1 -> local, 2 -> TCP, 3 -> SSL) Address" << endLine();
+            out << "# Name Type (0 -> local, 1 -> TCP, 2 -> SSL) Address" << endLine();
             
             RemoteDevicesListType::const_iterator iter;
             for (iter = m_allDevices.begin(); iter != m_allDevices.end(); ++iter)
@@ -134,6 +134,11 @@ namespace RwNetworking {
             
             deviceListFile.close();
             return RW_NO_ERROR;
+        }
+        
+        const RwRemoteDeviceList::RemoteDevicesListType& RwRemoteDeviceList::getAllDevices() const
+        {
+            return m_allDevices;
         }
         
     }

@@ -49,12 +49,9 @@ namespace RwNetworking {
         public:
             typedef QSharedPointer<RwRemoteDevice> RwRemoteDevicePtr;
             
-#define RW_DEVICE_LOCAL_PIPE 1
-#define RW_DEVICE_REMOTE_TCP 2
-#define RW_DEVICE_REMOTE_SSL 3
-            typedef quint16 DeviceConnectionType;
+            typedef quint16 RwDeviceConnectionType;
             
-            RwRemoteDevice(QObject* parent, const QString& address, const DeviceConnectionType deviceConnection, quint16 m_portNumber = RW_COMMUNICATION_PORT);
+            RwRemoteDevice(QObject* parent, const QString& address, const RwDeviceConnectionType deviceConnection, quint16 m_portNumber = RW_COMMUNICATION_PORT);
             
             virtual ~RwRemoteDevice();
             
@@ -74,7 +71,7 @@ namespace RwNetworking {
             /// \brief Returns the type of the device. Do not rely on this
             /// \return Type of remote device
             ////////////////////////////////////////////////////////////////////////////////
-            DeviceConnectionType getType();
+            RwDeviceConnectionType getType();
             
             ////////////////////////////////////////////////////////////////////////////////
             /// \brief Connects to remote device. Function was named connectToDevice() and
@@ -92,13 +89,18 @@ namespace RwNetworking {
             /// \brief Sends a request to the remote device.
             /// \param[in] request The request to send to the remote device
             ////////////////////////////////////////////////////////////////////////////////
-            void sendRequest(const RwCommandRequest& request) const;
+            bool sendRequest(const RwCommandRequest& request) const;
             
             ////////////////////////////////////////////////////////////////////////////////
             /// \brief Sends a request to the remote device and gets back a reply
             /// \param[out] request The request to send to the remote device
             ////////////////////////////////////////////////////////////////////////////////
             void getReply(RwCommandReply& reply) const;
+            
+            ////////////////////////////////////////////////////////////////////////////////
+            /// \brief Writes the reply to the response data folder. Necessary for viewing files
+            ////////////////////////////////////////////////////////////////////////////////
+            void writeReply() const;
             
         public slots:
             ////////////////////////////////////////////////////////////////////////////////
@@ -116,7 +118,7 @@ namespace RwNetworking {
             void init();
             
             QString m_address; // or pipe depending if local or not
-            DeviceConnectionType m_deviceConnection;
+            RwDeviceConnectionType m_deviceConnection;
             
             bool m_init;
             quint16 m_portNumber;

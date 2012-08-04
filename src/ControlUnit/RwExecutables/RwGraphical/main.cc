@@ -16,12 +16,18 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 23/07/2012
 #include "RwUtils/RwLog/RwMessagingManager.h"
 #include "RwGUI/RwMainWindow.h"
 
+#include "RwNetworking/RwServers/RwCommandServerThread.h"
+
+using namespace RwNetworking::RwServers;
 using namespace RwGUI;
 
 int main(int argc, char* argv[])
 {
 	RwUtils::RwLog::RwMessagingManager::getInstance()->turnAllOn();
 
+    RwCommandServerThread serverThread;
+    serverThread.start();
+    
 	QApplication app(argc, argv);
 	app.setOrganizationName("Remote Workers Project");
 	app.setApplicationName("RemoteWorkers Control Unit");

@@ -1,2 +1,2 @@
 # Name Type (1 -> local, 2 -> TCP, 3 -> SSL) Address
-This 0 localhost
+This 0 LocalRemoteWorkerServer

@@ -45,6 +45,8 @@ namespace RwNetworking {
             
             void addDevice(const QString& deviceName, RwRemoteDevice::RwRemoteDevicePtr& device);
             
+            const RemoteDevicesListType& getAllDevices() const;
+            
             RwReturnType readDeviceListFromFile();
             
             RwReturnType saveDeviceListToFile();

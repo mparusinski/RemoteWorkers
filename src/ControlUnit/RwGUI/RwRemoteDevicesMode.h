@@ -17,8 +17,11 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 23/07/2012.
 
 #include <QHBoxLayout>
 #include <QListWidget>
+#include <QWebView>
 
 #include "RwUtils/RwGlobal/RwClasses.h"
+
+#include "RwRemoteDeviceItem.h"
 
 namespace RwGUI {
 
@@ -31,6 +34,12 @@ public:
 
 	virtual ~RwRemoteDevicesMode();
 
+public slots:
+    
+    void deviceActivated(QListWidgetItem* item);
+    
+    void replyReady();
+    
 private:
 	virtual void abstract() { }
 
@@ -42,7 +51,9 @@ private:
 
 	QHBoxLayout* m_mainLayout;
 	QListWidget* m_devices;
-	QListWidget* m_remoteWorkers;
+	QWebView* m_remoteWorkers;
+    
+    RwRemoteDeviceItem* m_currentDevice;
 
 };
 
