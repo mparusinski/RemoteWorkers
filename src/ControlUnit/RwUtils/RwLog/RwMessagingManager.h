@@ -17,8 +17,6 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 16/05/2012.
 
 #include "RwUtils/RwGlobal/RwClasses.h"
 
-#include "RwMessagingDispatcherBase.h"
-
 namespace RwUtils
 {
     namespace RwLog
@@ -34,141 +32,118 @@ namespace RwUtils
         {
         public:
 
-        	typedef int MessagesLevelType;
+            typedef int MessagesLevelType;
 #define RW_NO_MESSAGE 0
 #define RW_DEBUG_MESSAGE 1
 #define RW_INFO_MESSAGE 2
 #define RW_WARNING_MESSAGE 4
 #define RW_ERROR_MESSAGE 8
-
-            virtual ~RwMessagingManager();
             
-            ////////////////////////////////////////////////////////////////////////////////
-            /// \brief     Returns an instance of the object (see Singleton pattern).
-            ///            Most important function as it is the only way to access the object
-            /// \return    The only possible instance of the object
-            ////////////////////////////////////////////////////////////////////////////////
-            static RwMessagingManager* getInstance();
-            
-            ////////////////////////////////////////////////////////////////////////////////
-            /// \brief     Tells the logger to use a console logger to perform all logging
-            ///            and error reporting.
-            ////////////////////////////////////////////////////////////////////////////////
-            void useConsoleDispatcher();
-            
-            ////////////////////////////////////////////////////////////////////////////////
-            /// \brief     Tells the logger to use a file logger to perform all logging
-            ///            and error reporting.
-            ////////////////////////////////////////////////////////////////////////////////
-            void useFileDispatcher();
+            static MessagesLevelType m_reportingLevels;
             
             ////////////////////////////////////////////////////////////////////////////////
             /// \brief     Function which logs an info message (if logging if turned on)
             /// \param[in] message	Message to be logged
             ////////////////////////////////////////////////////////////////////////////////
-            void reportInfo(const char* message) const;
+            static void reportInfo(const char* message);
             
             /////////////////////////////////////////////////////////////////////////////////
             /// \brief     Reports an error, do not use this function directly.
             /////////////////////////////////////////////////////////////////////////////////
-            void reportError(const char* message) const;
+            static void reportError(const char* message);
             
             /////////////////////////////////////////////////////////////////////////////////
             /// \brief     Reports an error, do not use this function directly. Use the macro
             ///            error instead which will use the correct inputs
             /////////////////////////////////////////////////////////////////////////////////
-            void reportWarning(const char* message) const;
+            static void reportWarning(const char* message);
             
             /////////////////////////////////////////////////////////////////////////////////
             /// \brief     Reports an error, do not use this function directly. Use the macro
             ///            error instead which will use the correct inputs
             /////////////////////////////////////////////////////////////////////////////////
-            void reportBug(const char* message) const;
+            static void reportBug(const char* message);
             
             /////////////////////////////////////////////////////////////////////////////////
             /// \brief     Switches on message to log all messages to appropriate dispatcher.
             /////////////////////////////////////////////////////////////////////////////////
-            void turnInfosOn();
+            static void turnInfosOn();
             
             /////////////////////////////////////////////////////////////////////////////////
             /// \brief     Switches off message for normal messages, no message will be logged
             /////////////////////////////////////////////////////////////////////////////////
-            void turnInfosOff();
+            static void turnInfosOff();
             
             /////////////////////////////////////////////////////////////////////////////////
             /// \brief     Switches on error reporting and uses appropriate dispatcher to
             ///            register errors
             /////////////////////////////////////////////////////////////////////////////////
-            void turnErrorsOn();
+            static void turnErrorsOn();
             
             /////////////////////////////////////////////////////////////////////////////////
             /// \brief     Switches off error reporting. No error will be reported.
             /////////////////////////////////////////////////////////////////////////////////
-            void turnErrorsOff();
+            static void turnErrorsOff();
             
             /////////////////////////////////////////////////////////////////////////////////
             /// \brief     Switches on warnings.
             /////////////////////////////////////////////////////////////////////////////////
-            void turnWarningsOn();
+            static void turnWarningsOn();
             
             /////////////////////////////////////////////////////////////////////////////////
             /// \brief     Switches off warnings.
             /////////////////////////////////////////////////////////////////////////////////
-            void turnWarningsOff();
+            static void turnWarningsOff();
             
             /////////////////////////////////////////////////////////////////////////////////
             /// \brief     Switches on warnings.
             /////////////////////////////////////////////////////////////////////////////////
-            void turnDebuggingOn();
+            static void turnDebuggingOn();
             
             /////////////////////////////////////////////////////////////////////////////////
             /// \brief     Switches on warnings.
             /////////////////////////////////////////////////////////////////////////////////
-            void turnDebuggingOff();
+            static void turnDebuggingOff();
             
             /////////////////////////////////////////////////////////////////////////////////
             /// \brief     Switches both logging and error reporting error on. All messages
             ///            and error messages will be sent to appropriate logger.
             /////////////////////////////////////////////////////////////////////////////////
-            void turnAllOn();
+            static void turnAllOn();
             
             /////////////////////////////////////////////////////////////////////////////////
             /// \brief     Switches both logging and error reporting error off. No messages
             ///            will be logged and no error will be reported.
             /////////////////////////////////////////////////////////////////////////////////
-            void turnAllOff();
+            static void turnAllOff();
             
             /////////////////////////////////////////////////////////////////////////////////
             /// \brief     Tells whether reporting messages
             /// \return    True if message reporting false otherwise
             /////////////////////////////////////////////////////////////////////////////////
-            bool isReportingInfos() const;
+            static bool isReportingInfos();
             
             /////////////////////////////////////////////////////////////////////////////////
             /// \brief     Tells whether reporting errors
             /// \return    True if error reporting false otherwise
             /////////////////////////////////////////////////////////////////////////////////
-            bool isReportingErrors() const;
+            static bool isReportingErrors();
             
             /////////////////////////////////////////////////////////////////////////////////
             /// \brief     Tells whether reporting warnings
             /// \return    True if warning reporting false otherwise
             /////////////////////////////////////////////////////////////////////////////////
-            bool isReportingWarnings() const;
+            static bool isReportingWarnings();
             
             /////////////////////////////////////////////////////////////////////////////////
             /// \brief     Tells whether reporting debug messages
             /// \return    True if debug messages are reported false otherwise
             /////////////////////////////////////////////////////////////////////////////////
-            bool isReportingDebugMessages() const;
+            static bool isReportingDebugMessages();
             
         private:
             DISALLOW_COPY_AND_ASSIGN(RwMessagingManager);
-            RwMessagingManager(); // singleton pattern
-            
-            MessagesLevelType m_reportingLevels;
-            
-            RwMessagingDispatcherBase* m_strategy;
+            RwMessagingManager(); // pure static class
         };
         
     }

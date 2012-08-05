@@ -23,7 +23,7 @@ using namespace RwGUI;
 
 int main(int argc, char* argv[])
 {
-	RwUtils::RwLog::RwMessagingManager::getInstance()->turnAllOn();
+	RwUtils::RwLog::RwMessagingManager::turnAllOn();
 
     RwCommandServerThread serverThread;
     serverThread.start();

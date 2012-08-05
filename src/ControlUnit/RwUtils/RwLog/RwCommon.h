@@ -93,22 +93,22 @@ namespace RwUtils
                 {
                     case RW_WRITER_INFO:
 #ifndef RW_NO_INFO_REPORTING
-                        RwMessagingManager::getInstance()->reportInfo(messageToWrite);
+                        RwMessagingManager::reportInfo(messageToWrite);
 #endif // RW_NO_INFO_REPORTING
                         break;
                     case RW_WRITER_ERROR:
 #ifndef RW_NO_ERROR_REPORTING
-                        RwMessagingManager::getInstance()->reportError(messageToWrite);
+                        RwMessagingManager::reportError(messageToWrite);
 #endif // RW_NO_ERROR_REPORTING
                         break;
                     case RW_WRITER_DEBUG:
 #ifndef NDEBUG
-                        RwMessagingManager::getInstance()->reportBug(messageToWrite);
+                        RwMessagingManager::reportBug(messageToWrite);
 #endif // NDEBUG
                         break;
                     case RW_WRITER_WARNING:
 #ifndef RW_NO_WARNING
-                        RwMessagingManager::getInstance()->reportWarning(messageToWrite);
+                        RwMessagingManager::reportWarning(messageToWrite);
 #endif // RW_NO_WARNING
                         break;
                     default:

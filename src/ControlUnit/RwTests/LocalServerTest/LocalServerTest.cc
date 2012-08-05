@@ -22,7 +22,7 @@ int main(int argc, char* argv[])
 {
     QApplication app(argc, argv);
 
-    RwMessagingManager::getInstance()->turnAllOn();
+    RwMessagingManager::turnAllOn();
     
     ServerThread server;
     server.start();

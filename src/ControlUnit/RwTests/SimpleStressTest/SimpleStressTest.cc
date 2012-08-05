@@ -31,7 +31,7 @@ using namespace RwWorkerInterface;
 int main(int argc, char *argv[])
 {
 	RwUtils::RwProfile::RwProfiler::startProfiler();
-	RwMessagingManager::getInstance()->turnAllOn();
+	RwMessagingManager::turnAllOn();
 	RwUtils::RwProfile::RwProfiler::profile("Turning logging on");
 
 	RwUtils::RwProfile::RwProfiler::startProfiler();

@@ -31,7 +31,7 @@ using namespace RwWorkerInterface;
 
 int main(int argc, char *argv[])
 {
-	RwMessagingManager::getInstance()->turnAllOn();
+	RwMessagingManager::turnAllOn();
     
 	bool allTest = true;
     

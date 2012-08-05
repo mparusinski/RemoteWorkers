@@ -80,7 +80,7 @@ int main(int argc, char* argv[])
 {
 	srand(time(NULL));
 
-	RwMessagingManager::getInstance()->turnAllOn();
+	RwMessagingManager::turnAllOn();
 
 	RwWorker::RwWorkerPtr worker;
 	const QStringList& availableWorkers = RwManagement::getInstance()->scanAvailableWorkers();

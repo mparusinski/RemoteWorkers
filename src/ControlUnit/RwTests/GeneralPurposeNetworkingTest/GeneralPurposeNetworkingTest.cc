@@ -83,7 +83,7 @@ bool test(const QString& commandName, const QString& order, const QStringList& a
 
 int main(int argc, char * argv [])
 {
-    RwMessagingManager::getInstance()->turnAllOn();
+    RwMessagingManager::turnAllOn();
     
     QStringList arguments1;
     arguments1.append("First");

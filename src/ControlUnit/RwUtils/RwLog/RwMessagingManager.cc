@@ -12,49 +12,11 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 16/05/2012.
 
 #include "RwMessagingManager.h"
 
-#include "RwMessagingDispatcherBase.h"
-#include "RwMessagingConsoleDispatcher.h"
-#include "RwMessagingFileDispatcher.h"
-
-using namespace std;
-
 namespace RwUtils
 {
     namespace RwLog
     {
-        
-        RwMessagingManager::RwMessagingManager()
-        {
-            turnAllOff();
-            m_strategy = new RwMessagingConsoleDispatcher;
-        }
-        
-        RwMessagingManager::~RwMessagingManager()
-        {
-            delete m_strategy;
-        }
-        
-        RwMessagingManager* RwMessagingManager::getInstance()
-        {
-            static RwMessagingManager* instance = 0;
-            if (instance == 0)
-            {
-                instance = new RwMessagingManager;
-            }
-            return instance;
-        }
-        
-        void RwMessagingManager::useConsoleDispatcher()
-        {
-            delete m_strategy;
-            m_strategy = new RwMessagingConsoleDispatcher;
-        }
-        
-        void RwMessagingManager::useFileDispatcher()
-        {
-            delete m_strategy;
-            m_strategy = new RwMessagingFileDispatcher();
-        }
+        RwMessagingManager::MessagesLevelType RwMessagingManager::m_reportingLevels = RW_NO_MESSAGE;
         
         void RwMessagingManager::turnAllOn()
         {
@@ -106,55 +68,55 @@ namespace RwUtils
         	m_reportingLevels = m_reportingLevels & ~RW_DEBUG_MESSAGE;
         }
         
-        bool RwMessagingManager::isReportingInfos() const
+        bool RwMessagingManager::isReportingInfos()
         {
         	return (m_reportingLevels & RW_INFO_MESSAGE) > 0;
         }
          
-        bool RwMessagingManager::isReportingErrors() const
+        bool RwMessagingManager::isReportingErrors()
         {
         	return (m_reportingLevels & RW_ERROR_MESSAGE) > 0;
         }
         
-        bool RwMessagingManager::isReportingWarnings() const
+        bool RwMessagingManager::isReportingWarnings()
         {
         	return (m_reportingLevels & RW_WARNING_MESSAGE) > 0;
         }
         
-        bool RwMessagingManager::isReportingDebugMessages() const
+        bool RwMessagingManager::isReportingDebugMessages()
         {
         	return (m_reportingLevels & RW_DEBUG_MESSAGE) > 0;
         }
         
-        void RwMessagingManager::reportInfo(const char *message) const
+        void RwMessagingManager::reportInfo(const char *message)
         {
             if (isReportingInfos())
             {
-                m_strategy->writeMessage(message);
+                fprintf(stdout, "%s", message);
             }
         }
         
-        void RwMessagingManager::reportError(const char *message) const
+        void RwMessagingManager::reportError(const char *message)
         {
             if (isReportingErrors())
             {
-                m_strategy->writeError(message);
+                fprintf(stderr, "%s", message);
             }
         }
         
-        void RwMessagingManager::reportWarning(const char *message) const
+        void RwMessagingManager::reportWarning(const char *message)
         {
             if (isReportingWarnings())
             {
-                m_strategy->writeWarning(message);
+                fprintf(stderr, "%s", message);
             }
         }
         
-        void RwMessagingManager::reportBug(const char* message) const
+        void RwMessagingManager::reportBug(const char* message)
         {
             if (isReportingDebugMessages())
             {
-                m_strategy->writeDebug(message);
+                fprintf(stderr, "%s", message);
             }
         }
         

@@ -30,7 +30,7 @@ using namespace RwWorkerInterface;
 int main(int argc, char *argv[])
 {
     RwUtils::RwGlobal::RwReturnType returnMsg;
-	RwMessagingManager::getInstance()->turnAllOn();
+	RwMessagingManager::turnAllOn();
 
 	QStringList availableWorkers = RwManagement::getInstance()->scanAvailableWorkers();
     rwInfo() << "Available workers" << endLine();

@@ -8,16 +8,10 @@ LINK_DIRECTORIES(
 
 SET(RwLog_SOURCES
    RwMessagingManager.cc
-   RwMessagingDispatcherBase.cc
-   RwMessagingFileDispatcher.cc
-   RwMessagingConsoleDispatcher.cc
 )
 
 SET(RwLog_HEADERS
    RwMessagingManager.h
-   RwMessagingDispatcherBase.h
-   RwMessagingFileDispatcher.h
-   RwMessagingConsoleDispatcher.h
    RwCommon.h
 )
 
