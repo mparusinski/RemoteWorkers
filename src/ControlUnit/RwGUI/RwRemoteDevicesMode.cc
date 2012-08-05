@@ -62,6 +62,7 @@ namespace RwGUI {
         m_mainLayout->addWidget(m_devices, 3);
         
         m_remoteWorkers = new QWebView(this);
+        
         // m_remoteWorkers->setViewMode(QListView::IconMode);
         m_mainLayout->addWidget(m_remoteWorkers, 7);
     }
@@ -135,7 +136,11 @@ namespace RwGUI {
         }
         else if ( pathToOutputData.exists("index.html") )
         {
+            QString pathToIndex = pathToOutputData.absoluteFilePath("index.html");
             
+            rwDebug() << "Displaying " << pathToIndex << endLine();
+            
+            m_remoteWorkers->load("file://" + pathToIndex);
         }
     }
     
