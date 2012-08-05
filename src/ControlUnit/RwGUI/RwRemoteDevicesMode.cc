@@ -14,6 +14,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 23/07/2012.
 
 #include <QDir>
 #include <QMessageBox>
+#include <QTextStream>
 
 #include "RwUtils/RwLog/RwCommon.h"
 #include "RwUtils/RwGlobal/RwDefines.h"
@@ -127,18 +128,33 @@ namespace RwGUI {
         remoteDevice->writeReply();
         
         QDir pathToOutputData(RW_RESPONSE_DATA_FOLDER);
-        if ( pathToOutputData.exists("error_code.txt") )
+        if ( pathToOutputData.exists("error_code.txt"))
         {
             // TODO: Adapt so it uses the error code
+            QFileInfo errorFileInfo = pathToOutputData.absoluteFilePath("error_code.txt");
+            QFile errorFileHandle(errorFileInfo.absoluteFilePath());
+            
+            if ( errorFileHandle.open(QIODevice::ReadOnly | QIODevice::Text) )
+            {
+                rwError() << "Error when opening error_code.txt file" << endLine();
+                return;
+            }
+            
+            QTextStream in(&errorFileHandle);
+            
+            int errorTypeRaw;
+            in >> errorTypeRaw;
+            
             const QString title(tr("Remote device error"));
-            const QString errorMessage(tr("An error occurred when remote device was processing the request"));
+            
+            const QString errorMessage(tr("An error occurred when remote device was processing the request!\n ERROR CODE: %n", "", errorTypeRaw));
             QMessageBox::critical(this, title, errorMessage);
         }
         else if ( pathToOutputData.exists("index.html") )
         {
             QString pathToIndex = pathToOutputData.absoluteFilePath("index.html");
             
-            rwDebug() << "Displaying " << pathToIndex << endLine();
+            // rwDebug() << "Displaying " << pathToIndex << endLine();
             
             m_remoteWorkers->load("file://" + pathToIndex);
         }
