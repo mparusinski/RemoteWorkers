@@ -45,5 +45,6 @@ ADD_SUBDIRECTORY(RwExecutables)
 FILE( COPY conf.txt DESTINATION ${RemoteWorkers_ControlUnit_BINARY_DIR} )
 FILE( COPY WorkersList.txt DESTINATION ${RemoteWorkers_ControlUnit_BINARY_DIR} )
 FILE( COPY Devices.txt DESTINATION ${RemoteWorkers_ControlUnit_BINARY_DIR} )
+FILE( COPY EventLog.txt DESTINATION ${RemoteWorkers_ControlUnit_BINARY_DIR} )
 
 FILE( MAKE_DIRECTORY ${RemoteWorkers_ControlUnit_BINARY_DIR}/responseData )

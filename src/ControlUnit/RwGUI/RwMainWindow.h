@@ -37,6 +37,8 @@ namespace RwGUI {
         
     public slots:
         
+        void closeRemoteWorkers();
+        
     private:
         DISALLOW_COPY_AND_ASSIGN(RwMainWindow);
         

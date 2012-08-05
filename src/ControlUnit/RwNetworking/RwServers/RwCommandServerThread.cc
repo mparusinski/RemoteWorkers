@@ -39,6 +39,16 @@ namespace RwNetworking {
             //    delete m_sslServer;
         }
         
+        RwCommandServerThread* RwCommandServerThread::getInstance()
+        {
+            static RwCommandServerThread* instance = 0;
+            if (instance == 0)
+            {
+                instance = new RwCommandServerThread;
+            }
+            return instance;
+        }
+        
         void RwCommandServerThread::run()
         {
             m_localServer = new RwCommandServerLocal(0, RW_LOCAL_SERVER_NAME);

@@ -63,6 +63,13 @@ namespace RwGlobal
         /// \return     An error code
         /////////////////////////////////////////////////////////////////////////////////
         RwReturnType getDeviceListPath(QString& deviceListPath);
+        
+        /////////////////////////////////////////////////////////////////////////////////
+        /// \brief      Returns the path to the file where the event log is saved too
+        /// \param[out] eventLogPath path to event log file
+        /// \return     An error code
+        /////////////////////////////////////////////////////////////////////////////////
+        RwReturnType getEventLogPath(QString& eventLogPath);
 
         /////////////////////////////////////////////////////////////////////////////////
         /// \brief      Returns the value of corresponding to the descriptor

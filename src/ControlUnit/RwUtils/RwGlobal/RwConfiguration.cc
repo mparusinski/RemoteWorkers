@@ -114,6 +114,11 @@ namespace RwGlobal
     {
     	return getConfiguration("DeviceList", deviceListPath);
     }
+    
+    RwReturnType RwConfiguration::getEventLogPath(QString &eventLogPath)
+    {
+        return getConfiguration("EventLog", eventLogPath);
+    }
 
 }
 

@@ -44,8 +44,12 @@ public:
 	typedef QSharedPointer<RwEventType> RwEventTypeHandle;
 
 	RwEventType();
+    
+    RwEventType(const QDateTime& dateTime, const QString& description); // prevents using current time as date
 
 	virtual ~RwEventType();
+    
+    static RwEventTypeHandle create(const QDateTime& eventDate, const QString& description);
 
 	////////////////////////////////////////////////////////////////////////////////
 	/// \brief Get the type of event this event represents.

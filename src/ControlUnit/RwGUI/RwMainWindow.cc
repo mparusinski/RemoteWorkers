@@ -12,6 +12,9 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 23/07/2012.
 
 #include "RwMainWindow.h"
 
+#include "RwHistory/RwEventLog.h"
+#include "RwNetworking/RwServers/RwCommandServerThread.h"
+
 namespace RwGUI {
     
     RwMainWindow::RwMainWindow()
@@ -45,6 +48,14 @@ namespace RwGUI {
         // m_status->showMessage(tr("Remote Workers server is on"));
         
         setStatusBar(m_status);
+    }
+    
+    void RwMainWindow::closeRemoteWorkers()
+    {
+        RwNetworking::RwServers::RwCommandServerThread::getInstance()->stopServers();
+        
+        RwHistory::RwEventLog::getInstance()->logRotate();
+        RwHistory::RwEventLog::getInstance()->saveLog();
     }
     
 }

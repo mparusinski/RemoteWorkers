@@ -29,7 +29,7 @@ namespace RwNetworking {
             
         public:
             
-            RwCommandServerThread();
+            static RwCommandServerThread* getInstance();
             
             virtual ~RwCommandServerThread();
             
@@ -41,6 +41,8 @@ namespace RwNetworking {
             
         private:
             DISALLOW_COPY_AND_ASSIGN(RwCommandServerThread);
+            
+            RwCommandServerThread();
             
             RwCommandServerLocal* m_localServer;
             RwCommandServerTCP* m_tcpServer;
