@@ -17,59 +17,70 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 23/07/2012.
 using namespace RwHistory;
 
 namespace RwGUI {
-
-RwEventsMode::RwEventsMode(QWidget * parent, QToolBar * toolBar, int index) : RwAbstractMode(parent, toolBar, index)
-{
-	m_modeName = "Events Mode";
-
-	setAction();
-	setEventsWidget();
-
-	RwEventLog* globalInstance = RwEventLog::getInstance();
-	connect(globalInstance, SIGNAL(eventAdded()), this, SLOT(displayEvents()));
-
-	attach();
-}
-
-RwEventsMode::~RwEventsMode()
-{
-
-}
-
-void RwEventsMode::setAction()
-{
-	m_action = new QAction(tr("Events"), this); // TODO ADD ICON
-	m_action->setToolTip(tr("View all Remote Workers events on this computer"));
-	connect(m_action, SIGNAL(triggered()), this, SLOT(displayEvents()));
-}
-
-void RwEventsMode::setEventsWidget()
-{
-	m_mainLayout = new QVBoxLayout(this);
-
-	m_eventsWidget = new QListWidget(this);
-	m_eventsWidget->setAcceptDrops(false);
-	m_eventsWidget->setDragEnabled(false);
-	// possibly other stuff to put here
-
-	m_mainLayout->addWidget(m_eventsWidget);
-
-	displayEvents();
-}
-
-void RwEventsMode::displayEvents()
-{
-	if (isVisible())
-	{
-		// RwEventLog::getInstance()->generateAll();
-		RwEventLog::EventListType& eventList = RwEventLog::getInstance()->getEventList();
-		RwEventLog::EventListType::iterator iter;
-		for (iter = eventList.begin(); iter != eventList.end(); ++iter)
-		{
-			m_eventsWidget->addItem(iter->description());
-		}
-	}
-	// TODO: Display events
-}
-
+    
+    RwEventsMode::RwEventsMode(QWidget * parent, QToolBar * toolBar, int index) : RwAbstractMode(parent, toolBar, index)
+    {
+        m_modeName = "Events Mode";
+        
+        setAction();
+        setEventsWidget();
+        
+        RwEventLog* globalInstance = RwEventLog::getInstance();
+        connect(globalInstance, SIGNAL(eventAdded()), this, SLOT(displayEvents()));
+        
+        attach();
+    }
+    
+    RwEventsMode::~RwEventsMode()
+    {
+        
+    }
+    
+    void RwEventsMode::setAction()
+    {
+        m_action = new QAction(tr("Events"), this); // TODO ADD ICON
+        m_action->setToolTip(tr("View all Remote Workers events on this computer"));
+        connect(m_action, SIGNAL(triggered()), this, SLOT(displayEvents()));
+    }
+    
+    void RwEventsMode::setEventsWidget()
+    {
+        m_mainLayout = new QVBoxLayout(this);
+        
+        m_eventsWidget = new QListWidget(this);
+        m_eventsWidget->setAcceptDrops(false);
+        m_eventsWidget->setDragEnabled(false);
+        // possibly other stuff to put here
+        
+        m_mainLayout->addWidget(m_eventsWidget);
+        
+        displayEvents();
+    }
+    
+    void RwEventsMode::displayEvents()
+    {
+        m_eventsWidget->clear();
+        RwEventLog::getInstance()->generateAll();
+        RwEventLog::EventListType& eventList = RwEventLog::getInstance()->getEventList();
+        RwEventLog::EventListType::iterator iter;
+        for (iter = eventList.begin(); iter != eventList.end(); ++iter)
+        {
+            m_eventsWidget->addItem(iter->eventDate().toString() + ": " + iter->description());
+        }
+    }
+    
+    void RwEventsMode::setVisible(bool visible)
+    {
+        QWidget::setVisible(visible);
+        RwEventLog* globalInstanceRwEventLog = RwEventLog::getInstance();
+        if (visible)
+        {
+            connect(globalInstanceRwEventLog, SIGNAL(eventAdded()), this, SLOT(displayEvents()));
+        }
+        else
+        {
+            disconnect(globalInstanceRwEventLog, SIGNAL(eventAdded()), this, SLOT(displayEvents()));
+        }
+    }
+    
 }

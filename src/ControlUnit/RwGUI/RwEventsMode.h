@@ -30,6 +30,8 @@ public:
 	RwEventsMode(QWidget* parent, QToolBar* toolBar, int index);
 
 	virtual ~RwEventsMode();
+    
+    virtual void setVisible(bool visible);
 
 public slots:
 

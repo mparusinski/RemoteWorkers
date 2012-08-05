@@ -14,6 +14,8 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 04/08/2012
 
 #include "RwUtils/RwGlobal/RwDefines.h"
 
+#include "RwHistory/RwEventLog.h"
+
 namespace RwNetworking {
     
     namespace RwServers {
@@ -43,9 +45,7 @@ namespace RwNetworking {
             m_tcpServer = new RwCommandServerTCP(0, RW_COMMUNICATION_PORT);
             // m_sslServer = new RwCommandServerSSL(0, RW_COMMUNICATION_PORT);
             
-            m_localServer->start();
-            m_tcpServer->start();
-            // m_sslServer->start();
+            startServers();
             
             exec();
         }
@@ -57,6 +57,8 @@ namespace RwNetworking {
             m_localServer->stop();
             m_tcpServer->stop();
             // m_sslServer->stop();
+            
+            RwHistory::RwEventLog::getInstance()->serverStopped();
         }
         
         void RwCommandServerThread::startServers()
@@ -64,6 +66,8 @@ namespace RwNetworking {
             m_localServer->start();
             m_tcpServer->start();
             // m_sslServer->start();
+            
+            RwHistory::RwEventLog::getInstance()->serverStarted();
         }
         
     }
