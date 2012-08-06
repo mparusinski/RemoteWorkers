@@ -134,7 +134,7 @@ namespace RwGUI {
             QFileInfo errorFileInfo = pathToOutputData.absoluteFilePath("error_code.txt");
             QFile errorFileHandle(errorFileInfo.absoluteFilePath());
             
-            if ( errorFileHandle.open(QIODevice::ReadOnly | QIODevice::Text) )
+            if ( !errorFileHandle.open(QIODevice::ReadOnly | QIODevice::Text) )
             {
                 rwError() << "Error when opening error_code.txt file" << endLine();
                 return;
@@ -142,12 +142,14 @@ namespace RwGUI {
             
             QTextStream in(&errorFileHandle);
             
-            int errorTypeRaw;
+            RwReturnType errorTypeRaw;
             in >> errorTypeRaw;
             
             const QString title(tr("Remote device error"));
             
-            const QString errorMessage(tr("An error occurred when remote device was processing the request!\n ERROR CODE: %n", "", errorTypeRaw));
+            QString errorMessage = tr("An error occurred when remote device was processing the request!\n");
+            errorMessage += retTypeToStr(errorTypeRaw);
+            errorMessage += tr("(CODE %n)", "", errorTypeRaw);
             QMessageBox::critical(this, title, errorMessage);
         }
         else if ( pathToOutputData.exists("index.html") )

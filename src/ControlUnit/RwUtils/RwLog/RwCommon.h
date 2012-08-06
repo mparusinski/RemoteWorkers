@@ -66,7 +66,32 @@ namespace RwUtils
                 return *this;
             }
             
-            inline const RwWriter& operator <<(const int number) const
+            inline const RwWriter& operator <<(const quint8 number) const
+            {
+                return operator<<(QString::number(number));
+            }
+            
+            inline const RwWriter& operator <<(const quint16 number) const
+            {
+                return operator<<(QString::number(number));
+            }
+            
+            inline const RwWriter& operator <<(const quint32 number) const
+            {
+                return operator<<(QString::number(number));
+            }
+            
+            inline const RwWriter& operator <<(const qint8 number) const
+            {
+                return operator<<(QString::number(number));
+            }
+            
+            inline const RwWriter& operator <<(const qint16 number) const
+            {
+                return operator<<(QString::number(number));
+            }
+            
+            inline const RwWriter& operator <<(const qint32 number) const
             {
                 return operator<<(QString::number(number));
             }
@@ -78,12 +103,7 @@ namespace RwUtils
             
             inline const RwWriter& operator <<(const bool boolVar)  const
             {
-                return operator<<(static_cast<int>(boolVar));
-            }
-            
-            inline const RwWriter& operator <<(const RwReturnType errorCode) const
-            {
-                return operator<<(static_cast<int>(errorCode));
+                return operator<<(static_cast<quint8>(boolVar));
             }
             
         private:
@@ -118,6 +138,11 @@ namespace RwUtils
             
             WriterType m_writerType;
         };
+        
+        inline char endLine()
+        {
+            return '\n';
+        }
         
         //////////////////////////////////////////////////////////////////////////////// 
         /// \brief Returns a stream to message. Acts like a function.
@@ -173,11 +198,6 @@ namespace RwUtils
         /// \brief Returns a stream to warning. Acts like a function.
         ////////////////////////////////////////////////////////////////////////////////
 #define rwWarning() _rwWarning(__FILE__,(__func__), __LINE__)
-        
-        inline char endLine()
-        {
-            return '\n';
-        }
         
     }
 }
