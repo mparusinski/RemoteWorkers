@@ -12,6 +12,9 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 16/05/2012.
 
 #include "RwMessagingManager.h"
 
+#include <cstdio>
+#include <cstdlib>
+
 namespace RwUtils
 {
     namespace RwLog
