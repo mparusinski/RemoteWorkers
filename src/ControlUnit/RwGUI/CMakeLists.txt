@@ -9,6 +9,7 @@ LINK_DIRECTORIES(
 SET(RwGUI_HEADERS_QT
     RwMainWindow.h
     RwPrefWindow.h
+    RwAboutWindow.h
     RwModeWidget.h
     RwAbstractMode.h
     RwWorkersCenterMode.h
@@ -23,6 +24,7 @@ SET(RwGUI_HEADERS
 
 SET(RwGUI_SOURCES 
     RwMainWindow.cc
+    RwAboutWindow.cc
     RwPrefWindow.cc
     RwModeWidget.cc
     RwAbstractMode.cc

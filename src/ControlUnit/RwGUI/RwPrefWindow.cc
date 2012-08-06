@@ -14,9 +14,12 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 23/07/2012.
 
 namespace RwGUI {
 
-    RwPrefWindow::RwPrefWindow(QWidget* parent) : QWidget(parent)
+    RwPrefWindow::RwPrefWindow(QWidget* parent) : QDialog(parent)
     {
+        setWindowTitle(tr("Preferences"));
         
+        m_prefLayout = new QHBoxLayout(this);
+        m_tmpLabel = new QLabel("Not ready yet", this);
     }
     
     RwPrefWindow::~RwPrefWindow()

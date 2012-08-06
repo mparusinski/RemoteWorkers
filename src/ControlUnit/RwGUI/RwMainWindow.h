@@ -14,6 +14,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 23/07/2012.
 #define _RWGUI_RWMAINWINDOW_H_
 
 #include <QMainWindow>
+#include <QMenuBar>
 #include <QToolBar>
 #include <QAction>
 #include <QStatusBar>
@@ -22,6 +23,8 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 23/07/2012.
 #include "RwUtils/RwGlobal/RwClasses.h"
 
 #include "RwModeWidget.h"
+#include "RwAboutWindow.h"
+#include "RwPrefWindow.h"
 
 namespace RwGUI {
     
@@ -42,13 +45,17 @@ namespace RwGUI {
     private:
         DISALLOW_COPY_AND_ASSIGN(RwMainWindow);
         
+        void createMenuBar();
         void createModes();
         void setWindowAttributes();
         void createStatusBar();
-        
+
         QToolBar* m_tools;
         QStatusBar* m_status;
+        
         RwModeWidget* m_mode;
+        RwAboutWindow* m_aboutWindow;
+        RwPrefWindow* m_prefWindow;
         
     };
     

@@ -20,12 +20,14 @@ namespace RwGUI {
     RwMainWindow::RwMainWindow()
     {
         setWindowAttributes();
+        createMenuBar();
         createModes();
         createStatusBar();
     }
     
     RwMainWindow::~RwMainWindow()
     {
+        
     }
     
     void RwMainWindow::setWindowAttributes()
@@ -56,6 +58,22 @@ namespace RwGUI {
         
         RwHistory::RwEventLog::getInstance()->logRotate();
         RwHistory::RwEventLog::getInstance()->saveLog();
+    }
+    
+    void RwMainWindow::createMenuBar()
+    {
+        QMenu* fileMenu = menuBar()->addMenu(tr("&File"));
+        // setMenuBar(m_menuBar);
+        
+        m_aboutWindow = new RwAboutWindow(this);
+        m_aboutWindow->hide();
+        fileMenu->addAction(tr("about.RemoteWorkers"), m_aboutWindow, SLOT(show()));
+        
+        m_prefWindow = new RwPrefWindow(this);
+        m_prefWindow->hide();
+        fileMenu->addAction(tr("preferences"), m_prefWindow, SLOT(show()));
+        
+        fileMenu->addAction(tr("quit"), this, SLOT(close()));
     }
     
 }
