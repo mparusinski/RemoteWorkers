@@ -23,6 +23,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 23/07/2012.
 #include "RwWorkerInterface/RwReply.h"
 
 #include "RwNetworking/RwClients/RwRemoteDeviceList.h"
+#include "RwNetworking/RwClients/RwCommandLocalPipeIn.h"
 #include "RwNetworking/RwNetDataStructures/RwCommandRequest.h"
 #include "RwNetworking/RwNetDataStructures/RwCommandReply.h"
 
@@ -100,10 +101,9 @@ namespace RwGUI {
         
         m_currentDevice = dynamic_cast<RwRemoteDeviceItem*>(item);
         
-        const QString& deviceName = m_currentDevice->getDeviceName();
+        // const QString& deviceName = m_currentDevice->getDeviceName();
         const RwRemoteDevice::RwRemoteDevicePtr& remoteDevice = m_currentDevice->getPointerToDevice();
-        
-        rwInfo() << "Activated device " << deviceName << endLine();
+        RwCommandLocalPipeIn::getInstance()->connectToDevice(remoteDevice);
         
         connect(remoteDevice.data(), SIGNAL(notifyOfReply()), this, SLOT(replyReady()));
         
@@ -113,7 +113,6 @@ namespace RwGUI {
         const RwWorkerInterface::RwCommand::RwCommandPtr command(new RwWorkerInterface::RwCommand(listWorkerName, arguments));
         RwCommandRequest request(listWorkerName, command);
         
-        remoteDevice->connectToDevice();
         if ( !remoteDevice->sendRequest(request) )
         {
             const QString title(tr("Error sending request"));

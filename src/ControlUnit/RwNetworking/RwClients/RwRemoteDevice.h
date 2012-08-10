@@ -89,7 +89,7 @@ namespace RwNetworking {
             /// \brief Sends a request to the remote device.
             /// \param[in] request The request to send to the remote device
             ////////////////////////////////////////////////////////////////////////////////
-            bool sendRequest(const RwCommandRequest& request) const;
+            bool sendRequest(const RwCommandRequest& request);
             
             ////////////////////////////////////////////////////////////////////////////////
             /// \brief Sends a request to the remote device and gets back a reply
@@ -102,16 +102,34 @@ namespace RwNetworking {
             ////////////////////////////////////////////////////////////////////////////////
             void writeReply() const;
             
+            ////////////////////////////////////////////////////////////////////////////////
+            /// \brief Attach the local pipe to this remote device
+            ////////////////////////////////////////////////////////////////////////////////
+            void attachPipe() const;
+            
+            ////////////////////////////////////////////////////////////////////////////////
+            /// \brief Detach the local pipe from this remote device
+            ////////////////////////////////////////////////////////////////////////////////
+            void detachPipe() const;
+            
         public slots:
             ////////////////////////////////////////////////////////////////////////////////
             /// \brief Propagate signal further
             ////////////////////////////////////////////////////////////////////////////////
             void receivedReply();
             
+            ////////////////////////////////////////////////////////////////////////////////
+            /// \brief Sends a request to the remote device.
+            /// \param[in] request The request to send to the remote device
+            ////////////////////////////////////////////////////////////////////////////////
+            bool sendRequest(QByteArray request);
+            
         signals:
             
             void notifyOfReply();
             
+            void sendRequestSignal(QByteArray request);
+
         private:
             DISALLOW_COPY_AND_ASSIGN(RwRemoteDevice);
             

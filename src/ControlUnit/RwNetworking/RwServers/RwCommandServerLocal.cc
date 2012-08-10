@@ -41,6 +41,7 @@ namespace RwNetworking {
             if ( isRunning() )
             {
                 rwWarning() << "Server already running -> closing" << endLine();
+                m_localServer->close();
             }
             
             QLocalServer::removeServer(m_serverName);
@@ -74,8 +75,7 @@ namespace RwNetworking {
         
         void RwCommandServerLocal::init()
         {
-            QObject::connect(m_localServer, SIGNAL(newConnection()), 
-                             this, SLOT(processConnection()));
+            connect(m_localServer, SIGNAL(newConnection()), this, SLOT(processConnection()));
         }
 
     }

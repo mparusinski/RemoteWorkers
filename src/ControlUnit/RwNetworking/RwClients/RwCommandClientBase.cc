@@ -100,6 +100,20 @@ namespace RwNetworking {
             return returnMsg;
         }
         
+        RwReturnType RwCommandClientBase::sendRequest(QByteArray& requestInRawFormat)
+        {
+            if ( !m_connected )
+            {
+                rwError() << "The client is not connected! Please connect to server first." << endLine();
+                return RW_ERROR_NO_CONNECTION;
+            }
+            
+            m_socket->write(requestInRawFormat);
+            m_socket->flush();
+            
+            return RW_NO_ERROR;
+        }
+        
     }
 
 }

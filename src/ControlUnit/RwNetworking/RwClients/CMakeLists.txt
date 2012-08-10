@@ -11,6 +11,9 @@ SET(RwClients_SOURCES
     RwCommandClientTCP.cc
     RwCommandClientSSL.cc
     RwCommandClientBase.cc
+    RwCommandLocalPipeIn.cc
+    RwCommandLocalPipeOut.cc
+    RwCommandLocalPipeServer.cc
     RwRemoteDevice.cc
     RwRemoteDeviceList.cc
 )
@@ -24,6 +27,9 @@ SET(RwClients_HEADERS_QT
     RwCommandClientTCP.h
     RwCommandClientSSL.h
     RwCommandClientBase.h
+    RwCommandLocalPipeIn.h
+    RwCommandLocalPipeOut.h
+    RwCommandLocalPipeServer.h
     RwRemoteDevice.h
 )
 

@@ -84,6 +84,7 @@ namespace RwNetworking {
             
             // SENDING RAW DATA
             m_currentConnection->write(responseData);
+            m_currentConnection->close();
         }
         
     }

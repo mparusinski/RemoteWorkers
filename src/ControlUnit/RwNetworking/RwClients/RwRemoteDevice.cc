@@ -25,6 +25,8 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 26/07/2012.
 #include "RwCommandClientSSL.h"
 #include "RwCommandClientTCP.h"
 
+#include "RwCommandLocalPipeIn.h"
+
 using namespace RwUtils::RwSystem;
 using namespace RwUtils::RwLog;
 
@@ -103,8 +105,20 @@ namespace RwNetworking {
             m_client->disconnectFromServer();
         }
         
-        bool RwRemoteDevice::sendRequest(const RwCommandRequest &request) const
+        bool RwRemoteDevice::sendRequest(const RwCommandRequest &request)
         {
+            connectToDevice();
+            if (m_client->sendRequest(request) != RW_NO_ERROR)
+            {
+                return false;
+            }
+            connect(m_client, SIGNAL(replyReady()), this, SLOT(receivedReply()));
+            return true;
+        }
+        
+        bool RwRemoteDevice::sendRequest(QByteArray request)
+        {
+            connectToDevice();
             if (m_client->sendRequest(request) != RW_NO_ERROR)
             {
                 return false;
@@ -122,6 +136,16 @@ namespace RwNetworking {
         {
             disconnect(m_client, SIGNAL(replyReady()), this, SLOT(receivedReply()));
             emit notifyOfReply();
+        }
+        
+        void RwRemoteDevice::attachPipe() const
+        {
+            connect(RwCommandLocalPipeIn::getInstance(), SIGNAL(sendRequest(QByteArray)), this, SLOT(sendRequest(QByteArray)));
+        }
+        
+        void RwRemoteDevice::detachPipe() const
+        {
+            disconnect(RwCommandLocalPipeIn::getInstance(), SIGNAL(sendRequest(QByteArray)), this, SLOT(sendRequest(QByteArray)));
         }
         
         void RwRemoteDevice::writeReply() const

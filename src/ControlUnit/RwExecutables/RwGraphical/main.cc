@@ -19,8 +19,10 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 23/07/2012
 #include "RwGUI/RwMainWindow.h"
 
 #include "RwNetworking/RwServers/RwCommandServerThread.h"
+#include "RwNetworking/RwClients/RwCommandLocalPipeServer.h"
 
 using namespace RwNetworking::RwServers;
+using namespace RwNetworking::RwClients;
 using namespace RwGUI;
 
 int main(int argc, char* argv[])
@@ -28,7 +30,8 @@ int main(int argc, char* argv[])
 	RwUtils::RwLog::RwMessagingManager::turnAllOn();
     
     RwHistory::RwEventLog::getInstance()->restoreLog();
-
+    RwCommandLocalPipeServer* localPipeServer = new RwCommandLocalPipeServer;
+    localPipeServer->start();
     RwCommandServerThread::getInstance()->start();
     
 	QApplication app(argc, argv);

@@ -16,7 +16,7 @@ namespace RwGUI {
 
     RwPrefWindow::RwPrefWindow(QWidget* parent) : QDialog(parent)
     {
-        setWindowTitle(tr("Preferences"));
+        setWindowTitle(tr("Remote Workers Preferences"));
         
         m_prefLayout = new QHBoxLayout(this);
         m_tmpLabel = new QLabel("Not ready yet", this);

@@ -24,6 +24,8 @@ namespace RwUtils {
 #define RW_RESPONSE_DATA_FOLDER "./responseData"
 #define RW_LISTWORKER_WORKER_NAME "ListAllWorkers"
         
+#define RW_COMMAND_PIPE "RwRemoteWorkers_Command_Pipe"
+        
 #define RW_DEVICE_LOCAL_PIPE 0
 #define RW_DEVICE_REMOTE_TCP 1
 #define RW_DEVICE_REMOTE_SSL 2
