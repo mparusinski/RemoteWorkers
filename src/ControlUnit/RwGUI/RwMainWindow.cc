@@ -56,6 +56,7 @@ namespace RwGUI {
     {
         RwNetworking::RwServers::RwCommandServerThread::getInstance()->stopServers();
         
+        RwHistory::RwEventLog::getInstance()->generateAll();
         RwHistory::RwEventLog::getInstance()->logRotate();
         RwHistory::RwEventLog::getInstance()->saveLog();
     }

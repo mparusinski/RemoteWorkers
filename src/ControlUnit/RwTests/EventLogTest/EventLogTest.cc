@@ -23,7 +23,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 20/07/2012
 #include "RwWorkerInterface/RwManagement.h"
 #include "RwUtils/RwLog/RwCommon.h"
 
-#define NUM_OF_EVENTS 1000
+#define NUM_OF_EVENTS 100
 
 using namespace RwWorkerInterface;
 using namespace RwHistory;
@@ -95,6 +95,8 @@ int main(int argc, char* argv[])
 
 	RwCommand::RwCommandPtr command(new RwCommand("GenericCommand", QStringList()));
 
+    RwEventLog::getInstance()->restoreLog();
+    
 	// GENERATING A LOT OF EVENTS
 	generateEvents(worker, command);
 
@@ -103,6 +105,11 @@ int main(int argc, char* argv[])
 
 	// DISPLAYING
 	displayEvents();
+    
+    RwEventLog::getInstance()->logRotate();
+    
+    // SAVING LOG
+    RwEventLog::getInstance()->saveLog();
 
 	return 0;
 }
