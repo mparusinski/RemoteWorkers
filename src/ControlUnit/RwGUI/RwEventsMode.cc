@@ -61,12 +61,14 @@ namespace RwGUI {
     {
         m_eventsWidget->clear();
         RwEventLog::getInstance()->generateAll();
-        RwEventLog::EventListType& eventList = RwEventLog::getInstance()->getEventList();
+        RwEventLog::getInstance()->lockEventList();
+        RwEventLog::EventListType& eventList = RwEventLog::getInstance()->getListOfEvents();
         RwEventLog::EventListType::iterator iter;
         for (iter = eventList.begin(); iter != eventList.end(); ++iter)
         {
             m_eventsWidget->addItem(iter->eventDate().toString() + ": " + iter->description());
         }
+        RwEventLog::getInstance()->unlockEventList();
     }
     
     void RwEventsMode::setVisible(bool visible)

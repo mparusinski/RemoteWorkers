@@ -23,7 +23,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 20/07/2012
 #include "RwWorkerInterface/RwManagement.h"
 #include "RwUtils/RwLog/RwCommon.h"
 
-#define NUM_OF_EVENTS 100
+#define NUM_OF_EVENTS 2
 
 using namespace RwWorkerInterface;
 using namespace RwHistory;
@@ -65,7 +65,8 @@ void generateEvents(const RwWorker::RwWorkerPtr& worker, const RwCommand::RwComm
 
 void displayEvents()
 {
-	RwEventLog::EventListType& events = RwEventLog::getInstance()->getEventList();
+    RwEventLog::getInstance()->lockEventList();
+	RwEventLog::EventListType& events = RwEventLog::getInstance()->getListOfEvents();
 	const int size = events.size();
 	for (int i = 0; i < size; ++i)
 	{
@@ -74,6 +75,7 @@ void displayEvents()
 		const QDateTime& date = event.eventDate();
 		rwInfo() << date.toString() << " " << description << endLine();
 	}
+    RwEventLog::getInstance()->unlockEventList();
 }
 
 int main(int argc, char* argv[])
@@ -102,7 +104,7 @@ int main(int argc, char* argv[])
 
 	// GENERATING EVENTs
 	RwEventLog::getInstance()->generateAll();
-
+    
 	// DISPLAYING
 	displayEvents();
     

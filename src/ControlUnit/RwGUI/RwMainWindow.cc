@@ -54,6 +54,7 @@ namespace RwGUI {
     
     void RwMainWindow::closeRemoteWorkers()
     {
+        // m_mode->setVisible(false);
         RwNetworking::RwServers::RwCommandServerThread::getInstance()->stopServers();
         
         RwHistory::RwEventLog::getInstance()->generateAll();

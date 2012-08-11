@@ -17,6 +17,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 18/07/2012.
 
 #include <QList>
 #include <QDate>
+#include <QMutexLocker>
 
 #include "RwUtils/RwGlobal/RwClasses.h"
 
@@ -49,24 +50,54 @@ public:
 	////////////////////////////////////////////////////////////////////////////////
 	static RwEventLog* getInstance();
 
+    ////////////////////////////////////////////////////////////////////////////////
+	/// \brief Function preventing changes in the event list by using a thread lock.
+    ///        Note this function will cause event to be rejected by access to
+    ///        the event log locked until it is unlock, see unlockEventList
 	////////////////////////////////////////////////////////////////////////////////
-	/// \brief Function to get the list of events in chronological order
-	/// \return The list of events in chronological order
+    void lockEventList() const;
+    
+    ////////////////////////////////////////////////////////////////////////////////
+	/// \brief Function preventing changes in the event list by using a thread lock.
+    ///        Note this function will cause event to be rejected by access to
+    ///        the event log locked until it is unlock, see unlockEventList
 	////////////////////////////////////////////////////////////////////////////////
-	EventListType& getEventList();
-
+    void unlockEventList() const;
+    
+    ////////////////////////////////////////////////////////////////////////////////
+	/// \brief Returns the number of events. Note that the number of events may
+    ///        later change. WARNING: Does not lock.
+	/// \return Number of events at that precise moment
 	////////////////////////////////////////////////////////////////////////////////
-	/// \brief This class is a singleton class and should be access using this function.
-	/// \return The only possible instance of the class.
+    int getNumOfEvents() const;
+    
+    ////////////////////////////////////////////////////////////////////////////////
+	/// \brief Returns event at position index
+    ///        WARNING: Does not lock.
+	/// \return Event at position index
 	////////////////////////////////////////////////////////////////////////////////
-	const EventListType& getEventList() const;
-
+    RwEvent& getEvent(int index);
+    
+    ////////////////////////////////////////////////////////////////////////////////
+	/// \brief Returns event at position index
+    ///        WARNING: Does not lock
+	/// \return Event at position index
 	////////////////////////////////////////////////////////////////////////////////
-	/// \brief Adds an event to the event list, and maintains it ordered.
-	///        The event may have any date. Prefer using the specialized functions.
-	/// \param[in] event The event to be added.
+    const RwEvent& getEvent(int index) const;
+    
+    ////////////////////////////////////////////////////////////////////////////////
+	/// \brief Returns the list of events
+    ///        WARNING: Does not lock
+	/// \return List of events
 	////////////////////////////////////////////////////////////////////////////////
-	void addEvent(const RwEvent& event);
+    EventListType& getListOfEvents();
+    
+    ////////////////////////////////////////////////////////////////////////////////
+	/// \brief Returns the list of events
+    ///        WARNING: Does not lock
+	/// \return List of events
+	////////////////////////////////////////////////////////////////////////////////
+    const EventListType& getListOfEvents() const;
 
 	////////////////////////////////////////////////////////////////////////////////
 	/// \brief Notifies that the server has started
@@ -124,9 +155,18 @@ signals:
 	void eventAdded();
 
 private:
+    ////////////////////////////////////////////////////////////////////////////////
+	/// \brief Adds an event to the event list, and maintains it ordered.
+	///        The event may have any date. Prefer using the specialized functions.
+	/// \param[in] event The event to be added.
+	////////////////////////////////////////////////////////////////////////////////
+	void addEvent(const RwEvent& event);
+    
 	RwEventLog();
 	DISALLOW_COPY_AND_ASSIGN(RwEventLog);
 	EventListType m_eventList;
+    
+    mutable QMutex m_mutex;
 };
 
 }

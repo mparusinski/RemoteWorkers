@@ -13,7 +13,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 18/07/2012.
 #include "RwEventLog.h"
 
 #include <QtAlgorithms>
-#include <QTextStream>
+#include <QDataStream>
 
 #include "RwUtils/RwGlobal/RwConfiguration.h"
 #include "RwUtils/RwLog/RwCommon.h"
@@ -23,6 +23,9 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 18/07/2012.
 #include "RwWorkerAddedEvent.h"
 #include "RwWorkerRemovedEvent.h"
 #include "RwWorkerExecutionEvent.h"
+
+#define THREAD_LOCK m_mutex.lock()
+#define THREAD_UNLOCK m_mutex.unlock()
 
 using namespace RwUtils::RwGlobal;
 using namespace RwUtils::RwLog;
@@ -41,26 +44,55 @@ namespace RwHistory {
     
     RwEventLog* RwEventLog::getInstance()
     {
+        static QMutex staticMutex;
+        staticMutex.lock();
         static RwEventLog* instance = 0;
         if (instance == 0)
         {
             instance = new RwEventLog;
         }
+        staticMutex.unlock();
         return instance;
     }
     
-    RwEventLog::EventListType& RwEventLog::getEventList()
+    void RwEventLog::lockEventList() const
+    {
+        THREAD_LOCK;
+    }
+    
+    void RwEventLog::unlockEventList() const
+    {
+        THREAD_UNLOCK;
+    }
+    
+    int RwEventLog::getNumOfEvents() const
+    {
+        return m_eventList.size();
+    }
+    
+    RwEvent& RwEventLog::getEvent(int index)
+    {
+        return m_eventList[index];
+    }
+    
+    const RwEvent& RwEventLog::getEvent(int index) const
+    {
+        return m_eventList[index];
+    }
+    
+    RwEventLog::EventListType& RwEventLog::getListOfEvents()
     {
         return m_eventList;
     }
     
-    const RwEventLog::EventListType& RwEventLog::getEventList() const
+    const RwEventLog::EventListType& RwEventLog::getListOfEvents() const
     {
         return m_eventList;
     }
     
     void RwEventLog::addEvent(const RwEvent& event)
     {
+        THREAD_LOCK;
         if (m_eventList.empty() || event > m_eventList.last()) // cut through for more performance
         {
             m_eventList.push_back(event);
@@ -70,6 +102,7 @@ namespace RwHistory {
             EventListType::iterator position = qLowerBound(m_eventList.begin(), m_eventList.end(), event);
             m_eventList.insert(position, event); // ensures the list is always in order
         }
+        THREAD_UNLOCK;
         
         emit eventAdded();
     }
@@ -106,15 +139,18 @@ namespace RwHistory {
     
     void RwEventLog::generateAll()
     {
+        THREAD_LOCK;
         EventListType::iterator iter;
         for (iter = m_eventList.begin(); iter != m_eventList.end(); ++iter)
         {
             iter->generateEvent();
         }
+        THREAD_UNLOCK;
     }
     
     void RwEventLog::logRotate(int eventsToKeep)
     {
+        THREAD_LOCK;
         const int currentSize   = m_eventList.size();
         const int elemsToDelete = currentSize - eventsToKeep;
         if (elemsToDelete > 0)
@@ -124,10 +160,12 @@ namespace RwHistory {
                 m_eventList.removeFirst();
             }
         }
+        THREAD_UNLOCK;
     }
     
     void RwEventLog::saveLog()
     {
+        THREAD_LOCK;
         QString eventLogPath;
         if ( RwConfiguration::getInstance()->getEventLogPath(eventLogPath) != RW_NO_ERROR )
         {
@@ -142,9 +180,7 @@ namespace RwHistory {
             return;
         }
         
-        QTextStream out(&eventLogFile);
-        
-        out << m_eventList.length();
+        QDataStream out(&eventLogFile);
         
         EventListType::iterator iter;
         for (iter = m_eventList.begin(); iter != m_eventList.end(); ++iter)
@@ -152,16 +188,21 @@ namespace RwHistory {
             const QDateTime& eventDate = iter->eventDate();
             const QString& description = iter->description();
             
-            out << eventDate.toString() << endLine();
-            out << description << endLine();
+            // rwDebug() << eventDate.toString() << endLine();
+            // rwDebug() << description << endLine();
+            
+            out << eventDate;
+            out << description;
         }
         
         eventLogFile.flush(); 
         eventLogFile.close();
+        THREAD_UNLOCK;
     }
     
     void RwEventLog::restoreLog()
     {
+        THREAD_LOCK;
         QString eventLogPath;
         if ( RwConfiguration::getInstance()->getEventLogPath(eventLogPath) != RW_NO_ERROR )
         {
@@ -176,17 +217,18 @@ namespace RwHistory {
             return;
         }
         
-        QTextStream in(&eventLogFile);
+        QDataStream in(&eventLogFile);
         
-        int length;
-        in >> length;
-        
-        for (int i = 0; i < length; ++i)
+        while ( !eventLogFile.atEnd() )
         {
-            QString eventDateString = in.readLine();
-            QString description = in.readLine();
+            QDateTime eventDate;
+            QString description;
             
-            QDateTime eventDate = QDateTime::fromString(eventDateString);
+            in >> eventDate >> description;
+            // in >> description;
+            
+            // rwDebug() << eventDate.toString() << endLine();
+            // rwDebug() << description << endLine();
             
             RwEventType::RwEventTypeHandle handleToEvent = RwEventType::create(eventDate, description);
             // This may be not the smartest (fastest) way to add events in this case
@@ -195,8 +237,9 @@ namespace RwHistory {
         
         qSort(m_eventList.begin(), m_eventList.end());
         
-        eventLogFile.flush();
+        // eventLogFile.flush();
         eventLogFile.close();
+        THREAD_UNLOCK;
     }
     
 }
