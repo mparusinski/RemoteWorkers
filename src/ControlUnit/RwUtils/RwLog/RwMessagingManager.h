@@ -47,10 +47,25 @@ namespace RwUtils
             ////////////////////////////////////////////////////////////////////////////////
             static void reportInfo(const char* message);
             
+            ////////////////////////////////////////////////////////////////////////////////
+            /// \brief     Function which logs an info message (if logging if turned on)
+            /// \param[in] message	Message to be logged
+            /// \param[in] size     Size of the message to be logged
+            ////////////////////////////////////////////////////////////////////////////////
+            static void reportInfo(const char* message, int size);
+            
             /////////////////////////////////////////////////////////////////////////////////
             /// \brief     Reports an error, do not use this function directly.
+            /// \param[in] message	Message to be logged
             /////////////////////////////////////////////////////////////////////////////////
             static void reportError(const char* message);
+            
+            /////////////////////////////////////////////////////////////////////////////////
+            /// \brief     Reports an error, do not use this function directly.
+            /// \param[in] message	Message to be logged
+            /// \param[in] size     Size of the message to be logged
+            /////////////////////////////////////////////////////////////////////////////////
+            static void reportError(const char* message, int size);
             
             /////////////////////////////////////////////////////////////////////////////////
             /// \brief     Reports an error, do not use this function directly. Use the macro
@@ -62,7 +77,19 @@ namespace RwUtils
             /// \brief     Reports an error, do not use this function directly. Use the macro
             ///            error instead which will use the correct inputs
             /////////////////////////////////////////////////////////////////////////////////
+            static void reportWarning(const char* message, int size);
+            
+            /////////////////////////////////////////////////////////////////////////////////
+            /// \brief     Reports an error, do not use this function directly. Use the macro
+            ///            error instead which will use the correct inputs
+            /////////////////////////////////////////////////////////////////////////////////
             static void reportBug(const char* message);
+            
+            /////////////////////////////////////////////////////////////////////////////////
+            /// \brief     Reports an error, do not use this function directly. Use the macro
+            ///            error instead which will use the correct inputs
+            /////////////////////////////////////////////////////////////////////////////////
+            static void reportBug(const char* message, int size);
             
             /////////////////////////////////////////////////////////////////////////////////
             /// \brief     Switches on message to log all messages to appropriate dispatcher.

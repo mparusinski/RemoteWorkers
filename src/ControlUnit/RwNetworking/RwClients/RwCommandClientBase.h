@@ -101,8 +101,6 @@ namespace RwNetworking {
         protected:
             bool m_connected;
             RwSocket::RwAbstractSocket* m_socket;
-            int m_blockSize;
-            QByteArray m_buffer;
             RwNetDataStructures::RwCommandReply m_reply;
             
             ////////////////////////////////////////////////////////////////////////////////
@@ -112,6 +110,9 @@ namespace RwNetworking {
             
         private:
             DISALLOW_COPY_AND_ASSIGN(RwCommandClientBase);
+            bool m_readingBlock;
+            quint32 m_blockSize;
+            QByteArray m_commandReplyBlock;
             
         };
         

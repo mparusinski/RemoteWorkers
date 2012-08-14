@@ -10,32 +10,13 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 17/05/2012.
 
 */
 
-#include <iostream>
-#include <string>
-#include <cstdio>
 #include <QFileInfo>
 #include <QDir>
 
 #include "SimpleTestWorker.h"
 
-#if defined(__APPLE__) || defined(__unix__)
-	#define PATH_SEPARATOR "/"
-#else
- 	#define PATH_SEPARATOR "\\"
-#endif // __APPLE__ || __unix__
-
-using namespace std;
-
 int main(int argc, char *argv[])
 {
-	QFileInfo pathToExecutable(argv[0]);
-	string outputPath = pathToExecutable.absoluteDir().absolutePath().toStdString();
-	outputPath += PATH_SEPARATOR "output" PATH_SEPARATOR "index.html";
-	cout << outputPath << endl;
-
-	SimpleTestWorker::createGenericHTMLFile(outputPath);
-
-	cout << "Worker successfully ran" << endl;
-
+	SimpleTestWorker::createGenericHTMLFile();
 	return 0;
 }

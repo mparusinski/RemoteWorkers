@@ -26,35 +26,33 @@ namespace RwUtils
     namespace RwSystem
     {
         
-        RwReturnType RwFileManagement::getListOfFilesInDir(const QFileInfo& directory, 
+        RwReturnType RwFileManagement::getListOfFilesInDir(const QDir& directory,
                                                            QFileInfoList& files)
         {
-            if (directory.exists() && directory.isDir())
+            if (directory.exists())
             {
-                const QDir directoryReal(directory.filePath());
-                files = directoryReal.entryInfoList(QDir::Files);
+                files = directory.entryInfoList(QDir::Files);
                 return RW_NO_ERROR;
             }
             else
             {
-                rwError() << "Directory " << directory.filePath() 
+                rwError() << "Directory " << directory.absolutePath()
                           << " has not been found" << endLine();
                 return RW_ERROR_FILE_OR_DIR_NOT_FOUND;
             }
         }
         
-        RwReturnType RwFileManagement::getListOfDirsInDir(const QFileInfo& directory, 
+        RwReturnType RwFileManagement::getListOfDirsInDir(const QDir& directory,
                                                           QFileInfoList& directories)
         {
-            if (directory.exists() && directory.isDir())
+            if (directory.exists())
             {
-                const QDir directoryReal(directory.filePath());
-                directories = directoryReal.entryInfoList(QDir::Dirs | QDir::NoDotAndDotDot);
+                directories = directory.entryInfoList(QDir::Dirs | QDir::NoDotAndDotDot);
                 return RW_NO_ERROR;
             }
             else
             {
-                rwError() << "Directory " << directory.filePath() 
+                rwError() << "Directory " << directory.absolutePath()
                           << " has not been found" << endLine();
                 return RW_ERROR_FILE_OR_DIR_NOT_FOUND;
             }

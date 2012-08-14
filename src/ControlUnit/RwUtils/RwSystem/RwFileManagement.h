@@ -41,7 +41,7 @@ namespace RwUtils
             /// \param[out] files		List of the files in the directory
             /// \return     Error message if an error occurs
             ////////////////////////////////////////////////////////////////////////////////
-            static RwReturnType getListOfFilesInDir(const QFileInfo& directory, QFileInfoList& files);
+            static RwReturnType getListOfFilesInDir(const QDir& directory, QFileInfoList& files);
             
             ////////////////////////////////////////////////////////////////////////////////
             /// \brief	    Function that returns the list of subdirectories in a directory
@@ -49,7 +49,7 @@ namespace RwUtils
             /// \param[out] directories	List of all subdirectories in input directory
             /// \return     Error message if an error occurs
             ////////////////////////////////////////////////////////////////////////////////
-            static RwReturnType getListOfDirsInDir(const QFileInfo& directory, 
+            static RwReturnType getListOfDirsInDir(const QDir& directory, 
                                                    QFileInfoList& directories);
             
             ////////////////////////////////////////////////////////////////////////////////

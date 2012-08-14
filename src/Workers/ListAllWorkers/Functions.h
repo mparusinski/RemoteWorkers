@@ -22,6 +22,4 @@ void getListOfWorkers(QStringList& listOfWorkers);
 
 void generateHTMLContent(const QStringList& listOfWorkers, QString& htmlData);
 
-void writeDataToFile(const QString& rawData, const QString& fileName);
-
 #endif // _LISTALLWORKERS_FUNCTIONS_H_

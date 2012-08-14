@@ -12,7 +12,11 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 07/08/2012.
 
 #include "RwCommandLocalPipeServer.h"
 
+#include "../RwNetDataStructures/RwCommandRequest.h"
+
 #include "RwCommandLocalPipeIn.h"
+
+using namespace RwNetworking::RwNetDataStructures;
 
 namespace RwNetworking {
     
@@ -20,7 +24,7 @@ namespace RwNetworking {
         
         RwCommandLocalPipeServer::RwCommandLocalPipeServer()
         {
-            qRegisterMetaType<QByteArray>("QByteArray");
+            qRegisterMetaType<RwCommandRequest::RwCommandRequestPtr>("RwCommandRequest::RwCommandRequestPtr");
         }
         
         RwCommandLocalPipeServer::~RwCommandLocalPipeServer()

@@ -23,7 +23,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 20/07/2012
 #include "RwWorkerInterface/RwManagement.h"
 #include "RwUtils/RwLog/RwCommon.h"
 
-#define NUM_OF_EVENTS 2
+#define NUM_OF_EVENTS 50
 
 using namespace RwWorkerInterface;
 using namespace RwHistory;

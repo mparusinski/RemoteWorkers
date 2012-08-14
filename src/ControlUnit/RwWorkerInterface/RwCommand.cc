@@ -46,10 +46,4 @@ namespace RwWorkerInterface
         m_arguments = arguments;
     }
     
-    void RwCommand::copyFrom(const RwWorkerInterface::RwCommand &other)
-    {
-        m_order     = other.m_order;
-        m_arguments = other.m_arguments;
-    }
-    
 }

@@ -11,6 +11,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 22/06/2012
 */
 
 #include <QString>
+#include <QDataStream>
 #include <QByteArray>
 
 #include "RwNetworking/RwNetDataStructures/RwCommandRequest.h"
@@ -38,11 +39,14 @@ bool test(const QString& commandName, const QString& order, const QStringList& a
 {
     RwCommand::RwCommandPtr command(new RwCommand(order, arguments));
     RwCommandRequest simpleRequest(commandName, command);
-    QByteArray requestData;
-    simpleRequest.toRawData(requestData);
     
+    QByteArray requestByteArray;
+    QDataStream requestStreamIn(&requestByteArray, QIODevice::WriteOnly);
+    requestStreamIn << simpleRequest;
+    
+    QDataStream requestStreamOut(&requestByteArray, QIODevice::ReadOnly);
     RwCommandRequest copyOfRequest;
-    copyOfRequest.fromRawData(requestData);
+    requestStreamOut >> copyOfRequest;
     
     if ( copyOfRequest != simpleRequest )
     {
@@ -66,11 +70,15 @@ bool test(const QString& commandName, const QString& order, const QStringList& a
     } else {
         simpleReply.setReply(reply);
     }
-    QByteArray replyData;
-    simpleReply.toRawData(replyData);
     
+    QByteArray replyData;
+    QDataStream replyStreamIn(&replyData, QIODevice::WriteOnly);
+    
+    replyStreamIn << simpleReply;
+    
+    QDataStream replyStreamOut(&replyData, QIODevice::ReadOnly);
     RwCommandReply copyOfReply;
-    copyOfReply.fromRawData(replyData);
+    replyStreamOut >> copyOfReply;
     
     if ( copyOfReply != simpleReply )
     {        

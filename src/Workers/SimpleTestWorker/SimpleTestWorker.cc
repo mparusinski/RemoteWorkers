@@ -12,10 +12,14 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 17/05/2012.
 
 #include "SimpleTestWorker.h"
 
-#include <iostream>
-#include <fstream>
+#include <cstdio>
+#include <cstdlib>
 
-using namespace std;
+#include <QDataStream>
+#include <QFile>
+#include <QString>
+#include <QList>
+#include <QPair>
 
 SimpleTestWorker::SimpleTestWorker()
 {
@@ -27,30 +31,41 @@ SimpleTestWorker::~SimpleTestWorker()
 
 }
 
-void SimpleTestWorker::createGenericHTMLFile(const string& fileName)
+void SimpleTestWorker::createGenericHTMLFile()
 {
-	cout << "Generating generic HTML 5 web page with no content" << endl;
+  typedef QPair<QString, QByteArray> ElemType;
+  typedef QList< ElemType > ArrayType;
 
-	ofstream outputFile;
-	outputFile.open(fileName.c_str());
+  QFile fileOut;
 
-	if ( !outputFile.is_open() )
-	{
-		cerr << "Unable to open file. Page not successfully generated" << endl;
-		return;
-	}
+  if ( !fileOut.open(stdout, QIODevice::WriteOnly) )
+    {
+      exit(-1);
+    }
 
-	outputFile << "<!DOCTYPE html>" << endl;
-	outputFile << "<html>" << endl;
-	outputFile << "\t<head>" << endl;
-	outputFile << "\t\t<meta charset=\"utf-8\" />" << endl;
-	outputFile << "\t\t<title>Generic web page</title>" << endl;
-	outputFile << "\t</head>" << endl;
-	outputFile << endl;
-	outputFile << "\t<body>" << endl;
-	outputFile << "Simple message" << endl;
-	outputFile << "\t</body>" << endl;
-	outputFile << "</html>" << endl;
+  QDataStream out(&fileOut);
 
-	outputFile.close();
+  QString fileName("index.html");
+
+  QByteArray fileData;
+
+  fileData += "<!DOCTYPE html>\n";
+  fileData += "<html>\n";
+  fileData += "\t<head>\n";
+  fileData += "\t\t<meta charset=\"utf-8\"/>\n";
+  fileData += "\t\t<title>Generic web page</title>\n";
+  fileData += "\t</head>\n\n";
+  fileData += "\t<body>\n";
+  fileData += "Simple message\n";
+  fileData += "\t</body>\n";
+  fileData += "</html>\n";
+
+  ElemType elem(fileName, fileData);
+  ArrayType array;
+  array << elem;
+
+  out << array;
+
+  fileOut.flush();
+  fileOut.close();
 }

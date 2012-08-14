@@ -65,9 +65,8 @@ namespace RwNetworking {
             }
             
             // SEND REQUEST
-            QByteArray requestRawData;
-            request.toRawData(requestRawData);
-            m_localPipe->write(requestRawData);
+            QDataStream dataStream(m_localPipe);
+            dataStream << request;
             m_localPipe->flush();
         }
         

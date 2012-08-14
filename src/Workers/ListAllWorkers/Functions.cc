@@ -99,18 +99,3 @@ void generateHTMLContent(const QStringList& listOfWorkers, QString& htmlData)
     out.flush();
 }
 
-void writeDataToFile(const QString& fileData, const QString& fileName)
-{
-    QFile fileHandle(fileName);
-    
-    if ( !fileHandle.open(QIODevice::WriteOnly |  QIODevice::Text) )
-    {
-        return;
-    }
-    
-    QTextStream out(&fileHandle);
-    
-    out << fileData;
-    
-    fileHandle.close();
-}

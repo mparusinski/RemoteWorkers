@@ -66,7 +66,7 @@ namespace RwNetworking {
             /// \param[out] out Represents the response in raw format
             /// \return Returns an error code telling if any error did occur
             ////////////////////////////////////////////////////////////////////////////////
-            RwReturnType processData(const QByteArray& in, QByteArray& out) const;
+            RwReturnType processData(QDataStream& in, QDataStream& out) const;
             
             ////////////////////////////////////////////////////////////////////////////////
             /// \brief  Executes the request and return the response

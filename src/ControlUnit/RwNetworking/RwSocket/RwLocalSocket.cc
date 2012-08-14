@@ -18,109 +18,114 @@ using namespace RwUtils::RwLog;
 
 namespace RwNetworking {
 
-namespace RwSocket {
-
-RwLocalSocket::RwLocalSocket(QObject* parent) : RwAbstractSocket(parent)
-{
-	m_localSocket = new QLocalSocket(this);
-	init();
-}
-
-RwLocalSocket::RwLocalSocket(QLocalSocket* socket) : RwAbstractSocket(socket->parent())
-{
-	m_localSocket = socket; // takes ownership
-	init();
-}
-
-RwLocalSocket::~RwLocalSocket()
-{
-	m_localSocket->abort();
-	delete m_localSocket;
-}
-
-void RwLocalSocket::init()
-{
-	connect(m_localSocket, SIGNAL(readyRead()),
-	        this, SLOT(readReady()));
-	connect(m_localSocket, SIGNAL(connected()),
-			this, SLOT(connectedSlot()));
-	connect(m_localSocket, SIGNAL(disconnected()),
-			this, SLOT(disconnectedSlot()));
-	connect(m_localSocket, SIGNAL(error(QLocalSocket::LocalSocketError)),
-	        this, SLOT(socketError(QLocalSocket::LocalSocketError)));
-}
-
-qint64 RwLocalSocket::bytesAvailable()
-{
-	return m_localSocket->bytesAvailable();
-}
-
-QByteArray RwLocalSocket::readAll()
-{
-	return m_localSocket->readAll();
-}
-
-void RwLocalSocket::abort()
-{
-	m_localSocket->abort();
-}
-
-void RwLocalSocket::close()
-{
-	m_localSocket->close();
-}
-
-qint64 RwLocalSocket::write(QByteArray& data)
-{
-	return m_localSocket->write(data);
-}
-
-void RwLocalSocket::flush()
-{
-	m_localSocket->flush();
-}
-
-bool RwLocalSocket::waitForBytesWritten()
-{
-	return m_localSocket->waitForBytesWritten();
-}
-
-bool RwLocalSocket::waitForReadyRead()
-{
-	return m_localSocket->waitForReadyRead();
-}
-
-void RwLocalSocket::readReady()
-{
-	emit dataReady();
-}
-
-void RwLocalSocket::socketError(QLocalSocket::LocalSocketError errorValue)
-{
-	rwError() << "Local socket error: " << m_localSocket->errorString() << endLine();
-	emit error();
-}
-
-void RwLocalSocket::connectToServer(const QString& serverName)
-{
-	m_localSocket->connectToServer(serverName);
-}
-
-void RwLocalSocket::disconnectFromServer()
-{
-	m_localSocket->disconnectFromServer();
-}
-
-void RwLocalSocket::connectedSlot()
-{
-	emit connected();
-}
-
-void RwLocalSocket::disconnectedSlot()
-{
-	emit disconnected();
-}
-
-}
+    namespace RwSocket {
+        
+        RwLocalSocket::RwLocalSocket(QObject* parent) : RwAbstractSocket(parent)
+        {
+            m_localSocket = new QLocalSocket(this);
+            init();
+        }
+        
+        RwLocalSocket::RwLocalSocket(QLocalSocket* socket) : RwAbstractSocket(socket->parent())
+        {
+            m_localSocket = socket; // takes ownership
+            init();
+        }
+        
+        RwLocalSocket::~RwLocalSocket()
+        {
+            m_localSocket->abort();
+            delete m_localSocket;
+        }
+        
+        void RwLocalSocket::init()
+        {
+            connect(m_localSocket, SIGNAL(readyRead()),
+                    this, SLOT(readReady()));
+            connect(m_localSocket, SIGNAL(connected()),
+                    this, SLOT(connectedSlot()));
+            connect(m_localSocket, SIGNAL(disconnected()),
+                    this, SLOT(disconnectedSlot()));
+            connect(m_localSocket, SIGNAL(error(QLocalSocket::LocalSocketError)),
+                    this, SLOT(socketError(QLocalSocket::LocalSocketError)));
+        }
+        
+        QIODevice* RwLocalSocket::getIODevice()
+        {
+            return m_localSocket;
+        }
+        
+        qint64 RwLocalSocket::bytesAvailable()
+        {
+            return m_localSocket->bytesAvailable();
+        }
+        
+        QByteArray RwLocalSocket::readAll()
+        {
+            return m_localSocket->readAll();
+        }
+        
+        void RwLocalSocket::abort()
+        {
+            m_localSocket->abort();
+        }
+        
+        void RwLocalSocket::close()
+        {
+            m_localSocket->close();
+        }
+        
+        qint64 RwLocalSocket::write(QByteArray& data)
+        {
+            return m_localSocket->write(data);
+        }
+        
+        void RwLocalSocket::flush()
+        {
+            m_localSocket->flush();
+        }
+        
+        bool RwLocalSocket::waitForBytesWritten()
+        {
+            return m_localSocket->waitForBytesWritten();
+        }
+        
+        bool RwLocalSocket::waitForReadyRead()
+        {
+            return m_localSocket->waitForReadyRead();
+        }
+        
+        void RwLocalSocket::readReady()
+        {
+            emit dataReady();
+        }
+        
+        void RwLocalSocket::socketError(QLocalSocket::LocalSocketError errorValue)
+        {
+            rwError() << "Local socket error: " << m_localSocket->errorString() << endLine();
+            emit error();
+        }
+        
+        void RwLocalSocket::connectToServer(const QString& serverName)
+        {
+            m_localSocket->connectToServer(serverName);
+        }
+        
+        void RwLocalSocket::disconnectFromServer()
+        {
+            m_localSocket->disconnectFromServer();
+        }
+        
+        void RwLocalSocket::connectedSlot()
+        {
+            emit connected();
+        }
+        
+        void RwLocalSocket::disconnectedSlot()
+        {
+            emit disconnected();
+        }
+        
+    }
 
 }

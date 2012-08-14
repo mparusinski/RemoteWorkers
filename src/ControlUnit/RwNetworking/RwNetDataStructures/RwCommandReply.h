@@ -15,12 +15,17 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 22/06/2012.
 
 #include "RwNetDataStructureBase.h"
 
+#include <QDataStream>
+
 #include "RwWorkerInterface/RwReply.h"
 
 #include "RwUtils/RwGlobal/RwClasses.h"
 #include "RwUtils/RwGlobal/RwReturn.h"
 
+#include "RwUtils/RwLog/RwCommon.h"
+
 using namespace RwUtils::RwGlobal;
+using namespace RwUtils::RwLog;
 
 namespace RwNetworking {
     
@@ -53,20 +58,6 @@ namespace RwNetworking {
             /// \brief Copies the object from another command reply
             ////////////////////////////////////////////////////////////////////////////////
             void copyFrom(const RwCommandReply& other);
-            
-            ////////////////////////////////////////////////////////////////////////////////
-            /// \brief Reads a reply from raw data
-            /// \param[in]  rawData The raw data representing the CommandReply
-            /// \return An error code representing the error occurred
-            ////////////////////////////////////////////////////////////////////////////////
-            virtual RwReturnType fromRawData(const QByteArray &rawData);
-            
-            ////////////////////////////////////////////////////////////////////////////////
-            /// \brief Converts the request to raw data
-            /// \param[out]  rawData The raw data representing the CommandRequest
-            /// \return An error code representing the error occurred
-            ////////////////////////////////////////////////////////////////////////////////
-            virtual RwReturnType toRawData(QByteArray& rawData) const;
             
             ////////////////////////////////////////////////////////////////////////////////
             /// \brief Returns the error code. Always check first with isError()
@@ -104,6 +95,16 @@ namespace RwNetworking {
                 return !(*this == other);
             }
             
+            ////////////////////////////////////////////////////////////////////////////////
+            /// \brief Convers the command reply to a string
+            ////////////////////////////////////////////////////////////////////////////////
+            virtual QString toString() const;
+            
+            ////////////////////////////////////////////////////////////////////////////////
+            /// \brief Represents the size of the command reply in bytes
+            ////////////////////////////////////////////////////////////////////////////////
+            int byteSize() const;
+            
         private:
             DISALLOW_COPY_AND_ASSIGN(RwCommandReply);
             
@@ -111,6 +112,49 @@ namespace RwNetworking {
             RwReturnType m_errorCode;
             RwWorkerInterface::RwReply::RwReplyPtr m_reply;
         };
+        
+        inline QDataStream &operator<<(QDataStream &out, const RwCommandReply &commandReply)
+        {
+            const bool isError = commandReply.isError();
+            out << isError;
+            
+            if (isError)
+            {
+                out << commandReply.getErrorCode();
+            }
+            else
+            {
+                out << commandReply.getReply()->getRawData();
+            }
+            
+            return out;
+        }
+        
+        inline QDataStream &operator>>(QDataStream &in, RwCommandReply &commandReply)
+        {
+            bool isError;
+            in >> isError;
+            
+            if (isError)
+            {
+                RwReturnType errorCode;
+                in >> errorCode;
+                commandReply.setErrorCode(errorCode);
+            }
+            else
+            {                
+                RwWorkerInterface::RwReply::RwReplyPtr reply(new RwWorkerInterface::RwReply);
+                in >> reply->getRawData();
+                commandReply.setReply(reply);
+            }
+            
+            return in;
+        }
+        
+        inline RwWriter &operator<<(RwWriter &writer, RwCommandReply& commandReply)
+        {
+            return writer.operator<<(commandReply.toString());
+        }
         
     }
     

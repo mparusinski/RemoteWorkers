@@ -122,7 +122,7 @@ namespace RwNetworking {
             /// \brief Sends a request to the remote device.
             /// \param[in] request The request to send to the remote device
             ////////////////////////////////////////////////////////////////////////////////
-            bool sendRequest(QByteArray request);
+            bool sendRequest(RwCommandRequest::RwCommandRequestPtr request);
             
         signals:
             

@@ -15,12 +15,18 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 22/06/2012.
 
 #include "RwNetDataStructureBase.h"
 
+#include <QSharedPointer>
+
 #include "RwWorkerInterface/RwCommand.h"
+
 #include "RwUtils/RwGlobal/RwReturn.h"
 #include "RwUtils/RwGlobal/RwClasses.h"
 
+#include "RwUtils/RwLog/RwCommon.h"
+
 using namespace RwWorkerInterface;
 using namespace RwUtils::RwGlobal;
+using namespace RwUtils::RwLog;
 
 namespace RwNetworking {
     
@@ -34,6 +40,9 @@ namespace RwNetworking {
         class RwCommandRequest : public RwNetDataStructureBase {
             
         public:
+            
+            typedef QSharedPointer<RwCommandRequest> RwCommandRequestPtr;
+            
             RwCommandRequest();
             RwCommandRequest(const QString& workerName, const RwCommand::RwCommandPtr& command);
             virtual ~RwCommandRequest();
@@ -61,20 +70,6 @@ namespace RwNetworking {
             void setCommand(const RwCommand::RwCommandPtr& command);
             
             ////////////////////////////////////////////////////////////////////////////////
-            /// \brief Converts the request from raw data
-            /// \param[in] rawData rawData representing the request
-            /// \return Error code
-            ////////////////////////////////////////////////////////////////////////////////
-            virtual RwReturnType fromRawData(const QByteArray& rawData);
-            
-            ////////////////////////////////////////////////////////////////////////////////
-            /// \brief Converts the request into rawData
-            /// \param[out] rawData rawData representing the request
-            /// \return Error code
-            ////////////////////////////////////////////////////////////////////////////////
-            virtual RwReturnType toRawData(QByteArray& rawData) const;
-            
-            ////////////////////////////////////////////////////////////////////////////////
             /// \brief FOR TESTING PURPOSES MAINLY
             ////////////////////////////////////////////////////////////////////////////////
             bool operator==(const RwCommandRequest& other) const;
@@ -88,6 +83,8 @@ namespace RwNetworking {
             }
 
             
+            virtual QString toString() const;
+            
         private:
             DISALLOW_COPY_AND_ASSIGN(RwCommandRequest);
             
@@ -95,6 +92,33 @@ namespace RwNetworking {
             RwCommand::RwCommandPtr m_command;
         };
         
+        
+        inline QDataStream &operator<<(QDataStream &out, const RwCommandRequest &commandRequest)
+        {
+            out << commandRequest.getWorkerName();
+            const RwCommand::RwCommandPtr& command = commandRequest.getCommand();
+            out << command->getOrder();
+            out << command->getArguments();
+            return out;
+        }
+        
+        inline QDataStream &operator>>(QDataStream &in, RwCommandRequest &commandRequest)
+        {
+            QString workerName, order;
+            QStringList arguments;
+            in >> workerName;
+            in >> order;
+            in >> arguments;
+            commandRequest.setWorkerName(workerName);
+            RwCommand::RwCommandPtr command(new RwCommand(order, arguments));
+            commandRequest.setCommand(command);
+            return in;
+        }
+        
+        inline RwWriter &operator<<(RwWriter &writer, RwCommandRequest& commandRequest)
+        {
+            return writer.operator<<(commandRequest.toString());
+        }
     }
 }
 

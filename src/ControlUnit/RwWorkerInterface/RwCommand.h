@@ -30,8 +30,8 @@ namespace RwWorkerInterface
     {
         
     public:
-    	typedef QSharedPointer<RwCommand> RwCommandPtr;
-
+        typedef QSharedPointer<RwCommand> RwCommandPtr;
+        
         RwCommand();
         RwCommand(const QString& order, const QStringList& arguments);
         virtual ~RwCommand() { }
@@ -59,12 +59,6 @@ namespace RwWorkerInterface
         /// \param[in] arguments List of arguments
         /////////////////////////////////////////////////////////////////////////////////
         void setArguments(const QStringList& arguments);
-        
-        /////////////////////////////////////////////////////////////////////////////////
-        /// \brief     Copies the command from another
-        /// \param[in] other Object to copy from
-        /////////////////////////////////////////////////////////////////////////////////
-        void copyFrom(const RwCommand& other);
         
     private:
         DISALLOW_COPY_AND_ASSIGN(RwCommand);

@@ -20,6 +20,8 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 06/08/2012.
 
 #include "RwUtils/RwGlobal/RwClasses.h"
 
+#include "../RwNetDataStructures/RwCommandRequest.h"
+
 #include "RwRemoteDevice.h"
 
 namespace RwNetworking {
@@ -45,7 +47,7 @@ namespace RwNetworking {
             
         signals:
             
-            void sendRequest(QByteArray);
+            void sendRequest(RwCommandRequest::RwCommandRequestPtr);
             
         private:
             DISALLOW_COPY_AND_ASSIGN(RwCommandLocalPipeIn);

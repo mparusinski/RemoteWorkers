@@ -65,8 +65,9 @@ namespace RwWorkerInterface
         {
             if (m_availableWorkers[i] == workerName)
             {
-                QFileInfo fullPath = m_pathToWorkers.filePath() + workerName;
-                worker = RwWorker::RwWorkerPtr(new RwWorker(fullPath));
+                QDir pathToWorker = m_pathToWorkers.dir();
+                pathToWorker.cd(workerName);
+                worker = RwWorker::RwWorkerPtr(new RwWorker(pathToWorker));
                 m_allWorkers[workerName] = worker; // Memorizing for later
                 return RW_NO_ERROR;
             }

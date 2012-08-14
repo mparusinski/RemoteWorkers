@@ -23,6 +23,7 @@ namespace RwNetworking {
         RwCommandClientBase::RwCommandClientBase(QObject* parent) : QObject(parent)
         {
             m_connected = false;
+            m_readingBlock = false;
             m_blockSize = 0;
         }
         
@@ -60,25 +61,35 @@ namespace RwNetworking {
         
         void RwCommandClientBase::readReady()
         {
+            
             while (m_socket->bytesAvailable() < (int) sizeof(quint32))
                 m_socket->waitForBytesWritten();
             
-            QByteArray block = m_socket->readAll();
+            QByteArray blockOfData = m_socket->readAll();
             
-            if (m_blockSize <= 0)
+            if ( !m_readingBlock )
             {
-                QDataStream in(block);
-                in >> m_blockSize;
+                QDataStream dataStream(blockOfData);
+                dataStream >> m_blockSize;
+                m_readingBlock = true;
+                m_commandReplyBlock.clear();
             }
             
-            m_buffer += block;
+            m_commandReplyBlock += blockOfData;
             
-            if (m_buffer.size() >= m_blockSize) // finished reading
+            // rwDebug() << m_commandReplyBlock.size() << endLine();
+            if (m_commandReplyBlock.size() >= m_blockSize)
             {
-                m_reply.fromRawData(m_buffer);
-                m_blockSize = 0;
-                m_buffer.clear();
-                m_socket->close();
+                m_readingBlock = false;
+                
+                QDataStream blockStream(m_commandReplyBlock);
+                QByteArray blockData;
+                blockStream >> blockData;
+                
+                QDataStream dataStream(blockData);
+                dataStream >> m_blockSize;
+                dataStream >> m_reply;
+                
                 emit replyReady();
             }
         }
@@ -92,12 +103,11 @@ namespace RwNetworking {
             }
             
             // SEND REQUEST
-            QByteArray requestRawData;
-            const RwReturnType returnMsg = request.toRawData(requestRawData);
-            m_socket->write(requestRawData);
+            QDataStream dataStream(m_socket->getIODevice());
+            dataStream << request;
             m_socket->flush();
             
-            return returnMsg;
+            return RW_NO_ERROR;
         }
         
         RwReturnType RwCommandClientBase::sendRequest(QByteArray& requestInRawFormat)

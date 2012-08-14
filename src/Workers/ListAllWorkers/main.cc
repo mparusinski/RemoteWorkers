@@ -12,8 +12,15 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 05/08/2012
 
 #include "Functions.h"
 
+#include <cstdio>
+#include <cstdlib>
+
 #include <QFileInfo>
 #include <QDir>
+#include <QByteArray>
+#include <QDataStream>
+#include <QList>
+#include <QPair>
 
 int main(int argc, char* argv[])
 {
@@ -28,9 +35,18 @@ int main(int argc, char* argv[])
   QString htmlData;
   generateHTMLContent(listOfWorkers, htmlData);
     
+  typedef QPair<QString, QByteArray> ElemType;
+  typedef QList<ElemType> ListType;
+
+  ListType content;
+  content << ElemType("index.html", htmlData.toLocal8Bit());
+
   // WRITE CONTENT
-  QString indexHTMLFile = pathToDir + "/output/index.html";
-  writeDataToFile(htmlData, indexHTMLFile);
-    
+  QFile stdOut;
+  stdOut.open(stdout, QIODevice::WriteOnly);
+  QDataStream out(&stdOut);
+
+  out << content;
+
   return 0;
 }

@@ -99,11 +99,27 @@ namespace RwUtils
             }
         }
         
+        void RwMessagingManager::reportInfo(const char *message, int size)
+        {
+            if (isReportingInfos())
+            {
+                fwrite(message, 1, size, stdout);
+            }
+        }
+        
         void RwMessagingManager::reportError(const char *message)
         {
             if (isReportingErrors())
             {
                 fprintf(stderr, "%s", message);
+            }
+        }
+        
+        void RwMessagingManager::reportError(const char *message, int size)
+        {
+            if (isReportingErrors())
+            {
+                fwrite(message, 1, size, stderr);
             }
         }
         
@@ -115,11 +131,27 @@ namespace RwUtils
             }
         }
         
+        void RwMessagingManager::reportWarning(const char *message, int size)
+        {
+            if (isReportingWarnings())
+            {
+                fwrite(message, 1, size, stderr);
+            }
+        }
+        
         void RwMessagingManager::reportBug(const char* message)
         {
             if (isReportingDebugMessages())
             {
                 fprintf(stderr, "%s", message);
+            }
+        }
+        
+        void RwMessagingManager::reportBug(const char* message, int size)
+        {
+            if (isReportingDebugMessages())
+            {
+                fwrite(message, 1, size, stderr);
             }
         }
         

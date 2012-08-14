@@ -13,6 +13,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 26/07/2012.
 #include "RwRemoteDevice.h"
 
 #include <QFile>
+#include <QDir>
 #include <QTextStream>
 #include <QDataStream>
 
@@ -116,10 +117,10 @@ namespace RwNetworking {
             return true;
         }
         
-        bool RwRemoteDevice::sendRequest(QByteArray request)
+        bool RwRemoteDevice::sendRequest(RwCommandRequest::RwCommandRequestPtr request)
         {
             connectToDevice();
-            if (m_client->sendRequest(request) != RW_NO_ERROR)
+            if (m_client->sendRequest(*request) != RW_NO_ERROR)
             {
                 return false;
             }
@@ -140,12 +141,14 @@ namespace RwNetworking {
         
         void RwRemoteDevice::attachPipe() const
         {
-            connect(RwCommandLocalPipeIn::getInstance(), SIGNAL(sendRequest(QByteArray)), this, SLOT(sendRequest(QByteArray)));
+            connect(RwCommandLocalPipeIn::getInstance(), SIGNAL(sendRequest(RwCommandRequest::RwCommandRequestPtr)),
+                    this, SLOT(sendRequest(RwCommandRequest::RwCommandRequestPtr)));
         }
         
         void RwRemoteDevice::detachPipe() const
         {
-            disconnect(RwCommandLocalPipeIn::getInstance(), SIGNAL(sendRequest(QByteArray)), this, SLOT(sendRequest(QByteArray)));
+            disconnect(RwCommandLocalPipeIn::getInstance(), SIGNAL(sendRequest(RwCommandRequest::RwCommandRequestPtr)),
+                       this, SLOT(sendRequest(RwCommandRequest::RwCommandRequestPtr)));
         }
         
         void RwRemoteDevice::writeReply() const
@@ -153,7 +156,7 @@ namespace RwNetworking {
             RwCommandReply reply;
             m_client->getReply(reply);
             
-            const QString responseDataFolder = RW_RESPONSE_DATA_FOLDER;
+            const QDir responseDataFolder(RW_RESPONSE_DATA_FOLDER);
             
             // cleaning previous reply
             QFileInfoList files;
@@ -163,7 +166,7 @@ namespace RwNetworking {
             if (reply.isError())
             {
                 const RwReturnType errorCode = reply.getErrorCode();
-                const QString errorFilePath = responseDataFolder + "/error_code.txt";
+                const QString errorFilePath = responseDataFolder.filePath("error_code.txt");
                 
                 QFile errorFile(errorFilePath);
                 
@@ -191,7 +194,7 @@ namespace RwNetworking {
                     const QString& fileName = iter->first;
                     const QByteArray& fileRawData = iter->second;
                     
-                    const QString filePath = responseDataFolder + '/' + fileName;
+                    const QString filePath = responseDataFolder.filePath(fileName);
                     
                     QFile fileHandle(filePath);
                     

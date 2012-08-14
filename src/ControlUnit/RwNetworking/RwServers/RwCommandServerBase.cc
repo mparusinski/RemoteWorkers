@@ -17,23 +17,37 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 14/05/2012.
 #include "RwWorkerInterface/RwManagement.h"
 #include "RwHistory/RwEventLog.h"
 
+#include "../RwNetDataStructures/RwCommandReply.h"
+
 using namespace RwUtils::RwLog;
+using namespace RwNetworking::RwNetDataStructures;
 
 namespace RwNetworking {
     
     namespace RwServers {
         
-        RwReturnType RwCommandServerBase::processData(const QByteArray& in, QByteArray& out) const
+        RwReturnType RwCommandServerBase::processData(QDataStream& in, QDataStream& out) const
         {
             // READING REQUEST
             RwNetDataStructures::RwCommandRequest request;
-            RwReturnType errorCode = request.fromRawData(in);
+            in >> request;
             
             // CREATING REPLY
             RwNetDataStructures::RwCommandReply commandReply;
-            errorCode = errorCode | executeRequest(request, commandReply);
+            RwReturnType errorCode = executeRequest(request, commandReply);
             
-            commandReply.toRawData(out);
+            // SENDING REQUEST
+            QByteArray dataBlock;
+            QDataStream dataBlockStream(&dataBlock, QIODevice::WriteOnly);
+            dataBlockStream << int(0);
+            dataBlockStream << commandReply;
+            
+            const int size = dataBlock.size();
+            
+            dataBlockStream.device()->seek(0);
+            dataBlockStream << size;
+            
+            out << dataBlock;
             
             return errorCode;
         }
@@ -77,13 +91,9 @@ namespace RwNetworking {
             while (m_currentConnection->bytesAvailable() < (int)sizeof(quint32)) // waiting for at least 32 bits of data
                 m_currentConnection->waitForReadyRead();
             
-            // RECEIVING DATA
-            QByteArray receivedData = m_currentConnection->readAll(); // This may be dangerous
-            QByteArray responseData;
-            processData(receivedData, responseData);
+            QDataStream dataStream(m_currentConnection->getIODevice());
+            processData(dataStream, dataStream);
             
-            // SENDING RAW DATA
-            m_currentConnection->write(responseData);
             m_currentConnection->close();
         }
         

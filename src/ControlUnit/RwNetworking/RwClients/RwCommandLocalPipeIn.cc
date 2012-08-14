@@ -76,9 +76,11 @@ namespace RwNetworking {
             while (m_currentConnection->bytesAvailable() < (int)sizeof(quint32)) // waiting for at least 32 bits of data
                 m_currentConnection->waitForReadyRead();
             
-            QByteArray receivedData = m_currentConnection->readAll();
+            QDataStream dataStream(m_currentConnection);
+            RwNetDataStructures::RwCommandRequest::RwCommandRequestPtr request(new RwCommandRequest);
+            dataStream >> *request;
             
-            emit sendRequest(receivedData);
+            emit sendRequest(request);
             
             // m_currentDevice->connectToDevice(); // already done
             // m_currentDevice->sendRequest(receivedData); // use signal instead

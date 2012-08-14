@@ -13,10 +13,18 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 13/07/2012
 #include <cstdlib>
 #include <cstdio>
 #include <ctime>
+
 #include <QString>
 #include <QDir>
 #include <QFileInfo>
 #include <QTextStream>
+#include <QDataStream>
+#include <QList>
+#include <QPair>
+#include <QByteArray>
+
+typedef QPair<QString, QByteArray> ElemType;
+typedef QList<ElemType> ArrayType;
 
 void generateFibonaciText(const int number, QString& outputText)
 {
@@ -81,27 +89,24 @@ void generateRandomText(const int length, QString& outputText)
     }
 }
 
-void createHTMLFileWithBody(const QString& fileName, const QString& body)
+void createHTMLFileWithBody(const QString& fileName, const QString& body, ArrayType& array)
 {
-    QFile fileHandle(fileName + ".html");
+  QByteArray fileData;
     
-    if (!fileHandle.open(QIODevice::WriteOnly | QIODevice::Text))
-        return;
+  fileData += "<!DOCTYPE html>\n";
+  fileData += "<html>\n";
+  fileData += "<head>\n";
+  fileData += "<meta charset=\"utf-8\" />\n";
+  fileData += "<title>";
+  fileData += fileName;
+  fileData += "</title>\n";
+  fileData += "</head>\n";
+  fileData += "<body>\n";
+  fileData += body;
+  fileData += "</body>\n";
+  fileData += "</html>\n";
     
-    QTextStream fileInputStream(&fileHandle);
-    
-    fileInputStream << "<!DOCTYPE html>" << endl;
-    fileInputStream << "<html>" << endl;
-    fileInputStream << "<head>" << endl;
-    fileInputStream << "<meta charset=\"utf-8\"/>" << endl;
-    fileInputStream << "<title>" << fileName << "</title>" << endl;
-    fileInputStream << "</head>" << endl;
-    fileInputStream << "<body>" << endl;
-    fileInputStream << body << endl;
-    fileInputStream << "</body>" << endl;
-    fileInputStream << "</html>" << endl;
-    
-    fileHandle.close();
+  array << ElemType(fileName, fileData);
 }
 
 int main(int argc, char* argv[])
@@ -131,6 +136,8 @@ int main(int argc, char* argv[])
     
     const QString currentPath = currentDir.path();
     
+    ArrayType array;
+
     for (int i = 0; i < 25; ++i)
     {
         const QString numberI = QString::number(i);
@@ -140,11 +147,18 @@ int main(int argc, char* argv[])
         const QString blankTextFileName   = currentPath + "/blank" + numberI;
         const QString randomFileName      = currentPath + "/random" + numberI;
         
-        createHTMLFileWithBody(fibonaciFileName, fibonaciText);
-        createHTMLFileWithBody(listOfFilesFileName, listOfFilesText);
-        createHTMLFileWithBody(blankTextFileName, blankText);
-        createHTMLFileWithBody(randomFileName, randomText);
+        createHTMLFileWithBody(fibonaciFileName, fibonaciText, array);
+        createHTMLFileWithBody(listOfFilesFileName, listOfFilesText, array);
+        createHTMLFileWithBody(blankTextFileName, blankText, array);
+        createHTMLFileWithBody(randomFileName, randomText, array);
     }
+
+    QFile stdOutFile;
+
+    stdOutFile.open(stdout, QIODevice::WriteOnly);
+    QDataStream out(&stdOutFile);
     
+    out << array;
+
     return 0;
 }

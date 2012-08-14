@@ -24,7 +24,7 @@ namespace RwUtils
     namespace RwSystem
     {
         
-        RwExternalApplication::RwExternalApplication(const QString& pathToCommand, 
+        RwExternalApplication::RwExternalApplication(const QFileInfo& pathToCommand,
                                                      const QStringList& arguments)
         {
             m_commandPath = pathToCommand;
@@ -36,33 +36,40 @@ namespace RwUtils
             
         }
         
-        RwReturnType RwExternalApplication::execute() const
+        RwReturnType RwExternalApplication::execute(QByteArray& output) const
         {            
             QProcess externalProcess;
             // TODO: Sanitise environment
             QStringList environment = QProcess::systemEnvironment();
             externalProcess.setEnvironment(environment);
             
-            externalProcess.start(m_commandPath, m_arguments);
-            if (!externalProcess.waitForStarted())
+            const QString& commandFilePath = m_commandPath.absoluteFilePath();
+            
+            rwInfo() << commandFilePath << " has been executed" << endLine();
+            
+            externalProcess.start(commandFilePath, m_arguments);
+            if ( !externalProcess.waitForStarted() )
             {
-                rwError() << m_commandPath 
+                rwError() << commandFilePath 
                           << ": External process did not launch successfully" << endLine();
                 return RW_ERROR_NO_EXECUTION;
             }
             
-            if (!externalProcess.waitForFinished(m_waitingTime))
+            if ( !externalProcess.waitForFinished(m_waitingTime) )
             {
-                rwError() << m_commandPath << ": External process did not finish without errors or took too long to exectute" << endLine();
+                rwError() << commandFilePath << ": External process did not finish without errors or took too long to exectute" << endLine();
                 externalProcess.terminate();
                 return RW_ERROR_NO_EXECUTION;
             }
+            
+            externalProcess.waitForReadyRead();
+            output = externalProcess.readAllStandardOutput();
             
             QProcess::ExitStatus exitStatus = externalProcess.exitStatus();
             switch (exitStatus)
             {
                 case QProcess::CrashExit:
-                    rwError() << m_commandPath << ": External process crashed" << endLine();
+                    rwError() << commandFilePath << ": External process crashed" << endLine();
                     return RW_ERROR_EXECUTION_FAIL;
                 default:
                     return RW_NO_ERROR;

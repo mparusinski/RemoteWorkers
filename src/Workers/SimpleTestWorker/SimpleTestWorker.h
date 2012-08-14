@@ -13,10 +13,6 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 17/05/2012.
 #ifndef _SIMPLETESTWORKER_H_
 #define _SIMPLETESTWORKER_H_
 
-#include <string>
-
-using namespace std;
-
 class SimpleTestWorker
 {
 public:
@@ -24,7 +20,7 @@ public:
 	SimpleTestWorker();
 	virtual ~SimpleTestWorker();
 
-	static void createGenericHTMLFile(const string& fileName);
+	static void createGenericHTMLFile();
 
 private:
 };

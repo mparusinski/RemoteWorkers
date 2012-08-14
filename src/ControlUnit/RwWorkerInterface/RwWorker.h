@@ -13,7 +13,7 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 15/05/2012.
 #ifndef _RWWORKERINTERFACE_RWWORKER_H_
 #define _RWWORKERINTERFACE_RWWORKER_H_
 
-#include <QFileInfo>
+#include <QDir>
 #include <QString>
 #include <QSharedPointer>
 
@@ -37,7 +37,7 @@ namespace RwWorkerInterface
     public:
     	typedef QSharedPointer<RwWorker> RwWorkerPtr;
 
-        explicit RwWorker(const QFileInfo& path);
+        explicit RwWorker(const QDir& path);
         virtual ~RwWorker() { }
         
         ////////////////////////////////////////////////////////////////////////////////
@@ -55,14 +55,18 @@ namespace RwWorkerInterface
         /// \param[in] command
         /// \return    Returns the appropriate error code
         ////////////////////////////////////////////////////////////////////////////////
-        RwReturnType executeCommand(const RwCommand::RwCommandPtr& command) const;
+        RwReturnType executeCommand(const RwCommand::RwCommandPtr& command);
         
         ////////////////////////////////////////////////////////////////////////////////
         /// \brief     Returns the path to the worker (not the worker name)
         /// \return    Path to the worker, not the name
         ////////////////////////////////////////////////////////////////////////////////
-        const QFileInfo& getPath() const;
+        const QDir& getPath() const;
         
+        ////////////////////////////////////////////////////////////////////////////////
+        /// \brief     Returns the name of the worker
+        /// \return    Name of the worker
+        ////////////////////////////////////////////////////////////////////////////////
         const QString& getWorkerName() const;
         
     private:
@@ -75,9 +79,11 @@ namespace RwWorkerInterface
         
         bool m_outputPathComputed;
         
-        QString   m_workerName;
-        QFileInfo m_path;
-        QFileInfo m_outputPath;
+        QString m_workerName;
+        QDir m_path;
+        QDir m_outputPath;
+        
+        QByteArray m_outputData;
     };
     
 }

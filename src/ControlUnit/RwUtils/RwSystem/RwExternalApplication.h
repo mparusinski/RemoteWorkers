@@ -14,7 +14,9 @@ Created by Michal Parusinski <mparusinski@googlemail.com> on 13/06/2012.
 #define _RWUTILS_RWSYSTEM_RWEXTERNAL_APPLICATION_H_
 
 #include <QString>
+#include <QFileInfo>
 #include <QStringList>
+#include <QProcess>
 
 #include "RwUtils/RwGlobal/RwReturn.h"
 #include "RwUtils/RwGlobal/RwClasses.h"
@@ -30,20 +32,20 @@ namespace RwUtils
         {
         public:
             // ExternalApplication();
-            explicit RwExternalApplication(const QString& commandPath, const QStringList& arguments);
+            explicit RwExternalApplication(const QFileInfo& commandPath, const QStringList& arguments);
             virtual ~RwExternalApplication();
             
             ////////////////////////////////////////////////////////////////////////////////
             /// \brief     Execute application represented by application
             /// \return    True if successfully executed, otherwise false
             ////////////////////////////////////////////////////////////////////////////////
-            RwReturnType execute(void) const;
+            RwReturnType execute(QByteArray& output) const;
             
         private:
             DISALLOW_COPY_AND_ASSIGN(RwExternalApplication);
             
             static const int m_waitingTime = -1;
-            QString m_commandPath;
+            QFileInfo m_commandPath;
             QStringList m_arguments;
         };
         

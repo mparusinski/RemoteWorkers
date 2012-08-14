@@ -35,20 +35,7 @@ namespace RwNetworking {
             RwNetDataStructureBase();
             virtual ~RwNetDataStructureBase();
             
-            ////////////////////////////////////////////////////////////////////////////////
-            /// \brief Creates the data structure from an array of bytes (raw data)
-            /// \param[in] rawData The raw data representing the data structure
-            /// \return An error code if an error occurred
-            ////////////////////////////////////////////////////////////////////////////////
-            virtual RwReturnType fromRawData(const QByteArray &rawData) = 0;
-            
-            ////////////////////////////////////////////////////////////////////////////////
-            /// \brief Converts the data structure from an array of bytes (raw data)
-            /// \param[out] rawData The raw data representing the data structure
-            /// \return An error code if an error occurred
-            ////////////////////////////////////////////////////////////////////////////////
-            virtual RwReturnType toRawData(QByteArray& rawData) const = 0;
-            
+            virtual QString toString() const = 0;
             
         private:
             DISALLOW_COPY_AND_ASSIGN(RwNetDataStructureBase);

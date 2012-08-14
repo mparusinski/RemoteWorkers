@@ -46,62 +46,64 @@ namespace RwUtils
             RwWriter(const WriterType writerType) { m_writerType = writerType; }
             ~RwWriter() { }
             
-            inline const RwWriter& operator <<(const char * cString) const
+            inline RwWriter& operator <<(const char * cString)
             {
                 write(cString);
                 return *this;
             }
             
-            inline const RwWriter& operator <<(const QString& qString) const
+            inline RwWriter& operator <<(const QString& qString)
             {
                 const QByteArray byteArray = qString.toLocal8Bit();
                 write(byteArray.data());
                 return *this;
             }
             
-            inline const RwWriter& operator <<(const char ch) const
+            inline RwWriter& operator <<(const char ch)
             {
                 const char msg[] = {ch, '\0'};
                 write(msg);
                 return *this;
             }
             
-            inline const RwWriter& operator <<(const quint8 number) const
+            inline RwWriter& operator <<(const quint8 number)
             {
                 return operator<<(QString::number(number));
             }
             
-            inline const RwWriter& operator <<(const quint16 number) const
+            inline RwWriter& operator <<(const quint16 number)
             {
                 return operator<<(QString::number(number));
             }
             
-            inline const RwWriter& operator <<(const quint32 number) const
+            inline RwWriter& operator <<(const quint32 number)
             {
                 return operator<<(QString::number(number));
             }
             
-            inline const RwWriter& operator <<(const qint8 number) const
+            inline RwWriter& operator <<(const qint8 number)
             {
                 return operator<<(QString::number(number));
             }
             
-            inline const RwWriter& operator <<(const qint16 number) const
+            inline RwWriter& operator <<(const qint16 number)
             {
                 return operator<<(QString::number(number));
             }
             
-            inline const RwWriter& operator <<(const qint32 number) const
+            inline RwWriter& operator <<(const qint32 number)
             {
                 return operator<<(QString::number(number));
             }
             
-            inline const RwWriter& operator <<(const QByteArray& array) const
+            inline RwWriter& operator <<(const QByteArray& array)
             {
-                return operator<<(array.data());
+                const int size = array.size();
+                write(array.data(), size);
+                return *this;
             }
             
-            inline const RwWriter& operator <<(const bool boolVar)  const
+            inline RwWriter& operator <<(const bool boolVar)
             {
                 return operator<<(static_cast<quint8>(boolVar));
             }
@@ -129,6 +131,35 @@ namespace RwUtils
                     case RW_WRITER_WARNING:
 #ifndef RW_NO_WARNING
                         RwMessagingManager::reportWarning(messageToWrite);
+#endif // RW_NO_WARNING
+                        break;
+                    default:
+                        break;
+                }
+            }
+            
+            inline void write(const char * messageToWrite, int size) const
+            {
+                switch (m_writerType)
+                {
+                    case RW_WRITER_INFO:
+#ifndef RW_NO_INFO_REPORTING
+                        RwMessagingManager::reportInfo(messageToWrite, size);
+#endif // RW_NO_INFO_REPORTING
+                        break;
+                    case RW_WRITER_ERROR:
+#ifndef RW_NO_ERROR_REPORTING
+                        RwMessagingManager::reportError(messageToWrite, size);
+#endif // RW_NO_ERROR_REPORTING
+                        break;
+                    case RW_WRITER_DEBUG:
+#ifndef NDEBUG
+                        RwMessagingManager::reportBug(messageToWrite, size);
+#endif // NDEBUG
+                        break;
+                    case RW_WRITER_WARNING:
+#ifndef RW_NO_WARNING
+                        RwMessagingManager::reportWarning(messageToWrite, size);
 #endif // RW_NO_WARNING
                         break;
                     default:

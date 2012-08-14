@@ -101,54 +101,6 @@ namespace RwNetworking {
             return m_reply;
         }
         
-        RwReturnType RwCommandReply::toRawData(QByteArray &rawData) const
-        {
-            QDataStream dataStream(&rawData, QIODevice::WriteOnly);
-            
-            int size = -1;
-            dataStream << size; // will me modified later
-            dataStream << m_isError;
-            
-            if (m_isError) {
-                dataStream << m_errorCode;
-            } else {
-                const RwWorkerInterface::RwReply::ByteArrays& replies = m_reply->getRawData();
-                dataStream << replies;
-            }
-            
-            size = rawData.size();
-            
-            QByteArray tmpArray;
-            QDataStream tmpData(&tmpArray, QIODevice::WriteOnly);
-            tmpData << size;
-            
-            for (int i = 0; i < tmpArray.size(); ++i)
-            {
-            	rawData[i] = tmpArray[i]; // copying in place
-            }
-            
-            return RW_NO_ERROR;
-        }
-        
-        RwReturnType RwCommandReply::fromRawData(const QByteArray &rawData)
-        {
-            QDataStream dataStream(rawData);
-            
-            int sizeDummy;
-            dataStream >> sizeDummy;
-            dataStream >> m_isError;
-            
-            if (m_isError) {
-                dataStream >> m_errorCode;
-            } else {
-                RwWorkerInterface::RwReply::ByteArrays arrays;
-                dataStream >> arrays;
-                m_reply = RwWorkerInterface::RwReply::RwReplyPtr(new RwWorkerInterface::RwReply(arrays));
-            }
-            
-            return RW_NO_ERROR;
-        }
-        
         bool RwCommandReply::operator==(const RwNetworking::RwNetDataStructures::RwCommandReply &other) const
         {
             if (m_isError && other.m_isError) {
@@ -157,6 +109,33 @@ namespace RwNetworking {
                 return m_reply->getRawData() == other.m_reply->getRawData();
             } else {
                 return false;
+            }
+        }
+        
+        QString RwCommandReply::toString() const
+        {
+            typedef RwWorkerInterface::RwReply::ByteArrays ByteArrays;
+            
+            if (m_isError)
+            {
+                return QString("Reply is an error: ") + retTypeToStr(m_errorCode);
+            }
+            else
+            {
+                QString stringVersion = "Reply is not an error: \n";
+                const ByteArrays& arrays = m_reply->getRawData();
+                ByteArrays::const_iterator iter;
+                for (iter = arrays.begin(); iter != arrays.end(); ++iter)
+                {
+                    const QString& fileName = iter->first;
+                    const QByteArray& fileData = iter->second;
+                    stringVersion += fileName;
+                    stringVersion += ": \n";
+                    stringVersion += fileData.data();
+                    stringVersion += "\n";
+                }
+                
+                return stringVersion;
             }
         }
         

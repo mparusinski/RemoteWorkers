@@ -42,7 +42,7 @@ int main(int argc, char *argv[])
     
 	bool shellTest1;
 	{
-		RwWorker worker(QFileInfo("")); // empty path and command echo
+		RwWorker worker(QDir("")); // empty path and command echo
 		QStringList arguments;
 		arguments.push_back(QString("Managed to execute shell!!!! FAILED"));
 		RwCommand::RwCommandPtr command(new RwCommand("echo", arguments));
@@ -55,7 +55,7 @@ int main(int argc, char *argv[])
 	// TEST 2
 	bool shellTest2;
 	{
-		RwWorker worker(QFileInfo("echo "));
+		RwWorker worker(QDir("echo "));
 		QStringList arguments;
 		arguments.push_back(QString("Managed to execute shell!!!! FAILED"));
 		RwCommand::RwCommandPtr command(new RwCommand("", arguments));
@@ -69,7 +69,7 @@ int main(int argc, char *argv[])
 	// TESTING IF WE CAN EXECUTE DANGEROUS SYSTEM COMMANDS
 	bool systemTest1;
 	{
-		RwWorker worker(QFileInfo("/bin/sh echo"));
+		RwWorker worker(QDir("/bin/sh echo"));
 		QStringList arguments;
 		arguments.push_back(QString("Managed to execute a shell!!!!! FAILED"));
 		RwCommand::RwCommandPtr command(new RwCommand("", arguments));
@@ -81,7 +81,7 @@ int main(int argc, char *argv[])
     
 	bool systemTest2;
 	{
-		RwWorker worker(QFileInfo("/bin/echo "));
+		RwWorker worker(QDir("/bin/echo "));
 		QStringList arguments;
 		arguments.push_back(QString("Managed to execute a shell!!!!!!  FAILED"));
 		RwCommand::RwCommandPtr command(new RwCommand("", arguments));

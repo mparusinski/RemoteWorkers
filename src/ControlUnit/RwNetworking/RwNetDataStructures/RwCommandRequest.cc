@@ -70,37 +70,7 @@ namespace RwNetworking {
         void RwCommandRequest::setCommand(const RwCommand::RwCommandPtr &command)
         {
             m_command = command;
-        }
-        
-        RwReturnType RwCommandRequest::toRawData(QByteArray& rawData) const
-        {
-            QDataStream dataStream(&rawData, QIODevice::WriteOnly);
-            dataStream.setVersion(QDataStream::Qt_4_8);
-            
-            dataStream << m_workerName;
-            dataStream << m_command->getOrder();
-            
-            const QStringList& args = m_command->getArguments();
-            dataStream << args;
-          
-            return RW_NO_ERROR;
-        }
-        
-        RwReturnType RwCommandRequest::fromRawData(const QByteArray &rawData)
-        {
-            // CONVERTING RAW DATA INTO TEXT STREAM
-            QDataStream dataStream(rawData);
-            
-            QString order;
-            QStringList argumentsList;
-            
-            dataStream >> m_workerName;
-            dataStream >> order;
-            dataStream >> argumentsList;
-            
-            m_command = RwCommand::RwCommandPtr(new RwCommand(order, argumentsList));
-
-            return RW_NO_ERROR;
+            //m_command = command;
         }
         
         bool RwCommandRequest::operator==(const RwNetworking::RwNetDataStructures::RwCommandRequest &other) const
@@ -108,6 +78,23 @@ namespace RwNetworking {
             return (m_workerName == other.m_workerName)
             		&& (m_command->getOrder() == other.m_command->getOrder())
             		&& (m_command->getArguments() == other.m_command->getArguments());
+        }
+        
+        QString RwCommandRequest::toString() const
+        {
+            QString stringVersion = m_workerName;
+            stringVersion += ": \n";
+            stringVersion += m_command->getOrder();
+            stringVersion += ": ";
+            const QStringList& arguments = m_command->getArguments();
+            QStringList::const_iterator iter;
+            for (iter = arguments.begin(); iter != arguments.end(); ++iter)
+            {
+                stringVersion += *iter;
+                stringVersion += " ";
+            }
+            stringVersion += "\n";
+            return stringVersion;
         }
         
     }

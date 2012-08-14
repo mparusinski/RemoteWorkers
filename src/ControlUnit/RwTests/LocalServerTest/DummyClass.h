@@ -167,6 +167,7 @@ public:
             const RwWorkerInterface::RwReply::RwReplyPtr& actualReply =  m_currentReply->getReply();
             const RwWorkerInterface::RwReply::ByteArrays& arrays = actualReply->getRawData();
             const int numberOfReplies = arrays.length();
+            rwDebug() << numberOfReplies << endLine();
             for (int i = 0; i < numberOfReplies; ++i)
             {
                 m_replyFileList->addItem(arrays[i].first);
